@@ -6,6 +6,8 @@ const Hotels = () => {
   const [openTab, setOpenTab] = useState(1);
   const { currentProject } = useCurrentProject();
   const { hotels } = currentProject;
+
+  console.log("hotels", hotels);
   return (
     <>
       <div className="flex flex-wrap" id="hotels_id">
