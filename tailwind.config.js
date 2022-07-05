@@ -1,5 +1,6 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  darkMode: "class",
   theme: {
     fontSize: {
       xs: ".75rem",
@@ -7,8 +8,8 @@ module.exports = {
       tiny: ".875rem",
       base: "1rem",
       lg: "1.125rem",
-      xl: "1.25rem",
-      "2xl": "1.5rem",
+      xl: "1.50rem",
+      "2xl": "1.75rem",
       "3xl": "1.875rem",
       "4xl": "2.25rem",
       "5xl": "3rem",
@@ -27,14 +28,27 @@ module.exports = {
         orange: {
           50: "#ea5933",
         },
+        green: {
+          //laurel
+          50: "#a9c4b5",
+        },
+        brown: {
+          //tierra
+          50: "#c7baae",
+          //arcilla
+          100: "#ddbdb0",
+        },
         black: {
+          //petrol
           50: "#22281B",
         },
         gray: {
           50: "#7F847A",
         },
         white: {
+          //sand
           50: "#C7BAAE",
+          //camel
           100: "#F5F1E9",
         },
       },

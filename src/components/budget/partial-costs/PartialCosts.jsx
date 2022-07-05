@@ -32,7 +32,6 @@ const PartialCosts = () => {
   });
   const budget = useSelector(selectBudget);
   const hotel = useSelector(selectBudgetHotel);
-  console.log("budget", budget, "hotel", hotel);
 
   useEffect(() => {
     setSubtotals({

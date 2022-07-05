@@ -25,7 +25,7 @@ const Budget = forwardRef((props, ref) => {
   return (
     <div ref={ref}>
       <BudgetContext.Provider value={{ budgetValues, dispatch }}>
-        <div className="overflow-x-auto" id="budget_id">
+        <div className="overflow-x-scroll no-scrollbar" id="budget_id">
           <Table
             stickyHeader
             size="small"

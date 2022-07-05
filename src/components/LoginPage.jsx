@@ -24,10 +24,6 @@ const LoginPage = () => {
     try {
       const response = await baseAPI.get(`/v1/projects?code=${password}`);
       const receivedData = response.data.data.data.length !== 0;
-      console.log(
-        "received data",
-        JSON.stringify(response.data.data.data[0].schedule)
-      );
       if (!receivedData) {
         setAlert({
           error: true,

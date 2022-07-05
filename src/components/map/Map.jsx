@@ -34,9 +34,9 @@ const VendorMap = () => {
         <FullscreenControl position="bottom-right" />
         <NavigationControl className="navigation-control" showCompass={true} />
         <ScaleControl />
-        {coords.map((coord) => (
+        {coords.map((coord, index) => (
           <Marker
-            key={coord.id}
+            key={`${coord.id}-${index}`}
             longitude={coord.longitude}
             latitude={coord.latitude}
             anchor="top"

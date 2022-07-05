@@ -3,8 +3,7 @@ import { MapContext } from "./MapContext";
 import { mapReducer, MAP_ACTIONS } from "./mapReducer";
 import { Marker, Popup } from "mapbox-gl";
 import MapLogic from "../MapLogic";
-import { useSelector } from "react-redux";
-import { selectCurrentProject } from "../../../redux/features/currentProjectSlice";
+import { useCurrentProject } from "../../../hooks/useCurrentProject";
 
 const INITIAL_STATE = {
   isMapReady: false,
@@ -14,7 +13,7 @@ const INITIAL_STATE = {
 
 export const MapProvider = ({ children }) => {
   const [state, dispatch] = useReducer(mapReducer, INITIAL_STATE);
-  const currentProject = useSelector(selectCurrentProject);
+  const { currentProject } = useCurrentProject();
   const { coords } = MapLogic(currentProject);
 
   useEffect(() => {
