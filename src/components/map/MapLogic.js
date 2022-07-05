@@ -1,7 +1,6 @@
 /* import { getCenter } from "geolib"; */
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { selectCurrentProject } from "../../redux/features/currentProjectSlice";
+import { useCurrentProject } from "../../hooks/useCurrentProject";
 
 export const getCentralCoords = (location) => {
   if (location === "Barcelona") {
@@ -15,7 +14,8 @@ const MapLogic = () => {
   const [selectedLocation, setSelectedLocation] = useState({});
   const [coords, setCoords] = useState([]);
   const [viewport, setViewport] = useState({});
-  const { hotels, schedule, groupLocation } = useSelector(selectCurrentProject);
+  const { currentProject } = useCurrentProject();
+  const { hotels, schedule, groupLocation } = currentProject;
 
   const [viewState, setViewState] = useState({
     latitude: getCentralCoords(groupLocation)[1],
@@ -26,8 +26,8 @@ const MapLogic = () => {
   });
 
   useEffect(() => {
-    if (hotels.length > 0) {
-      const hotelCoords = hotels.map((hotel) => {
+    if (hotels?.length > 0) {
+      const hotelCoords = hotels?.map((hotel) => {
         return {
           longitude: hotel.location.coordinates[1],
           latitude: hotel.location.coordinates[0],
