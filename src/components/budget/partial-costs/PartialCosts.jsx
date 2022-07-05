@@ -18,8 +18,8 @@ import {
 import {
   selectBudget,
   selectBudgetHotel,
-} from "../../redux/features/budgetSlice";
-import { useCurrentProject } from "../../hooks/useCurrentProject";
+} from "../../../redux/features/budgetSlice";
+import { useCurrentProject } from "../../../hooks/useCurrentProject";
 
 const PartialCosts = () => {
   const { currentProject } = useCurrentProject();

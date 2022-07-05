@@ -2,7 +2,7 @@ import { TableCell, TableRow } from "@mui/material";
 import accounting from "accounting";
 import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { selectBudget } from "../../redux/features/budgetSlice";
+import { selectBudget } from "../../../redux/features/budgetSlice";
 import { BudgetContext } from "../context/context";
 import { getHotelTotal, getTotalBudget } from "./compute-totals-functions";
 

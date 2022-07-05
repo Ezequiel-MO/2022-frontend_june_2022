@@ -7,7 +7,7 @@ import { BUDGET_ACTIONS } from "../context/reducer";
 import HotelMultipleChoice from "./hotel/HotelMultipleChoice";
 import { getHotelTotal } from "../totals/compute-totals-functions";
 import { useDispatch } from "react-redux";
-import { SET_SELECTED_HOTEL } from "../../redux/features/budgetSlice";
+import { SET_SELECTED_HOTEL } from "../../../redux/features/budgetSlice";
 
 const HotelRows = ({ hotels, nights }) => {
   const dispatch_redux = useDispatch();

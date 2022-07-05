@@ -16,6 +16,7 @@
     "accounting": "^0.4.1",
     "axios": "^0.27.2",
     "chart.js": "^3.8.0",
+    "maplibre-gl": "^2.1.9",
     "react": "^18.0.0",
     "react-chartjs-2": "^4.2.0",
     "react-dom": "^18.0.0",

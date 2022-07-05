@@ -5,8 +5,8 @@ import Hotels from "./hotels/Hotels";
 import Schedule from "./schedule/Schedule";
 import ScrollToTopButton from "../ui/ScrollToTopButton";
 import { useCurrentProject } from "../hooks/useCurrentProject";
-import Budget from "../budget/Budget";
-import PartialCosts from "../budget/partial-costs/PartialCosts";
+import Budget from "./budget/Budget";
+import PartialCosts from "./budget/partial-costs/PartialCosts";
 
 const MainSection = () => {
   const componentRef = useRef();

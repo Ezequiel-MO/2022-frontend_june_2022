@@ -2,7 +2,7 @@ import { accounting } from "accounting";
 import { useDispatch } from "react-redux";
 import { TableCell } from "@mui/material";
 import MultipleChoice from "../days/MultipleChoice";
-import { UPDATE_BUDGET_SCHEDULE } from "../../../redux/features/budgetSlice";
+import { UPDATE_BUDGET_SCHEDULE } from "../../../../redux/features/budgetSlice";
 import { useState, useEffect } from "react";
 
 const MultipleChoiceCells = ({ pax, description, options, id, date }) => {

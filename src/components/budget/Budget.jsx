@@ -12,7 +12,7 @@ import HotelBreakdownRows from "./rows/hotel/HotelBreakdownRows";
 import { BudgetContext } from "./context/context";
 import { budgetReducer, initialbudgetValues } from "./context/reducer";
 import TotalBudgetCost from "./totals/TotalBudgetCost";
-import { useCurrentProject } from "../hooks/useCurrentProject";
+import { useCurrentProject } from "../../hooks/useCurrentProject";
 
 const Budget = forwardRef((props, ref) => {
   const { currentProject } = useCurrentProject();
