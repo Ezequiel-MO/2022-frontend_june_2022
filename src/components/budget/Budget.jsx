@@ -67,7 +67,7 @@ const Budget = forwardRef((props, ref) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {hotels.length > 0 ? (
+              {hotels.length > 0 && (
                 <>
                   <HotelRows hotels={hotels} nights={schedule?.length} />
                   <HotelBreakdownRows
@@ -75,12 +75,12 @@ const Budget = forwardRef((props, ref) => {
                     nights={schedule?.length}
                   />
                 </>
-              ) : null}
+              )}
 
               {schedule?.map((day) => (
                 <DayRows key={day._id} day={day} pax={nrPax} />
               ))}
-              <TotalBudgetCost hotels={hotels} pax={nrPax} />
+              <TotalBudgetCost pax={nrPax} />
             </TableBody>
           </Table>
         </div>

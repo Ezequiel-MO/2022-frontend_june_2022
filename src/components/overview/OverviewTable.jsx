@@ -11,13 +11,12 @@ import {
 } from "@mui/material";
 import { Link } from "react-scroll";
 import React from "react";
-import { useSelector } from "react-redux";
-import { selectCurrentProject } from "../../redux/features/currentProjectSlice";
 import OTLogic from "./OTLogic";
+import { useCurrentProject } from "../../hooks/useCurrentProject";
 
 const OverviewTable = () => {
-  const { arrivalDay, departureDay, schedule } =
-    useSelector(selectCurrentProject);
+  const { currentProject } = useCurrentProject();
+  const { arrivalDay, departureDay, schedule } = currentProject;
   const { transformDates, getDays, getEvents, renderEvent } = OTLogic();
   return (
     <TableContainer component={Paper}>
