@@ -6,7 +6,7 @@ export const BUDGET_ACTIONS = {
 export const initialbudgetValues = {
   hotelBreakdownOpen: false,
   selectedHotelName:
-    JSON.parse(localStorage.getItem("currentProject")).hotels[0].name ?? "",
+    JSON.parse(localStorage.getItem("currentProject")).hotels[0]?.name ?? "",
 };
 
 export const budgetReducer = (state, action) => {

@@ -20,7 +20,7 @@ const HotelRows = ({ hotels, nights }) => {
 
   useEffect(() => {
     if (budgetValues.selectedHotelName) {
-      const selectedHotel = hotels.find(
+      const selectedHotel = hotels?.find(
         (hotel) => hotel.name === budgetValues.selectedHotelName
       );
       setSelectedHotel(selectedHotel);
