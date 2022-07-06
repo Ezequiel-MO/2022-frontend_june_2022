@@ -2,14 +2,6 @@
 import { useState, useEffect } from "react";
 import { useCurrentProject } from "../../hooks/useCurrentProject";
 
-export const getCentralCoords = (location) => {
-  if (location === "Barcelona") {
-    return [2.168665992, 41.385331792];
-  } else if (location === "Madrid") {
-    return [-3.7033, 40.4167];
-  } else return [2.168665992, 41.385331792];
-};
-
 const MapLogic = () => {
   const [selectedLocation, setSelectedLocation] = useState({});
   const [coords, setCoords] = useState([]);
@@ -18,8 +10,8 @@ const MapLogic = () => {
   const { hotels, schedule, groupLocation } = currentProject;
 
   const [viewState, setViewState] = useState({
-    latitude: getCentralCoords(groupLocation)[1],
-    longitude: getCentralCoords(groupLocation)[0],
+    latitude: groupLocation.coordinates[1],
+    longitude: groupLocation.coordinates[0],
     zoom: 14,
     bearing: 0,
     pitch: 0,
