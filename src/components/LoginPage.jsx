@@ -2,9 +2,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import baseAPI from "../axios/axiosConfig";
 import { useUserLog } from "../hooks/useUserLog";
+import { useCurrentProject } from "../hooks/useCurrentProject";
+
 import Alert from "../ui/Alert";
+import { SET_BUDGET_SCHEDULE } from "../redux/features/budgetSlice";
+import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
+  const { setCurrentProject } = useCurrentProject();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,6 +48,8 @@ const LoginPage = () => {
       });
       logUserIn();
       localStorage.setItem("userIsLogged", true);
+      setCurrentProject(response.data.data.data[0]);
+      dispatch(SET_BUDGET_SCHEDULE(response.data.data.data[0].schedule));
       navigate("/app");
     } catch (error) {
       setAlert({
