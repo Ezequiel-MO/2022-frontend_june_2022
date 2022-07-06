@@ -1,21 +1,33 @@
 /* import { getCenter } from "geolib"; */
 import { useState, useEffect } from "react";
 import { useCurrentProject } from "../../hooks/useCurrentProject";
+import useGetLocations from "../../hooks/useGetLocation";
 
 const MapLogic = () => {
   const [selectedLocation, setSelectedLocation] = useState({});
   const [coords, setCoords] = useState([]);
   const [viewport, setViewport] = useState({});
   const { currentProject } = useCurrentProject();
+  const { locations } = useGetLocations();
   const { hotels, schedule, groupLocation } = currentProject;
-
   const [viewState, setViewState] = useState({
-    latitude: groupLocation.coordinates[1],
-    longitude: groupLocation.coordinates[0],
+    latitude: 41.492944,
+    longitude: 2.0567259,
     zoom: 14,
     bearing: 0,
     pitch: 0,
   });
+
+  useEffect(() => {
+    let centralCoords = locations.filter(
+      (item) => item.name === groupLocation
+    ) ?? [41.492944, 2.0567259];
+    setViewState({
+      ...viewState,
+      latitude: centralCoords[0]?.location.coordinates[0] || 41.492944,
+      longitude: centralCoords[0]?.location.coordinates[1] || 2.0567259,
+    });
+  }, [locations]);
 
   useEffect(() => {
     if (hotels?.length > 0) {
