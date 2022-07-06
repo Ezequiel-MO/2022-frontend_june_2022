@@ -12,7 +12,8 @@ function App() {
 
   return (
     <div className="dark:bg-black-50 text-lg text-white-50 p-2 min-h-screen">
-      <Router>
+      hello
+      {/*  <Router>
         <Header />
         <Routes>
           <Route path="/" element={<AuthLayout />}>
@@ -28,7 +29,7 @@ function App() {
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </Router>
+      </Router> */}
     </div>
   );
 }
