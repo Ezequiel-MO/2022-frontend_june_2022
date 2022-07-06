@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { current } from "@reduxjs/toolkit";
+import { useLayoutEffect, useState } from "react";
 import { useCurrentProject } from "../../hooks/useCurrentProject";
 import HotelCards from "./HotelCards";
 
@@ -7,11 +8,10 @@ const Hotels = () => {
   const { currentProject } = useCurrentProject();
   const { hotels } = currentProject;
 
-  console.log("hotels", hotels);
   return (
     <>
       <div className="flex flex-wrap" id="hotels_id">
-        {hotels?.length > 0 ? (
+        {hotels && hotels.length > 0 ? (
           <div className="w-full">
             <ul
               className="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
