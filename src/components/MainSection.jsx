@@ -12,7 +12,7 @@ const MainSection = () => {
   const componentRef = useRef();
 
   const { currentProject } = useCurrentProject();
-  const { groupName, projectIntro } = currentProject;
+  const { groupName, projectIntro, hotels } = currentProject;
 
   return (
     <div className="col-span-10 lg:col-span-8">
@@ -21,7 +21,7 @@ const MainSection = () => {
         {`Quotation for Gr. ${groupName}`}
       </h1>
       <p className="text-black-50 dark:text-white-50">{projectIntro}</p>
-      <Hotels />
+      <Hotels hotels={hotels} />
       <Schedule />
       <div>
         <ReactToPrint
