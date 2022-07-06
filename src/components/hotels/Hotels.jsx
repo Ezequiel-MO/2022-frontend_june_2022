@@ -1,4 +1,3 @@
-import { current } from "@reduxjs/toolkit";
 import { useLayoutEffect, useState } from "react";
 import { useCurrentProject } from "../../hooks/useCurrentProject";
 import HotelCards from "./HotelCards";
@@ -7,7 +6,11 @@ const Hotels = () => {
   const [openTab, setOpenTab] = useState(1);
   const { currentProject } = useCurrentProject();
   const { hotels } = currentProject;
-  const [hotelsState] = useState(hotels);
+  const [hotelsState, setHotelsState] = useState(hotels);
+
+  useLayoutEffect(() => {
+    setHotelsState(hotels);
+  }, [hotels]);
 
   console.log(hotelsState);
 
