@@ -42,7 +42,7 @@ const LoginPage = () => {
       });
       logUserIn();
       localStorage.setItem("userIsLogged", true);
-      /*  navigate("/app"); */
+      navigate("/app");
     } catch (error) {
       setAlert({
         error: true,
