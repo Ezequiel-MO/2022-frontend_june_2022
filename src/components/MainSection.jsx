@@ -1,12 +1,13 @@
 import { useRef } from "react";
 import { Icon } from "@iconify/react";
 import ReactToPrint from "react-to-print";
-import ScrollToTop from "react-scroll-to-top";
+/* import ScrollToTop from "react-scroll-to-top"; */
 import Hotels from "./hotels/Hotels";
 import Schedule from "./schedule/Schedule";
 import { useCurrentProject } from "../hooks/useCurrentProject";
 import Budget from "./budget/Budget";
 import PartialCosts from "./budget/partial-costs/PartialCosts";
+import ScrollToTopButton from "../ui/ScrollToTopButton";
 
 const MainSection = () => {
   const componentRef = useRef();
@@ -42,6 +43,7 @@ const MainSection = () => {
         <Budget ref={componentRef} />
         <PartialCosts />
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };
