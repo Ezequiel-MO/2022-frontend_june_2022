@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import header_image from "../assets/header_image.jpg";
 import cutt_logo from "../assets/CUTT_LOGO.png";
+import { Icon } from "@iconify/react";
 import Leo from "../assets/leo.jpg";
 import sun from "../assets/sun-svgrepo-com.svg";
 import moon from "../assets/moon-svgrepo-com.svg";
@@ -7,10 +9,24 @@ import switch_off from "../assets/switch_off.svg";
 import { Link } from "react-router-dom";
 import useDarkMode from "../hooks/useDarkMode";
 import { useUserLog } from "../hooks/useUserLog";
+import { useCurrentProject } from "../hooks/useCurrentProject";
 
 const Header = () => {
   const [isDarkMode, toggleDarkMode] = useDarkMode();
   const { logUserOut } = useUserLog();
+  const { currentProject } = useCurrentProject();
+  const { accountManager } = currentProject;
+  const [dropdownActive, setDropdownActive] = useState(false);
+  const [accManagerImage, setAccManagerImage] = useState(
+    "https://cuttevents-app.s3.eu-central-1.amazonaws.com/imageContentUrl-1657269731723.png"
+  );
+
+  useEffect(() => {
+    if (accountManager && accountManager[0].imageContentUrl[0]) {
+      const { imageContentUrl } = accountManager[0];
+      setAccManagerImage(imageContentUrl[0]);
+    }
+  }, [accountManager]);
 
   const log_out = () => {
     localStorage.removeItem("userIsLogged");
@@ -66,12 +82,35 @@ const Header = () => {
           src={header_image}
         />
       </div>
-      <div className="absolute top-1 right-2 z-50 cursor-pointer">
+
+      <div
+        className="absolute top-1 right-1 z-50 "
+        onMouseEnter={() => setDropdownActive(true)}
+      >
         <img
-          className="w-16 h-16 rounded-full transition-all duration-500 hover:scale-105 "
-          src={Leo}
+          className="w-16 h-16 rounded-full transition-all duration-500 hover:scale-105 cursor-pointer "
+          src={accManagerImage}
           alt="Rounded avatar"
+          onMouseLeave={() => setDropdownActive(false)}
+          onClick={() => setDropdownActive(!dropdownActive)}
         />
+      </div>
+      <div
+        onMouseLeave={() => setDropdownActive(false)}
+        className={`${
+          dropdownActive ? "block" : "hidden"
+        } absolute top-20 right-10 bg-white-100 z-50`}
+      >
+        <div>
+          <div className="font-bold text-black-50 border-3 border-b border-gray-500 p-3 mr-10">
+            <p>
+              Your Account Manager,{" "}
+              <span className="text-orange-500">
+                {localStorage.getItem("user_name") || auth.name}
+              </span>
+            </p>
+          </div>
+        </div>
       </div>
       <div
         className="absolute top-20 right-5 z-50 cursor-pointer"
