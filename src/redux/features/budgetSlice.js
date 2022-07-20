@@ -38,7 +38,7 @@ export const {
   UPDATE_BUDGET_SCHEDULE,
   SET_SELECTED_HOTEL,
 } = budgetSlice.actions;
-export const selectBudget = (state) => state.budget.schedule;
-export const selectBudgetHotel = (state) => state.budget.hotel;
+
+export const selectBudget = (state) => state.budget;
 
 export default budgetSlice.reducer;

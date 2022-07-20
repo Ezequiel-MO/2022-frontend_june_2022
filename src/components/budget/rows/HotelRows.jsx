@@ -1,29 +1,28 @@
+import { useContext, useEffect, useState } from "react";
 import { IconButton, TableCell, TableRow } from "@mui/material";
 import { Icon } from "@iconify/react";
-import { useContext, useEffect, useState } from "react";
 import { accounting } from "accounting";
 import { BudgetContext } from "../context/context";
 import { BUDGET_ACTIONS } from "../context/reducer";
 import HotelMultipleChoice from "./hotel/HotelMultipleChoice";
 import { getHotelTotal } from "../totals/compute-totals-functions";
-import { useDispatch } from "react-redux";
-import { SET_SELECTED_HOTEL } from "../../../redux/features/budgetSlice";
+import { useBudget } from "../../../hooks/useBudget";
 
 const HotelRows = ({ hotels, nights }) => {
-  const dispatch_redux = useDispatch();
+  const { setSelectedHotel } = useBudget();
   const { budgetValues, dispatch } = useContext(BudgetContext);
-  const [selectedHotel, setSelectedHotel] = useState(hotels[0]);
+  const [selectedHotelState, setSelectedHotelState] = useState(hotels[0]);
 
   useEffect(() => {
-    dispatch_redux(SET_SELECTED_HOTEL(selectedHotel));
-  }, [selectedHotel]);
+    setSelectedHotel(selectedHotelState);
+  }, [selectedHotelState]);
 
   useEffect(() => {
     if (budgetValues.selectedHotelName) {
       const selectedHotel = hotels?.find(
         (hotel) => hotel.name === budgetValues.selectedHotelName
       );
-      setSelectedHotel(selectedHotel);
+      setSelectedHotelState(selectedHotel);
     }
   }, [budgetValues.selectedHotelName, hotels]);
 
@@ -54,7 +53,7 @@ const HotelRows = ({ hotels, nights }) => {
         <TableCell></TableCell>
         <TableCell>
           {accounting.formatMoney(
-            getHotelTotal(selectedHotel.price[0], nights),
+            getHotelTotal(selectedHotelState.price[0], nights),
             "€"
           )}
         </TableCell>

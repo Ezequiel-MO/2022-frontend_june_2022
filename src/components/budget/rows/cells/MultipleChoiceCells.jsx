@@ -1,12 +1,11 @@
+import { useState, useEffect } from "react";
 import { accounting } from "accounting";
-import { useDispatch } from "react-redux";
 import { TableCell } from "@mui/material";
 import MultipleChoice from "../days/MultipleChoice";
-import { UPDATE_BUDGET_SCHEDULE } from "../../../../redux/features/budgetSlice";
-import { useState, useEffect } from "react";
+import { useBudget } from "../../../../hooks/useBudget";
 
 const MultipleChoiceCells = ({ pax, description, options, id, date }) => {
-  const dispatch = useDispatch();
+  const { updateBudgetSchedule } = useBudget();
   const [selected, setSelected] = useState({});
   const [value, setValue] = useState(options[0].name);
 
@@ -14,7 +13,7 @@ const MultipleChoiceCells = ({ pax, description, options, id, date }) => {
     const selectedOption = options.find((option) => option.name === value);
     const updatedObject = { date, id, selectedOption };
     setSelected(selectedOption);
-    dispatch(UPDATE_BUDGET_SCHEDULE(updatedObject));
+    updateBudgetSchedule(updatedObject);
     // eslint-disable-next-line
   }, [selected, value]);
 

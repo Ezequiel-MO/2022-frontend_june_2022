@@ -3,15 +3,14 @@ import { useNavigate } from "react-router-dom";
 import baseAPI from "../axios/axiosConfig";
 import { useUserLog } from "../hooks/useUserLog";
 import { useCurrentProject } from "../hooks/useCurrentProject";
-
+import { useBudget } from "../hooks/useBudget";
 import Alert from "../ui/Alert";
-import { SET_BUDGET_SCHEDULE } from "../redux/features/budgetSlice";
-import { useDispatch } from "react-redux";
 
 const LoginPage = () => {
-  const { setCurrentProject } = useCurrentProject();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { setCurrentProject, currentProject } = useCurrentProject();
+  const { clientAccManager } = currentProject;
+  const { setBudgetSchedule } = useBudget();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState({});
@@ -37,6 +36,14 @@ const LoginPage = () => {
         });
         return;
       }
+      if (client !== clientAccManager.email) {
+        setAlert({
+          error: true,
+          msg: "Invalid email, please check your email instructions",
+        });
+        return;
+      }
+
       localStorage.setItem(
         "schedule",
         JSON.stringify(response.data.data.data[0].schedule)
@@ -49,7 +56,7 @@ const LoginPage = () => {
       logUserIn();
       localStorage.setItem("userIsLogged", true);
       setCurrentProject(response.data.data.data[0]);
-      dispatch(SET_BUDGET_SCHEDULE(response.data.data.data[0].schedule));
+      setBudgetSchedule(response.data.data.data[0].schedule);
       navigate("/app");
     } catch (error) {
       setAlert({
