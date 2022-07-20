@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import header_image from "../assets/header_image.jpg";
 import cutt_logo from "../assets/CUTT_LOGO.png";
-import { Icon } from "@iconify/react";
-import Leo from "../assets/leo.jpg";
 import sun from "../assets/sun-svgrepo-com.svg";
 import moon from "../assets/moon-svgrepo-com.svg";
 import switch_off from "../assets/switch_off.svg";
@@ -106,7 +104,7 @@ const Header = () => {
             <p>
               Your Account Manager,{" "}
               <span className="text-orange-500">
-                {localStorage.getItem("user_name") || auth.name}
+                {localStorage.getItem("user_name")}
               </span>
             </p>
           </div>
