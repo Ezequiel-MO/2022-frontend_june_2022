@@ -12,7 +12,7 @@ const TotalBudgetCost = ({ pax }) => {
   const { hotels } = currentProject;
   const [selectedHotel, setSelectedHotel] = useState(hotels[0]);
   const { budgetValues } = useContext(BudgetContext);
-  const schedule = useSelector(selectBudget);
+  const { schedule } = useSelector(selectBudget);
 
   useEffect(() => {
     if (budgetValues.selectedHotelName) {

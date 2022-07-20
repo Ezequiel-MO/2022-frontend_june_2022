@@ -9,7 +9,6 @@ import Alert from "../ui/Alert";
 const LoginPage = () => {
   const navigate = useNavigate();
   const { setCurrentProject, currentProject } = useCurrentProject();
-  const { clientAccManager } = currentProject;
   const { setBudgetSchedule } = useBudget();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,6 +28,7 @@ const LoginPage = () => {
     try {
       const response = await baseAPI.get(`/v1/projects?code=${password}`);
       const receivedData = response.data.data.data.length !== 0;
+
       if (!receivedData) {
         setAlert({
           error: true,
@@ -36,7 +36,9 @@ const LoginPage = () => {
         });
         return;
       }
-      if (client !== clientAccManager.email) {
+      const clientEmail = response.data.data.data[0].clientAccManager[0].email;
+
+      if (email !== clientEmail) {
         setAlert({
           error: true,
           msg: "Invalid email, please check your email instructions",
