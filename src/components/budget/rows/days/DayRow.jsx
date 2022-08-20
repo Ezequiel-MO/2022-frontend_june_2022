@@ -70,6 +70,7 @@ const DayRow = ({
             description={description}
             options={options}
             pax={pax}
+            id={id}
           />
         )}
       </TableRow>
