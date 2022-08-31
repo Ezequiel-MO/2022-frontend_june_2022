@@ -31,7 +31,7 @@ const Budget = forwardRef((props, ref) => {
           >
             <BudgetTableHead />
             <TableBody>
-              {hotels.length > 0 && (
+              {hotels?.length > 0 && (
                 <>
                   <HotelRows hotels={hotels} nights={schedule?.length} />
                   <HotelBreakdownRows

@@ -2,14 +2,16 @@ export const BUDGET_ACTIONS = {
   SET_HOTEL_BREAKDOWN_OPEN: 'SET_HOTEL_BREAKDOWN_OPEN',
   SET_SELECTED_HOTEL_NAME: 'SET_SELECTED_HOTEL_NAME',
   SET_VENUE_BREAKDOWN_OPEN: 'SET_VENUE_BREAKDOWN_OPEN',
-  SET_SELECTED_VENUE_NAME: 'SET_SELECTED_VENUE_NAME'
+  SET_SELECTED_VENUE_NAME: 'SET_SELECTED_VENUE_NAME',
+  SET_SELECTED_VENUE_TOTAL_COST: 'SET_SELECTED_VENUE_TOTAL_COST'
 }
 
 export const initialbudgetValues = {
   hotelBreakdownOpen: false,
   venueBreakdownOpen: false,
   selectedHotelName: '',
-  selectedVenueName: ''
+  selectedVenueName: '',
+  selectedVenueTotalCost: 0
 }
 
 export const budgetReducer = (state, action) => {
@@ -34,6 +36,11 @@ export const budgetReducer = (state, action) => {
       return {
         ...state,
         venueBreakdownOpen: payload
+      }
+    case BUDGET_ACTIONS.SET_SELECTED_VENUE_TOTAL_COST:
+      return {
+        ...state,
+        selectedVenueTotalCost: payload
       }
     default:
       return state

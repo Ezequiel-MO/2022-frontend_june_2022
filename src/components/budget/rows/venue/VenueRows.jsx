@@ -13,6 +13,14 @@ const VenueRows = ({ venues, pax }) => {
   const { selectedVenueName } = budgetValues
 
   useEffect(() => {
+    const totalAmount = getVenueTotal(selectedVenue.venue_price[0])
+    dispatch({
+      type: BUDGET_ACTIONS.SET_SELECTED_VENUE_TOTAL_COST,
+      payload: totalAmount
+    })
+  }, [selectedVenue])
+
+  useEffect(() => {
     if (selectedVenueName) {
       setSelectedVenue(
         venues?.find((venue) => venue.name === selectedVenueName)

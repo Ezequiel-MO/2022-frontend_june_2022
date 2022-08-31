@@ -65,7 +65,6 @@ export const getTotalTransfers = (schedule) => {
 }
 
 export const getVenueTotal = (venue_price) => {
-  console.log('venue prides', venue_price)
   const {
     audiovisuals = 0,
     catering_price = 0,
@@ -96,25 +95,24 @@ export const getVenueTotal = (venue_price) => {
     rental +
     entertainment
 
-  console.log('total venue cost', totalVenueCost)
-
   return totalVenueCost
 }
 
 export const computeTotal = (field) => {
+  console.log('field', field)
   let total = 0
   //if field is an array
   if (Array.isArray(field)) {
     //iterate through the array
     field.forEach((event) => {
-      //add the price to the total
-      total += event.price
+      //add the price to the total if the event is not a venue
+      if (!event.isVenue) total += event.price
     })
   }
-  //else if morningEvents is a single object
+  //else if field is a single object
   else {
-    //add the price to the total
-    total += field.price
+    //add the price to the total if the event is not a venue - venues will be added apart
+    if (!field.isVenue) total += field.price
   }
   return total
 }
@@ -126,16 +124,16 @@ export const getTotalBudget = (pax = 1, schedule, hotelTotal = 0) => {
   let totalDinner = 0
 
   let totalTransfers = getTotalTransfers(schedule)
-  schedule.forEach((item) => {
-    for (let key in item) {
+  schedule.forEach((day) => {
+    for (let key in day) {
       if (key === 'morningEvents') {
-        totalMorningEvents += computeTotal(item[key])
+        totalMorningEvents += computeTotal(day[key])
       } else if (key === 'afternoonEvents') {
-        totalAfternoonEvents += computeTotal(item[key])
+        totalAfternoonEvents += computeTotal(day[key])
       } else if (key === 'lunch') {
-        totalLunch += computeTotal(item[key])
+        totalLunch += computeTotal(day[key])
       } else if (key === 'dinner') {
-        totalDinner += computeTotal(item[key])
+        totalDinner += computeTotal(day[key])
       }
     }
   })
