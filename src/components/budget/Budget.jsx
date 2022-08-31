@@ -8,6 +8,7 @@ import { budgetReducer, initialbudgetValues } from './context/reducer'
 import TotalBudgetCost from './totals/TotalBudgetCost'
 import { useCurrentProject } from '../../hooks/useCurrentProject'
 import BudgetTableHead from './BudgetTableHead'
+import PartialCosts from './partial-costs/PartialCosts'
 
 const Budget = forwardRef((props, ref) => {
   const { currentProject } = useCurrentProject()
@@ -48,6 +49,7 @@ const Budget = forwardRef((props, ref) => {
             </TableBody>
           </Table>
         </div>
+        <PartialCosts />
       </BudgetContext.Provider>
     </div>
   )

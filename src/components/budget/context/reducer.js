@@ -38,6 +38,7 @@ export const budgetReducer = (state, action) => {
         venueBreakdownOpen: payload
       }
     case BUDGET_ACTIONS.SET_SELECTED_VENUE_TOTAL_COST:
+      console.log('venue cost', payload)
       return {
         ...state,
         selectedVenueTotalCost: payload

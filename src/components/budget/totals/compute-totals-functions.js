@@ -99,7 +99,6 @@ export const getVenueTotal = (venue_price) => {
 }
 
 export const computeTotal = (field) => {
-  console.log('field', field)
   let total = 0
   //if field is an array
   if (Array.isArray(field)) {
