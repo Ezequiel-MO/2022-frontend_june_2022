@@ -36,6 +36,39 @@ const VenueBreakdownRows = ({ venues }) => {
     entertainment
   } = selectedVenue.venue_price[0]
 
+  console.log(
+    rental,
+    cocktail_units,
+    cocktail_price,
+    catering_units,
+    catering_price,
+    staff_units,
+    staff_menu_price,
+    audiovisuals,
+    cleaning,
+    security,
+    entertainment
+  )
+
+  const BreakdownRowsArr = [
+    { units: 1, title: 'Rental Fee', rate: rental },
+    {
+      units: cocktail_units,
+      title: 'Pre-dinner Cocktail',
+      rate: cocktail_price
+    },
+    {
+      units: catering_units,
+      title: 'Full menu w/drinks & cofee',
+      rate: catering_price
+    },
+    { units: staff_units, title: 'Staff Menu', rate: staff_menu_price },
+    { units: 1, title: 'AudioVisuals', rate: audiovisuals },
+    { units: 1, title: 'Cleaning', rate: cleaning },
+    { units: 1, title: 'Security', rate: security },
+    { units: 1, title: 'Entertainment', rate: entertainment }
+  ]
+
   return (
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -55,30 +88,19 @@ const VenueBreakdownRows = ({ venues }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <VenueBreakdownRow units='1' title='Rental fee' rate={rental} />
-                <VenueBreakdownRow
-                  units={cocktail_units}
-                  title='Pre-dinner Cocktail'
-                  rate={cocktail_price}
-                />
-                <VenueBreakdownRow
-                  units={catering_units}
-                  title='Full Menu incl/Drinks and coffee'
-                  rate={catering_price}
-                />
-                <VenueBreakdownRow
-                  units={staff_units}
-                  title='Staff Menu'
-                  rate={staff_menu_price}
-                />
-                <VenueBreakdownRow units='1' title='AAVV' rate={audiovisuals} />
-                <VenueBreakdownRow units='1' title='Cleaning' rate={cleaning} />
-                <VenueBreakdownRow units='1' title='Security' rate={security} />
-                <VenueBreakdownRow
-                  units='1'
-                  title='Entertainment'
-                  rate={entertainment}
-                />
+                {BreakdownRowsArr.map(({ units, title, rate }) => {
+                  return (
+                    rate && (
+                      <TableRow key={title}>
+                        <VenueBreakdownRow
+                          units={units}
+                          title={title}
+                          rate={rate}
+                        />
+                      </TableRow>
+                    )
+                  )
+                })}
               </TableBody>
             </Table>
           </Box>
