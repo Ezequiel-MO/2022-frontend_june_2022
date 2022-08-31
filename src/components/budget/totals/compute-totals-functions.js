@@ -1,23 +1,19 @@
 export const getHotelTotal = (priceObj, nights = 1) => {
   const {
-    DUInr,
-    DUIprice,
-    DoubleRoomNr,
-    DoubleRoomPrice,
-    breakfast,
-    DailyTax,
-  } = priceObj;
+    DUInr = 0,
+    DUIprice = 0,
+    DoubleRoomNr = 0,
+    DoubleRoomPrice = 0,
+    breakfast = 0,
+    DailyTax = 0
+  } = priceObj
 
-  if (
-    DUInr < 0 ||
-    DUIprice < 0 ||
-    DoubleRoomNr < 0 ||
-    DoubleRoomPrice < 0 ||
-    breakfast < 0 ||
-    DailyTax < 0
-  ) {
-    return 0;
-  }
+  const priceObValues = Object.values(priceObj).filter(
+    (value) => typeof value === 'number'
+  )
+
+  if (priceObValues.some((v) => v < 0)) return 0
+
   const hotelTotal =
     nights *
     (DUInr * DUIprice +
@@ -25,102 +21,132 @@ export const getHotelTotal = (priceObj, nights = 1) => {
       breakfast * DUInr +
       breakfast * DoubleRoomNr * 2 +
       DailyTax * DUInr +
-      DailyTax * DoubleRoomNr * 2);
-  return hotelTotal;
-};
+      DailyTax * DoubleRoomNr * 2)
+  return hotelTotal
+}
 
 export const getTotalTransfers = (schedule) => {
-  let transfers = 0;
+  let transfers = 0
   schedule.forEach((day) => {
-    if (day.morningEvents.length > 0) {
-      if (day.morningEvents[0].transfer[0]) {
+    const { morningEvents, lunch, afternoonEvents, dinner } = day
+    if (morningEvents.length > 0) {
+      if (morningEvents[0].transfer[0]) {
         transfers +=
-          day.morningEvents[0].transfer[0][
-            day.morningEvents[0].transfer[0]["selectedService"]
-          ] * day.morningEvents[0].transfer.length;
+          morningEvents[0].transfer[0][
+            morningEvents[0].transfer[0]['selectedService']
+          ] * morningEvents[0].transfer.length
       }
     }
-    if (day.lunch.length > 0) {
-      if (day.lunch[0].transfer[0]) {
+    if (lunch.length > 0) {
+      if (lunch[0].transfer[0]) {
         transfers +=
-          day.lunch[0].transfer[0][
-            day.lunch[0].transfer[0]["selectedService"]
-          ] * day.lunch[0].transfer.length;
+          lunch[0].transfer[0][lunch[0].transfer[0]['selectedService']] *
+          lunch[0].transfer.length
       }
     }
-    if (day.afternoonEvents.length > 0) {
-      if (day.afternoonEvents[0].transfer[0]) {
+    if (afternoonEvents.length > 0) {
+      if (afternoonEvents[0].transfer[0]) {
         transfers +=
-          day.afternoonEvents[0].transfer[0][
-            day.afternoonEvents[0].transfer[0]["selectedService"]
-          ] * day.afternoonEvents[0].transfer.length;
+          afternoonEvents[0].transfer[0][
+            afternoonEvents[0].transfer[0]['selectedService']
+          ] * afternoonEvents[0].transfer.length
       }
     }
-    if (day.dinner.length > 0) {
-      if (day.dinner[0].transfer[0]) {
+    if (dinner.length > 0) {
+      if (dinner[0].transfer[0]) {
         transfers +=
-          day.dinner[0].transfer[0][
-            day.dinner[0].transfer[0]["selectedService"]
-          ] * day.dinner[0].transfer.length;
+          dinner[0].transfer[0][dinner[0].transfer[0]['selectedService']] *
+          dinner[0].transfer.length
       }
     }
-  });
+  })
 
-  return transfers;
-};
+  return transfers
+}
+
+export const getVenueTotal = (venue_price) => {
+  const {
+    audiovisuals = 0,
+    catering_price = 0,
+    catering_units = 0,
+    cleaning = 0,
+    cocktail_price = 0,
+    cocktail_units = 0,
+    rental = 0,
+    security = 0,
+    staff_menu_price = 0,
+    staff_units = 0
+  } = venue_price
+
+  const venue_priceObjValues = Object.values(venue_price).filter(
+    (value) => typeof value === 'number'
+  )
+
+  if (venue_priceObjValues.some((v) => v < 0)) return 0
+
+  const totalVenueCost =
+    cocktail_units * cocktail_price +
+    catering_units * catering_price +
+    staff_units * staff_menu_price +
+    audiovisuals +
+    cleaning +
+    security +
+    rental
+
+  return totalVenueCost
+}
 
 export const computeTotal = (field) => {
-  let total = 0;
+  let total = 0
   //if field is an array
   if (Array.isArray(field)) {
     //iterate through the array
     field.forEach((event) => {
       //add the price to the total
-      total += event.price;
-    });
+      total += event.price
+    })
   }
   //else if morningEvents is a single object
   else {
     //add the price to the total
-    total += field.price;
+    total += field.price
   }
-  return total;
-};
+  return total
+}
 
 export const getTotalBudget = (pax = 1, schedule, hotelTotal = 0) => {
-  let totalMorningEvents = 0;
-  let totalAfternoonEvents = 0;
-  let totalLunch = 0;
-  let totalDinner = 0;
+  let totalMorningEvents = 0
+  let totalAfternoonEvents = 0
+  let totalLunch = 0
+  let totalDinner = 0
 
-  let totalTransfers = getTotalTransfers(schedule);
+  let totalTransfers = getTotalTransfers(schedule)
   schedule.forEach((item) => {
     for (let key in item) {
-      if (key === "morningEvents") {
-        totalMorningEvents += computeTotal(item[key]);
-      } else if (key === "afternoonEvents") {
-        totalAfternoonEvents += computeTotal(item[key]);
-      } else if (key === "lunch") {
-        totalLunch += computeTotal(item[key]);
-      } else if (key === "dinner") {
-        totalDinner += computeTotal(item[key]);
+      if (key === 'morningEvents') {
+        totalMorningEvents += computeTotal(item[key])
+      } else if (key === 'afternoonEvents') {
+        totalAfternoonEvents += computeTotal(item[key])
+      } else if (key === 'lunch') {
+        totalLunch += computeTotal(item[key])
+      } else if (key === 'dinner') {
+        totalDinner += computeTotal(item[key])
       }
     }
-  });
+  })
 
   const totalTransfersIn = schedule[0].transfer_in.reduce(
     (acc, curr) => acc + curr.transfer_in_out,
     0
-  );
+  )
 
   const totalTransfersOut = schedule[schedule.length - 1].transfer_out.reduce(
     (acc, curr) => acc + curr.transfer_in_out,
     0
-  );
+  )
 
   const totalScheduleCost =
-    pax *
-    (totalMorningEvents + totalAfternoonEvents + totalLunch + totalDinner);
+    pax * (totalMorningEvents + totalAfternoonEvents + totalLunch + totalDinner)
 
   return (
     hotelTotal +
@@ -128,5 +154,5 @@ export const getTotalBudget = (pax = 1, schedule, hotelTotal = 0) => {
     totalTransfers +
     totalTransfersIn +
     totalTransfersOut
-  );
-};
+  )
+}

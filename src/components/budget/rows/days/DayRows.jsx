@@ -1,108 +1,126 @@
-import React from "react";
-import DayRow from "./DayRow";
+import React from 'react'
+import VenueBreakdownRows from '../venue/VenueBreakdownRows'
+import VenueRows from '../venue/VenueRows'
+import DayRow from './DayRow'
 
 const DayRows = ({ day, pax }) => {
+  const {
+    date,
+    transfer_in,
+    morningEvents,
+    lunch,
+    afternoonEvents,
+    dinner,
+    transfer_out
+  } = day
   return (
     <>
-      {day.transfer_in.length > 0 && (
+      {transfer_in.length > 0 && (
         <DayRow
-          pax={day.transfer_in.length}
-          date={day.date}
-          options={day.transfer_in}
-          description="Transfer Aiport/Hotel"
-          id="transfer_in"
+          pax={transfer_in.length}
+          date={date}
+          options={transfer_in}
+          description='Transfer Aiport/Hotel'
+          id='transfer_in'
         />
       )}
-      {day.morningEvents.length > 0 && (
+      {morningEvents.length > 0 && (
         <>
-          {day.morningEvents[0].transfer.length > 0 && (
+          {morningEvents[0].transfer.length > 0 && (
             <DayRow
-              pax={day.morningEvents[0].transfer.length}
-              date={day.date}
-              options={day.morningEvents[0].transfer}
-              description="Transfer"
-              id="transfer"
+              pax={morningEvents[0].transfer.length}
+              date={date}
+              options={morningEvents[0].transfer}
+              description='Transfer'
+              id='transfer'
             />
           )}
           <DayRow
             pax={pax}
-            date={day.date}
-            options={day.morningEvents}
-            description="Morning Events"
-            multipleChoice={`${day.morningEvents.length > 1}`}
-            id="morningEvents"
+            date={date}
+            options={morningEvents}
+            description='Morning Events'
+            multipleChoice={`${morningEvents.length > 1}`}
+            id='morningEvents'
           />
         </>
       )}
-      {day.lunch.length > 0 && (
+      {lunch.length > 0 && (
         <>
           <DayRow
-            pax={day.lunch[0].transfer.length}
-            date={day.date}
-            options={day.lunch[0].transfer}
-            description="Transfer"
-            id="transfer"
+            pax={lunch[0].transfer.length}
+            date={date}
+            options={lunch[0].transfer}
+            description='Transfer'
+            id='transfer'
           />
           <DayRow
             pax={pax}
-            date={day.date}
-            options={day.lunch}
-            description="Lunch Restaurants"
-            multipleChoice={`${day.lunch.length > 1}`}
-            id="lunch"
+            date={date}
+            options={lunch}
+            description='Lunch Restaurants'
+            multipleChoice={`${lunch.length > 1}`}
+            id='lunch'
           />
         </>
       )}
-      {day.afternoonEvents.length > 0 && (
+      {afternoonEvents.length > 0 && (
         <>
           <DayRow
-            pax={day.afternoonEvents[0].transfer.length}
-            date={day.date}
-            options={day.afternoonEvents[0].transfer}
-            description="Transfer"
-            id="transfer"
+            pax={afternoonEvents[0].transfer.length}
+            date={date}
+            options={afternoonEvents[0].transfer}
+            description='Transfer'
+            id='transfer'
           />
           <DayRow
             pax={pax}
-            date={day.date}
-            options={day.afternoonEvents}
-            description="Afternoon Events"
-            multipleChoice={`${day.afternoonEvents.length > 1}`}
-            id="afternoonEvents"
+            date={date}
+            options={afternoonEvents}
+            description='Afternoon Events'
+            multipleChoice={`${afternoonEvents.length > 1}`}
+            id='afternoonEvents'
           />
         </>
       )}
-      {day.dinner.length > 0 && (
+      {dinner.length > 0 && (
         <>
           <DayRow
-            pax={day.dinner[0].transfer.length}
-            date={day.date}
-            options={day.dinner[0].transfer}
-            description="Transfer"
-            id="transfer"
+            pax={dinner[0].transfer.length}
+            date={date}
+            options={dinner[0].transfer}
+            description='Transfer'
+            id='transfer'
           />
-          <DayRow
-            pax={pax}
-            date={day.date}
-            options={day.dinner}
-            description="Dinner Restaurants"
-            multipleChoice={`${day.dinner.length > 1}`}
-            id="dinner"
-          />
+          {dinner[0].isVenue ? (
+            <>
+              <VenueRows options={dinner} pax={pax} />
+              <VenueBreakdownRows venues={dinner} />
+            </>
+          ) : (
+            <DayRow
+              pax={pax}
+              date={date}
+              options={dinner}
+              description='Dinner Restaurants'
+              multipleChoice={`${dinner.length > 1}`}
+              id='dinner'
+            />
+          )}
         </>
       )}
 
-      {day.transfer_out.length > 0 && (
+      {transfer_out.length > 0 && (
         <DayRow
-          pax={day.transfer_out.length}
-          date={day.date}
-          options={day.transfer_out}
-          description="Hotel or City/Airport"
-          id="transfer_out"
+          pax={transfer_out.length}
+          date={date}
+          options={transfer_out}
+          description='Hotel or City/Airport'
+          id='transfer_out'
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default DayRows;
+export default DayRows

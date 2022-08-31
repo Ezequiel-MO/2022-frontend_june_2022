@@ -4,25 +4,23 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { useContext, useEffect, useState } from "react";
-import { BudgetContext } from "../../context/context";
-import BreakdownRow from "./BreakdownRow";
+  TableRow
+} from '@mui/material'
+import { Box } from '@mui/system'
+import { useContext, useEffect, useState } from 'react'
+import { BudgetContext } from '../../context/context'
+import BreakdownRow from './BreakdownRow'
 
 const HotelBreakdownRows = ({ hotels, nights }) => {
-  const [selectedHotel, setSelectedHotel] = useState(hotels[0]);
-  const { budgetValues } = useContext(BudgetContext);
+  const [selectedHotel, setSelectedHotel] = useState(hotels[0])
+  const { budgetValues } = useContext(BudgetContext)
+  const { selectedHotelName } = budgetValues
 
   useEffect(() => {
-    if (budgetValues.selectedHotelName) {
-      const selectedHotel = hotels.find(
-        (hotel) => hotel.name === budgetValues.selectedHotelName
-      );
-      setSelectedHotel(selectedHotel);
+    if (selectedHotelName) {
+      setSelectedHotel(hotels.find((hotel) => hotel.name === selectedHotelName))
     }
-  }, [budgetValues.selectedHotelName, hotels]);
+  }, [selectedHotelName, hotels])
 
   const {
     DUInr,
@@ -30,19 +28,19 @@ const HotelBreakdownRows = ({ hotels, nights }) => {
     DoubleRoomNr,
     DoubleRoomPrice,
     DailyTax,
-    breakfast,
-  } = selectedHotel.price[0];
+    breakfast
+  } = selectedHotel.price[0]
 
   return (
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
         <Collapse
           in={budgetValues.hotelBreakdownOpen}
-          timeout="auto"
+          timeout='auto'
           unmountOnExit
         >
           <Box margin={1}>
-            <Table size="small">
+            <Table size='small'>
               <TableHead>
                 <TableRow>
                   <TableCell>Description</TableCell>
@@ -57,26 +55,26 @@ const HotelBreakdownRows = ({ hotels, nights }) => {
                   units={DUInr}
                   rate={DUIprice}
                   nights={nights}
-                  title="Double Room Single Use"
+                  title='Double Room Single Use'
                 />
                 <BreakdownRow
                   units={DoubleRoomNr}
                   rate={DoubleRoomPrice}
                   nights={nights}
-                  title="Double Room //Twin Room"
+                  title='Double Room //Twin Room'
                 />
                 <BreakdownRow
                   units={DUInr + DoubleRoomNr * 2}
                   rate={DailyTax}
                   nights={nights}
-                  title="City Tax"
+                  title='City Tax'
                 />
                 {breakfast ? (
                   <BreakdownRow
                     units={DUInr + DoubleRoomNr * 2}
                     rate={breakfast}
                     nights={nights}
-                    title="Breakfast"
+                    title='Breakfast'
                   />
                 ) : null}
               </TableBody>
@@ -85,7 +83,7 @@ const HotelBreakdownRows = ({ hotels, nights }) => {
         </Collapse>
       </TableCell>
     </TableRow>
-  );
-};
+  )
+}
 
-export default HotelBreakdownRows;
+export default HotelBreakdownRows

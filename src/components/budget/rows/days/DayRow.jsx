@@ -1,5 +1,5 @@
 import { TableCell, TableRow } from "@mui/material";
-import React from "react";
+import { useGetVenues } from "../../../../hooks/useGetVenues";
 import MultipleChoiceCells from "../cells/MultipleChoiceCells";
 import SingleChoiceCells from "../cells/SingleChoiceCells";
 import TransferCells from "../cells/TransferCells";
@@ -13,6 +13,10 @@ const DayRow = ({
   id,
   multipleChoice = false,
 }) => {
+  const { venues } = useGetVenues(id, options);
+  const noVenues = venues.length === 0;
+  const multipleVenues = venues.length > 1;
+
   if (id === "transfer_in" || id === "transfer_out") {
     return (
       <TableRow>
@@ -50,9 +54,9 @@ const DayRow = ({
 
   if (
     id === "morningEvents" ||
-    id === "lunch" ||
+    (id === "lunch" && noVenues) ||
     id === "afternoonEvents" ||
-    id === "dinner"
+    (id === "dinner" && noVenues)
   ) {
     return (
       <TableRow>
@@ -70,7 +74,29 @@ const DayRow = ({
             description={description}
             options={options}
             pax={pax}
+          />
+        )}
+      </TableRow>
+    );
+  }
+
+  if (!noVenues) {
+    return (
+      <TableRow>
+        <TableCell>{date}</TableCell>
+        {multipleVenues ? (
+          <MultipleChoiceCells
+            description={description}
+            options={venues}
+            pax={pax}
             id={id}
+            date={date}
+          />
+        ) : (
+          <SingleChoiceCells
+            description={description}
+            options={venues}
+            pax={pax}
           />
         )}
       </TableRow>
