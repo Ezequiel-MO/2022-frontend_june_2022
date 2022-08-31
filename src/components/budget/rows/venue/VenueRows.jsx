@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 import { Icon } from '@iconify/react'
@@ -7,9 +7,20 @@ import VenueMultipleChoice from './VenueMultipleChoice'
 import { BudgetContext } from '../../context/context'
 import { BUDGET_ACTIONS } from '../../context/reducer'
 
-const VenueRows = ({ options, pax }) => {
+const VenueRows = ({ venues, pax }) => {
   const { budgetValues, dispatch } = useContext(BudgetContext)
-  const { venue_price } = options[0]
+  const [selectedVenue, setSelectedVenue] = useState(venues[0])
+  const { selectedVenueName } = budgetValues
+
+  useEffect(() => {
+    if (selectedVenueName) {
+      setSelectedVenue(
+        venues?.find((venue) => venue.name === selectedVenueName)
+      )
+    }
+  }, [selectedVenueName, venues])
+
+  const { venue_price } = selectedVenue
   const { catering_units } = venue_price[0]
   return (
     <>
@@ -32,7 +43,7 @@ const VenueRows = ({ options, pax }) => {
         </TableCell>
         <TableCell></TableCell>
         <TableCell>
-          <VenueMultipleChoice options={options} />
+          <VenueMultipleChoice options={venues} />
         </TableCell>
         <TableCell>{catering_units}</TableCell>
         <TableCell></TableCell>

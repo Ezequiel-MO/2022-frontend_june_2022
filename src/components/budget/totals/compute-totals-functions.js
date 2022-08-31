@@ -65,6 +65,7 @@ export const getTotalTransfers = (schedule) => {
 }
 
 export const getVenueTotal = (venue_price) => {
+  console.log('venue prides', venue_price)
   const {
     audiovisuals = 0,
     catering_price = 0,
@@ -75,7 +76,8 @@ export const getVenueTotal = (venue_price) => {
     rental = 0,
     security = 0,
     staff_menu_price = 0,
-    staff_units = 0
+    staff_units = 0,
+    entertainment
   } = venue_price
 
   const venue_priceObjValues = Object.values(venue_price).filter(
@@ -91,7 +93,10 @@ export const getVenueTotal = (venue_price) => {
     audiovisuals +
     cleaning +
     security +
-    rental
+    rental +
+    entertainment
+
+  console.log('total venue cost', totalVenueCost)
 
   return totalVenueCost
 }

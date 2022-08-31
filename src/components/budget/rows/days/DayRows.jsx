@@ -94,7 +94,7 @@ const DayRows = ({ day, pax }) => {
           />
           {dinner[0].isVenue ? (
             <>
-              <VenueRows options={dinner} pax={pax} />
+              <VenueRows venues={dinner} pax={pax} />
               <VenueBreakdownRows venues={dinner} />
             </>
           ) : (
