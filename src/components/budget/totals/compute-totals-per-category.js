@@ -9,7 +9,8 @@ export const totalTransfersOut = (arr) =>
     0
   )
 
-export const totalMeals = (arr) => {
+export const totalMeals = (arr, pax = 1) => {
+  console.log('arr', arr)
   let total = 0
   arr.forEach((day) => {
     for (let key in day) {
@@ -20,7 +21,7 @@ export const totalMeals = (arr) => {
       }
     }
   })
-  return total
+  return total * pax
 }
 
 export const totalActivities = (arr, pax = 1) => {

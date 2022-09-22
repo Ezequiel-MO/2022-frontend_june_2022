@@ -49,7 +49,7 @@ const Budget = forwardRef((props, ref) => {
             </TableBody>
           </Table>
         </div>
-        {/*   <PartialCosts /> */}
+        <PartialCosts />
       </BudgetContext.Provider>
     </div>
   )

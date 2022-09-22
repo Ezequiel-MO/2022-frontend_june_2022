@@ -37,13 +37,13 @@ const PartialCosts = () => {
     setSubtotals({
       ...subtotals,
       activities: totalActivities(schedule, nrPax),
-      meals: totalMeals(schedule) + selectedVenueTotalCost,
+      meals: totalMeals(schedule, nrPax) /* + selectedVenueTotalCost */,
       transfers:
         totalTransfersIn(schedule) +
         totalTransfersOut(schedule) +
         getTotalTransfers(schedule),
       hotel: hotel
-        ? getHotelTotal(hotel.price[0], schedule.length)
+        ? getHotelTotal(hotel.price[0], schedule.length - 1)
         : getHotelTotal(0, schedule.length)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -93,7 +93,7 @@ const PartialCosts = () => {
 
           {hotel &&
             accounting.formatMoney(
-              getHotelTotal(hotel.price[0], schedule.length),
+              getHotelTotal(hotel.price[0], schedule.length - 1),
               '€'
             )}
         </div>
