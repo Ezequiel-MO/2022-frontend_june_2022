@@ -34,10 +34,10 @@ const Budget = forwardRef((props, ref) => {
             <TableBody>
               {hotels?.length > 0 && (
                 <>
-                  <HotelRows hotels={hotels} nights={schedule?.length} />
+                  <HotelRows hotels={hotels} nights={schedule?.length - 1} />
                   <HotelBreakdownRows
                     hotels={hotels}
-                    nights={schedule?.length}
+                    nights={schedule?.length - 1}
                   />
                 </>
               )}
@@ -49,7 +49,7 @@ const Budget = forwardRef((props, ref) => {
             </TableBody>
           </Table>
         </div>
-        <PartialCosts />
+        {/*   <PartialCosts /> */}
       </BudgetContext.Provider>
     </div>
   )

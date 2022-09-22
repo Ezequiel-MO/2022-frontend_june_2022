@@ -26,10 +26,10 @@ const Schedule = () => {
             </>
           ) : (
             <h3 className='italic m-2 hidden'>
-              No events planned in the morning
+              No tours planned in the morning
             </h3>
           )}
-          {day.morningMeetings.length > 0 ? (
+          {/* {day.morningMeetings.length > 0 ? (
             <>
               <p className='text-black-50 dark:text-white-50'>
                 {day.morningMeetings[0].introduction}
@@ -40,7 +40,7 @@ const Schedule = () => {
             <h3 className='italic m-2 hidden'>
               No events planned in the morning
             </h3>
-          )}
+          )} */}
           {day.lunch.length > 0 ? (
             <>
               <p className='text-black-50 dark:text-white-50'>

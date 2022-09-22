@@ -41,14 +41,14 @@ const TotalBudgetCost = ({ pax }) => {
                 getTotalBudget(
                   pax,
                   schedule,
-                  getHotelTotal(selectedHotel.price[0], schedule.length) +
-                    selectedVenueTotalCost
+                  getHotelTotal(selectedHotel.price[0], schedule.length) /* +
+                    selectedVenueTotalCost */
                 ),
                 '€'
               )
             : schedule[0].length > 0
             ? accounting.formatMoney(
-                getTotalBudget(pax, schedule, 0) + selectedVenueTotalCost,
+                getTotalBudget(pax, schedule, 0) /* + selectedVenueTotalCost */,
                 '€'
               )
             : 0}
