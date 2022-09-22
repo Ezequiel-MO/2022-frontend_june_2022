@@ -41,7 +41,10 @@ const TotalBudgetCost = ({ pax }) => {
                 getTotalBudget(
                   pax,
                   schedule,
-                  getHotelTotal(selectedHotel.price[0], schedule.length) /* +
+                  getHotelTotal(
+                    selectedHotel.price[0],
+                    schedule.length - 1
+                  ) /* +
                     selectedVenueTotalCost */
                 ),
                 '€'

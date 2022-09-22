@@ -30,33 +30,34 @@ export const getTotalTransfers = (schedule) => {
   schedule.forEach((day) => {
     const { morningEvents, lunch, afternoonEvents, dinner } = day
     if (morningEvents.length > 0) {
-      if (morningEvents[0].transfer[0]) {
+      if (morningEvents[0].transfer.length > 0) {
         transfers +=
           morningEvents[0].transfer[0][
             morningEvents[0].transfer[0]['selectedService']
-          ] * morningEvents[0].transfer.length
+          ] * morningEvents[0].transfer.length || 0
       }
     }
     if (lunch.length > 0) {
-      if (lunch[0].transfer[0]) {
+      if (lunch[0].transfer.length > 0) {
         transfers +=
           lunch[0].transfer[0][lunch[0].transfer[0]['selectedService']] *
-          lunch[0].transfer.length
+            lunch[0].transfer.length || 0
       }
     }
+
     if (afternoonEvents.length > 0) {
       if (afternoonEvents[0].transfer[0]) {
         transfers +=
           afternoonEvents[0].transfer[0][
             afternoonEvents[0].transfer[0]['selectedService']
-          ] * afternoonEvents[0].transfer.length
+          ] * afternoonEvents[0].transfer.length || 0
       }
     }
     if (dinner.length > 0) {
       if (dinner[0].transfer[0]) {
         transfers +=
           dinner[0].transfer[0][dinner[0].transfer[0]['selectedService']] *
-          dinner[0].transfer.length
+            dinner[0].transfer.length || 0
       }
     }
   })
