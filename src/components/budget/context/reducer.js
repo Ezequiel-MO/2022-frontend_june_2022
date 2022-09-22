@@ -7,7 +7,7 @@ export const BUDGET_ACTIONS = {
 }
 
 export const initialbudgetValues = {
-  hotelBreakdownOpen: false,
+  hotelBreakdownOpen: true,
   venueBreakdownOpen: false,
   selectedHotelName: '',
   selectedVenueName: '',
