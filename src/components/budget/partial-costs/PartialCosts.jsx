@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
-
 import { Icon } from '@iconify/react'
 import { accounting } from 'accounting'
 import {

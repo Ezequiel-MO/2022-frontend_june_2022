@@ -1,7 +1,7 @@
 import { useReducer, forwardRef } from 'react'
 import { Table, TableBody } from '@mui/material'
-import HotelRows from './rows/HotelRows'
 import DayRows from './rows/days/DayRows'
+import HotelSummaryRow from './rows/hotel/HotelSummaryRow'
 import HotelBreakdownRows from './rows/hotel/HotelBreakdownRows'
 import { BudgetContext } from './context/context'
 import { budgetReducer, initialbudgetValues } from './context/reducer'
@@ -34,7 +34,10 @@ const Budget = forwardRef((props, ref) => {
             <TableBody>
               {hotels?.length > 0 && (
                 <>
-                  <HotelRows hotels={hotels} nights={schedule?.length - 1} />
+                  <HotelSummaryRow
+                    hotels={hotels}
+                    nights={schedule?.length - 1}
+                  />
                   <HotelBreakdownRows
                     hotels={hotels}
                     nights={schedule?.length - 1}

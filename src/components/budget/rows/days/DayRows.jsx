@@ -1,6 +1,7 @@
 import React from 'react'
+import MeetingSummaryRow from '../meeting/MeetingSummaryRow'
 import VenueBreakdownRows from '../venue/VenueBreakdownRows'
-import VenueRows from '../venue/VenueRows'
+import VenueSummaryRow from '../venue/VenueSummaryRow'
 import DayRow from './DayRow'
 
 const DayRows = ({ day, pax }) => {
@@ -8,6 +9,7 @@ const DayRows = ({ day, pax }) => {
     date,
     transfer_in,
     morningEvents,
+    morningMeetings,
     lunch,
     afternoonEvents,
     dinner,
@@ -44,6 +46,13 @@ const DayRows = ({ day, pax }) => {
             id='morningEvents'
           />
         </>
+      )}
+      {morningMeetings.length > 0 && (
+        <MeetingSummaryRow
+          date={date}
+          typeOfMeeting='Morning Meeting'
+          options={morningMeetings}
+        />
       )}
       {lunch.length > 0 && (
         <>
@@ -94,8 +103,8 @@ const DayRows = ({ day, pax }) => {
           />
           {dinner[0].isVenue ? (
             <>
-              <VenueRows venues={dinner} pax={pax} />
-              <VenueBreakdownRows venues={dinner} />
+              <VenueSummaryRow options={dinner} pax={pax} />
+              <VenueBreakdownRows options={dinner} />
             </>
           ) : (
             <DayRow

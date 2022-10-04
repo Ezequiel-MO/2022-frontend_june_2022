@@ -2,13 +2,13 @@ import { useContext, useEffect, useState } from 'react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import { Icon } from '@iconify/react'
 import { accounting } from 'accounting'
-import { BudgetContext } from '../context/context'
-import { BUDGET_ACTIONS } from '../context/reducer'
-import HotelMultipleChoice from './hotel/HotelMultipleChoice'
-import { getHotelTotal } from '../totals/compute-totals-functions'
-import { useBudget } from '../../../hooks/useBudget'
+import { BudgetContext } from '../../context/context'
+import { BUDGET_ACTIONS } from '../../context/reducer'
+import HotelMultipleChoice from './HotelMultipleChoice'
+import { getHotelTotal } from '../../totals/compute-totals-functions'
+import { useBudget } from '../../../../hooks/useBudget'
 
-const HotelRows = ({ hotels, nights }) => {
+const HotelSummaryRow = ({ hotels, nights }) => {
   const { setSelectedHotel } = useBudget()
   const { budgetValues, dispatch } = useContext(BudgetContext)
   const [selectedHotelState, setSelectedHotelState] = useState(hotels[0])
@@ -33,7 +33,7 @@ const HotelRows = ({ hotels, nights }) => {
           <IconButton
             onClick={() =>
               dispatch({
-                type: BUDGET_ACTIONS.SET_HOTEL_BREAKDOWN_OPEN,
+                type: BUDGET_ACTIONS.TOGGLE_HOTEL_BREAKDOWN,
                 payload: !budgetValues.hotelBreakdownOpen
               })
             }
@@ -62,4 +62,4 @@ const HotelRows = ({ hotels, nights }) => {
   )
 }
 
-export default HotelRows
+export default HotelSummaryRow

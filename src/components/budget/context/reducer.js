@@ -1,23 +1,27 @@
 export const BUDGET_ACTIONS = {
-  SET_HOTEL_BREAKDOWN_OPEN: 'SET_HOTEL_BREAKDOWN_OPEN',
+  TOGGLE_HOTEL_BREAKDOWN: 'TOGGLE_HOTEL_BREAKDOWN',
   SET_SELECTED_HOTEL_NAME: 'SET_SELECTED_HOTEL_NAME',
-  SET_VENUE_BREAKDOWN_OPEN: 'SET_VENUE_BREAKDOWN_OPEN',
+  TOGGLE_VENUE_BREAKDOWN: 'TOGGLE_VENUE_BREAKDOWN',
   SET_SELECTED_VENUE_NAME: 'SET_SELECTED_VENUE_NAME',
+  TOGGLE_MEETING_BREAKDOWN: 'TOGGLE_MEETING_BREAKDOWN',
+  SET_SELECTED_MEETING_NAME: 'SET_SELECTED_MEETING_NAME',
   SET_SELECTED_VENUE_TOTAL_COST: 'SET_SELECTED_VENUE_TOTAL_COST'
 }
 
 export const initialbudgetValues = {
   hotelBreakdownOpen: true,
   venueBreakdownOpen: false,
+  meetingBreakdownOpen: false,
   selectedHotelName: '',
   selectedVenueName: '',
+  selectedMeetingName: '',
   selectedVenueTotalCost: 0
 }
 
 export const budgetReducer = (state, action) => {
   const { payload, type } = action
   switch (type) {
-    case BUDGET_ACTIONS.SET_HOTEL_BREAKDOWN_OPEN:
+    case BUDGET_ACTIONS.TOGGLE_HOTEL_BREAKDOWN:
       return {
         ...state,
         hotelBreakdownOpen: payload
@@ -32,10 +36,20 @@ export const budgetReducer = (state, action) => {
         ...state,
         selectedVenueName: payload
       }
-    case BUDGET_ACTIONS.SET_VENUE_BREAKDOWN_OPEN:
+    case BUDGET_ACTIONS.TOGGLE_VENUE_BREAKDOWN:
       return {
         ...state,
         venueBreakdownOpen: payload
+      }
+    case BUDGET_ACTIONS.TOGGLE_MEETING_BREAKDOWN:
+      return {
+        ...state,
+        meetingBreakdownOpen: payload
+      }
+    case BUDGET_ACTIONS.SET_SELECTED_MEETING_NAME:
+      return {
+        ...state,
+        selectedMeetingName: payload
       }
     case BUDGET_ACTIONS.SET_SELECTED_VENUE_TOTAL_COST:
       return {

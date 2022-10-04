@@ -1,17 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 export const budgetSlice = createSlice({
-  name: "budget",
+  name: 'budget',
   initialState: {
-    hotel: "",
-    schedule: JSON.parse(localStorage.getItem("schedule")) || [],
+    hotel: '',
+    schedule: JSON.parse(localStorage.getItem('schedule')) || []
   },
   reducers: {
     SET_BUDGET_SCHEDULE: (state, action) => {
-      state.schedule = action.payload;
+      state.schedule = action.payload
     },
     UPDATE_BUDGET_SCHEDULE: (state, action) => {
-      const { date, id, selectedOption } = action.payload;
+      const { date, id, selectedOption } = action.payload
       return {
         //return the new schedule with the updated budget
         ...state,
@@ -19,26 +19,26 @@ export const budgetSlice = createSlice({
           if (item.date === date) {
             return {
               ...item,
-              [id]: [selectedOption],
-            };
+              [id]: [selectedOption]
+            }
           }
-          return item;
-        }),
-      };
+          return item
+        })
+      }
     },
     SET_SELECTED_HOTEL: (state, action) => {
       //update initialState hotel key with the action.payload
-      state.hotel = action.payload;
-    },
-  },
-});
+      state.hotel = action.payload
+    }
+  }
+})
 
 export const {
   SET_BUDGET_SCHEDULE,
   UPDATE_BUDGET_SCHEDULE,
-  SET_SELECTED_HOTEL,
-} = budgetSlice.actions;
+  SET_SELECTED_HOTEL
+} = budgetSlice.actions
 
-export const selectBudget = (state) => state.budget;
+export const selectBudget = (state) => state.budget
 
-export default budgetSlice.reducer;
+export default budgetSlice.reducer
