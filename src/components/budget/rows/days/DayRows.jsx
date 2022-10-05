@@ -1,4 +1,4 @@
-import React from 'react'
+import MeetingBreakdownRows from '../meeting/MeetingBreakdownRows'
 import MeetingSummaryRow from '../meeting/MeetingSummaryRow'
 import VenueBreakdownRows from '../venue/VenueBreakdownRows'
 import VenueSummaryRow from '../venue/VenueSummaryRow'
@@ -48,13 +48,17 @@ const DayRows = ({ day, pax }) => {
         </>
       )}
       {morningMeetings.length > 0 && (
-        <MeetingSummaryRow
-          pax={pax}
-          date={date}
-          typeOfMeeting='Morning Meeting'
-          options={morningMeetings}
-        />
+        <>
+          <MeetingSummaryRow
+            pax={pax}
+            date={date}
+            typeOfMeeting='Morning Meeting'
+            options={morningMeetings}
+          />
+          <MeetingBreakdownRows pax={pax} />
+        </>
       )}
+
       {lunch.length > 0 && (
         <>
           <DayRow

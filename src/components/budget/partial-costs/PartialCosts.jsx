@@ -48,7 +48,7 @@ const PartialCosts = () => {
         : getHotelTotal(0, schedule.length)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [schedule, hotel, selectedVenueTotalCost, nrPax])
+  }, [schedule, hotel, selectedVenueTotalCost, selectedMeetingTotalCost, nrPax])
 
   ChartJS.register(ArcElement, Tooltip, Legend)
 

@@ -100,7 +100,6 @@ export const getVenueTotal = (venue_price) => {
 }
 
 export const getMeetingTotal = (meeting, pax) => {
-  console.log('meeting', meeting)
   const {
     FDDDR = 0,
     FDRate = 0,

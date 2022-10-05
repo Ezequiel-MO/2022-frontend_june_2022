@@ -22,13 +22,18 @@ const MeetingSummaryRow = ({ pax, date, typeOfMeeting, options }) => {
       type: BUDGET_ACTIONS.SET_SELECTED_MEETING_TOTAL_COST,
       payload: totalAmount
     })
+    dispatch({
+      type: BUDGET_ACTIONS.SET_SELECTED_MEETING,
+      payload: selectedMeeting
+    })
   }, [selectedMeeting])
 
   useEffect(() => {
     if (selectedMeetingHotelId) {
-      setSelectedMeeting(
-        options?.find((meeting) => meeting.hotel[0] === selectedMeetingHotelId)
+      const selectedMeeting = options?.find(
+        (meeting) => meeting.hotel[0] === selectedMeetingHotelId
       )
+      setSelectedMeeting(selectedMeeting)
     }
   }, [selectedMeetingHotelId, options])
 
@@ -44,7 +49,7 @@ const MeetingSummaryRow = ({ pax, date, typeOfMeeting, options }) => {
             })
           }
         >
-          {budgetValues.meetingBreakdownOpen ? (
+          {meetingBreakdownOpen ? (
             <Icon icon='bx:up-arrow' color='#ea5933' />
           ) : (
             <Icon icon='bx:down-arrow' color='#ea5933' />

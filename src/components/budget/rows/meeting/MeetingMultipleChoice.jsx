@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Box, FormControl, MenuItem, Select, Typography } from '@mui/material'
+import { useContext } from 'react'
+import { Box, FormControl, MenuItem, Select } from '@mui/material'
 import { BudgetContext } from '../../context/context'
 import useGetHotel from '../../../../hooks/useGetHotel'
 import { BUDGET_ACTIONS } from '../../context/reducer'

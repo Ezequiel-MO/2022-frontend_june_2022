@@ -11,6 +11,7 @@ import { useBudget } from '../../../../hooks/useBudget'
 const HotelSummaryRow = ({ hotels, nights }) => {
   const { setSelectedHotel } = useBudget()
   const { budgetValues, dispatch } = useContext(BudgetContext)
+  const { hotelBreakdownOpen, selectedHotelName } = budgetValues
   const [selectedHotelState, setSelectedHotelState] = useState(hotels[0])
 
   useEffect(() => {
@@ -18,13 +19,13 @@ const HotelSummaryRow = ({ hotels, nights }) => {
   }, [selectedHotelState])
 
   useEffect(() => {
-    if (budgetValues.selectedHotelName) {
+    if (selectedHotelName) {
       const selectedHotel = hotels?.find(
-        (hotel) => hotel.name === budgetValues.selectedHotelName
+        (hotel) => hotel.name === selectedHotelName
       )
       setSelectedHotelState(selectedHotel)
     }
-  }, [budgetValues.selectedHotelName, hotels])
+  }, [selectedHotelName, hotels])
 
   return (
     <>
@@ -34,11 +35,11 @@ const HotelSummaryRow = ({ hotels, nights }) => {
             onClick={() =>
               dispatch({
                 type: BUDGET_ACTIONS.TOGGLE_HOTEL_BREAKDOWN,
-                payload: !budgetValues.hotelBreakdownOpen
+                payload: !hotelBreakdownOpen
               })
             }
           >
-            {budgetValues.hotelBreakdownOpen ? (
+            {hotelBreakdownOpen ? (
               <Icon icon='bx:up-arrow' color='#ea5933' />
             ) : (
               <Icon icon='bx:down-arrow' color='#ea5933' />
