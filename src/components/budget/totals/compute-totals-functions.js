@@ -99,6 +99,35 @@ export const getVenueTotal = (venue_price) => {
   return totalVenueCost
 }
 
+export const getMeetingTotal = (meeting, pax) => {
+  console.log('meeting', meeting)
+  const {
+    FDDDR = 0,
+    FDRate = 0,
+    HDDDR = 0,
+    HDRate = 0,
+    aavvPackage = 0,
+    coffeeBreakUnits = 0,
+    coffeeBreakPrice = 0,
+    hotelDinnerUnits = 0,
+    hotelDinnerPrice = 0,
+    workingLunchUnits = 0,
+    workingLunchPrice = 0
+  } = meeting
+
+  let totalMeetingCost =
+    FDDDR * pax +
+    FDRate +
+    HDDDR * pax +
+    HDRate +
+    aavvPackage +
+    coffeeBreakUnits * coffeeBreakPrice +
+    hotelDinnerUnits * hotelDinnerPrice +
+    workingLunchUnits * workingLunchPrice /*   */
+  console.log('totalMeetingCost', totalMeetingCost, pax)
+  return totalMeetingCost
+}
+
 export const computeTotal = (field) => {
   let total = 0
   //if field is an array

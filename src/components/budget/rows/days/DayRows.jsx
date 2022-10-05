@@ -49,6 +49,7 @@ const DayRows = ({ day, pax }) => {
       )}
       {morningMeetings.length > 0 && (
         <MeetingSummaryRow
+          pax={pax}
           date={date}
           typeOfMeeting='Morning Meeting'
           options={morningMeetings}

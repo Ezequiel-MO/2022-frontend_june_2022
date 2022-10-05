@@ -52,7 +52,10 @@ const LoginPage = () => {
         'schedule',
         JSON.stringify(response.data.data.data[0].schedule)
       )
-
+      localStorage.setItem(
+        'currentProject',
+        JSON.stringify(response.data.data.data[0])
+      )
       setAlert({
         error: false,
         msg: 'Access Granted'
@@ -60,6 +63,7 @@ const LoginPage = () => {
       logUserIn()
       localStorage.setItem('userIsLogged', true)
       setCurrentProject(response.data.data.data[0])
+
       setBudgetSchedule(response.data.data.data[0].schedule)
       navigate('/app')
     } catch (error) {

@@ -21,13 +21,14 @@ import { BudgetContext } from '../context/context'
 const PartialCosts = () => {
   const { currentProject } = useCurrentProject()
   const { budgetValues } = useContext(BudgetContext)
-  const { selectedVenueTotalCost } = budgetValues
+  const { selectedVenueTotalCost, selectedMeetingTotalCost } = budgetValues
   const { nrPax } = currentProject
   const [subtotals, setSubtotals] = useState({
     activities: 0,
     meals: 0,
     transfers: 0,
-    hotel: 0
+    hotel: 0,
+    meetings: 0
   })
   const budget = useSelector(selectBudget)
   const { schedule, hotel } = budget
@@ -37,6 +38,7 @@ const PartialCosts = () => {
       ...subtotals,
       activities: totalActivities(schedule, nrPax),
       meals: totalMeals(schedule, nrPax) /* + selectedVenueTotalCost */,
+      meetings: budgetValues.selectedMeetingTotalCost,
       transfers:
         totalTransfersIn(schedule) +
         totalTransfersOut(schedule) +
@@ -51,12 +53,13 @@ const PartialCosts = () => {
   ChartJS.register(ArcElement, Tooltip, Legend)
 
   const data = {
-    labels: ['Accommodation', 'Transfers', 'Meals', 'Activities'],
+    labels: ['Accommodation', 'Meetings', 'Transfers', 'Meals', 'Activities'],
     datasets: [
       {
         label: 'Budget Breakdown',
         data: [
           subtotals.hotel,
+          subtotals.meetings,
           subtotals.transfers,
           subtotals.meals,
           subtotals.activities
@@ -65,13 +68,15 @@ const PartialCosts = () => {
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
           'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)'
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(89, 90, 200, 0.2)'
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)'
+          'rgba(75, 192, 192, 1)',
+          'rgba(89, 90, 200, 1)'
         ],
         borderWidth: 1
       }
@@ -89,6 +94,18 @@ const PartialCosts = () => {
             className='flex-shrink-0'
           />
           <p className='hidden sm:block'> ACCOMMODATION </p>
+
+          {selectedMeetingTotalCost &&
+            accounting.formatMoney(selectedMeetingTotalCost)}
+        </div>
+        <div className='shadow-lg my-2 p-2 rounded flex flex-row justify-between dark:bg-gray-50 dark:text-black-50'>
+          <Icon
+            icon='mdi:handshake-outline'
+            color='#ea5933'
+            width='30'
+            className='flex-shrink-0'
+          />
+          <p className='hidden sm:block'> MEETINGS </p>
 
           {hotel &&
             accounting.formatMoney(

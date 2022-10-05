@@ -16,7 +16,11 @@ const TotalBudgetCost = ({ pax }) => {
   const { hotels } = currentProject
   const [selectedHotel, setSelectedHotel] = useState(hotels[0])
   const { budgetValues } = useContext(BudgetContext)
-  const { selectedHotelName, selectedVenueTotalCost } = budgetValues
+  const {
+    selectedHotelName,
+    selectedVenueTotalCost,
+    selectedMeetingTotalCost
+  } = budgetValues
   const { schedule } = useSelector(selectBudget)
 
   useEffect(() => {
@@ -41,17 +45,16 @@ const TotalBudgetCost = ({ pax }) => {
                 getTotalBudget(
                   pax,
                   schedule,
-                  getHotelTotal(
-                    selectedHotel.price[0],
-                    schedule.length - 1
-                  ) /* +
+                  getHotelTotal(selectedHotel.price[0], schedule.length - 1) +
+                    selectedMeetingTotalCost /* +
                     selectedVenueTotalCost */
                 ),
                 '€'
               )
             : schedule[0].length > 0
             ? accounting.formatMoney(
-                getTotalBudget(pax, schedule, 0) /* + selectedVenueTotalCost */,
+                getTotalBudget(pax, schedule, 0) +
+                  selectedMeetingTotalCost /* + selectedVenueTotalCost */,
                 '€'
               )
             : 0}

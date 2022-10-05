@@ -4,8 +4,9 @@ export const BUDGET_ACTIONS = {
   TOGGLE_VENUE_BREAKDOWN: 'TOGGLE_VENUE_BREAKDOWN',
   SET_SELECTED_VENUE_NAME: 'SET_SELECTED_VENUE_NAME',
   TOGGLE_MEETING_BREAKDOWN: 'TOGGLE_MEETING_BREAKDOWN',
-  SET_SELECTED_MEETING_NAME: 'SET_SELECTED_MEETING_NAME',
-  SET_SELECTED_VENUE_TOTAL_COST: 'SET_SELECTED_VENUE_TOTAL_COST'
+  SET_SELECTED_MEETING_HOTEL_ID: 'SET_SELECTED_MEETING_HOTEL_ID',
+  SET_SELECTED_VENUE_TOTAL_COST: 'SET_SELECTED_VENUE_TOTAL_COST',
+  SET_SELECTED_MEETING_TOTAL_COST: 'SET_SELECTED_MEETING_TOTAL_COST'
 }
 
 export const initialbudgetValues = {
@@ -14,8 +15,9 @@ export const initialbudgetValues = {
   meetingBreakdownOpen: false,
   selectedHotelName: '',
   selectedVenueName: '',
-  selectedMeetingName: '',
-  selectedVenueTotalCost: 0
+  selectedMeetingHotelId: '',
+  selectedVenueTotalCost: 0,
+  selectedMeetingTotalCost: 0
 }
 
 export const budgetReducer = (state, action) => {
@@ -46,15 +48,20 @@ export const budgetReducer = (state, action) => {
         ...state,
         meetingBreakdownOpen: payload
       }
-    case BUDGET_ACTIONS.SET_SELECTED_MEETING_NAME:
+    case BUDGET_ACTIONS.SET_SELECTED_MEETING_HOTEL_ID:
       return {
         ...state,
-        selectedMeetingName: payload
+        selectedMeetingHotelId: payload
       }
     case BUDGET_ACTIONS.SET_SELECTED_VENUE_TOTAL_COST:
       return {
         ...state,
         selectedVenueTotalCost: payload
+      }
+    case BUDGET_ACTIONS.SET_SELECTED_MEETING_TOTAL_COST:
+      return {
+        ...state,
+        selectedMeetingTotalCost: payload
       }
     default:
       return state

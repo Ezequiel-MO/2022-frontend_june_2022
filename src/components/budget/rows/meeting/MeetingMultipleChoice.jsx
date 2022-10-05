@@ -15,11 +15,11 @@ const MeetingMultipleChoice = ({ options, typeOfMeeting }) => {
         <Select
           onChange={(e) =>
             dispatch({
-              type: BUDGET_ACTIONS.SET_SELECTED_MEETING_NAME,
+              type: BUDGET_ACTIONS.SET_SELECTED_MEETING_HOTEL_ID,
               payload: e.target.value
             })
           }
-          value={options[0].hotel[0]}
+          value={budgetValues.selectedMeetingName || options[0].hotel[0]}
         >
           {options.map((option) => {
             return (

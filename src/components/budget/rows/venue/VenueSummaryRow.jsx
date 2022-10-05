@@ -8,8 +8,8 @@ import { BudgetContext } from '../../context/context'
 import { BUDGET_ACTIONS } from '../../context/reducer'
 
 const VenueSummaryRow = ({ options, pax }) => {
-  const { budgetValues, dispatch } = useContext(BudgetContext)
   const [selectedVenue, setSelectedVenue] = useState(options[0])
+  const { budgetValues, dispatch } = useContext(BudgetContext)
   const { venueBreakdownOpen, selectedVenueName } = budgetValues
 
   useEffect(() => {
