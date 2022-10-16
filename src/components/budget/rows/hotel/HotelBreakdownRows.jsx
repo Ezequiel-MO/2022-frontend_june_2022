@@ -9,12 +9,12 @@ import {
 import { Box } from '@mui/system'
 import { useContext, useEffect, useState } from 'react'
 import { BudgetContext } from '../../context/context'
-import BreakdownRow from './BreakdownRow'
+import HotelBreakdownRow from './HotelBreakdownRow'
 
 const HotelBreakdownRows = ({ hotels, nights }) => {
   const [selectedHotel, setSelectedHotel] = useState(hotels[0])
   const { budgetValues } = useContext(BudgetContext)
-  const { selectedHotelName } = budgetValues
+  const { selectedHotelName, hotelBreakdownOpen } = budgetValues
 
   useEffect(() => {
     if (selectedHotelName) {
@@ -34,11 +34,7 @@ const HotelBreakdownRows = ({ hotels, nights }) => {
   return (
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-        <Collapse
-          in={budgetValues.hotelBreakdownOpen}
-          timeout='auto'
-          unmountOnExit
-        >
+        <Collapse in={hotelBreakdownOpen} timeout='auto' unmountOnExit>
           <Box margin={1}>
             <Table size='small'>
               <TableHead>
@@ -51,26 +47,26 @@ const HotelBreakdownRows = ({ hotels, nights }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <BreakdownRow
+                <HotelBreakdownRow
                   units={DUInr}
                   rate={DUIprice}
                   nights={nights}
                   title='Double Room Single Use'
                 />
-                <BreakdownRow
+                <HotelBreakdownRow
                   units={DoubleRoomNr}
                   rate={DoubleRoomPrice}
                   nights={nights}
                   title='Double Room //Twin Room'
                 />
-                <BreakdownRow
+                <HotelBreakdownRow
                   units={DUInr + DoubleRoomNr * 2}
                   rate={DailyTax}
                   nights={nights}
                   title='City Tax'
                 />
                 {breakfast ? (
-                  <BreakdownRow
+                  <HotelBreakdownRow
                     units={DUInr + DoubleRoomNr * 2}
                     rate={breakfast}
                     nights={nights}

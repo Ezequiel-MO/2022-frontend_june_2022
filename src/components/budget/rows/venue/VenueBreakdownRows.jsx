@@ -11,16 +11,18 @@ import { Box } from '@mui/system'
 import { BudgetContext } from '../../context/context'
 import VenueBreakdownRow from './VenueBreakdownRow'
 
-const VenueBreakdownRows = ({ venues }) => {
-  const [selectedVenue, setSelectedVenue] = useState(venues[0])
+const VenueBreakdownRows = ({ options }) => {
+  const [selectedVenue, setSelectedVenue] = useState(options[0])
   const { budgetValues } = useContext(BudgetContext)
   const { selectedVenueName } = budgetValues
 
   useEffect(() => {
     if (selectedVenueName) {
-      setSelectedVenue(venues.find((venue) => venue.name === selectedVenueName))
+      setSelectedVenue(
+        options.find((venue) => venue.name === selectedVenueName)
+      )
     }
-  }, [selectedVenueName, venues])
+  }, [selectedVenueName, options])
 
   const {
     rental,
