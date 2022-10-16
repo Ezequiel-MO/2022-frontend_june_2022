@@ -95,8 +95,11 @@ const PartialCosts = () => {
           />
           <p className='hidden sm:block'> ACCOMMODATION </p>
 
-          {selectedMeetingTotalCost &&
-            accounting.formatMoney(selectedMeetingTotalCost)}
+          {hotel &&
+            accounting.formatMoney(
+              getHotelTotal(hotel.price[0], schedule.length - 1),
+              '€'
+            )}
         </div>
         <div className='shadow-lg my-2 p-2 rounded flex flex-row justify-between dark:bg-gray-50 dark:text-black-50'>
           <Icon
@@ -107,11 +110,8 @@ const PartialCosts = () => {
           />
           <p className='hidden sm:block'> MEETINGS </p>
 
-          {hotel &&
-            accounting.formatMoney(
-              getHotelTotal(hotel.price[0], schedule.length - 1),
-              '€'
-            )}
+          {selectedMeetingTotalCost &&
+            accounting.formatMoney(selectedMeetingTotalCost)}
         </div>
         <div className='shadow-lg my-2 p-2 rounded flex flex-row justify-between dark:bg-gray-50 dark:text-black-50'>
           <Icon
