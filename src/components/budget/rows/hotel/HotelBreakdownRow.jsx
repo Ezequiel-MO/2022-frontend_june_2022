@@ -1,17 +1,20 @@
 import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 
-const VenueBreakdownRow = ({ units, title, rate }) => {
+const HotelBreakdownRow = ({ title, units, rate, nights }) => {
   return (
     <TableRow>
       <TableCell component='th' scope='row'>
         {title}
       </TableCell>
       <TableCell>{units}</TableCell>
+      <TableCell>{nights}</TableCell>
       <TableCell>{accounting.formatMoney(rate, '€')}</TableCell>
-      <TableCell>{accounting.formatMoney(rate * units, '€')}</TableCell>
+      <TableCell>
+        {accounting.formatMoney(units * rate * nights, '€')}
+      </TableCell>
     </TableRow>
   )
 }
 
-export default VenueBreakdownRow
+export default HotelBreakdownRow

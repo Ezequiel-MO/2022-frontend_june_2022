@@ -7,10 +7,10 @@ import VenueMultipleChoice from './VenueMultipleChoice'
 import { BudgetContext } from '../../context/context'
 import { BUDGET_ACTIONS } from '../../context/reducer'
 
-const VenueRows = ({ venues, pax }) => {
+const VenueSummaryRow = ({ options, pax }) => {
+  const [selectedVenue, setSelectedVenue] = useState(options[0])
   const { budgetValues, dispatch } = useContext(BudgetContext)
-  const [selectedVenue, setSelectedVenue] = useState(venues[0])
-  const { selectedVenueName } = budgetValues
+  const { venueBreakdownOpen, selectedVenueName } = budgetValues
 
   useEffect(() => {
     const totalAmount = getVenueTotal(selectedVenue.venue_price[0])
@@ -23,10 +23,10 @@ const VenueRows = ({ venues, pax }) => {
   useEffect(() => {
     if (selectedVenueName) {
       setSelectedVenue(
-        venues?.find((venue) => venue.name === selectedVenueName)
+        options?.find((venue) => venue.name === selectedVenueName)
       )
     }
-  }, [selectedVenueName, venues])
+  }, [selectedVenueName, options])
 
   const { venue_price } = selectedVenue
   const { catering_units } = venue_price[0]
@@ -37,8 +37,8 @@ const VenueRows = ({ venues, pax }) => {
           <IconButton
             onClick={() =>
               dispatch({
-                type: BUDGET_ACTIONS.SET_VENUE_BREAKDOWN_OPEN,
-                payload: !budgetValues.venueBreakdownOpen
+                type: BUDGET_ACTIONS.TOGGLE_VENUE_BREAKDOWN,
+                payload: !venueBreakdownOpen
               })
             }
           >
@@ -51,7 +51,7 @@ const VenueRows = ({ venues, pax }) => {
         </TableCell>
         <TableCell></TableCell>
         <TableCell>
-          <VenueMultipleChoice options={venues} />
+          <VenueMultipleChoice options={options} />
         </TableCell>
         <TableCell>{catering_units}</TableCell>
         <TableCell></TableCell>
@@ -63,4 +63,4 @@ const VenueRows = ({ venues, pax }) => {
   )
 }
 
-export default VenueRows
+export default VenueSummaryRow
