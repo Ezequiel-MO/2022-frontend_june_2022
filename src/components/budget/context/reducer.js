@@ -1,3 +1,5 @@
+import { useReducer } from 'react'
+
 export const BUDGET_ACTIONS = {
   TOGGLE_HOTEL_BREAKDOWN: 'TOGGLE_HOTEL_BREAKDOWN',
   SET_SELECTED_HOTEL_NAME: 'SET_SELECTED_HOTEL_NAME',
@@ -74,3 +76,6 @@ export const budgetReducer = (state, action) => {
       return state
   }
 }
+
+export const useBudgetReducer = () =>
+  useReducer(budgetReducer, initialbudgetValues)

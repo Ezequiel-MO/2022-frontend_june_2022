@@ -1,11 +1,11 @@
 import { computeTotal } from './compute-totals-functions'
 
 export const totalTransfersIn = (arr) =>
-  arr[0].transfer_in.reduce((acc, curr) => acc + curr.transfer_in_out, 0)
+  arr[0].transfer_in.reduce((acc, curr) => acc + curr.transfer_in, 0)
 
 export const totalTransfersOut = (arr) =>
   arr[arr.length - 1].transfer_out.reduce(
-    (acc, curr) => acc + curr.transfer_in_out,
+    (acc, curr) => acc + curr.transfer_out,
     0
   )
 

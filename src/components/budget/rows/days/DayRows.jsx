@@ -22,7 +22,7 @@ const DayRows = ({ day, pax }) => {
           pax={transfer_in.length}
           date={date}
           options={transfer_in}
-          description='Transfer Aiport/Hotel'
+          description='Transfer starting @ Airport'
           id='transfer_in'
         />
       )}

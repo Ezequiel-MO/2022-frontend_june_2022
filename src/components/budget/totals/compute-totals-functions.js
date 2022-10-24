@@ -167,12 +167,12 @@ export const getTotalBudget = (pax = 1, schedule, hotelTotal = 0) => {
   })
 
   const totalTransfersIn = schedule[0].transfer_in.reduce(
-    (acc, curr) => acc + curr.transfer_in_out,
+    (acc, curr) => acc + curr.transfer_in,
     0
   )
 
   const totalTransfersOut = schedule[schedule.length - 1].transfer_out.reduce(
-    (acc, curr) => acc + curr.transfer_in_out,
+    (acc, curr) => acc + curr.transfer_out,
     0
   )
 

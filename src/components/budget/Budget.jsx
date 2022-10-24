@@ -3,12 +3,12 @@ import { Table, TableBody } from '@mui/material'
 import DayRows from './rows/days/DayRows'
 import HotelSummaryRow from './rows/hotel/HotelSummaryRow'
 import HotelBreakdownRows from './rows/hotel/HotelBreakdownRows'
-import { BudgetContext } from './context/context'
 import { budgetReducer, initialbudgetValues } from './context/reducer'
 import TotalBudgetCost from './totals/TotalBudgetCost'
 import { useCurrentProject } from '../../hooks/useCurrentProject'
 import BudgetTableHead from './BudgetTableHead'
 import PartialCosts from './partial-costs/PartialCosts'
+import { BudgetProvider } from './context/provider'
 
 const Budget = forwardRef((props, ref) => {
   const { currentProject } = useCurrentProject()
@@ -20,7 +20,7 @@ const Budget = forwardRef((props, ref) => {
 
   return (
     <div ref={ref}>
-      <BudgetContext.Provider value={{ budgetValues, dispatch }}>
+      <BudgetProvider>
         <div
           className='overflow-x-scroll no-scrollbar lg:min-w-max '
           id='budget_id'
@@ -53,7 +53,7 @@ const Budget = forwardRef((props, ref) => {
           </Table>
         </div>
         <PartialCosts />
-      </BudgetContext.Provider>
+      </BudgetProvider>
     </div>
   )
 })
