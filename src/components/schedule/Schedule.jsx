@@ -1,4 +1,5 @@
 import { useCurrentProject } from '../../hooks/useCurrentProject'
+import Text from '../Text'
 import Events from './Events'
 import Meals from './Meals'
 import Meetings from './Meetings'
@@ -19,9 +20,7 @@ const Schedule = () => {
           </h2>
           {day.morningEvents.length > 0 ? (
             <>
-              <p className='text-black-50 dark:text-white-50'>
-                {day.morningEvents[0].introduction}
-              </p>
+              <Text text={day.morningEvents[0].introduction} />
               <Events events={day.morningEvents} />
             </>
           ) : (
@@ -43,9 +42,7 @@ const Schedule = () => {
           )} */}
           {day.lunch.length > 0 ? (
             <>
-              <p className='text-black-50 dark:text-white-50'>
-                {day.lunch[0].introduction}
-              </p>
+              <Text text={day.lunch[0].introduction} />
               <Meals restaurants={day.lunch} />
             </>
           ) : (
@@ -53,9 +50,7 @@ const Schedule = () => {
           )}
           {day.afternoonEvents.length > 0 ? (
             <>
-              <p className='text-black-50 dark:text-white-50'>
-                {day.afternoonEvents[0].introduction}
-              </p>
+              <Text text={day.afternoonEvents[0].introduction} />
               <Events events={day.afternoonEvents} />
             </>
           ) : (
@@ -63,9 +58,7 @@ const Schedule = () => {
           )}
           {day.dinner.length > 0 ? (
             <>
-              <p className='text-black-50 dark:text-white-50'>
-                {day.dinner[0].introduction}
-              </p>
+              <Text text={day.dinner[0].introduction} />
               <Meals restaurants={day.dinner} />
             </>
           ) : (
