@@ -65,18 +65,18 @@ const DayRows = ({ day, pax }) => {
             pax={lunch[0].transfer.length}
             date={date}
             options={lunch[0].transfer}
-            description='Transfer'
+            description={
+              lunch[0].transfer[0].selectedService === 'dispo_4h'
+                ? 'Transfer 4h at disposal'
+                : 'Transfer'
+            }
             id='transfer'
           />
           <DayRow
             pax={pax}
             date={date}
             options={lunch}
-            description={
-              lunch[0].transfer[0].selectedService === 'dispo_4h'
-                ? 'Transfer 4h at disposal'
-                : 'Transfer'
-            }
+            description='Lunch Restaurants'
             multipleChoice={`${lunch.length > 1}`}
             id='lunch'
           />
@@ -109,7 +109,7 @@ const DayRows = ({ day, pax }) => {
             date={date}
             options={dinner[0].transfer}
             description={
-              dinner[0].transfer[0].selectedService === 'dispo_4h_night'
+              dinner[0].transfer[0].selectedService === 'dispo_'
                 ? 'Transfer 4h at disposal night hours'
                 : 'Transfer'
             }
