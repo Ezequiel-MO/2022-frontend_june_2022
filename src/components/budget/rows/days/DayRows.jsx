@@ -18,24 +18,57 @@ const DayRows = ({ day, pax }) => {
   return (
     <>
       {transfer_in.length > 0 && (
-        <DayRow
-          pax={transfer_in.length}
-          date={date}
-          options={transfer_in}
-          description='Transfer starting @ Airport'
-          id='transfer_in'
-        />
+        <>
+          {transfer_in[0].withAssistance === true &&
+          transfer_in[0].meetGreet > 0 ? (
+            <DayRow
+              pax={1}
+              date={date}
+              options={transfer_in}
+              description='Meet & Greet @ Airport'
+              id='meet_greet'
+            />
+          ) : null}
+          {transfer_in[0].withAssistance === true &&
+          transfer_in[0].assistance > 0 ? (
+            <DayRow
+              pax={transfer_in.length}
+              date={date}
+              options={transfer_in}
+              description='Assistant on Bus'
+              id='assistance'
+            />
+          ) : null}
+          <DayRow
+            pax={transfer_in.length}
+            date={date}
+            options={transfer_in}
+            description='Transfer starting @ Airport'
+            id='transfer_in'
+          />
+        </>
       )}
       {morningEvents.length > 0 && (
         <>
           {morningEvents[0].transfer.length > 0 && (
-            <DayRow
-              pax={morningEvents[0].transfer.length}
-              date={date}
-              options={morningEvents[0].transfer}
-              description='Transfer'
-              id='transfer'
-            />
+            <>
+              {morningEvents[0].transfer[0].withAssistance === true ? (
+                <DayRow
+                  pax={morningEvents[0].transfer.length}
+                  date={date}
+                  options={morningEvents[0].transfer}
+                  description='Assistance on Bus'
+                  id='assistance'
+                />
+              ) : null}
+              <DayRow
+                pax={morningEvents[0].transfer.length}
+                date={date}
+                options={morningEvents[0].transfer}
+                description='Transfer'
+                id='transfer'
+              />
+            </>
           )}
           <DayRow
             pax={pax}
@@ -61,6 +94,15 @@ const DayRows = ({ day, pax }) => {
 
       {lunch.length > 0 && (
         <>
+          {lunch[0].transfer[0].withAssistance === true ? (
+            <DayRow
+              pax={lunch[0].transfer.length}
+              date={date}
+              options={lunch[0].transfer}
+              description='Assistance on Bus'
+              id='assistance'
+            />
+          ) : null}
           <DayRow
             pax={lunch[0].transfer.length}
             date={date}
@@ -84,6 +126,15 @@ const DayRows = ({ day, pax }) => {
       )}
       {afternoonEvents.length > 0 && (
         <>
+          {afternoonEvents[0].transfer[0].withAssistance === true ? (
+            <DayRow
+              pax={afternoonEvents[0].transfer.length}
+              date={date}
+              options={afternoonEvents[0].transfer}
+              description='Assistance on Bus'
+              id='assistance'
+            />
+          ) : null}
           <DayRow
             pax={afternoonEvents[0].transfer.length}
             date={date}
@@ -103,7 +154,15 @@ const DayRows = ({ day, pax }) => {
       )}
       {dinner.length > 0 && (
         <>
-          {console.log('DINNER', dinner[0].transfer[0]['selectedService'])}
+          {dinner[0].transfer[0].withAssistance === true ? (
+            <DayRow
+              pax={dinner[0].transfer.length}
+              date={date}
+              options={dinner[0].transfer}
+              description='Assistance on Bus'
+              id='assistance'
+            />
+          ) : null}
           <DayRow
             pax={dinner[0].transfer.length}
             date={date}
@@ -134,13 +193,33 @@ const DayRows = ({ day, pax }) => {
       )}
 
       {transfer_out.length > 0 && (
-        <DayRow
-          pax={transfer_out.length}
-          date={date}
-          options={transfer_out}
-          description='Hotel or City/Airport'
-          id='transfer_out'
-        />
+        <>
+          {transfer_out[0].meetGreet > 0 ? (
+            <DayRow
+              pax={1}
+              date={date}
+              options={transfer_out}
+              description='Bus dispatcher'
+              id='meet_greet'
+            />
+          ) : null}
+          {transfer_out[0].assistance > 0 ? (
+            <DayRow
+              pax={transfer_out.length}
+              date={date}
+              options={transfer_out}
+              description='Assistant on bus'
+              id='assistance'
+            />
+          ) : null}
+          <DayRow
+            pax={transfer_out.length}
+            date={date}
+            options={transfer_out}
+            description='Hotel or City/Airport'
+            id='transfer_out'
+          />
+        </>
       )}
     </>
   )
