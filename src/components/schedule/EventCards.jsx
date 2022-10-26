@@ -1,12 +1,12 @@
 import { Typography } from '@mui/material'
-import Paragraph from '../../ui/Paragraph'
 import RenderPhotos from '../../ui/renderPhotos/RenderPhotos'
+import ParagraphText from '../Text'
 
 const EventCards = ({ event }) => {
   return (
     <div id={event._id}>
       <Typography variant='h5'>{event.name}</Typography>
-      <Text text={JSON.parse(event.textContent)} />
+      <ParagraphText text={JSON.parse(event.textContent)} />
       <RenderPhotos images={event.imageContentUrl} />
     </div>
   )

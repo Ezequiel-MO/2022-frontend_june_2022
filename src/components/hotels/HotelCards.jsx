@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Rating } from '@mui/material'
 import RenderPhotos from '../../ui/renderPhotos/RenderPhotos'
 import HotelIcons from './HotelIcons'
-import Text from '../Text'
+import ParagraphText from '../Text'
 
 const HotelCards = ({ hotel }) => {
   const [stars] = useState(hotel.numberStars)
@@ -36,7 +36,7 @@ const HotelCards = ({ hotel }) => {
         <h2>{hotel.name}</h2>
         <Rating readOnly value={stars} />
       </div>
-      <Text text={hotel.textContent} />
+      <ParagraphText text={hotel.textContent} />
       <RenderPhotos images={hotel.imageContentUrl} />
       <HotelIcons
         leftIconsText={leftIconsText}

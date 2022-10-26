@@ -6,7 +6,7 @@ import Schedule from './schedule/Schedule'
 import { useCurrentProject } from '../hooks/useCurrentProject'
 import Budget from './budget/Budget'
 import ScrollToTopButton from '../ui/ScrollToTopButton'
-import Text from './Text'
+import ParagraphText from './Text'
 
 const MainSection = () => {
   const componentRef = useRef()
@@ -20,7 +20,7 @@ const MainSection = () => {
       <h1 className='text-2xl md:text-2xl mb-4 font-extrabold'>
         {`Quotation for Gr. ${groupName}`}
       </h1>
-      <Text text={projectIntro} />
+      <ParagraphText text={projectIntro} />
       <Hotels hotels={hotels} />
       <Schedule />
       <div>
