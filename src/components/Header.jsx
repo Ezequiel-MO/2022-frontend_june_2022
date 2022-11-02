@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import header_image from '../assets/header_image.jpg'
 import cutt_logo from '../assets/CUTT_LOGO.png'
 import sun from '../assets/sun-svgrepo-com.svg'
