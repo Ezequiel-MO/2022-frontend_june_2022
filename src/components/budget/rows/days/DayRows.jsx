@@ -12,8 +12,10 @@ const DayRows = ({ day, pax }) => {
     morningMeetings,
     lunch,
     afternoonEvents,
+    afternoonMeetings,
     dinner,
-    transfer_out
+    transfer_out,
+    fullDayMeetings
   } = day
   return (
     <>
@@ -80,7 +82,18 @@ const DayRows = ({ day, pax }) => {
           />
         </>
       )}
-      {morningMeetings.length > 0 && (
+      {fullDayMeetings.length > 0 && (
+        <>
+        <MeetingSummaryRow
+            pax={pax}
+            date={date}
+            typeOfMeeting='Full Day Meeting'
+            options={fullDayMeetings}
+          />
+          <MeetingBreakdownRows pax={pax} />
+        </>
+      )}
+      {fullDayMeetings.length === 0 && morningMeetings.length > 0 && (
         <>
           <MeetingSummaryRow
             pax={pax}
@@ -151,6 +164,17 @@ const DayRows = ({ day, pax }) => {
             id='afternoonEvents'
           />
         </>
+      )}
+      {fullDayMeetings.length === 0 && afternoonMeetings.length > 0 && (
+        <>
+        <MeetingSummaryRow
+          pax={pax}
+          date={date}
+          typeOfMeeting='Afternoon Meeting'
+          options={afternoonMeetings}
+        />
+        <MeetingBreakdownRows pax={pax} />
+      </>
       )}
       {dinner.length > 0 && (
         <>
