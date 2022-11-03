@@ -7,7 +7,7 @@ import { BUDGET_ACTIONS } from '../../context/reducer'
 import MeetingMultipleChoice from './MeetingMultipleChoice'
 import { getMeetingTotal } from '../../totals/compute-totals-functions'
 
-const MeetingSummaryRow = ({ pax, date, typeOfMeeting, options }) => {
+const MeetingSummaryRow = ({ pax, dateProp, typeOfMeetingProp, options }) => {
   const [selectedMeeting, setSelectedMeeting] = useState(options[0])
   const { budgetValues, dispatch } = useContext(BudgetContext)
   const {
@@ -15,6 +15,8 @@ const MeetingSummaryRow = ({ pax, date, typeOfMeeting, options }) => {
     selectedMeetingHotelId,
     selectedMeetingTotalCost
   } = budgetValues
+
+  const { open, date, typeOfMeeting } = meetingBreakdownOpen
   useEffect(() => {
     const totalAmount = getMeetingTotal(selectedMeeting, pax)
     dispatch({
@@ -37,17 +39,21 @@ const MeetingSummaryRow = ({ pax, date, typeOfMeeting, options }) => {
 
   return (
     <TableRow>
-      <TableCell>{date}</TableCell>
+      <TableCell>{dateProp}</TableCell>
       <TableCell>
         <IconButton
           onClick={() =>
             dispatch({
               type: BUDGET_ACTIONS.TOGGLE_MEETING_BREAKDOWN,
-              payload: !meetingBreakdownOpen
+              payload: {
+                open: !open,
+                date: dateProp,
+                typeOfMeeting: typeOfMeetingProp
+              }
             })
           }
         >
-          {meetingBreakdownOpen ? (
+          {open && date === dateProp && typeOfMeeting === typeOfMeetingProp ? (
             <Icon icon='bx:up-arrow' color='#ea5933' />
           ) : (
             <Icon icon='bx:down-arrow' color='#ea5933' />
@@ -55,9 +61,9 @@ const MeetingSummaryRow = ({ pax, date, typeOfMeeting, options }) => {
         </IconButton>
       </TableCell>
       <TableCell>
-      <MeetingMultipleChoice
+        <MeetingMultipleChoice
           options={options}
-          typeOfMeeting={typeOfMeeting}
+          typeOfMeeting={typeOfMeetingProp}
         />
       </TableCell>
       <TableCell></TableCell>
