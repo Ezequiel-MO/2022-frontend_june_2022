@@ -11,15 +11,19 @@ import { Box } from '@mui/system'
 import { BudgetContext } from '../../context/context'
 import MeetingBreakdownRow from './MeetingBreakdownRow'
 
-const MeetingBreakdownRows = ({ pax }) => {
+const MeetingBreakdownRows = ({ pax, dateProp, typeOfMeetingProp }) => {
   const { budgetValues } = useContext(BudgetContext)
   const { meetingBreakdownOpen, selectedMeeting } = budgetValues
-  console.log('selected meeting', selectedMeeting)
+  const { open, date, typeOfMeeting } = meetingBreakdownOpen
 
   return (
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-        <Collapse in={meetingBreakdownOpen} timeout='auto' unmountOnExit>
+        <Collapse
+          in={open && date === dateProp && typeOfMeeting === typeOfMeetingProp}
+          timeout='auto'
+          unmountOnExit
+        >
           <Box margin={1}>
             <Table size='small'>
               <TableHead>
@@ -35,32 +39,32 @@ const MeetingBreakdownRows = ({ pax }) => {
                 <MeetingBreakdownRow
                   units={1}
                   title='Half Day Rental Rate'
-                  rate={selectedMeeting.HDRate}
+                  rate={selectedMeeting?.HDRate}
                 />
                 <MeetingBreakdownRow
                   units={pax}
                   title='Half Day Delegate Rate'
-                  rate={selectedMeeting.HDDDR}
+                  rate={selectedMeeting?.HDDDR}
                 />
                 <MeetingBreakdownRow
-                  units={selectedMeeting.coffeeBreakUnits}
+                  units={selectedMeeting?.coffeeBreakUnits}
                   title='Coffee Breaks'
-                  rate={selectedMeeting.coffeeBreakPrice}
+                  rate={selectedMeeting?.coffeeBreakPrice}
                 />
                 <MeetingBreakdownRow
-                  units={selectedMeeting.workingLunchUnits}
+                  units={selectedMeeting?.workingLunchUnits}
                   title='Working Lunch'
-                  rate={selectedMeeting.workingLunchPrice}
+                  rate={selectedMeeting?.workingLunchPrice}
                 />
                 <MeetingBreakdownRow
-                  units={selectedMeeting.hotelDinnerUnits}
+                  units={selectedMeeting?.hotelDinnerUnits}
                   title='Dinner @ Hotel'
-                  rate={selectedMeeting.hotelDinnerPrice}
+                  rate={selectedMeeting?.hotelDinnerPrice}
                 />
                 <MeetingBreakdownRow
                   units={1}
                   title='Audio Visuals Package'
-                  rate={selectedMeeting.aavvPackage}
+                  rate={selectedMeeting?.aavvPackage}
                 />
               </TableBody>
             </Table>

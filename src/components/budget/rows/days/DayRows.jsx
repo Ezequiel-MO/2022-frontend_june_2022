@@ -17,6 +17,7 @@ const DayRows = ({ day, pax }) => {
     transfer_out,
     fullDayMeetings
   } = day
+
   return (
     <>
       {transfer_in.length > 0 && (
@@ -82,26 +83,19 @@ const DayRows = ({ day, pax }) => {
           />
         </>
       )}
-      {fullDayMeetings.length > 0 && (
-        <>
-        <MeetingSummaryRow
-            pax={pax}
-            date={date}
-            typeOfMeeting='Full Day Meeting'
-            options={fullDayMeetings}
-          />
-          <MeetingBreakdownRows pax={pax} />
-        </>
-      )}
-      {fullDayMeetings.length === 0 && morningMeetings.length > 0 && (
+      {morningMeetings.length > 0 && (
         <>
           <MeetingSummaryRow
             pax={pax}
-            date={date}
-            typeOfMeeting='Morning Meeting'
+            dateProp={date}
+            typeOfMeetingProp='Morning Meeting'
             options={morningMeetings}
           />
-          <MeetingBreakdownRows pax={pax} />
+          <MeetingBreakdownRows
+            pax={pax}
+            dateProp={date}
+            typeOfMeetingProp='Morning Meeting'
+          />
         </>
       )}
 
@@ -165,16 +159,35 @@ const DayRows = ({ day, pax }) => {
           />
         </>
       )}
-      {fullDayMeetings.length === 0 && afternoonMeetings.length > 0 && (
+      {afternoonMeetings.length > 0 && (
         <>
-        <MeetingSummaryRow
-          pax={pax}
-          date={date}
-          typeOfMeeting='Afternoon Meeting'
-          options={afternoonMeetings}
-        />
-        <MeetingBreakdownRows pax={pax} />
-      </>
+          <MeetingSummaryRow
+            pax={pax}
+            dateProp={date}
+            typeOfMeetingProp='Afternoon Meeting'
+            options={afternoonMeetings}
+          />
+          <MeetingBreakdownRows
+            pax={pax}
+            dateProp={date}
+            typeOfMeetingProp='Afternoon Meeting'
+          />
+        </>
+      )}
+      {fullDayMeetings.length > 0 && (
+        <>
+          <MeetingSummaryRow
+            pax={pax}
+            dateProp={date}
+            typeOfMeetingProp='Full Day Meeting'
+            options={fullDayMeetings}
+          />
+          <MeetingBreakdownRows
+            pax={pax}
+            dateProp={date}
+            typeOfMeetingProp='Full Day Meeting'
+          />
+        </>
       )}
       {dinner.length > 0 && (
         <>

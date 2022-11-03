@@ -15,7 +15,11 @@ export const BUDGET_ACTIONS = {
 export const initialbudgetValues = {
   hotelBreakdownOpen: true,
   venueBreakdownOpen: false,
-  meetingBreakdownOpen: false,
+  meetingBreakdownOpen: {
+    open: false,
+    date: '',
+    typeOfMeeting: ''
+  },
   selectedHotelName: '',
   selectedVenueName: '',
   selectedMeeting: {},
@@ -48,10 +52,17 @@ export const budgetReducer = (state, action) => {
         venueBreakdownOpen: payload
       }
     case BUDGET_ACTIONS.TOGGLE_MEETING_BREAKDOWN:
+      const { open, date, typeOfMeeting } = payload
       return {
         ...state,
-        meetingBreakdownOpen: payload
+        meetingBreakdownOpen: {
+          ...state.meetingBreakdownOpen,
+          open,
+          date,
+          typeOfMeeting
+        }
       }
+
     case BUDGET_ACTIONS.SET_SELECTED_MEETING_HOTEL_ID:
       return {
         ...state,
