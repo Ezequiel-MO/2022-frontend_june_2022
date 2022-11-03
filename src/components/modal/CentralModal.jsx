@@ -12,7 +12,9 @@ const CentralModal = ({ open, handleClose, typeOfModal }) => {
       <Modal open={open} onClose={handleClose}>
         <Box
           typeOfModal={typeOfModal}
-          className="absolute h-max top-10 left-10 right-10 bottom-10 md:left-[150px]  md:right-[150px] lg:left-[250px] lg:right-250px] overflow-hidden"
+          className={` ${
+            typeOfModal === "Overview" ? "h-max" : ""
+          } absolute top-10 left-10 right-10 bottom-10 md:left-[150px] md:right-[150px] lg:left-[250px] lg:right-250px] overflow-hidden`}
         >
           <Typography
             variant="h6"
