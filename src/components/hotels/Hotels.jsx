@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useActiveTab } from "../../context/ActiveTabProvider";
 import HotelCards from "./HotelCards";
 
 const Hotels = ({ hotels }) => {
-  const [openTab, setOpenTab] = useState(1);
+  const { activeTab, setActiveTab } = useActiveTab();
 
   return (
     <>
@@ -19,7 +19,7 @@ const Hotels = ({ hotels }) => {
                     className="text-sm font-bold uppercase px-5 py-3 shadow-sm rounded block leading-normal bg-white-100 hover:bg-gray-100 dark:bg-gray-50 dark:hover:bg-green-50 dark:hover:text-black-50 focus:outline-none focus:shadow-outline"
                     onClick={(e) => {
                       e.preventDefault();
-                      setOpenTab(index + 1);
+                      setActiveTab(index + 1);
                     }}
                     href={`#tab${index + 1}`}
                     role="tablist"
@@ -35,7 +35,7 @@ const Hotels = ({ hotels }) => {
                   {hotels.map((hotel, index) => (
                     <div
                       key={hotel._id}
-                      className={openTab === index + 1 ? "block" : "hidden"}
+                      className={activeTab === index + 1 ? "block" : "hidden"}
                       id={`tab${index + 1}`}
                     >
                       <HotelCards hotel={hotel} />

@@ -13,7 +13,7 @@ const MapLogic = () => {
   const [viewState, setViewState] = useState({
     latitude: 41.492944,
     longitude: 2.0567259,
-    zoom: 14,
+    zoom: 10,
     bearing: 0,
     pitch: 0,
   });

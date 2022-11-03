@@ -1,8 +1,15 @@
 import { Icon } from "@iconify/react";
+import { useState } from "react";
 import { Link } from "react-scroll";
 import ReactTooltip from "react-tooltip";
+import { useActiveTab } from "../../context/ActiveTabProvider";
+import { useCurrentProject } from "../../hooks/useCurrentProject";
 
 function SidebarRow({ iconText, title, modal = false, handleOpen }) {
+  const [hotelOpen, setHotelOpen] = useState(false);
+  const { currentProject } = useCurrentProject();
+  const { hotels } = currentProject;
+  const { activeTab, setActiveTab } = useActiveTab();
   if (modal) {
     return (
       <div
@@ -20,7 +27,6 @@ function SidebarRow({ iconText, title, modal = false, handleOpen }) {
       </div>
     );
   }
-
   return (
     <>
       <Link
@@ -30,6 +36,10 @@ function SidebarRow({ iconText, title, modal = false, handleOpen }) {
         duration={500}
         offset={-100}
         className="flex items-center space-x-2 px-4 py-3 rounded-full hover:bg-green-50 cursor-pointer transition-all duration-200 group"
+        onMouseEnter={() =>
+          title === "hotels" ? setHotelOpen(true) : setHotelOpen(false)
+        }
+        onMouseLeave={() => setHotelOpen(false)}
       >
         <div
           className="flex-shrink-0"
@@ -44,6 +54,25 @@ function SidebarRow({ iconText, title, modal = false, handleOpen }) {
         </p>
         <ReactTooltip id="main" />
       </Link>
+      {hotelOpen ? (
+        <div
+          className="flex flex-col space-y-4 p-4 ml-4"
+          onMouseEnter={() => setHotelOpen(true)}
+          onMouseLeave={() => setHotelOpen(false)}
+        >
+          {hotels?.map((hotel, index) => (
+            <p
+              onClick={() => setActiveTab(index + 1)}
+              key={index}
+              className={`${
+                activeTab === index + 1 ? "text-orange-50" : ""
+              } hover:text-orange-50 hover:cursor-pointer hidden md:inline-flex text-sm lg:text-base`}
+            >
+              {hotel.name.replace(/^\w/, (c) => c.toUpperCase())}
+            </p>
+          ))}
+        </div>
+      ) : null}
     </>
   );
 }
