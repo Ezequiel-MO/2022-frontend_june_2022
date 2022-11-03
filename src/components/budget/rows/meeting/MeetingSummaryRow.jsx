@@ -15,7 +15,6 @@ const MeetingSummaryRow = ({ pax, date, typeOfMeeting, options }) => {
     selectedMeetingHotelId,
     selectedMeetingTotalCost
   } = budgetValues
-
   useEffect(() => {
     const totalAmount = getMeetingTotal(selectedMeeting, pax)
     dispatch({
@@ -27,7 +26,6 @@ const MeetingSummaryRow = ({ pax, date, typeOfMeeting, options }) => {
       payload: selectedMeeting
     })
   }, [selectedMeeting])
-
   useEffect(() => {
     if (selectedMeetingHotelId) {
       const selectedMeeting = options?.find(
@@ -57,7 +55,7 @@ const MeetingSummaryRow = ({ pax, date, typeOfMeeting, options }) => {
         </IconButton>
       </TableCell>
       <TableCell>
-        <MeetingMultipleChoice
+      <MeetingMultipleChoice
           options={options}
           typeOfMeeting={typeOfMeeting}
         />
