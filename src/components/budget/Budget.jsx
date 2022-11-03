@@ -3,7 +3,6 @@ import { Table, TableBody } from '@mui/material'
 import DayRows from './rows/days/DayRows'
 import HotelSummaryRow from './rows/hotel/HotelSummaryRow'
 import HotelBreakdownRows from './rows/hotel/HotelBreakdownRows'
-import { budgetReducer, initialbudgetValues } from './context/reducer'
 import TotalBudgetCost from './totals/TotalBudgetCost'
 import { useCurrentProject } from '../../hooks/useCurrentProject'
 import BudgetTableHead from './BudgetTableHead'
@@ -13,18 +12,11 @@ import { BudgetProvider } from './context/provider'
 const Budget = forwardRef((props, ref) => {
   const { currentProject } = useCurrentProject()
   const { hotels, schedule, nrPax } = currentProject
-  const [budgetValues, dispatch] = useReducer(
-    budgetReducer,
-    initialbudgetValues
-  )
 
   return (
     <div ref={ref}>
       <BudgetProvider>
-        <div
-          className='overflow-x-scroll no-scrollbar lg:min-w-max '
-          id='budget_id'
-        >
+        <div className='no-scrollbar overflow-x-auto' id='budget_id'>
           <Table
             stickyHeader
             size='small'
