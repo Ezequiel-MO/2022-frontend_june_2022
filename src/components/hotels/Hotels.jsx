@@ -2,7 +2,7 @@ import { useActiveTab } from "../../context/ActiveTabProvider";
 import HotelCards from "./HotelCards";
 
 const Hotels = ({ hotels }) => {
-  const { activeTab, setActiveTab } = useActiveTab();
+  const { activeTab, setActiveTab, change } = useActiveTab();
 
   return (
     <>
@@ -16,7 +16,11 @@ const Hotels = ({ hotels }) => {
               {hotels?.map((hotel, index) => (
                 <li key={hotel._id} className="mr-2 last:mr-0 flex-auto">
                   <a
-                    className="text-sm font-bold uppercase px-5 py-3 shadow-sm rounded block leading-normal bg-white-100 hover:bg-gray-100 dark:bg-gray-50 dark:hover:bg-green-50 dark:hover:text-black-50 focus:outline-none focus:shadow-outline"
+                    className={`${
+                      change && activeTab === index + 1
+                        ? "bg-blue-500 dark:bg-blue-50 transition-all ease-in-out"
+                        : "bg-white-100 dark:bg-gray-50 transition-all ease-in-out"
+                    } text-sm font-bold uppercase px-5 py-3 shadow-sm rounded block leading-normal bg-white-100 hover:bg-gray-100 dark:bg-gray-50 dark:hover:bg-green-50 dark:hover:text-black-50 focus:outline-none focus:shadow-outline`}
                     onClick={(e) => {
                       e.preventDefault();
                       setActiveTab(index + 1);
