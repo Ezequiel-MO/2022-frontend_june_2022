@@ -38,20 +38,6 @@ const VenueBreakdownRows = ({ options }) => {
     entertainment
   } = selectedVenue.venue_price[0]
 
-  console.log(
-    rental,
-    cocktail_units,
-    cocktail_price,
-    catering_units,
-    catering_price,
-    staff_units,
-    staff_menu_price,
-    audiovisuals,
-    cleaning,
-    security,
-    entertainment
-  )
-
   const BreakdownRowsArr = [
     { units: 1, title: 'Rental Fee', rate: rental },
     {

@@ -100,8 +100,6 @@ export const getVenueTotal = (venue_price) => {
 }
 
 export const getMeetingTotal = (meeting, pax) => {
-  console.log('meeting', meeting)
-
   let totalMeetingCost = 20
   /*     FDDDR * pax +
     FDRate +
