@@ -4,6 +4,8 @@ import { Header, LoginPage } from "./components";
 import { useUserLog } from "./hooks/useUserLog";
 import AuthLayout from "./layouts/AuthLayout";
 import ProtectedRoute from "./layouts/ProtectedRoute";
+import Credentials from "./screens/Credentials";
+import Destination from "./screens/Destination";
 import MainPage from "./screens/MainPage";
 import NotFound from "./ui/NotFound";
 
@@ -23,6 +25,22 @@ function App() {
             element={
               <ProtectedRoute user={userIsLoggedIn}>
                 <MainPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="credentials"
+            element={
+              <ProtectedRoute user={userIsLoggedIn}>
+                <Credentials />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="destinationInfo"
+            element={
+              <ProtectedRoute user={userIsLoggedIn}>
+                <Destination />
               </ProtectedRoute>
             }
           />
