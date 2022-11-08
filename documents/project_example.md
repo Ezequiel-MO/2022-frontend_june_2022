@@ -1,6 +1,5 @@
 Below you will find an example of a project object.
-Below does not include all the properties of a project object. It only includes the properties
-that are required to compute the budget.
+Below does not include all the properties, but only those that are required to compute the budget.
 
 The below intends to describe a bit of the business logic behind the project, so that you are able to better
 understand the app.
