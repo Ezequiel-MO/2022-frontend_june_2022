@@ -1,4 +1,4 @@
-<!-- Below you will find an example of a project object.
+Below you will find an example of a project object.
 Below does not include all the properties of a project object. It only includes the properties
 that are required to compute the budget.
 
@@ -14,7 +14,6 @@ by bus, or individual cars, and then they may do an offsite dinner on arrival da
 On day 2, they may have a meeting in the morning, lunch in the hotel, an activity in the afternoon ....
 
 The app offers them sample programs and diferent alternatives for each day.
- -->
 
 ```
 {
