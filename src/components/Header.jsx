@@ -4,13 +4,14 @@ import cutt_logo from "../assets/CUTT_LOGO.png";
 import sun from "../assets/sun-svgrepo-com.svg";
 import moon from "../assets/moon-svgrepo-com.svg";
 import switch_off from "../assets/switch_off.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import useDarkMode from "../hooks/useDarkMode";
 import { useUserLog } from "../hooks/useUserLog";
 import { useCurrentProject } from "../hooks/useCurrentProject";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isDarkMode, toggleDarkMode] = useDarkMode();
   const { logUserOut, userIsLoggedIn } = useUserLog();
   const { currentProject } = useCurrentProject();
@@ -26,17 +27,30 @@ const Header = () => {
   const handleRoute = (route) => {
     navigate(route);
   };
+  console.log(currentProject);
+  console.log(userIsLoggedIn);
   return (
     <>
       <div className="relative h-32 m-8 overflow-hidden bg-black-50 dark:bg-white-50 rounded-lg">
         <div className="absolute z-30 flex w-full h-full">
           <div className="relative z-30 w-5/6 px-6 py-8 text-white md:py-10 md:w-1/2">
             <Link to="/">
-              <img
-                alt="front-end header"
-                className="object-cover h-6"
-                src={cutt_logo}
-              />
+              {location.pathname === "/" ? (
+                ""
+              ) : userIsLoggedIn &&
+                currentProject.corporateImage[0].imageContentUrl?.length > 0 ? (
+                <img
+                  alt="front-end header"
+                  className="object-cover h-6"
+                  src={currentProject.corporateImage[0].imageContentUrl[0]}
+                />
+              ) : (
+                <img
+                  alt="front-end header"
+                  className="object-cover h-6"
+                  src={cutt_logo}
+                />
+              )}
             </Link>
           </div>
           <div
