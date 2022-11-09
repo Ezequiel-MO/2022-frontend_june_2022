@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import header_image from '../assets/header_image.jpg'
-import cutt_logo from '../assets/CUTT_LOGO.png'
-import sun from '../assets/sun-svgrepo-com.svg'
-import moon from '../assets/moon-svgrepo-com.svg'
-import switch_off from '../assets/switch_off.svg'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import useDarkMode from '../hooks/useDarkMode'
-import { useUserLog } from '../hooks/useUserLog'
-import { useCurrentProject } from '../hooks/useCurrentProject'
+import header_image from '../../assets/header_image.jpg'
+import cutt_logo from '../../assets/CUTT_LOGO.png'
+import sun from '../../assets/sun-svgrepo-com.svg'
+import moon from '../../assets/moon-svgrepo-com.svg'
+import switch_off from '../../assets/switch_off.svg'
+import useDarkMode from '../../hooks/useDarkMode'
+import { useUserLog } from '../../hooks/useUserLog'
+import { useCurrentProject } from '../../hooks/useCurrentProject'
 
 const Header = () => {
   const navigate = useNavigate()
