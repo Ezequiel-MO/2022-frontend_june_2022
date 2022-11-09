@@ -9,7 +9,8 @@ function SidebarRow({ iconText, title, modal = false, handleOpen }) {
   const { currentProject } = useCurrentProject()
   const { hotels, schedule, corporateImage } = currentProject
   const { activeTab, setActiveTab, handleChange } = useActiveTab()
-  const {colorPalette} = corporateImage[0]
+  // if corporateImage[0] is not undefined, then extract colorPalette
+  const { colorPalette = [] } = corporateImage[0] || {}
   if (modal) {
     return (
       <div
@@ -19,15 +20,11 @@ function SidebarRow({ iconText, title, modal = false, handleOpen }) {
         className='flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-green-50 cursor-pointer transition-all duration-200 group'
         onClick={() => handleOpen(`${title}`)}
       >
-        <Icon 
-          icon={iconText} 
-          color={`${
-              colorPalette.length > 0
-                ? colorPalette[0]
-                : "#ea5933"
-            }`} 
-            width='40' 
-          />
+        <Icon
+          icon={iconText}
+          color={`${colorPalette.length > 0 ? colorPalette[0] : '#ea5933'}`}
+          width='40'
+        />
         <p className='group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg'>
           {title.replace(/^\w/, (c) => c.toUpperCase())}
         </p>
@@ -52,13 +49,9 @@ function SidebarRow({ iconText, title, modal = false, handleOpen }) {
           data-tip={title}
           data-iscapture='true'
         >
-          <Icon 
-            icon={iconText} 
-            color={`${
-              colorPalette.length > 0
-                ? colorPalette[0]
-                : "#ea5933"
-            }`} 
+          <Icon
+            icon={iconText}
+            color={`${colorPalette.length > 0 ? colorPalette[0] : '#ea5933'}`}
             width='40'
           />
         </div>

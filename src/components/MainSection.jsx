@@ -1,34 +1,32 @@
-import { useEffect, useRef } from "react";
-import { Icon } from "@iconify/react";
-import ReactToPrint from "react-to-print";
-import Hotels from "./hotels/Hotels";
-import Schedule from "./schedule/Schedule";
-import { useCurrentProject } from "../hooks/useCurrentProject";
-import Budget from "./budget/Budget";
-import ScrollToTopButton from "../ui/ScrollToTopButton";
-import ParagraphText from "./Text";
-import { useLocation } from "react-router-dom";
+import { useEffect, useRef } from 'react'
+import { Icon } from '@iconify/react'
+import ReactToPrint from 'react-to-print'
+import Hotels from './hotels/Hotels'
+import Schedule from './schedule/Schedule'
+import { useCurrentProject } from '../hooks/useCurrentProject'
+import Budget from './budget/Budget'
+import ScrollToTopButton from '../ui/ScrollToTopButton'
+import ParagraphText from './Text'
+import { useLocation } from 'react-router-dom'
 
 const MainSection = () => {
-  const componentRef = useRef();
-  const location = useLocation();
+  const componentRef = useRef()
+  const location = useLocation()
 
-  const { currentProject } = useCurrentProject();
-  const { groupName, projectIntro, hotels } = currentProject;
+  const { currentProject } = useCurrentProject()
+  const { groupName, projectIntro, hotels, corporateImage } = currentProject
+  const { fonts = [] } = corporateImage[0] || {}
 
   useEffect(() => {
-    var body = document.body;
-    if (
-      currentProject.corporateImage[0].fonts?.length > 0 &&
-      location !== "/"
-    ) {
-      body.style.fontFamily = currentProject.corporateImage[0].fonts[0];
+    var body = document.body
+    if (fonts?.length > 0 && location !== '/') {
+      body.style.fontFamily = fonts[0]
     }
-  }, [currentProject]);
+  }, [currentProject])
   return (
-    <div className="col-span-10 lg:col-span-8">
+    <div className='col-span-10 lg:col-span-8'>
       {/*       <ScrollToTop smooth color="#ea5933" width="30" height="30" /> */}
-      <h1 className="text-2xl md:text-2xl mb-4 font-extrabold">
+      <h1 className='text-2xl md:text-2xl mb-4 font-extrabold'>
         {`Quotation for Gr. ${groupName}`}
       </h1>
       <ParagraphText text={projectIntro} />
@@ -37,12 +35,12 @@ const MainSection = () => {
       <div>
         <ReactToPrint
           trigger={() => (
-            <button className="flex flex-row items-center mb-2 py-4">
+            <button className='flex flex-row items-center mb-2 py-4'>
               <span>
                 <Icon
-                  icon="ant-design:file-pdf-twotone"
-                  color="#ea5933"
-                  width="40"
+                  icon='ant-design:file-pdf-twotone'
+                  color='#ea5933'
+                  width='40'
                 />
               </span>
               Print the Budget to a PDF
@@ -54,7 +52,7 @@ const MainSection = () => {
       </div>
       <ScrollToTopButton />
     </div>
-  );
-};
+  )
+}
 
-export default MainSection;
+export default MainSection

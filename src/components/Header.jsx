@@ -18,7 +18,8 @@ const Header = () => {
   const [dropdownActive, setDropdownActive] = useState(false)
   const { accountManager = [], groupLocation, corporateImage } = currentProject
   const { imageContentUrl = [] } = accountManager[0] || {}
-  const { imageContentUrl: imageUrl } = corporateImage[0]
+
+  const { imageContentUrl: imageUrl = [] } = corporateImage[0] || {}
 
   const log_out = () => {
     localStorage.removeItem('userIsLogged')
