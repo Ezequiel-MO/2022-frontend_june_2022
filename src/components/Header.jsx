@@ -16,8 +16,9 @@ const Header = () => {
   const { logUserOut, userIsLoggedIn } = useUserLog();
   const { currentProject } = useCurrentProject();
   const [dropdownActive, setDropdownActive] = useState(false);
-  const { accountManager = [], groupLocation } = currentProject;
+  const { accountManager = [], groupLocation, corporateImage } = currentProject;
   const { imageContentUrl = [] } = accountManager[0] || {};
+  const {imageContentUrl:imageUrl} = corporateImage[0]
 
   const log_out = () => {
     localStorage.removeItem("userIsLogged");
@@ -27,8 +28,6 @@ const Header = () => {
   const handleRoute = (route) => {
     navigate(route);
   };
-  console.log(currentProject);
-  console.log(userIsLoggedIn);
   return (
     <>
       <div className="relative h-32 m-8 overflow-hidden bg-black-50 dark:bg-white-50 rounded-lg">
@@ -38,11 +37,11 @@ const Header = () => {
               {location.pathname === "/" ? (
                 ""
               ) : userIsLoggedIn &&
-                currentProject.corporateImage[0].imageContentUrl?.length > 0 ? (
+                imageUrl.length > 0 ? (
                 <img
                   alt="front-end header"
-                  className="object-cover h-6"
-                  src={currentProject.corporateImage[0].imageContentUrl[0]}
+                  className="object-cover h-10"
+                  src={imageUrl[0]}
                 />
               ) : (
                 <img

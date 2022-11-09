@@ -15,7 +15,6 @@ const MainSection = () => {
 
   const { currentProject } = useCurrentProject();
   const { groupName, projectIntro, hotels } = currentProject;
-  console.log(currentProject);
 
   useEffect(() => {
     var body = document.body;
@@ -23,10 +22,8 @@ const MainSection = () => {
       currentProject.corporateImage[0].fonts?.length > 0 &&
       location !== "/"
     ) {
-      console.log("JI");
       body.style.fontFamily = currentProject.corporateImage[0].fonts[0];
     }
-    console.log(body.style);
   }, [currentProject]);
   return (
     <div className="col-span-10 lg:col-span-8">

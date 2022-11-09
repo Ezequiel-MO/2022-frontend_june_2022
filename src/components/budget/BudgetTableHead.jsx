@@ -3,22 +3,25 @@ import { useCurrentProject } from "../../hooks/useCurrentProject";
 
 const BudgetTableHead = () => {
   const { currentProject } = useCurrentProject();
+  const {corporateImage} = currentProject
+  const {colorPalette} = corporateImage[0]
+
   return (
     <TableHead>
       <TableRow>
         <TableCell
           width="10%"
           className={`${
-            currentProject?.corporateImage?.[0].colorPalette?.[1]
-              ? `dark:!bg-[${currentProject?.corporateImage?.[0].colorPalette?.[1]}]`
+            colorPalette.length > 1
+              ? `dark:!bg-[${colorPalette[1]}]`
               : "dark:!bg-brown-100"
           } !bg-brown-50`}
         />
         <TableCell
           width="20%"
           className={`${
-            currentProject?.corporateImage?.[0].colorPalette?.[1]
-              ? `dark:!bg-[${currentProject?.corporateImage?.[0].colorPalette?.[1]}]`
+            colorPalette.length > 1
+              ? `dark:!bg-[${colorPalette[1]}]`
               : "dark:!bg-brown-100"
           } dark:text-orange-50 !bg-brown-50 text-orange-50 dark:font-extrabold `}
         >
@@ -27,8 +30,8 @@ const BudgetTableHead = () => {
         <TableCell
           width="35%"
           className={`${
-            currentProject?.corporateImage?.[0].colorPalette?.[1]
-              ? `dark:!bg-[${currentProject?.corporateImage?.[0].colorPalette?.[1]}]`
+            colorPalette.length > 1
+              ? `dark:!bg-[${colorPalette[1]}]`
               : "dark:!bg-brown-100"
           } dark:text-orange-50 !bg-brown-50 text-orange-50 dark:font-extrabold `}
         >
@@ -47,8 +50,8 @@ const BudgetTableHead = () => {
         <TableCell
           width="15%"
           className={`${
-            currentProject?.corporateImage?.[0].colorPalette?.[1]
-              ? `dark:!bg-[${currentProject?.corporateImage?.[0].colorPalette?.[1]}]`
+            colorPalette.length > 1
+              ? `dark:!bg-[${colorPalette[1]}]`
               : "dark:!bg-brown-100"
           } dark:text-orange-50 !bg-brown-50 text-orange-50 dark:font-extrabold `}
         >
@@ -57,8 +60,8 @@ const BudgetTableHead = () => {
         <TableCell
           width="15%"
           className={`${
-            currentProject?.corporateImage?.[0].colorPalette?.[1]
-              ? `dark:!bg-[${currentProject?.corporateImage?.[0].colorPalette?.[1]}]`
+            colorPalette.length > 1
+              ? `dark:!bg-[${colorPalette[1]}]`
               : "dark:!bg-brown-100"
           } dark:text-orange-50 !bg-brown-50 text-orange-50 dark:font-extrabold `}
         >
