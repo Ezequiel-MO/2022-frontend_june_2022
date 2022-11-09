@@ -1,23 +1,59 @@
 import { Icon } from "@iconify/react";
 import { List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
+import { useCurrentProject } from "../../hooks/useCurrentProject";
 
 const HotelIcons = ({ leftIconsText, rightIconsText }) => {
+  const { currentProject } = useCurrentProject();
+  const {corporateImage} = currentProject
+  const {colorPalette} = corporateImage[0]
   const leftIcons = [
-    <Icon icon="akar-icons:location" color="#ea5933" width="28" />,
-    <Icon icon="bx:bx-restaurant" color="#ea5933" width="28" />,
+    <Icon icon="akar-icons:location" color={`${
+              colorPalette.length > 0
+                ? colorPalette[0]
+                : "#ea5933"
+            }`}  width="28" />,
+    <Icon icon="bx:bx-restaurant" color={`${
+              colorPalette.length > 0
+                ? colorPalette[0]
+                : "#ea5933"
+            }`}  width="28" />,
     <Icon
       icon="icon-park-outline:hotel-please-clean"
-      color="#ea5933"
+      color={`${
+              colorPalette.length > 0
+                ? colorPalette[0]
+                : "#ea5933"
+            }`} 
       width="28"
     />,
-    <Icon icon="akar-icons:wifi" color="#ea5933" width="28" />,
+    <Icon icon="akar-icons:wifi" color={`${
+              colorPalette.length > 0
+                ? colorPalette[0]
+                : "#ea5933"
+            }`}  width="28" />,
   ];
 
   const rightIcons = [
-    <Icon icon="ic:outline-pool" color="#ea5933" width="28" />,
-    <Icon icon="akar-icons:clock" color="#ea5933" width="28" />,
-    <Icon icon="ic:sharp-meeting-room" color="#ea5933" width="28" />,
-    <Icon icon="si-glyph:wheel-chair" color="#ea5933" width="28" />,
+    <Icon icon="ic:outline-pool" color={`${
+              colorPalette.length > 0
+                ? colorPalette[0]
+                : "#ea5933"
+            }`}  width="28" />,
+    <Icon icon="akar-icons:clock" color={`${
+              colorPalette.length > 0
+                ? colorPalette[0]
+                : "#ea5933"
+            }`}  width="28" />,
+    <Icon icon="ic:sharp-meeting-room" color={`${
+              colorPalette.length > 0
+                ? colorPalette[0]
+                : "#ea5933"
+            }`}  width="28" />,
+    <Icon icon="si-glyph:wheel-chair" color={`${
+              colorPalette.length > 0
+                ? colorPalette[0]
+                : "#ea5933"
+            }`}  width="28" />,
   ];
 
   let mixedLeft = leftIcons.map((x, i) => {

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Icon } from "@iconify/react";
 import ReactToPrint from "react-to-print";
 import Hotels from "./hotels/Hotels";
@@ -7,13 +7,24 @@ import { useCurrentProject } from "../hooks/useCurrentProject";
 import Budget from "./budget/Budget";
 import ScrollToTopButton from "../ui/ScrollToTopButton";
 import ParagraphText from "./Text";
+import { useLocation } from "react-router-dom";
 
 const MainSection = () => {
   const componentRef = useRef();
+  const location = useLocation();
 
   const { currentProject } = useCurrentProject();
   const { groupName, projectIntro, hotels } = currentProject;
 
+  useEffect(() => {
+    var body = document.body;
+    if (
+      currentProject.corporateImage[0].fonts?.length > 0 &&
+      location !== "/"
+    ) {
+      body.style.fontFamily = currentProject.corporateImage[0].fonts[0];
+    }
+  }, [currentProject]);
   return (
     <div className="col-span-10 lg:col-span-8">
       {/*       <ScrollToTop smooth color="#ea5933" width="30" height="30" /> */}
