@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import header_image from '../../assets/header_image.jpg'
 import cutt_logo from '../../assets/CUTT_LOGO.png'
 import sun from '../../assets/sun-svgrepo-com.svg'
@@ -8,9 +8,9 @@ import switch_off from '../../assets/switch_off.svg'
 import useDarkMode from '../../hooks/useDarkMode'
 import { useUserLog } from '../../hooks/useUserLog'
 import { useCurrentProject } from '../../hooks/useCurrentProject'
+import HeaderDropdown from './HeaderDropdown'
 
 const Header = () => {
-  const navigate = useNavigate()
   const location = useLocation()
   const [isDarkMode, toggleDarkMode] = useDarkMode()
   const { logUserOut, userIsLoggedIn } = useUserLog()
@@ -24,10 +24,6 @@ const Header = () => {
   const log_out = () => {
     localStorage.removeItem('userIsLogged')
     logUserOut()
-  }
-
-  const handleRoute = (route) => {
-    navigate(route)
   }
   return (
     <>
@@ -126,32 +122,9 @@ const Header = () => {
         onMouseLeave={() => setDropdownActive(false)}
         className={`${
           dropdownActive ? 'block' : 'hidden'
-        } absolute p-4 top-24 right-10 bg-white-100 z-50`}
+        } absolute p-4 top-[112px] right-10 bg-white-100 z-50`}
       >
-        <div>
-          <div className='font-bold text-black-50 border-3 border-b border-gray-500 p-3 mr-10 flex flex-col'>
-            <p className='hover:text-orange-700 hover:cursor-pointer'>
-              Your Account Manager,
-              <span className='text-orange-500'>
-                {localStorage.getItem('user_name')}
-              </span>
-            </p>
-            <div
-              className='flex items-center space-x-2 hover:text-orange-700 hover:cursor-pointer'
-              onClick={() => handleRoute('/destinationInfo')}
-            >
-              <span>Destination Information, </span>
-              <span className='text-orange-500'>{groupLocation}</span>
-            </div>
-
-            <span
-              className='hover:text-orange-700 hover:cursor-pointer'
-              onClick={() => handleRoute('/credentials')}
-            >
-              Our Credentials
-            </span>
-          </div>
-        </div>
+        <HeaderDropdown groupLocation={groupLocation} />
       </div>
     </>
   )
