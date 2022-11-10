@@ -19,9 +19,10 @@ const Header = () => {
   const { accountManager = [], groupLocation, corporateImage } = currentProject
   const { imageContentUrl = [] } = accountManager[0] || {}
 
-  const { imageContentUrl: imageUrl = [] } = corporateImage[0] || {}
+  const imageUrl =
+    corporateImage?.length > 0 ? corporateImage[0].imageContentUrl : []
 
-  const log_out = () => {
+  function log_out() {
     localStorage.removeItem('userIsLogged')
     logUserOut()
   }
