@@ -1,5 +1,5 @@
 export { default as Footer } from './Footer'
-export { default as Header } from './Header'
+export { default as Header } from './header/Header'
 export { default as LoginPage } from './login/LoginPage'
 export { default as MainSection } from './MainSection'
 export { default as Sidebar } from './sidebar/Sidebar'
