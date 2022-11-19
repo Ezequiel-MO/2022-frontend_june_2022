@@ -32,24 +32,27 @@ const MainSection = () => {
       <ParagraphText text={projectIntro} />
       <Hotels hotels={hotels} />
       <Schedule />
-      <div>
-        <ReactToPrint
-          trigger={() => (
-            <button className='flex flex-row items-center mb-2 py-4'>
-              <span>
-                <Icon
-                  icon='ant-design:file-pdf-twotone'
-                  color='#ea5933'
-                  width='40'
-                />
-              </span>
-              Print the Budget to a PDF
-            </button>
-          )}
-          content={() => componentRef.current}
-        />
-        <Budget ref={componentRef} />
-      </div>
+      {currentProject?.hasBudget ? (
+        <div>
+          <ReactToPrint
+            trigger={() => (
+              <button className='flex flex-row items-center mb-2 py-4'>
+                <span>
+                  <Icon
+                    icon='ant-design:file-pdf-twotone'
+                    color='#ea5933'
+                    width='40'
+                  />
+                </span>
+                Print the Budget to a PDF
+              </button>
+            )}
+            content={() => componentRef.current}
+          />
+          <Budget ref={componentRef} />
+        </div>
+      ) : null}
+
       <ScrollToTopButton />
     </div>
   )
