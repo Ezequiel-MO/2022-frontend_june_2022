@@ -22,8 +22,7 @@ const DayRows = ({ day, pax }) => {
     <>
       {transfer_in.length > 0 && (
         <>
-          {transfer_in[0].withAssistance === true &&
-          transfer_in[0].meetGreet > 0 ? (
+          {transfer_in[0].meetGreet > 0 ? (
             <DayRow
               pax={1}
               date={date}
@@ -32,8 +31,7 @@ const DayRows = ({ day, pax }) => {
               id='meet_greet'
             />
           ) : null}
-          {transfer_in[0].withAssistance === true &&
-          transfer_in[0].assistance > 0 ? (
+          {transfer_in[0].assistance > 0 ? (
             <DayRow
               pax={transfer_in.length}
               date={date}
@@ -78,7 +76,7 @@ const DayRows = ({ day, pax }) => {
             date={date}
             options={morningEvents}
             description='Morning Events'
-            multipleChoice={`${morningEvents.length > 1}`}
+            multipleChoice={morningEvents.length > 1 ? true : false}
             id='morningEvents'
           />
         </>
@@ -89,12 +87,14 @@ const DayRows = ({ day, pax }) => {
             pax={pax}
             dateProp={date}
             typeOfMeetingProp='Morning Meeting'
-            options={morningMeetings}
+            meetings={morningMeetings}
+            id='morningMeetings'
           />
           <MeetingBreakdownRows
             pax={pax}
             dateProp={date}
             typeOfMeetingProp='Morning Meeting'
+            meetings={morningMeetings}
           />
         </>
       )}
@@ -165,12 +165,14 @@ const DayRows = ({ day, pax }) => {
             pax={pax}
             dateProp={date}
             typeOfMeetingProp='Afternoon Meeting'
-            options={afternoonMeetings}
+            meetings={afternoonMeetings}
+            id='afternoonMeetings'
           />
           <MeetingBreakdownRows
             pax={pax}
             dateProp={date}
             typeOfMeetingProp='Afternoon Meeting'
+            meetings={afternoonMeetings}
           />
         </>
       )}
@@ -180,12 +182,14 @@ const DayRows = ({ day, pax }) => {
             pax={pax}
             dateProp={date}
             typeOfMeetingProp='Full Day Meeting'
-            options={fullDayMeetings}
+            meetings={fullDayMeetings}
+            id='fullDayMeetings'
           />
           <MeetingBreakdownRows
             pax={pax}
             dateProp={date}
             typeOfMeetingProp='Full Day Meeting'
+            meetings={fullDayMeetings}
           />
         </>
       )}

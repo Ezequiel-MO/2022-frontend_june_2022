@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import {
   Collapse,
   Table,
@@ -8,13 +7,23 @@ import {
   TableRow
 } from '@mui/material'
 import { Box } from '@mui/system'
-import { BudgetContext } from '../../context/context'
 import MeetingBreakdownRow from './MeetingBreakdownRow'
+import { useBudget } from '../../../../hooks/useBudget'
+import useFindHotelByName from '../../../../hooks/useFindHotelByName'
+import useFindMeetingByHotel from '../../../../hooks/useFindMeetingByHotel'
 
-const MeetingBreakdownRows = ({ pax, dateProp, typeOfMeetingProp }) => {
-  const { budgetValues } = useContext(BudgetContext)
-  const { meetingBreakdownOpen, selectedMeeting } = budgetValues
+const MeetingBreakdownRows = ({
+  pax,
+  dateProp,
+  typeOfMeetingProp,
+  meetings
+}) => {
+  const { breakdownOpen, hotelName, hotels } = useBudget()
+  const { meetingBreakdownOpen } = breakdownOpen
   const { open, date, typeOfMeeting } = meetingBreakdownOpen
+
+  const { selectedHotel } = useFindHotelByName(hotelName, hotels)
+  const { meeting } = useFindMeetingByHotel(meetings, selectedHotel)
 
   return (
     <TableRow>
@@ -36,35 +45,53 @@ const MeetingBreakdownRows = ({ pax, dateProp, typeOfMeetingProp }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
+                {typeOfMeetingProp === 'Full Day Meeting' ? (
+                  <>
+                    <MeetingBreakdownRow
+                      units={1}
+                      title='Full Day Rental Rate'
+                      rate={meeting?.FDRate}
+                    />
+                    <MeetingBreakdownRow
+                      units={pax}
+                      title='Full Day Delegate Rate'
+                      rate={meeting?.FDDDR}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <MeetingBreakdownRow
+                      units={1}
+                      title='Half Day Rental Rate'
+                      rate={meeting?.HDRate}
+                    />
+                    <MeetingBreakdownRow
+                      units={pax}
+                      title='Half Day Delegate Rate'
+                      rate={meeting?.HDDDR}
+                    />
+                  </>
+                )}
+
                 <MeetingBreakdownRow
-                  units={1}
-                  title='Half Day Rental Rate'
-                  rate={selectedMeeting?.HDRate}
-                />
-                <MeetingBreakdownRow
-                  units={pax}
-                  title='Half Day Delegate Rate'
-                  rate={selectedMeeting?.HDDDR}
-                />
-                <MeetingBreakdownRow
-                  units={selectedMeeting?.coffeeBreakUnits}
+                  units={meeting?.coffeeBreakUnits}
                   title='Coffee Breaks'
-                  rate={selectedMeeting?.coffeeBreakPrice}
+                  rate={meeting?.coffeeBreakPrice}
                 />
                 <MeetingBreakdownRow
-                  units={selectedMeeting?.workingLunchUnits}
+                  units={meeting?.workingLunchUnits}
                   title='Working Lunch'
-                  rate={selectedMeeting?.workingLunchPrice}
+                  rate={meeting?.workingLunchPrice}
                 />
                 <MeetingBreakdownRow
-                  units={selectedMeeting?.hotelDinnerUnits}
+                  units={meeting?.hotelDinnerUnits}
                   title='Dinner @ Hotel'
-                  rate={selectedMeeting?.hotelDinnerPrice}
+                  rate={meeting?.hotelDinnerPrice}
                 />
                 <MeetingBreakdownRow
                   units={1}
                   title='Audio Visuals Package'
-                  rate={selectedMeeting?.aavvPackage}
+                  rate={meeting?.aavvPackage}
                 />
               </TableBody>
             </Table>

@@ -5,17 +5,18 @@ import SingleChoiceCells from '../cells/SingleChoiceCells'
 import TransferCells from '../cells/TransferCells'
 import TransferInOutCells from '../cells/TransferInOutCells'
 
-const DayRow = ({
-  pax,
-  date,
-  options,
-  description,
-  id,
-  multipleChoice = false
-}) => {
+const DayRow = ({ pax, date, options, description, multipleChoice, id }) => {
   const { venues } = useGetVenues(id, options)
   const noVenues = venues.length === 0
   const multipleVenues = venues.length > 1
+
+  const props = {
+    pax,
+    description,
+    options,
+    id,
+    date
+  }
 
   if (id === 'meet_greet' || id === 'assistance') {
     return (
@@ -46,7 +47,6 @@ const DayRow = ({
   }
 
   if (id === 'transfer') {
-    //if the selected service is empty, then the row is not visible
     if (
       options[0]?.selectedService === '' ||
       options[0]?.selectedService === undefined
@@ -56,39 +56,32 @@ const DayRow = ({
     return (
       <TableRow>
         <TableCell>{date}</TableCell>
-        <TransferCells
-          description={description}
-          options={options}
-          pax={pax}
-          id={id}
-        />
+        <TransferCells {...props} />
       </TableRow>
     )
   }
 
-  if (
-    id === 'morningEvents' ||
-    (id === 'lunch' && noVenues) ||
-    id === 'afternoonEvents' ||
-    (id === 'dinner' && noVenues)
-  ) {
+  if (id === 'morningEvents' || id === 'afternoonEvents') {
     return (
       <TableRow>
         <TableCell>{date}</TableCell>
-        {multipleChoice === 'true' ? (
-          <MultipleChoiceCells
-            description={description}
-            options={options}
-            pax={pax}
-            id={id}
-            date={date}
-          />
+        {multipleChoice ? (
+          <MultipleChoiceCells {...props} />
         ) : (
-          <SingleChoiceCells
-            description={description}
-            options={options}
-            pax={pax}
-          />
+          <SingleChoiceCells {...props} />
+        )}
+      </TableRow>
+    )
+  }
+
+  if ((id === 'lunch' && noVenues) || (id === 'dinner' && noVenues)) {
+    return (
+      <TableRow>
+        <TableCell>{date}</TableCell>
+        {multipleChoice ? (
+          <MultipleChoiceCells {...props} />
+        ) : (
+          <SingleChoiceCells {...props} />
         )}
       </TableRow>
     )
@@ -99,19 +92,9 @@ const DayRow = ({
       <TableRow>
         <TableCell>{date}</TableCell>
         {multipleVenues ? (
-          <MultipleChoiceCells
-            description={description}
-            options={venues}
-            pax={pax}
-            id={id}
-            date={date}
-          />
+          <MultipleChoiceCells {...props} />
         ) : (
-          <SingleChoiceCells
-            description={description}
-            options={venues}
-            pax={pax}
-          />
+          <SingleChoiceCells {...props} />
         )}
       </TableRow>
     )

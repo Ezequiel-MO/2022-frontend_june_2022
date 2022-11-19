@@ -1,36 +1,13 @@
 import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
-import { useContext, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useCurrentProject } from '../../../hooks/useCurrentProject'
-import { selectBudget } from '../../../redux/features/budgetSlice'
-import { BudgetContext } from '../context/context'
-import {
-  getHotelTotal,
-  getTotalBudget,
-  getVenueTotal
-} from './compute-totals-functions'
+import useGetMealsCost from '../../../hooks/useGetMealCosts'
+import useGetMeetingsCost from '../../../hooks/useGetMeetingsCost'
 
-const TotalBudgetCost = ({ pax }) => {
-  const { currentProject } = useCurrentProject()
-  const { hotels } = currentProject
-  const [selectedHotel, setSelectedHotel] = useState(hotels[0])
-  const { budgetValues } = useContext(BudgetContext)
-  const {
-    selectedHotelName,
-    selectedVenueTotalCost,
-    selectedMeetingTotalCost
-  } = budgetValues
-  const { schedule } = useSelector(selectBudget)
-
-  useEffect(() => {
-    if (selectedHotelName) {
-      const selectedHotel = hotels
-        ? hotels.find((hotel) => hotel.name === budgetValues.selectedHotelName)
-        : ''
-      setSelectedHotel(selectedHotel)
-    }
-  }, [selectedHotelName, hotels])
+const TotalBudgetCost = () => {
+  const { currentHotel } = useCurrentProject()
+  const { meetingTotalCost = 0 } = useGetMeetingsCost()
+  const { mealsTotalCost = 0 } = useGetMealsCost()
 
   return (
     <TableRow>
@@ -41,14 +18,7 @@ const TotalBudgetCost = ({ pax }) => {
       <TableCell>
         <strong>
           {accounting.formatMoney(
-            getTotalBudget(
-              pax,
-              schedule,
-              getHotelTotal(
-                selectedHotel ? selectedHotel.price[0] : 0,
-                schedule.length - 1
-              )
-            ),
+            currentHotel.totalCost + meetingTotalCost + mealsTotalCost,
             '€'
           )}
         </strong>

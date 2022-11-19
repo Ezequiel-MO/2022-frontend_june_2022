@@ -1,25 +1,36 @@
-import { useState, useEffect } from "react";
-import { accounting } from "accounting";
-import { TableCell } from "@mui/material";
-import MultipleChoice from "../days/MultipleChoice";
-import { useBudget } from "../../../../hooks/useBudget";
+import { useState, useEffect } from 'react'
+import { accounting } from 'accounting'
+import { TableCell } from '@mui/material'
+import MultipleChoice from '../days/MultipleChoice'
+import { useBudget } from '../../../../hooks/useBudget'
+import useFindEventByName from '../../../../hooks/useFindEventByName'
 
 const MultipleChoiceCells = ({ pax, description, options, id, date }) => {
-  const { updateBudgetSchedule } = useBudget();
-  const [selected, setSelected] = useState({});
-  const [value, setValue] = useState(options[0].name);
+  const { updateEventTotalCost, setCurrentMeals } = useBudget()
+  const [value, setValue] = useState(options[0].name)
+
+  const { option } = useFindEventByName(options, value)
 
   useEffect(() => {
-    const selectedOption = options.find((option) => option.name === value);
-    const updatedObject = { date, id, selectedOption };
-    setSelected(selectedOption);
-    updateBudgetSchedule(updatedObject);
-    // eslint-disable-next-line
-  }, [selected, value]);
+    if (id === 'lunch' || id === 'dinner') {
+      setCurrentMeals(date, id, option._id)
+    }
+  }, [option, id])
+
+  useEffect(() => {
+    if (
+      id === 'morningEvents' ||
+      id === 'afternoonEvents' ||
+      id === 'lunch' ||
+      id === 'dinner'
+    ) {
+      updateEventTotalCost(date, id, pax, option._id)
+    }
+  }, [value])
 
   const handleChange = (e) => {
-    setValue(e.target.value);
-  };
+    setValue(e.target.value)
+  }
 
   return (
     <>
@@ -27,17 +38,16 @@ const MultipleChoiceCells = ({ pax, description, options, id, date }) => {
       <TableCell>
         <MultipleChoice
           options={options}
-          handleChange={handleChange}
           value={value}
+          handleChange={handleChange}
+          id={id}
         />
       </TableCell>
       <TableCell>{pax}</TableCell>
-      <TableCell>{accounting.formatMoney(selected["price"], "€")}</TableCell>
-      <TableCell>
-        {accounting.formatMoney(pax * selected["price"], "€")}
-      </TableCell>
+      <TableCell>{accounting.formatMoney(option.price, '€')}</TableCell>
+      <TableCell>{accounting.formatMoney(option.totalCost, '€')}</TableCell>
     </>
-  );
-};
+  )
+}
 
-export default MultipleChoiceCells;
+export default MultipleChoiceCells
