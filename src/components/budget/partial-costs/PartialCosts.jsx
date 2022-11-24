@@ -5,11 +5,13 @@ import { accounting } from 'accounting'
 import { useCurrentProject } from '../../../hooks/useCurrentProject'
 import useGetMeetingsCost from '../../../hooks/useGetMeetingsCost'
 import useGetMealsCost from '../../../hooks/useGetMealCosts'
+import useGetEventCosts from '../../../hooks/useGetEventCosts'
 
 const PartialCosts = () => {
   const { currentHotel } = useCurrentProject()
   const { meetingTotalCost = 0 } = useGetMeetingsCost()
   const { mealsTotalCost = 0 } = useGetMealsCost()
+  const { eventsTotalCost = 0 } = useGetEventCosts()
 
   ChartJS.register(ArcElement, Tooltip, Legend)
 
@@ -23,7 +25,7 @@ const PartialCosts = () => {
           meetingTotalCost,
           35,
           mealsTotalCost,
-          56
+          eventsTotalCost
         ],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -97,7 +99,7 @@ const PartialCosts = () => {
             className='flex-shrink-0'
           />
           <p className='hidden sm:block'>ACTIVITIES </p>
-          {accounting.formatMoney(89, '€')}
+          {accounting.formatMoney(eventsTotalCost, '€')}
         </div>
       </div>
       <div className='w-1/3 hidden md:flex md:justify-center md:items-center'>

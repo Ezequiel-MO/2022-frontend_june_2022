@@ -1,6 +1,6 @@
 import { Box, FormControl, MenuItem, Select, Typography } from '@mui/material'
 
-const MultipleChoice = ({ options, value, handleChange, id }) => {
+const MultipleChoice = ({ options, value, handleChange }) => {
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl variant='standard' sx={{ m: 1, minWidth: '15rem' }}>

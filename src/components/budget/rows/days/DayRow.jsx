@@ -65,7 +65,7 @@ const DayRow = ({ pax, date, options, description, multipleChoice, id }) => {
     return (
       <TableRow>
         <TableCell>{date}</TableCell>
-        {multipleChoice ? (
+        {multipleChoice === true ? (
           <MultipleChoiceCells {...props} />
         ) : (
           <SingleChoiceCells {...props} />
@@ -78,7 +78,7 @@ const DayRow = ({ pax, date, options, description, multipleChoice, id }) => {
     return (
       <TableRow>
         <TableCell>{date}</TableCell>
-        {multipleChoice ? (
+        {multipleChoice === true ? (
           <MultipleChoiceCells {...props} />
         ) : (
           <SingleChoiceCells {...props} />

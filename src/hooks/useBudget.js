@@ -11,7 +11,8 @@ import {
   UPDATE_MEETING_TOTAL_COST,
   UPDATE_EVENT_TOTAL_COST,
   SET_CURRENT_MEETINGS,
-  SET_CURRENT_MEALS
+  SET_CURRENT_MEALS,
+  SET_CURRENT_EVENTS
 } from '../redux/features/budgetSlice'
 
 export const useBudget = () => {
@@ -24,7 +25,8 @@ export const useBudget = () => {
     breakdownOpen,
     meetingBreakdownOpen,
     meetings,
-    meals
+    meals,
+    events
   } = budget
 
   const setBudgetSchedule = (schedule) =>
@@ -47,6 +49,8 @@ export const useBudget = () => {
     dispatch(SET_CURRENT_MEETINGS({ date, typeOfEvent, id }))
   const setCurrentMeals = (date, typeOfEvent, id) =>
     dispatch(SET_CURRENT_MEALS({ date, typeOfEvent, id }))
+  const setCurrentEvents = (date, typeOfEvent, id) =>
+    dispatch(SET_CURRENT_EVENTS({ date, typeOfEvent, id }))
 
   return {
     schedule,
@@ -54,6 +58,7 @@ export const useBudget = () => {
     hotels,
     meetings,
     meals,
+    events,
     breakdownOpen,
     meetingBreakdownOpen,
     setBudgetSchedule,
@@ -66,6 +71,7 @@ export const useBudget = () => {
     updateMeetingTotalCost,
     updateEventTotalCost,
     setCurrentMeetings,
-    setCurrentMeals
+    setCurrentMeals,
+    setCurrentEvents
   }
 }

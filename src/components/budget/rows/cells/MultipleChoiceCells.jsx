@@ -4,9 +4,11 @@ import { TableCell } from '@mui/material'
 import MultipleChoice from '../days/MultipleChoice'
 import { useBudget } from '../../../../hooks/useBudget'
 import useFindEventByName from '../../../../hooks/useFindEventByName'
+import TotalRow from '../../totals/TotalRow'
 
 const MultipleChoiceCells = ({ pax, description, options, id, date }) => {
-  const { updateEventTotalCost, setCurrentMeals } = useBudget()
+  const { updateEventTotalCost, setCurrentMeals, setCurrentEvents } =
+    useBudget()
   const [value, setValue] = useState(options[0].name)
 
   const { option } = useFindEventByName(options, value)
@@ -14,6 +16,9 @@ const MultipleChoiceCells = ({ pax, description, options, id, date }) => {
   useEffect(() => {
     if (id === 'lunch' || id === 'dinner') {
       setCurrentMeals(date, id, option._id)
+    }
+    if (id === 'morningEvents' || id === 'afternoonEvents') {
+      setCurrentEvents(date, id, option._id)
     }
   }, [option, id])
 
@@ -44,8 +49,7 @@ const MultipleChoiceCells = ({ pax, description, options, id, date }) => {
         />
       </TableCell>
       <TableCell>{pax}</TableCell>
-      <TableCell>{accounting.formatMoney(option.price, '€')}</TableCell>
-      <TableCell>{accounting.formatMoney(option.totalCost, '€')}</TableCell>
+      <TotalRow option={option} />
     </>
   )
 }

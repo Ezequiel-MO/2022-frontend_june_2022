@@ -4,7 +4,17 @@ import { accounting } from 'accounting'
 import { useBudget } from '../../../../hooks/useBudget'
 
 const SingleChoiceCells = ({ pax, options, description, date, id }) => {
-  const { updateEventTotalCost } = useBudget()
+  const { updateEventTotalCost, setCurrentEvents, setCurrentMeals } =
+    useBudget()
+
+  useEffect(() => {
+    if (id === 'lunch' || id === 'dinner') {
+      setCurrentMeals(date, id, options[0]._id)
+    }
+    if (id === 'morningEvents' || id === 'afternoonEvents') {
+      setCurrentEvents(date, id, options[0]._id)
+    }
+  }, [options[0], id])
 
   useEffect(() => {
     if (

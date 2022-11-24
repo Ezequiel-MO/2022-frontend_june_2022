@@ -16,7 +16,9 @@ export const budgetSlice = createSlice({
     hotels: JSON.parse(localStorage.getItem('hotels')) || [],
     schedule: JSON.parse(localStorage.getItem('schedule')) || [],
     meetings: {},
-    meals: {}
+    meals: {},
+    events: {},
+    transfers: {}
   },
   reducers: {
     SET_BUDGET_SCHEDULE: (state, action) => {
@@ -139,9 +141,11 @@ export const budgetSlice = createSlice({
               [id]: day[id].map((event) => {
                 if (event._id === eventId) {
                   if (id === 'morningEvents' || id === 'afternoonEvents') {
-                    const { price, pricePerPerson } = event
+                    const { price, pricePerPerson = true } = event
+
                     const eventTotal =
                       pricePerPerson === true ? price * nrPax : price
+                    console.log(eventTotal)
                     return {
                       ...event,
                       totalCost: eventTotal
@@ -182,9 +186,6 @@ export const budgetSlice = createSlice({
     },
     SET_CURRENT_MEALS: (state, action) => {
       const { date, typeOfEvent, id } = action.payload
-      console.log('date', date)
-      console.log('typeOfEvent', typeOfEvent)
-      console.log('id', id)
       const selectedMeal = state.schedule
         .find((item) => item.date === date)
         [typeOfEvent]?.find((item) => item._id === id)
@@ -195,6 +196,22 @@ export const budgetSlice = createSlice({
           [date]: {
             ...state.meals[date],
             [typeOfEvent]: selectedMeal
+          }
+        }
+      }
+    },
+    SET_CURRENT_EVENTS: (state, action) => {
+      const { date, typeOfEvent, id } = action.payload
+      const selectedEvent = state.schedule
+        .find((item) => item.date === date)
+        [typeOfEvent]?.find((item) => item._id === id)
+      return {
+        ...state,
+        events: {
+          ...state.events,
+          [date]: {
+            ...state.events[date],
+            [typeOfEvent]: selectedEvent
           }
         }
       }
@@ -214,7 +231,8 @@ export const {
   UPDATE_MEETING_TOTAL_COST,
   UPDATE_EVENT_TOTAL_COST,
   SET_CURRENT_MEETINGS,
-  SET_CURRENT_MEALS
+  SET_CURRENT_MEALS,
+  SET_CURRENT_EVENTS
 } = budgetSlice.actions
 
 export const selectBudget = (state) => state.budget
