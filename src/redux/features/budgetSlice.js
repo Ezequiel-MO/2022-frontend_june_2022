@@ -167,6 +167,7 @@ export const budgetSlice = createSlice({
         })
       }
     },
+    /*    UPDATE_TRANSFER_TOTAL_COST: (state, action) => {}, */
 
     SET_CURRENT_MEETINGS: (state, action) => {
       const { date, typeOfEvent, id } = action.payload
