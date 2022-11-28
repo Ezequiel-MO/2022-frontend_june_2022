@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 import { useCurrentProject } from '../../../hooks/useCurrentProject'
@@ -8,28 +7,18 @@ import useGetEventCosts from '../../../hooks/useGetEventCosts'
 import useGetTransferCosts from '../../../hooks/useGetTransferCosts'
 
 const TotalBudgetCost = () => {
-  const [totalCost, setTotalCost] = useState(0)
   const { currentHotel } = useCurrentProject()
   const { meetingTotalCost = 0 } = useGetMeetingsCost()
   const { mealsTotalCost = 0 } = useGetMealsCost()
   const { eventsTotalCost = 0 } = useGetEventCosts()
   const { transfersTotalCost = 0 } = useGetTransferCosts()
 
-  useEffect(() => {
-    setTotalCost(
-      currentHotel?.totalCost +
-        meetingTotalCost +
-        mealsTotalCost +
-        eventsTotalCost +
-        transfersTotalCost
-    )
-  }, [
-    currentHotel,
-    meetingTotalCost,
-    mealsTotalCost,
-    eventsTotalCost,
+  const totalCost =
+    currentHotel?.totalCost +
+    meetingTotalCost +
+    mealsTotalCost +
+    eventsTotalCost +
     transfersTotalCost
-  ])
 
   return (
     <TableRow>
