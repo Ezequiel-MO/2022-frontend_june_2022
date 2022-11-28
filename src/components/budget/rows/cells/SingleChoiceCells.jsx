@@ -1,9 +1,10 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { TableCell } from '@mui/material'
 import { accounting } from 'accounting'
 import { useBudget } from '../../../../hooks/useBudget'
 
 const SingleChoiceCells = ({ pax, options, description, date, id }) => {
+  const [pricePerPerson, setPricePerPerson] = useState(true)
   const { updateEventTotalCost, setCurrentEvents, setCurrentMeals } =
     useBudget()
 
@@ -13,6 +14,9 @@ const SingleChoiceCells = ({ pax, options, description, date, id }) => {
     }
     if (id === 'morningEvents' || id === 'afternoonEvents') {
       setCurrentEvents(date, id, options[0]._id)
+      if (options[0].pricePerPerson === false) {
+        setPricePerPerson(false)
+      }
     }
   }, [options[0], id])
 
@@ -31,7 +35,7 @@ const SingleChoiceCells = ({ pax, options, description, date, id }) => {
     <>
       <TableCell>{description}</TableCell>
       <TableCell>{options[0].name}</TableCell>
-      <TableCell>{pax}</TableCell>
+      <TableCell>{pricePerPerson ? pax : 1}</TableCell>
       <TableCell>{accounting.formatMoney(options[0].price, '€')}</TableCell>
       <TableCell>{accounting.formatMoney(options[0].totalCost, '€')}</TableCell>
     </>
