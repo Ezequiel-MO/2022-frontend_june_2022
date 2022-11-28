@@ -67,7 +67,7 @@ const DayRows = ({ day, pax }) => {
                 date={date}
                 options={morningEvents[0].transfer}
                 description='Transfer'
-                id='transfer'
+                id='transfer_morningEvents'
               />
             </>
           )}
@@ -119,7 +119,7 @@ const DayRows = ({ day, pax }) => {
                 ? 'Transfer 4h at disposal'
                 : 'Transfer'
             }
-            id='transfer'
+            id='transfer_lunch'
           />
           <DayRow
             pax={pax}
@@ -147,7 +147,7 @@ const DayRows = ({ day, pax }) => {
             date={date}
             options={afternoonEvents[0].transfer}
             description='Transfer'
-            id='transfer'
+            id='transfer_afternoonEvents'
           />
           <DayRow
             pax={pax}
@@ -213,7 +213,7 @@ const DayRows = ({ day, pax }) => {
                 ? 'Transfer 4h at disposal night hours'
                 : 'Transfer'
             }
-            id='transfer'
+            id='transfer_dinner'
           />
           {dinner[0].isVenue ? (
             <>

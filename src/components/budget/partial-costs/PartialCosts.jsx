@@ -6,12 +6,14 @@ import { useCurrentProject } from '../../../hooks/useCurrentProject'
 import useGetMeetingsCost from '../../../hooks/useGetMeetingsCost'
 import useGetMealsCost from '../../../hooks/useGetMealCosts'
 import useGetEventCosts from '../../../hooks/useGetEventCosts'
+import useGetTransferCosts from '../../../hooks/useGetTransferCosts'
 
 const PartialCosts = () => {
   const { currentHotel } = useCurrentProject()
   const { meetingTotalCost = 0 } = useGetMeetingsCost()
   const { mealsTotalCost = 0 } = useGetMealsCost()
   const { eventsTotalCost = 0 } = useGetEventCosts()
+  const { transfersTotalCost = 0 } = useGetTransferCosts()
 
   ChartJS.register(ArcElement, Tooltip, Legend)
 
@@ -23,7 +25,7 @@ const PartialCosts = () => {
         data: [
           currentHotel?.totalCost,
           meetingTotalCost,
-          35,
+          transfersTotalCost,
           mealsTotalCost,
           eventsTotalCost
         ],
@@ -79,7 +81,7 @@ const PartialCosts = () => {
             className='flex-shrink-0'
           />
           <p className='hidden sm:block'>TRANSFERS </p>
-          {accounting.formatMoney(87, '€')}
+          {accounting.formatMoney(transfersTotalCost, '€')}
         </div>
         <div className='shadow-lg my-2 p-2 rounded flex flex-row justify-between dark:bg-gray-50 dark:text-black-50'>
           <Icon

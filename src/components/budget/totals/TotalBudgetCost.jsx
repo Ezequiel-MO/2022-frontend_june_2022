@@ -5,6 +5,7 @@ import { useCurrentProject } from '../../../hooks/useCurrentProject'
 import useGetMealsCost from '../../../hooks/useGetMealCosts'
 import useGetMeetingsCost from '../../../hooks/useGetMeetingsCost'
 import useGetEventCosts from '../../../hooks/useGetEventCosts'
+import useGetTransferCosts from '../../../hooks/useGetTransferCosts'
 
 const TotalBudgetCost = () => {
   const [totalCost, setTotalCost] = useState(0)
@@ -12,15 +13,23 @@ const TotalBudgetCost = () => {
   const { meetingTotalCost = 0 } = useGetMeetingsCost()
   const { mealsTotalCost = 0 } = useGetMealsCost()
   const { eventsTotalCost = 0 } = useGetEventCosts()
+  const { transfersTotalCost = 0 } = useGetTransferCosts()
 
   useEffect(() => {
     setTotalCost(
       currentHotel?.totalCost +
         meetingTotalCost +
         mealsTotalCost +
-        eventsTotalCost
+        eventsTotalCost +
+        transfersTotalCost
     )
-  }, [currentHotel, meetingTotalCost, mealsTotalCost, eventsTotalCost])
+  }, [
+    currentHotel,
+    meetingTotalCost,
+    mealsTotalCost,
+    eventsTotalCost,
+    transfersTotalCost
+  ])
 
   return (
     <TableRow>

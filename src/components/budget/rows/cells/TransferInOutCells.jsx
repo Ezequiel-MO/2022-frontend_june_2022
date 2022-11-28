@@ -1,7 +1,20 @@
+import { useEffect } from 'react'
 import { TableCell } from '@mui/material'
 import accounting from 'accounting'
+import { useBudget } from '../../../../hooks/useBudget'
 
 const TransferInOutCells = ({ description, options, pax, id }) => {
+  const { updateTransferInTotalCost, updateTransferOutTotalCost } = useBudget()
+
+  useEffect(() => {
+    if (id === 'transfer_in') {
+      updateTransferInTotalCost(pax, options[0].transfer_in)
+    }
+    if (id === 'transfer_out') {
+      updateTransferOutTotalCost(pax, options[0].transfer_out)
+    }
+  }, [id])
+
   const lineTotal =
     id === 'transfer_in'
       ? options[0].transfer_in

@@ -46,7 +46,11 @@ const DayRow = ({ pax, date, options, description, multipleChoice, id }) => {
     )
   }
 
-  if (id === 'transfer') {
+  if (
+    id.startsWith('transfer') &&
+    id !== 'transfer_in' &&
+    id !== 'transfer_out'
+  ) {
     if (
       options[0]?.selectedService === '' ||
       options[0]?.selectedService === undefined
