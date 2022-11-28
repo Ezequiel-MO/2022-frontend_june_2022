@@ -3,26 +3,17 @@ import { TableCell } from '@mui/material'
 import accounting from 'accounting'
 import { useBudget } from '../../../../hooks/useBudget'
 
-const TransferInOutCells = ({ description, options, pax, id }) => {
-  const { updateTransferInTotalCost, updateTransferOutTotalCost } = useBudget()
+const transferIds = ['transfer_in', 'transfer_out', 'assistance', 'meetGreet']
+
+const TransferInOutCells = ({ date, description, options, pax, id }) => {
+  const { updateTransfers } = useBudget()
 
   useEffect(() => {
-    if (id === 'transfer_in') {
-      updateTransferInTotalCost(pax, options[0].transfer_in)
-    }
-    if (id === 'transfer_out') {
-      updateTransferOutTotalCost(pax, options[0].transfer_out)
+    if (transferIds.includes(id)) {
+      updateTransfers(date, id, pax, options[0][id])
     }
   }, [id])
 
-  const lineTotal =
-    id === 'transfer_in'
-      ? options[0].transfer_in
-      : id === 'transfer_out'
-      ? options[0].transfer_out
-      : id === 'meet_greet'
-      ? options[0].meetGreet
-      : options[0].assistance
   return (
     <>
       <TableCell>{description}</TableCell>
@@ -32,8 +23,8 @@ const TransferInOutCells = ({ description, options, pax, id }) => {
           : null}
       </TableCell>
       <TableCell>{pax}</TableCell>
-      <TableCell>{accounting.formatMoney(lineTotal, '€')}</TableCell>
-      <TableCell>{accounting.formatMoney(lineTotal * pax, '€')}</TableCell>
+      <TableCell>{accounting.formatMoney(options[0][id], '€')}</TableCell>
+      <TableCell>{accounting.formatMoney(options[0][id] * pax, '€')}</TableCell>
     </>
   )
 }

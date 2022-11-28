@@ -18,11 +18,12 @@ const DayRow = ({ pax, date, options, description, multipleChoice, id }) => {
     date
   }
 
-  if (id === 'meet_greet' || id === 'assistance') {
+  if (id === 'meetGreet' || id === 'assistance') {
     return (
       <TableRow>
         <TableCell>{date}</TableCell>
         <TransferInOutCells
+          date={date}
           description={description}
           options={options}
           pax={pax}
@@ -37,6 +38,7 @@ const DayRow = ({ pax, date, options, description, multipleChoice, id }) => {
       <TableRow>
         <TableCell>{date}</TableCell>
         <TransferInOutCells
+          date={date}
           description={description}
           options={options}
           pax={pax}

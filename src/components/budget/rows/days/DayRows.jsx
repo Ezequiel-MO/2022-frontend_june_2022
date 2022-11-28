@@ -28,7 +28,7 @@ const DayRows = ({ day, pax }) => {
               date={date}
               options={transfer_in}
               description='Meet & Greet @ Airport'
-              id='meet_greet'
+              id='meetGreet'
             />
           ) : null}
           {transfer_in[0].assistance > 0 ? (
@@ -241,7 +241,7 @@ const DayRows = ({ day, pax }) => {
               date={date}
               options={transfer_out}
               description='Bus dispatcher'
-              id='meet_greet'
+              id='meetGreet'
             />
           ) : null}
           {transfer_out[0].assistance > 0 ? (

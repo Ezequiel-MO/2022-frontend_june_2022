@@ -167,24 +167,10 @@ export const budgetSlice = createSlice({
         })
       }
     },
-    UPDATE_TRANSFER_IN_TOTAL_COST: (state, action) => {
-      const { nrBuses, cost } = action.payload
-      state.transfers.transfers_in = nrBuses * cost
-    },
-    UPDATE_TRANSFER_OUT_TOTAL_COST: (state, action) => {
-      const { nrBuses, cost } = action.payload
-      state.transfers.transfers_out = nrBuses * cost
-    },
     UPDATE_TRANSFERS: (state, action) => {
-      const { day, id, nrBuses, cost } = action.payload
-      const day_id = `${day}_${id}`
-      return {
-        ...state,
-        transfers: {
-          ...state.transfers,
-          [day_id]: nrBuses * cost
-        }
-      }
+      const { date, id, nrBuses, cost } = action.payload
+      const day_id = `${date}_${id}`
+      state.transfers[day_id] = nrBuses * cost
     },
     SET_CURRENT_MEETINGS: (state, action) => {
       const { date, typeOfEvent, id } = action.payload
@@ -248,8 +234,6 @@ export const {
   UPDATE_HOTEL_TOTAL_COST,
   UPDATE_MEETING_TOTAL_COST,
   UPDATE_EVENT_TOTAL_COST,
-  UPDATE_TRANSFER_IN_TOTAL_COST,
-  UPDATE_TRANSFER_OUT_TOTAL_COST,
   UPDATE_TRANSFERS,
   SET_CURRENT_MEETINGS,
   SET_CURRENT_MEALS,
