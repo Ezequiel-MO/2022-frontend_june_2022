@@ -217,8 +217,18 @@ const DayRows = ({ day, pax }) => {
           />
           {dinner[0].isVenue ? (
             <>
-              <VenueSummaryRow options={dinner} pax={pax} />
-              <VenueBreakdownRows options={dinner} />
+              <VenueSummaryRow
+                venues={dinner}
+                pax={pax}
+                dateProp={date}
+                typeOfMeetingProp='Dinner Venue'
+                id='dinner'
+              />
+              <VenueBreakdownRows
+                venues={dinner}
+                dateProp={date}
+                typeOfMeetingProp='Dinner Venue'
+              />
             </>
           ) : (
             <DayRow

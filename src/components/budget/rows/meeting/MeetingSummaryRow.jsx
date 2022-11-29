@@ -48,9 +48,7 @@ const MeetingSummaryRow = ({
             })
           }
         >
-          {meetingBreakdownOpen.open &&
-          date === dateProp &&
-          typeOfMeeting === typeOfMeetingProp ? (
+          {open && date === dateProp && typeOfMeeting === typeOfMeetingProp ? (
             <Icon icon='bx:up-arrow' color='#ea5933' />
           ) : (
             <Icon icon='bx:down-arrow' color='#ea5933' />

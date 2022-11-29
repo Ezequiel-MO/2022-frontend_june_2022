@@ -4,10 +4,16 @@ export const budgetSlice = createSlice({
   name: 'budget',
   initialState: {
     hotelName: '',
+    venueName: '',
     breakdownOpen: {
       hotel: true,
       transfer_in: false,
       meetingBreakdownOpen: {
+        open: false,
+        date: '',
+        typeOfMeeting: ''
+      },
+      venueBreakdownOpen: {
         open: false,
         date: '',
         typeOfMeeting: ''
@@ -45,6 +51,9 @@ export const budgetSlice = createSlice({
     SET_SELECTED_HOTEL_NAME: (state, action) => {
       state.hotelName = action.payload
     },
+    SET_SELECTED_VENUE_NAME: (state, action) => {
+      state.venueName = action.payload
+    },
     TOGGLE_BREAKDOWN: (state, action) => {
       const { id } = action.payload
       state.breakdownOpen[id] = !state.breakdownOpen[id]
@@ -55,6 +64,14 @@ export const budgetSlice = createSlice({
         open,
         date,
         typeOfMeeting
+      }
+    },
+    TOGGLE_VENUE_BREAKDOWN: (state, action) => {
+      const { open, date, typeOfEvent } = action.payload
+      state.breakdownOpen.venueBreakdownOpen = {
+        open,
+        date,
+        typeOfEvent
       }
     },
     UPDATE_HOTEL_TOTAL_COST: (state, action) => {
@@ -152,10 +169,42 @@ export const budgetSlice = createSlice({
                     }
                   }
                   if (id === 'lunch' || id === 'dinner') {
-                    const eventTotal = event.price * nrPax
-                    return {
-                      ...event,
-                      totalCost: eventTotal
+                    if (event.venue_price.length === 0) {
+                      const eventTotal = event.price * nrPax
+                      return {
+                        ...event,
+                        totalCost: eventTotal
+                      }
+                    }
+                    if (event.venue_price.length > 0) {
+                      const { venue_price } = event
+                      const {
+                        rental,
+                        cocktail_units,
+                        cocktail_price,
+                        catering_units,
+                        catering_price,
+                        staff_units,
+                        staff_menu_price,
+                        audiovisuals,
+                        cleaning,
+                        security,
+                        entertainment
+                      } = venue_price[0]
+                      const eventTotal =
+                        rental +
+                        cocktail_units * cocktail_price +
+                        catering_units * catering_price +
+                        staff_units * staff_menu_price +
+                        audiovisuals +
+                        cleaning +
+                        security +
+                        entertainment
+
+                      return {
+                        ...event,
+                        totalCost: eventTotal
+                      }
                     }
                   }
                 }
@@ -229,8 +278,10 @@ export const {
   SET_HOTELS,
   UPDATE_BUDGET_SCHEDULE,
   SET_SELECTED_HOTEL_NAME,
+  SET_SELECTED_VENUE_NAME,
   TOGGLE_BREAKDOWN,
   TOGGLE_MEETING_BREAKDOWN,
+  TOGGLE_VENUE_BREAKDOWN,
   UPDATE_HOTEL_TOTAL_COST,
   UPDATE_MEETING_TOTAL_COST,
   UPDATE_EVENT_TOTAL_COST,

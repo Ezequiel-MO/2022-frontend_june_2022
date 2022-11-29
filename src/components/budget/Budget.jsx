@@ -7,7 +7,6 @@ import TotalBudgetCost from './totals/TotalBudgetCost'
 import { useCurrentProject } from '../../hooks/useCurrentProject'
 import BudgetTableHead from './BudgetTableHead'
 import PartialCosts from './partial-costs/PartialCosts'
-import { BudgetProvider } from './context/provider'
 import { useBudget } from '../../hooks/useBudget'
 
 const Budget = forwardRef((props, ref) => {
@@ -16,34 +15,32 @@ const Budget = forwardRef((props, ref) => {
   const { hotels, schedule } = useBudget()
   return (
     <div ref={ref}>
-      <BudgetProvider>
-        <div className='no-scrollbar overflow-x-auto' id='budget_id'>
-          <Table
-            stickyHeader
-            size='small'
-            className='text-left divide-y divide-gray-700 dark:divide-black-50 dark:bg-gray-50'
-          >
-            <BudgetTableHead />
-            <TableBody>
-              {hotels?.length > 0 && (
-                <>
-                  <HotelSummaryRow nights={schedule?.length - 1} />
-                  <HotelBreakdownRows
-                    hotels={hotels}
-                    nights={schedule?.length - 1}
-                  />
-                </>
-              )}
+      <div className='no-scrollbar overflow-x-auto' id='budget_id'>
+        <Table
+          stickyHeader
+          size='small'
+          className='text-left divide-y divide-gray-700 dark:divide-black-50 dark:bg-gray-50'
+        >
+          <BudgetTableHead />
+          <TableBody>
+            {hotels?.length > 0 && (
+              <>
+                <HotelSummaryRow nights={schedule?.length - 1} />
+                <HotelBreakdownRows
+                  hotels={hotels}
+                  nights={schedule?.length - 1}
+                />
+              </>
+            )}
 
-              {schedule?.map((day) => (
-                <DayRows key={day._id} day={day} pax={nrPax} />
-              ))}
-              <TotalBudgetCost />
-            </TableBody>
-          </Table>
-        </div>
-        <PartialCosts />
-      </BudgetProvider>
+            {schedule?.map((day) => (
+              <DayRows key={day._id} day={day} pax={nrPax} />
+            ))}
+            <TotalBudgetCost />
+          </TableBody>
+        </Table>
+      </div>
+      <PartialCosts />
     </div>
   )
 })

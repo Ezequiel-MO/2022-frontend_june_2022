@@ -4,9 +4,11 @@ import {
   SET_HOTELS,
   UPDATE_BUDGET_SCHEDULE,
   SET_SELECTED_HOTEL_NAME,
+  SET_SELECTED_VENUE_NAME,
   selectBudget,
   TOGGLE_BREAKDOWN,
   TOGGLE_MEETING_BREAKDOWN,
+  TOGGLE_VENUE_BREAKDOWN,
   UPDATE_HOTEL_TOTAL_COST,
   UPDATE_MEETING_TOTAL_COST,
   UPDATE_EVENT_TOTAL_COST,
@@ -24,8 +26,10 @@ export const useBudget = () => {
     transfers,
     hotels,
     hotelName,
+    venueName,
     breakdownOpen,
     meetingBreakdownOpen,
+    venueBreakdownOpen,
     meetings,
     meals,
     events
@@ -38,9 +42,13 @@ export const useBudget = () => {
     dispatch(UPDATE_BUDGET_SCHEDULE(schedule))
   const setSelectedHotelName = (hotel_name) =>
     dispatch(SET_SELECTED_HOTEL_NAME(hotel_name))
+  const setSelectedVenueName = (venue_name) =>
+    dispatch(SET_SELECTED_VENUE_NAME(venue_name))
   const toggleBreakdown = (id) => dispatch(TOGGLE_BREAKDOWN({ id }))
   const toggleMeetingBreakdown = ({ open, date, typeOfMeeting }) =>
     dispatch(TOGGLE_MEETING_BREAKDOWN({ open, date, typeOfMeeting }))
+  const toggleVenueBreakdown = ({ open, date, typeOfEvent }) =>
+    dispatch(TOGGLE_VENUE_BREAKDOWN({ open, date, typeOfEvent }))
   const updateHotelTotalCost = (hotel, nights) =>
     dispatch(UPDATE_HOTEL_TOTAL_COST({ hotel, nights }))
   const updateMeetingTotalCost = (date, id, nrPax, hotelName) =>
@@ -59,6 +67,7 @@ export const useBudget = () => {
   return {
     schedule,
     hotelName,
+    venueName,
     hotels,
     meetings,
     meals,
@@ -66,14 +75,17 @@ export const useBudget = () => {
     transfers,
     breakdownOpen,
     meetingBreakdownOpen,
+    venueBreakdownOpen,
     setBudgetSchedule,
     setHotels,
     updateBudgetSchedule,
     updateHotelTotalCost,
     updateTransfers,
     setSelectedHotelName,
+    setSelectedVenueName,
     toggleBreakdown,
     toggleMeetingBreakdown,
+    toggleVenueBreakdown,
     updateMeetingTotalCost,
     updateEventTotalCost,
     setCurrentMeetings,
