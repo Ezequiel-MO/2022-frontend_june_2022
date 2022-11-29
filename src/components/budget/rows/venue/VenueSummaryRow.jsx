@@ -1,63 +1,70 @@
-import { useState, useEffect, useContext } from 'react'
+import { useEffect } from 'react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
-import accounting from 'accounting'
 import { Icon } from '@iconify/react'
-import { getVenueTotal } from '../../totals/compute-totals-functions'
 import VenueMultipleChoice from './VenueMultipleChoice'
-import { BudgetContext } from '../../context/context'
-import { BUDGET_ACTIONS } from '../../context/reducer'
+import { useBudget } from '../../../../hooks/useBudget'
+import VenueSingleChoiceCells from './VenueSingleChoiceCells'
+import useFindVenueByName from '../../../../hooks/useFindVenueByName'
+import VenueTotalCost from './VenueTotalCost'
 
-const VenueSummaryRow = ({ options, pax }) => {
-  const [selectedVenue, setSelectedVenue] = useState(options[0])
-  const { budgetValues, dispatch } = useContext(BudgetContext)
-  const { venueBreakdownOpen, selectedVenueName } = budgetValues
+const VenueSummaryRow = ({ venues, id, pax, dateProp, typeOfMeetingProp }) => {
+  const {
+    toggleVenueBreakdown,
+    breakdownOpen,
+    updateEventTotalCost,
+    setCurrentMeals,
+    venueName
+  } = useBudget()
+  const { venueBreakdownOpen } = breakdownOpen
+  const { open, date, typeOfEvent } = venueBreakdownOpen
+
+  const { selectedVenue = venues[0] } = useFindVenueByName(venues, venueName)
 
   useEffect(() => {
-    const totalAmount = getVenueTotal(selectedVenue.venue_price[0])
-    dispatch({
-      type: BUDGET_ACTIONS.SET_SELECTED_VENUE_TOTAL_COST,
-      payload: totalAmount
-    })
+    updateEventTotalCost(dateProp, id, pax, selectedVenue?._id)
+  }, [venueName])
+
+  useEffect(() => {
+    setCurrentMeals(dateProp, id, selectedVenue?._id)
   }, [selectedVenue])
 
-  useEffect(() => {
-    if (selectedVenueName) {
-      setSelectedVenue(
-        options?.find((venue) => venue.name === selectedVenueName)
-      )
-    }
-  }, [selectedVenueName, options])
-
-  const { venue_price } = selectedVenue
-  const { catering_units } = venue_price[0]
   return (
     <>
       <TableRow>
+        <TableCell>{dateProp}</TableCell>
         <TableCell>
           <IconButton
             onClick={() =>
-              dispatch({
-                type: BUDGET_ACTIONS.TOGGLE_VENUE_BREAKDOWN,
-                payload: !venueBreakdownOpen
+              toggleVenueBreakdown({
+                open: !open,
+                date: dateProp,
+                typeOfEvent: typeOfMeetingProp
               })
             }
           >
-            {budgetValues.venueBreakdownOpen ? (
+            {open && date === dateProp && typeOfEvent === typeOfMeetingProp ? (
               <Icon icon='bx:up-arrow' color='#ea5933' />
             ) : (
               <Icon icon='bx:down-arrow' color='#ea5933' />
             )}
           </IconButton>
         </TableCell>
-        <TableCell></TableCell>
         <TableCell>
-          <VenueMultipleChoice options={options} />
+          {venues.length === 1 ? (
+            <VenueSingleChoiceCells
+              pax={pax}
+              options={venues}
+              description={typeOfEvent}
+              date={date}
+              id={id}
+            />
+          ) : (
+            <VenueMultipleChoice options={venues} />
+          )}
         </TableCell>
-        <TableCell>{catering_units}</TableCell>
         <TableCell></TableCell>
-        <TableCell>
-          {accounting.formatMoney(getVenueTotal(venue_price[0]), '€')}
-        </TableCell>
+        <TableCell></TableCell>
+        <VenueTotalCost venues={venues} />
       </TableRow>
     </>
   )

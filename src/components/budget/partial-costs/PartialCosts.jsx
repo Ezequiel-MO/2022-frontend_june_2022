@@ -1,54 +1,19 @@
-import { useEffect, useState, useContext } from 'react'
-import { useSelector } from 'react-redux'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 import { Icon } from '@iconify/react'
 import { accounting } from 'accounting'
-import {
-  totalActivities,
-  totalMeals,
-  totalTransfersIn,
-  totalTransfersOut
-} from '../totals/compute-totals-per-category'
-import {
-  getHotelTotal,
-  getTotalTransfers
-} from '../totals/compute-totals-functions'
-import { selectBudget } from '../../../redux/features/budgetSlice'
 import { useCurrentProject } from '../../../hooks/useCurrentProject'
-import { BudgetContext } from '../context/context'
+import useGetMeetingsCost from '../../../hooks/useGetMeetingsCost'
+import useGetMealsCost from '../../../hooks/useGetMealCosts'
+import useGetEventCosts from '../../../hooks/useGetEventCosts'
+import useGetTransferCosts from '../../../hooks/useGetTransferCosts'
 
 const PartialCosts = () => {
-  const { currentProject } = useCurrentProject()
-  const { budgetValues } = useContext(BudgetContext)
-  const { selectedVenueTotalCost, selectedMeetingTotalCost } = budgetValues
-  const { nrPax } = currentProject
-  const [subtotals, setSubtotals] = useState({
-    activities: 0,
-    meals: 0,
-    transfers: 0,
-    hotel: 0,
-    meetings: 0
-  })
-  const budget = useSelector(selectBudget)
-  const { schedule, hotel } = budget
-
-  useEffect(() => {
-    setSubtotals({
-      ...subtotals,
-      activities: totalActivities(schedule, nrPax),
-      meals: totalMeals(schedule, nrPax) /* + selectedVenueTotalCost */,
-      meetings: budgetValues.selectedMeetingTotalCost,
-      transfers:
-        totalTransfersIn(schedule) +
-        totalTransfersOut(schedule) +
-        getTotalTransfers(schedule),
-      hotel: hotel
-        ? getHotelTotal(hotel.price[0], schedule.length - 1)
-        : getHotelTotal(0, schedule.length)
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [schedule, hotel, selectedVenueTotalCost, selectedMeetingTotalCost, nrPax])
+  const { currentHotel } = useCurrentProject()
+  const { meetingTotalCost = 0 } = useGetMeetingsCost()
+  const { mealsTotalCost = 0 } = useGetMealsCost()
+  const { eventsTotalCost = 0 } = useGetEventCosts()
+  const { transfersTotalCost = 0 } = useGetTransferCosts()
 
   ChartJS.register(ArcElement, Tooltip, Legend)
 
@@ -58,11 +23,11 @@ const PartialCosts = () => {
       {
         label: 'Budget Breakdown',
         data: [
-          subtotals.hotel,
-          subtotals.meetings,
-          subtotals.transfers,
-          subtotals.meals,
-          subtotals.activities
+          currentHotel?.totalCost,
+          meetingTotalCost,
+          transfersTotalCost,
+          mealsTotalCost,
+          eventsTotalCost
         ],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -95,11 +60,7 @@ const PartialCosts = () => {
           />
           <p className='hidden sm:block'> ACCOMMODATION </p>
 
-          {hotel &&
-            accounting.formatMoney(
-              getHotelTotal(hotel.price[0], schedule.length - 1),
-              '€'
-            )}
+          {accounting.formatMoney(currentHotel?.totalCost, '€')}
         </div>
         <div className='shadow-lg my-2 p-2 rounded flex flex-row justify-between dark:bg-gray-50 dark:text-black-50'>
           <Icon
@@ -110,8 +71,7 @@ const PartialCosts = () => {
           />
           <p className='hidden sm:block'> MEETINGS </p>
 
-          {selectedMeetingTotalCost &&
-            accounting.formatMoney(selectedMeetingTotalCost)}
+          {accounting.formatMoney(meetingTotalCost, '€')}
         </div>
         <div className='shadow-lg my-2 p-2 rounded flex flex-row justify-between dark:bg-gray-50 dark:text-black-50'>
           <Icon
@@ -121,7 +81,7 @@ const PartialCosts = () => {
             className='flex-shrink-0'
           />
           <p className='hidden sm:block'>TRANSFERS </p>
-          {schedule && accounting.formatMoney(subtotals.transfers, '€')}
+          {accounting.formatMoney(transfersTotalCost, '€')}
         </div>
         <div className='shadow-lg my-2 p-2 rounded flex flex-row justify-between dark:bg-gray-50 dark:text-black-50'>
           <Icon
@@ -131,7 +91,7 @@ const PartialCosts = () => {
             className='flex-shrink-0'
           />
           <p className='hidden sm:block'>MEAL FUNCTIONS</p>
-          {schedule && nrPax && accounting.formatMoney(subtotals.meals, '€')}
+          {accounting.formatMoney(mealsTotalCost, '€')}
         </div>
         <div className='shadow-lg my-2 p-2 rounded flex flex-row justify-between dark:bg-gray-50 dark:text-black-50'>
           <Icon
@@ -141,9 +101,7 @@ const PartialCosts = () => {
             className='flex-shrink-0'
           />
           <p className='hidden sm:block'>ACTIVITIES </p>
-          {schedule &&
-            nrPax &&
-            accounting.formatMoney(subtotals.activities, '€')}
+          {accounting.formatMoney(eventsTotalCost, '€')}
         </div>
       </div>
       <div className='w-1/3 hidden md:flex md:justify-center md:items-center'>

@@ -1,4 +1,3 @@
-import { useContext, useState, useEffect } from 'react'
 import {
   Collapse,
   Table,
@@ -8,21 +7,16 @@ import {
   TableRow
 } from '@mui/material'
 import { Box } from '@mui/system'
-import { BudgetContext } from '../../context/context'
 import VenueBreakdownRow from './VenueBreakdownRow'
+import { useBudget } from '../../../../hooks/useBudget'
+import useFindVenueByName from '../../../../hooks/useFindVenueByName'
 
-const VenueBreakdownRows = ({ options }) => {
-  const [selectedVenue, setSelectedVenue] = useState(options[0])
-  const { budgetValues } = useContext(BudgetContext)
-  const { selectedVenueName } = budgetValues
+const VenueBreakdownRows = ({ venues, dateProp, typeOfMeetingProp }) => {
+  const { breakdownOpen, venueName } = useBudget()
+  const { venueBreakdownOpen } = breakdownOpen
+  const { open, date, typeOfEvent } = venueBreakdownOpen
 
-  useEffect(() => {
-    if (selectedVenueName) {
-      setSelectedVenue(
-        options.find((venue) => venue.name === selectedVenueName)
-      )
-    }
-  }, [selectedVenueName, options])
+  const { selectedVenue = venues[0] } = useFindVenueByName(venues, venueName)
 
   const {
     rental,
@@ -36,7 +30,7 @@ const VenueBreakdownRows = ({ options }) => {
     cleaning,
     security,
     entertainment
-  } = selectedVenue.venue_price[0]
+  } = selectedVenue?.venue_price[0]
 
   const BreakdownRowsArr = [
     { units: 1, title: 'Rental Fee', rate: rental },
@@ -61,7 +55,7 @@ const VenueBreakdownRows = ({ options }) => {
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
         <Collapse
-          in={budgetValues.venueBreakdownOpen}
+          in={open && date === dateProp && typeOfEvent === typeOfMeetingProp}
           timeout='auto'
           unmountOnExit
         >
@@ -71,7 +65,8 @@ const VenueBreakdownRows = ({ options }) => {
                 <TableRow>
                   <TableCell>Description</TableCell>
                   <TableCell>Nr. Units </TableCell>
-                  <TableCell>Cost per unit</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell>Unit Cost</TableCell>
                   <TableCell>Total Cost</TableCell>
                 </TableRow>
               </TableHead>

@@ -9,7 +9,6 @@ function SidebarRow({ iconText, title, modal = false, handleOpen }) {
   const { currentProject } = useCurrentProject()
   const { hotels, schedule, corporateImage } = currentProject
   const { activeTab, setActiveTab, handleChange } = useActiveTab()
-  // if corporateImage[0] is not undefined, then extract colorPalette
   const { colorPalette = [] } = corporateImage[0] || {}
   if (modal) {
     return (
@@ -26,7 +25,7 @@ function SidebarRow({ iconText, title, modal = false, handleOpen }) {
           width='40'
         />
         <p className='group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg'>
-          {title.replace(/^\w/, (c) => c.toUpperCase())}
+          {title?.replace(/^\w/, (c) => c.toUpperCase())}
         </p>
       </div>
     )
@@ -56,7 +55,7 @@ function SidebarRow({ iconText, title, modal = false, handleOpen }) {
           />
         </div>
         <p className='group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg'>
-          {title.replace(/^\w/, (c) => c.toUpperCase())}
+          {title?.replace(/^\w/, (c) => c.toUpperCase())}
         </p>
       </Link>
       <Link
@@ -87,7 +86,7 @@ function SidebarRow({ iconText, title, modal = false, handleOpen }) {
                   activeTab === index + 1 ? 'text-white-100' : ''
                 } hover:text-white-100 hover:cursor-pointer hidden md:inline-flex text-sm lg:text-base`}
               >
-                {hotel.name.replace(/^\w/, (c) => c.toUpperCase())}
+                {hotel?.name.replace(/^\w/, (c) => c.toUpperCase())}
               </p>
             ))}
           </div>
