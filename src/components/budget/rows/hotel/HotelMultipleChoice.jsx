@@ -1,22 +1,15 @@
 import { Box, FormControl, MenuItem, Select, Typography } from '@mui/material'
-import React, { useContext } from 'react'
-import { BudgetContext } from '../../context/context'
-import { BUDGET_ACTIONS } from '../../context/reducer'
+import { useBudget } from '../../../../hooks/useBudget'
 
 const HotelMultipleChoice = ({ options }) => {
-  const { budgetValues, dispatch } = useContext(BudgetContext)
+  const { hotelName, setSelectedHotelName } = useBudget()
 
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl variant='standard' sx={{ m: 1, minWidth: '15rem' }}>
         <Select
-          value={budgetValues.selectedHotelName || options[0].name}
-          onChange={(e) =>
-            dispatch({
-              type: BUDGET_ACTIONS.SET_SELECTED_HOTEL_NAME,
-              payload: e.target.value
-            })
-          }
+          value={hotelName || options[0].name}
+          onChange={(e) => setSelectedHotelName(e.target.value)}
         >
           {options.map((option) => (
             <MenuItem key={option._id} value={option.name}>

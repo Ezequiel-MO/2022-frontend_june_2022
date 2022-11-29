@@ -11,7 +11,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const [visiblePassword, setVisiblePassword] = useState(false)
   const { setCurrentProject } = useCurrentProject()
-  const { setBudgetSchedule } = useBudget()
+  const { setBudgetSchedule, setHotels } = useBudget()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [alert, setAlert] = useState({})
@@ -59,6 +59,10 @@ const LoginPage = () => {
         JSON.stringify(response.data.data.data[0].schedule)
       )
       localStorage.setItem(
+        'hotels',
+        JSON.stringify(response.data.data.data[0].hotels)
+      )
+      localStorage.setItem(
         'currentProject',
         JSON.stringify(response.data.data.data[0])
       )
@@ -71,6 +75,7 @@ const LoginPage = () => {
       setCurrentProject(response.data.data.data[0])
 
       setBudgetSchedule(response.data.data.data[0].schedule)
+      setHotels(response.data.data.data[0].hotels)
       navigate('/app')
       setLoading(false)
     } catch (error) {

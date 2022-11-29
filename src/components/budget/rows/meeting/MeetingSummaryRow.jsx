@@ -1,41 +1,39 @@
-import { useState, useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Icon } from '@iconify/react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
-import { BudgetContext } from '../../context/context'
-import { BUDGET_ACTIONS } from '../../context/reducer'
-import MeetingMultipleChoice from './MeetingMultipleChoice'
-import { getMeetingTotal } from '../../totals/compute-totals-functions'
+import { useBudget } from '../../../../hooks/useBudget'
+import useFindHotelByName from '../../../../hooks/useFindHotelByName'
+import useFindMeetingByHotel from '../../../../hooks/useFindMeetingByHotel'
 
-const MeetingSummaryRow = ({ pax, dateProp, typeOfMeetingProp, options }) => {
-  const [selectedMeeting, setSelectedMeeting] = useState(options[0])
-  const { budgetValues, dispatch } = useContext(BudgetContext)
+const MeetingSummaryRow = ({
+  pax,
+  dateProp,
+  typeOfMeetingProp,
+  meetings,
+  id
+}) => {
   const {
-    meetingBreakdownOpen,
-    selectedMeetingHotelId,
-    selectedMeetingTotalCost
-  } = budgetValues
-
+    toggleMeetingBreakdown,
+    breakdownOpen,
+    hotelName,
+    hotels,
+    updateMeetingTotalCost,
+    setCurrentMeetings
+  } = useBudget()
+  const { meetingBreakdownOpen } = breakdownOpen
   const { open, date, typeOfMeeting } = meetingBreakdownOpen
+
+  const { selectedHotel } = useFindHotelByName(hotelName, hotels)
+  const { meeting } = useFindMeetingByHotel(meetings, selectedHotel)
+
   useEffect(() => {
-    const totalAmount = getMeetingTotal(selectedMeeting, pax)
-    dispatch({
-      type: BUDGET_ACTIONS.SET_SELECTED_MEETING_TOTAL_COST,
-      payload: totalAmount
-    })
-    dispatch({
-      type: BUDGET_ACTIONS.SET_SELECTED_MEETING,
-      payload: selectedMeeting
-    })
-  }, [selectedMeeting])
+    setCurrentMeetings(dateProp, id, meeting._id)
+  }, [meeting])
+
   useEffect(() => {
-    if (selectedMeetingHotelId) {
-      const selectedMeeting = options?.find(
-        (meeting) => meeting.hotel[0] === selectedMeetingHotelId
-      )
-      setSelectedMeeting(selectedMeeting)
-    }
-  }, [selectedMeetingHotelId, options])
+    updateMeetingTotalCost(dateProp, id, pax, hotelName || selectedHotel.name)
+  }, [dateProp, typeOfMeetingProp, hotelName])
 
   return (
     <TableRow>
@@ -43,13 +41,10 @@ const MeetingSummaryRow = ({ pax, dateProp, typeOfMeetingProp, options }) => {
       <TableCell>
         <IconButton
           onClick={() =>
-            dispatch({
-              type: BUDGET_ACTIONS.TOGGLE_MEETING_BREAKDOWN,
-              payload: {
-                open: !open,
-                date: dateProp,
-                typeOfMeeting: typeOfMeetingProp
-              }
+            toggleMeetingBreakdown({
+              open: !open,
+              date: dateProp,
+              typeOfMeeting: typeOfMeetingProp
             })
           }
         >
@@ -60,17 +55,10 @@ const MeetingSummaryRow = ({ pax, dateProp, typeOfMeetingProp, options }) => {
           )}
         </IconButton>
       </TableCell>
-      <TableCell>
-        <MeetingMultipleChoice
-          options={options}
-          typeOfMeeting={typeOfMeetingProp}
-        />
-      </TableCell>
+      <TableCell>{`${typeOfMeetingProp}  @ ${selectedHotel.name}`}</TableCell>
       <TableCell></TableCell>
       <TableCell></TableCell>
-      <TableCell>
-        {accounting.formatMoney(selectedMeetingTotalCost, '€')}
-      </TableCell>
+      <TableCell>{accounting.formatMoney(meeting.totalCost, '€')}</TableCell>
     </TableRow>
   )
 }

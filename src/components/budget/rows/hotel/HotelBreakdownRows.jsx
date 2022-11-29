@@ -7,20 +7,14 @@ import {
   TableRow
 } from '@mui/material'
 import { Box } from '@mui/system'
-import { useContext, useEffect, useState } from 'react'
-import { BudgetContext } from '../../context/context'
+import { useBudget } from '../../../../hooks/useBudget'
+import useFindHotelByName from '../../../../hooks/useFindHotelByName'
 import HotelBreakdownRow from './HotelBreakdownRow'
 
 const HotelBreakdownRows = ({ hotels, nights }) => {
-  const [selectedHotel, setSelectedHotel] = useState(hotels[0])
-  const { budgetValues } = useContext(BudgetContext)
-  const { selectedHotelName, hotelBreakdownOpen } = budgetValues
+  const { breakdownOpen, hotelName } = useBudget()
 
-  useEffect(() => {
-    if (selectedHotelName) {
-      setSelectedHotel(hotels.find((hotel) => hotel.name === selectedHotelName))
-    }
-  }, [selectedHotelName, hotels])
+  const { selectedHotel } = useFindHotelByName(hotelName, hotels)
 
   const {
     DUInr,
@@ -34,7 +28,7 @@ const HotelBreakdownRows = ({ hotels, nights }) => {
   return (
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-        <Collapse in={hotelBreakdownOpen} timeout='auto' unmountOnExit>
+        <Collapse in={breakdownOpen['hotel']} timeout='auto' unmountOnExit>
           <Box margin={1}>
             <Table size='small'>
               <TableHead>

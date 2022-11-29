@@ -22,18 +22,16 @@ const DayRows = ({ day, pax }) => {
     <>
       {transfer_in.length > 0 && (
         <>
-          {transfer_in[0].withAssistance === true &&
-          transfer_in[0].meetGreet > 0 ? (
+          {transfer_in[0].meetGreet > 0 ? (
             <DayRow
               pax={1}
               date={date}
               options={transfer_in}
               description='Meet & Greet @ Airport'
-              id='meet_greet'
+              id='meetGreet'
             />
           ) : null}
-          {transfer_in[0].withAssistance === true &&
-          transfer_in[0].assistance > 0 ? (
+          {transfer_in[0].assistance > 0 ? (
             <DayRow
               pax={transfer_in.length}
               date={date}
@@ -69,7 +67,7 @@ const DayRows = ({ day, pax }) => {
                 date={date}
                 options={morningEvents[0].transfer}
                 description='Transfer'
-                id='transfer'
+                id='transfer_morningEvents'
               />
             </>
           )}
@@ -78,7 +76,7 @@ const DayRows = ({ day, pax }) => {
             date={date}
             options={morningEvents}
             description='Morning Events'
-            multipleChoice={`${morningEvents.length > 1}`}
+            multipleChoice={morningEvents.length > 1 ? true : false}
             id='morningEvents'
           />
         </>
@@ -89,12 +87,14 @@ const DayRows = ({ day, pax }) => {
             pax={pax}
             dateProp={date}
             typeOfMeetingProp='Morning Meeting'
-            options={morningMeetings}
+            meetings={morningMeetings}
+            id='morningMeetings'
           />
           <MeetingBreakdownRows
             pax={pax}
             dateProp={date}
             typeOfMeetingProp='Morning Meeting'
+            meetings={morningMeetings}
           />
         </>
       )}
@@ -119,7 +119,7 @@ const DayRows = ({ day, pax }) => {
                 ? 'Transfer 4h at disposal'
                 : 'Transfer'
             }
-            id='transfer'
+            id='transfer_lunch'
           />
           <DayRow
             pax={pax}
@@ -147,7 +147,7 @@ const DayRows = ({ day, pax }) => {
             date={date}
             options={afternoonEvents[0].transfer}
             description='Transfer'
-            id='transfer'
+            id='transfer_afternoonEvents'
           />
           <DayRow
             pax={pax}
@@ -165,12 +165,14 @@ const DayRows = ({ day, pax }) => {
             pax={pax}
             dateProp={date}
             typeOfMeetingProp='Afternoon Meeting'
-            options={afternoonMeetings}
+            meetings={afternoonMeetings}
+            id='afternoonMeetings'
           />
           <MeetingBreakdownRows
             pax={pax}
             dateProp={date}
             typeOfMeetingProp='Afternoon Meeting'
+            meetings={afternoonMeetings}
           />
         </>
       )}
@@ -180,12 +182,14 @@ const DayRows = ({ day, pax }) => {
             pax={pax}
             dateProp={date}
             typeOfMeetingProp='Full Day Meeting'
-            options={fullDayMeetings}
+            meetings={fullDayMeetings}
+            id='fullDayMeetings'
           />
           <MeetingBreakdownRows
             pax={pax}
             dateProp={date}
             typeOfMeetingProp='Full Day Meeting'
+            meetings={fullDayMeetings}
           />
         </>
       )}
@@ -209,12 +213,22 @@ const DayRows = ({ day, pax }) => {
                 ? 'Transfer 4h at disposal night hours'
                 : 'Transfer'
             }
-            id='transfer'
+            id='transfer_dinner'
           />
           {dinner[0].isVenue ? (
             <>
-              <VenueSummaryRow options={dinner} pax={pax} />
-              <VenueBreakdownRows options={dinner} />
+              <VenueSummaryRow
+                venues={dinner}
+                pax={pax}
+                dateProp={date}
+                typeOfMeetingProp='Dinner Venue'
+                id='dinner'
+              />
+              <VenueBreakdownRows
+                venues={dinner}
+                dateProp={date}
+                typeOfMeetingProp='Dinner Venue'
+              />
             </>
           ) : (
             <DayRow
@@ -237,7 +251,7 @@ const DayRows = ({ day, pax }) => {
               date={date}
               options={transfer_out}
               description='Bus dispatcher'
-              id='meet_greet'
+              id='meetGreet'
             />
           ) : null}
           {transfer_out[0].assistance > 0 ? (

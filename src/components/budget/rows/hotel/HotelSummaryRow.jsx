@@ -1,45 +1,34 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import { Icon } from '@iconify/react'
-import { accounting } from 'accounting'
-import { BudgetContext } from '../../context/context'
-import { BUDGET_ACTIONS } from '../../context/reducer'
 import HotelMultipleChoice from './HotelMultipleChoice'
-import { getHotelTotal } from '../../totals/compute-totals-functions'
 import { useBudget } from '../../../../hooks/useBudget'
+import HotelTotalCost from './HotelTotalCost'
+import useFindHotelByName from '../../../../hooks/useFindHotelByName'
 
-const HotelSummaryRow = ({ hotels, nights }) => {
-  const { setSelectedHotel } = useBudget()
-  const { budgetValues, dispatch } = useContext(BudgetContext)
-  const { hotelBreakdownOpen, selectedHotelName } = budgetValues
-  const [selectedHotelState, setSelectedHotelState] = useState(hotels[0])
+const HotelSummaryRow = ({ nights }) => {
+  const {
+    breakdownOpen,
+    hotels,
+    hotelName,
+    toggleBreakdown,
+    updateHotelTotalCost
+  } = useBudget()
+
+  const { selectedHotel } = useFindHotelByName(hotelName, hotels)
 
   useEffect(() => {
-    setSelectedHotel(selectedHotelState)
-  }, [selectedHotelState])
-
-  useEffect(() => {
-    if (selectedHotelName) {
-      const selectedHotel = hotels?.find(
-        (hotel) => hotel.name === selectedHotelName
-      )
-      setSelectedHotelState(selectedHotel)
+    if (hotels?.length > 0) {
+      updateHotelTotalCost(selectedHotel, nights)
     }
-  }, [selectedHotelName, hotels])
+  }, [hotels, nights, updateHotelTotalCost])
 
   return (
     <>
       <TableRow>
         <TableCell>
-          <IconButton
-            onClick={() =>
-              dispatch({
-                type: BUDGET_ACTIONS.TOGGLE_HOTEL_BREAKDOWN,
-                payload: !hotelBreakdownOpen
-              })
-            }
-          >
-            {hotelBreakdownOpen ? (
+          <IconButton onClick={() => toggleBreakdown('hotel')}>
+            {breakdownOpen['hotel'] ? (
               <Icon icon='bx:up-arrow' color='#ea5933' />
             ) : (
               <Icon icon='bx:down-arrow' color='#ea5933' />
@@ -52,12 +41,7 @@ const HotelSummaryRow = ({ hotels, nights }) => {
         </TableCell>
         <TableCell></TableCell>
         <TableCell></TableCell>
-        <TableCell>
-          {accounting.formatMoney(
-            getHotelTotal(selectedHotelState.price[0], nights),
-            '€'
-          )}
-        </TableCell>
+        <HotelTotalCost />
       </TableRow>
     </>
   )
