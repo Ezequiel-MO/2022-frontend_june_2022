@@ -45,7 +45,7 @@ const RenderPhotos = ({ images }) => {
   return (
     <>
       <div className='m-auto w-full'>
-        <div className='w-full flex justify-start flex-wrap pt-10'>
+        <div className='flex justify-start pt-10'>
           {images.map((item, index) => (
             <div
               className='m-2 p-2 scale-125 hover:scale-150 ease-in duration-200 hover:z-50'

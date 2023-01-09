@@ -1,11 +1,19 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from 'react-router-dom'
+import { Header } from '../components'
+import { useUserLog } from '../hooks/useUserLog'
 
-const ProtectedRoute = ({ user = true, children }) => {
-  if (!user) {
-    return <Navigate to="/" replace />;
+const ProtectedRoute = () => {
+  const { userIsLoggedIn } = useUserLog()
+  if (!userIsLoggedIn) {
+    return <Navigate to='/' replace />
   }
 
-  return children;
-};
+  return (
+    <>
+      <Header />
+      <Outlet />
+    </>
+  )
+}
 
-export default ProtectedRoute;
+export default ProtectedRoute

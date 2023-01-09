@@ -3,21 +3,22 @@ import {
   MainSection,
   Sidebar,
   SidebarModals,
-  SidebarSmall,
-} from "../components";
+  SidebarSmall
+} from '../components'
 
 const MainPage = () => {
   return (
-    <div className="flex flex-col">
-      <SidebarSmall />
-      <div className="grid grid-cols-12 m-8">
-        <Sidebar />
+    <div className='flex flex-col'>
+      {/*   <SidebarSmall /> */}
+      <div className='grid grid-cols-12 m-8'>
+        <div className='col-span-2' />
+        {/*  <Sidebar /> */}
         <MainSection />
         <SidebarModals />
       </div>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default MainPage;
+export default MainPage

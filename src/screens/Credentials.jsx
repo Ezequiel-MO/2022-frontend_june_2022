@@ -1,7 +1,5 @@
-import React from "react";
-
 const Credentials = () => {
-  return <div>Credentials</div>;
-};
+  return <div>Credentials</div>
+}
 
-export default Credentials;
+export default Credentials
