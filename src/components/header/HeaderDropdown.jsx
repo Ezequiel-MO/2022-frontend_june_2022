@@ -16,7 +16,7 @@ const HeaderDropdown = ({ groupLocation }) => {
         </p>
         <div
           className='flex items-center space-x-2 hover:text-orange-700 hover:cursor-pointer'
-          onClick={() => handleRoute('/app/destinationInfo')}
+          onClick={() => handleRoute('/app/destination_info')}
         >
           <span>Destination Information, </span>
           <span className='text-orange-500'>{groupLocation}</span>

@@ -20,7 +20,7 @@ export const router = createBrowserRouter(
       <Route path='app' element={<ProtectedRoute />}>
         <Route index element={<MainPage />} />
         <Route path='credentials' element={<Credentials />} />
-        <Route path='destinationInfo' element={<Destination />} />
+        <Route path='destination_info' element={<Destination />} />
       </Route>
       <Route path='*' element={<NotFound />} />
     </Route>
