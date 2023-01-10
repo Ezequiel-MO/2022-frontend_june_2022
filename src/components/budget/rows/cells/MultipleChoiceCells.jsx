@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react'
-import { accounting } from 'accounting'
 import { TableCell } from '@mui/material'
-import MultipleChoice from '../days/MultipleChoice'
+import { MultipleChoice, TotalRow } from '../../'
 import { useBudget } from '../../../../hooks/useBudget'
 import useFindEventByName from '../../../../hooks/useFindEventByName'
-import TotalRow from '../../totals/TotalRow'
 
-const MultipleChoiceCells = ({ pax, description, options, id, date }) => {
+export const MultipleChoiceCells = ({
+  pax,
+  description,
+  options,
+  id,
+  date
+}) => {
   const { updateEventTotalCost, setCurrentMeals, setCurrentEvents } =
     useBudget()
   const [value, setValue] = useState(options[0].name)
@@ -53,5 +57,3 @@ const MultipleChoiceCells = ({ pax, description, options, id, date }) => {
     </>
   )
 }
-
-export default MultipleChoiceCells

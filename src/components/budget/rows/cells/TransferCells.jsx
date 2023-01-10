@@ -3,7 +3,7 @@ import { TableCell } from '@mui/material'
 import accounting from 'accounting'
 import { useBudget } from '../../../../hooks/useBudget'
 
-const TransferCells = ({ pax, description, options, id, date }) => {
+export const TransferCells = ({ pax, description, options, id, date }) => {
   const { updateTransfers } = useBudget()
   useEffect(() => {
     updateTransfers(date, id, pax, options[0][options[0].selectedService])
@@ -42,5 +42,3 @@ const TransferCells = ({ pax, description, options, id, date }) => {
     </>
   )
 }
-
-export default TransferCells

@@ -1,10 +1,11 @@
-import MeetingBreakdownRows from '../meeting/MeetingBreakdownRows'
-import MeetingSummaryRow from '../meeting/MeetingSummaryRow'
-import VenueBreakdownRows from '../venue/VenueBreakdownRows'
-import VenueSummaryRow from '../venue/VenueSummaryRow'
-import DayRow from './DayRow'
-
-const DayRows = ({ day, pax }) => {
+import {
+  DayRow,
+  MeetingBreakdownRows,
+  MeetingSummaryRow,
+  VenueBreakdownRows,
+  VenueSummaryRow
+} from '../../'
+export const DayRows = ({ day, pax }) => {
   const {
     date,
     transfer_in,
@@ -275,5 +276,3 @@ const DayRows = ({ day, pax }) => {
     </>
   )
 }
-
-export default DayRows

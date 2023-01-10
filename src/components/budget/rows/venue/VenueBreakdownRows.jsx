@@ -7,11 +7,11 @@ import {
   TableRow
 } from '@mui/material'
 import { Box } from '@mui/system'
-import VenueBreakdownRow from './VenueBreakdownRow'
+import { VenueBreakdownRow } from '../../'
 import { useBudget } from '../../../../hooks/useBudget'
 import useFindVenueByName from '../../../../hooks/useFindVenueByName'
 
-const VenueBreakdownRows = ({ venues, dateProp, typeOfMeetingProp }) => {
+export const VenueBreakdownRows = ({ venues, dateProp, typeOfMeetingProp }) => {
   const { breakdownOpen, venueName } = useBudget()
   const { venueBreakdownOpen } = breakdownOpen
   const { open, date, typeOfEvent } = venueBreakdownOpen
@@ -92,5 +92,3 @@ const VenueBreakdownRows = ({ venues, dateProp, typeOfMeetingProp }) => {
     </TableRow>
   )
 }
-
-export default VenueBreakdownRows

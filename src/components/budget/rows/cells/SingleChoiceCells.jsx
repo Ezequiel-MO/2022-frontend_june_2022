@@ -3,7 +3,7 @@ import { TableCell } from '@mui/material'
 import { accounting } from 'accounting'
 import { useBudget } from '../../../../hooks/useBudget'
 
-const SingleChoiceCells = ({ pax, options, description, date, id }) => {
+export const SingleChoiceCells = ({ pax, options, description, date, id }) => {
   const [pricePerPerson, setPricePerPerson] = useState(true)
   const { updateEventTotalCost, setCurrentEvents, setCurrentMeals } =
     useBudget()
@@ -41,5 +41,3 @@ const SingleChoiceCells = ({ pax, options, description, date, id }) => {
     </>
   )
 }
-
-export default SingleChoiceCells

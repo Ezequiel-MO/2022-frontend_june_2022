@@ -1,7 +1,7 @@
 import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 
-const HotelBreakdownRow = ({ title, units, rate, nights }) => {
+export const HotelBreakdownRow = ({ title, units, rate, nights }) => {
   return (
     <TableRow>
       <TableCell component='th' scope='row'>
@@ -16,5 +16,3 @@ const HotelBreakdownRow = ({ title, units, rate, nights }) => {
     </TableRow>
   )
 }
-
-export default HotelBreakdownRow

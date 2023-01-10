@@ -9,9 +9,9 @@ import {
 import { Box } from '@mui/system'
 import { useBudget } from '../../../../hooks/useBudget'
 import useFindHotelByName from '../../../../hooks/useFindHotelByName'
-import HotelBreakdownRow from './HotelBreakdownRow'
+import { HotelBreakdownRow } from '../../'
 
-const HotelBreakdownRows = ({ hotels, nights }) => {
+export const HotelBreakdownRows = ({ hotels, nights }) => {
   const { breakdownOpen, hotelName } = useBudget()
 
   const { selectedHotel } = useFindHotelByName(hotelName, hotels)
@@ -75,5 +75,3 @@ const HotelBreakdownRows = ({ hotels, nights }) => {
     </TableRow>
   )
 }
-
-export default HotelBreakdownRows

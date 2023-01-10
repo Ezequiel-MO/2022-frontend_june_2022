@@ -1,7 +1,7 @@
 import { TableCell, TableHead, TableRow } from '@mui/material'
 import { useCurrentProject } from '../../hooks/useCurrentProject'
 
-const BudgetTableHead = () => {
+export const BudgetTableHead = () => {
   const { currentProject } = useCurrentProject()
 
   const { corporateImage } = currentProject
@@ -72,5 +72,3 @@ const BudgetTableHead = () => {
     </TableHead>
   )
 }
-
-export default BudgetTableHead

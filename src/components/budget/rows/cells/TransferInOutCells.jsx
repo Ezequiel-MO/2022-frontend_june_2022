@@ -5,7 +5,7 @@ import { useBudget } from '../../../../hooks/useBudget'
 
 const transferIds = ['transfer_in', 'transfer_out', 'assistance', 'meetGreet']
 
-const TransferInOutCells = ({ date, description, options, pax, id }) => {
+export const TransferInOutCells = ({ date, description, options, pax, id }) => {
   const { updateTransfers } = useBudget()
 
   useEffect(() => {
@@ -28,5 +28,3 @@ const TransferInOutCells = ({ date, description, options, pax, id }) => {
     </>
   )
 }
-
-export default TransferInOutCells

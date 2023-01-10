@@ -1,13 +1,15 @@
-import { useReducer, forwardRef } from 'react'
+import { forwardRef } from 'react'
 import { Table, TableBody } from '@mui/material'
-import DayRows from './rows/days/DayRows'
-import HotelSummaryRow from './rows/hotel/HotelSummaryRow'
-import HotelBreakdownRows from './rows/hotel/HotelBreakdownRows'
-import TotalBudgetCost from './totals/TotalBudgetCost'
 import { useCurrentProject } from '../../hooks/useCurrentProject'
-import BudgetTableHead from './BudgetTableHead'
-import PartialCosts from './partial-costs/PartialCosts'
 import { useBudget } from '../../hooks/useBudget'
+import {
+  BudgetTableHead,
+  PartialCosts,
+  DayRows,
+  HotelSummaryRow,
+  HotelBreakdownRows,
+  TotalBudgetCost
+} from './'
 
 const Budget = forwardRef((props, ref) => {
   const { currentProject } = useCurrentProject()

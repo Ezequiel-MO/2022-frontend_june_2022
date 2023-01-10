@@ -7,12 +7,12 @@ import {
   TableRow
 } from '@mui/material'
 import { Box } from '@mui/system'
-import MeetingBreakdownRow from './MeetingBreakdownRow'
+import { MeetingBreakdownRow } from '../../'
 import { useBudget } from '../../../../hooks/useBudget'
 import useFindHotelByName from '../../../../hooks/useFindHotelByName'
 import useFindMeetingByHotel from '../../../../hooks/useFindMeetingByHotel'
 
-const MeetingBreakdownRows = ({
+export const MeetingBreakdownRows = ({
   pax,
   dateProp,
   typeOfMeetingProp,
@@ -101,5 +101,3 @@ const MeetingBreakdownRows = ({
     </TableRow>
   )
 }
-
-export default MeetingBreakdownRows

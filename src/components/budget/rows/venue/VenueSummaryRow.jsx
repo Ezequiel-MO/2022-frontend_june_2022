@@ -1,13 +1,22 @@
 import { useEffect } from 'react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import { Icon } from '@iconify/react'
-import VenueMultipleChoice from './VenueMultipleChoice'
+import {
+  VenueMultipleChoice,
+  VenueSingleChoiceCells,
+  VenueTotalCost
+} from '../../'
 import { useBudget } from '../../../../hooks/useBudget'
-import VenueSingleChoiceCells from './VenueSingleChoiceCells'
-import useFindVenueByName from '../../../../hooks/useFindVenueByName'
-import VenueTotalCost from './VenueTotalCost'
 
-const VenueSummaryRow = ({ venues, id, pax, dateProp, typeOfMeetingProp }) => {
+import useFindVenueByName from '../../../../hooks/useFindVenueByName'
+
+export const VenueSummaryRow = ({
+  venues,
+  id,
+  pax,
+  dateProp,
+  typeOfMeetingProp
+}) => {
   const {
     toggleVenueBreakdown,
     breakdownOpen,
@@ -69,5 +78,3 @@ const VenueSummaryRow = ({ venues, id, pax, dateProp, typeOfMeetingProp }) => {
     </>
   )
 }
-
-export default VenueSummaryRow

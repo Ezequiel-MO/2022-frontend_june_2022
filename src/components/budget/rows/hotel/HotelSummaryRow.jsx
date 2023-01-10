@@ -1,12 +1,11 @@
 import { useEffect } from 'react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import { Icon } from '@iconify/react'
-import HotelMultipleChoice from './HotelMultipleChoice'
 import { useBudget } from '../../../../hooks/useBudget'
-import HotelTotalCost from './HotelTotalCost'
 import useFindHotelByName from '../../../../hooks/useFindHotelByName'
+import { HotelMultipleChoice, HotelTotalCost } from '../../'
 
-const HotelSummaryRow = ({ nights }) => {
+export const HotelSummaryRow = ({ nights }) => {
   const {
     breakdownOpen,
     hotels,
@@ -46,5 +45,3 @@ const HotelSummaryRow = ({ nights }) => {
     </>
   )
 }
-
-export default HotelSummaryRow

@@ -6,7 +6,7 @@ import { useBudget } from '../../../../hooks/useBudget'
 import useFindHotelByName from '../../../../hooks/useFindHotelByName'
 import useFindMeetingByHotel from '../../../../hooks/useFindMeetingByHotel'
 
-const MeetingSummaryRow = ({
+export const MeetingSummaryRow = ({
   pax,
   dateProp,
   typeOfMeetingProp,
@@ -62,5 +62,3 @@ const MeetingSummaryRow = ({
     </TableRow>
   )
 }
-
-export default MeetingSummaryRow

@@ -5,7 +5,7 @@ import useFindHotelByName from '../../../../hooks/useFindHotelByName'
 import { useBudget } from '../../../../hooks/useBudget'
 import { useCurrentProject } from '../../../../hooks/useCurrentProject'
 
-const HotelTotalCost = () => {
+export const HotelTotalCost = () => {
   const { hotelName, hotels } = useBudget()
   const { setCurrentHotel } = useCurrentProject()
 
@@ -23,5 +23,3 @@ const HotelTotalCost = () => {
     </TableCell>
   )
 }
-
-export default HotelTotalCost

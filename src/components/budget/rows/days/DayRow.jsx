@@ -1,10 +1,19 @@
 import { TableCell, TableRow } from '@mui/material'
-import MultipleChoiceCells from '../cells/MultipleChoiceCells'
-import SingleChoiceCells from '../cells/SingleChoiceCells'
-import TransferCells from '../cells/TransferCells'
-import TransferInOutCells from '../cells/TransferInOutCells'
+import {
+  MultipleChoiceCells,
+  SingleChoiceCells,
+  TransferCells,
+  TransferInOutCells
+} from '../../'
 
-const DayRow = ({ pax, date, options, description, multipleChoice, id }) => {
+export const DayRow = ({
+  pax,
+  date,
+  options,
+  description,
+  multipleChoice,
+  id
+}) => {
   const props = {
     pax,
     description,
@@ -90,4 +99,3 @@ const DayRow = ({ pax, date, options, description, multipleChoice, id }) => {
 
   return <div></div>
 }
-export default DayRow

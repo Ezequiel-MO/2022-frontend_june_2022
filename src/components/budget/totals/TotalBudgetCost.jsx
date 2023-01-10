@@ -6,7 +6,7 @@ import useGetMeetingsCost from '../../../hooks/useGetMeetingsCost'
 import useGetEventCosts from '../../../hooks/useGetEventCosts'
 import useGetTransferCosts from '../../../hooks/useGetTransferCosts'
 
-const TotalBudgetCost = () => {
+export const TotalBudgetCost = () => {
   const { currentHotel } = useCurrentProject()
   const { meetingTotalCost = 0 } = useGetMeetingsCost()
   const { mealsTotalCost = 0 } = useGetMealsCost()
@@ -32,5 +32,3 @@ const TotalBudgetCost = () => {
     </TableRow>
   )
 }
-
-export default TotalBudgetCost

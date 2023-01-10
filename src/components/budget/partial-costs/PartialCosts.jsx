@@ -8,7 +8,7 @@ import useGetMealsCost from '../../../hooks/useGetMealCosts'
 import useGetEventCosts from '../../../hooks/useGetEventCosts'
 import useGetTransferCosts from '../../../hooks/useGetTransferCosts'
 
-const PartialCosts = () => {
+export const PartialCosts = () => {
   const { currentHotel } = useCurrentProject()
   const { meetingTotalCost = 0 } = useGetMeetingsCost()
   const { mealsTotalCost = 0 } = useGetMealsCost()
@@ -110,5 +110,3 @@ const PartialCosts = () => {
     </div>
   )
 }
-
-export default PartialCosts

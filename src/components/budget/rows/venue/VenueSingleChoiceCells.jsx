@@ -2,7 +2,13 @@ import { useEffect } from 'react'
 import { Box } from '@mui/material'
 import { useBudget } from '../../../../hooks/useBudget'
 
-const VenueSingleChoiceCells = ({ pax, options, description, date, id }) => {
+export const VenueSingleChoiceCells = ({
+  pax,
+  options,
+  description,
+  date,
+  id
+}) => {
   const { updateEventTotalCost, setCurrentMeals } = useBudget()
 
   useEffect(() => {
@@ -15,5 +21,3 @@ const VenueSingleChoiceCells = ({ pax, options, description, date, id }) => {
 
   return <Box>{options[0].name}</Box>
 }
-
-export default VenueSingleChoiceCells

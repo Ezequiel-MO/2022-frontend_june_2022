@@ -3,7 +3,7 @@ import accounting from 'accounting'
 import { useBudget } from '../../../../hooks/useBudget'
 import useFindVenueByName from '../../../../hooks/useFindVenueByName'
 
-const VenueTotalCost = ({ venues }) => {
+export const VenueTotalCost = ({ venues }) => {
   const { venueName } = useBudget()
   const { selectedVenue = venues[0] } = useFindVenueByName(venues, venueName)
   return (
@@ -12,5 +12,3 @@ const VenueTotalCost = ({ venues }) => {
     </TableCell>
   )
 }
-
-export default VenueTotalCost

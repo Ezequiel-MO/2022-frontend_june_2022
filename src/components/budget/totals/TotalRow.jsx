@@ -1,7 +1,7 @@
 import accounting from 'accounting'
 import { TableCell } from '@mui/material'
 
-const TotalRow = ({ option }) => {
+export const TotalRow = ({ option }) => {
   return (
     <>
       <TableCell>{accounting.formatMoney(option.price, '€')}</TableCell>
@@ -9,5 +9,3 @@ const TotalRow = ({ option }) => {
     </>
   )
 }
-
-export default TotalRow
