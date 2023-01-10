@@ -1,7 +1,6 @@
 import { TableCell } from '@mui/material'
 import accounting from 'accounting'
-import { useBudget } from '../../../../hooks/useBudget'
-import useFindVenueByName from '../../../../hooks/useFindVenueByName'
+import { useBudget, useFindVenueByName } from '../../../../hooks'
 
 export const VenueTotalCost = ({ venues }) => {
   const { venueName } = useBudget()

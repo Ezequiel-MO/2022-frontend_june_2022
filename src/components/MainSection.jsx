@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react'
 import ReactToPrint from 'react-to-print'
 import Hotels from './hotels/Hotels'
 /* import Schedule from './schedule/Schedule' */
-import { useCurrentProject } from '../hooks/useCurrentProject'
+import { useCurrentProject } from '../hooks'
 import Budget from './budget/Budget'
 import ScrollToTopButton from '../ui/ScrollToTopButton'
 import ParagraphText from './Text'

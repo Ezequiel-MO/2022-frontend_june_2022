@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const useFindEventByName = (options, name) => {
+export const useFindEventByName = (options, name) => {
   const [option, setOption] = useState(options[0])
 
   useEffect(() => {
@@ -11,5 +11,3 @@ const useFindEventByName = (options, name) => {
   }, [name, options])
   return { option }
 }
-
-export default useFindEventByName

@@ -1,4 +1,5 @@
 import {
+  Box,
   Collapse,
   Table,
   TableBody,
@@ -6,11 +7,12 @@ import {
   TableHead,
   TableRow
 } from '@mui/material'
-import { Box } from '@mui/system'
 import { MeetingBreakdownRow } from '../../'
-import { useBudget } from '../../../../hooks/useBudget'
-import useFindHotelByName from '../../../../hooks/useFindHotelByName'
-import useFindMeetingByHotel from '../../../../hooks/useFindMeetingByHotel'
+import {
+  useBudget,
+  useFindHotelByName,
+  useFindMeetingByHotel
+} from '../../../../hooks'
 
 export const MeetingBreakdownRows = ({
   pax,

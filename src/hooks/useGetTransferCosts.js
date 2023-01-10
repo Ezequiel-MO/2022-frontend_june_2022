@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useBudget } from './useBudget'
 
-const useGetTransferCosts = () => {
+export const useGetTransferCosts = () => {
   const { transfers } = useBudget()
   const [transfersTotalCost, setTransfersTotalCost] = useState(0)
 
@@ -14,5 +14,3 @@ const useGetTransferCosts = () => {
     transfersTotalCost
   }
 }
-
-export default useGetTransferCosts

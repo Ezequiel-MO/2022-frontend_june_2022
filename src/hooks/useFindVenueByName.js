@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const useFindVenueByName = (venues, venueName) => {
+export const useFindVenueByName = (venues, venueName) => {
   const [selectedVenue, setSelectedVenue] = useState(venues[0])
 
   useEffect(() => {
@@ -11,5 +11,3 @@ const useFindVenueByName = (venues, venueName) => {
     selectedVenue
   }
 }
-
-export default useFindVenueByName

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { TableCell } from '@mui/material'
 import { accounting } from 'accounting'
-import { useBudget } from '../../../../hooks/useBudget'
+import { useBudget } from '../../../../hooks'
 
 export const SingleChoiceCells = ({ pax, options, description, date, id }) => {
   const [pricePerPerson, setPricePerPerson] = useState(true)

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import useGetHotel from '../../hooks/useGetHotel'
+import { useGetHotel } from '../../hooks'
 import MeetingCards from './MeetingCards'
 
 const Meetings = ({ meetings, timing }) => {

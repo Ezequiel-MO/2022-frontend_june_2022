@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { TableCell } from '@mui/material'
 import accounting from 'accounting'
-import { useBudget } from '../../../../hooks/useBudget'
+import { useBudget } from '../../../../hooks'
 
 export const TransferCells = ({ pax, description, options, id, date }) => {
   const { updateTransfers } = useBudget()

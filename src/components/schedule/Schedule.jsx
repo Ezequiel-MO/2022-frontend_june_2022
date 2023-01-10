@@ -1,8 +1,7 @@
-import { useCurrentProject } from '../../hooks/useCurrentProject'
+import { useCurrentProject } from '../../hooks'
 import ParagraphText from '../Text'
 import Events from './Events'
 import Meals from './Meals'
-import Meetings from './Meetings'
 
 const Schedule = () => {
   const { currentProject } = useCurrentProject()

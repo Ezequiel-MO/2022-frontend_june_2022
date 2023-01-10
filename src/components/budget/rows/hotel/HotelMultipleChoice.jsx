@@ -1,5 +1,5 @@
 import { Box, FormControl, MenuItem, Select, Typography } from '@mui/material'
-import { useBudget } from '../../../../hooks/useBudget'
+import { useBudget } from '../../../../hooks'
 
 export const HotelMultipleChoice = ({ options }) => {
   const { hotelName, setSelectedHotelName } = useBudget()

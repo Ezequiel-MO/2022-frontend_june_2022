@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const useFindMeetingByHotel = (meetings, hotel) => {
+export const useFindMeetingByHotel = (meetings, hotel) => {
   const [meeting, setMeeting] = useState(meetings ? meetings[0] : {})
 
   useEffect(() => {
@@ -16,5 +16,3 @@ const useFindMeetingByHotel = (meetings, hotel) => {
     meeting
   }
 }
-
-export default useFindMeetingByHotel

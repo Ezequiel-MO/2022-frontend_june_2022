@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Box } from '@mui/material'
-import { useBudget } from '../../../../hooks/useBudget'
+import { useBudget } from '../../../../hooks'
 
 export const VenueSingleChoiceCells = ({
   pax,

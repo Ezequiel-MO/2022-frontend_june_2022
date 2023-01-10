@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { TableCell } from '@mui/material'
 import { MultipleChoice, TotalRow } from '../../'
-import { useBudget } from '../../../../hooks/useBudget'
-import useFindEventByName from '../../../../hooks/useFindEventByName'
+import { useBudget, useFindEventByName } from '../../../../hooks'
 
 export const MultipleChoiceCells = ({
   pax,

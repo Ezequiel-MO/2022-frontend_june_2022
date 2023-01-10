@@ -6,9 +6,7 @@ import {
   VenueSingleChoiceCells,
   VenueTotalCost
 } from '../../'
-import { useBudget } from '../../../../hooks/useBudget'
-
-import useFindVenueByName from '../../../../hooks/useFindVenueByName'
+import { useBudget, useFindVenueByName } from '../../../../hooks'
 
 export const VenueSummaryRow = ({
   venues,

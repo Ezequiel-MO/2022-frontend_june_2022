@@ -1,10 +1,12 @@
 import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
-import { useCurrentProject } from '../../../hooks/useCurrentProject'
-import useGetMealsCost from '../../../hooks/useGetMealCosts'
-import useGetMeetingsCost from '../../../hooks/useGetMeetingsCost'
-import useGetEventCosts from '../../../hooks/useGetEventCosts'
-import useGetTransferCosts from '../../../hooks/useGetTransferCosts'
+import {
+  useCurrentProject,
+  useGetMealsCost,
+  useGetMeetingsCost,
+  useGetEventCosts,
+  useGetTransferCosts
+} from '../../../hooks'
 
 export const TotalBudgetCost = () => {
   const { currentHotel } = useCurrentProject()

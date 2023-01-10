@@ -1,5 +1,5 @@
 import { TableCell, TableHead, TableRow } from '@mui/material'
-import { useCurrentProject } from '../../hooks/useCurrentProject'
+import { useCurrentProject } from '../../hooks'
 
 export const BudgetTableHead = () => {
   const { currentProject } = useCurrentProject()

@@ -1,4 +1,5 @@
 import {
+  Box,
   Collapse,
   Table,
   TableBody,
@@ -6,10 +7,8 @@ import {
   TableHead,
   TableRow
 } from '@mui/material'
-import { Box } from '@mui/system'
 import { VenueBreakdownRow } from '../../'
-import { useBudget } from '../../../../hooks/useBudget'
-import useFindVenueByName from '../../../../hooks/useFindVenueByName'
+import { useBudget, useFindVenueByName } from '../../../../hooks'
 
 export const VenueBreakdownRows = ({ venues, dateProp, typeOfMeetingProp }) => {
   const { breakdownOpen, venueName } = useBudget()

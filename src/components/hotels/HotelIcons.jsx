@@ -1,6 +1,6 @@
 import { Icon } from '@iconify/react'
 import { List, ListItem, ListItemText, ListItemIcon } from '@mui/material'
-import { useCurrentProject } from '../../hooks/useCurrentProject'
+import { useCurrentProject } from '../../hooks'
 
 const HotelIcons = ({ leftIconsText, rightIconsText }) => {
   const { currentProject } = useCurrentProject()

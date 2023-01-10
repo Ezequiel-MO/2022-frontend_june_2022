@@ -1,8 +1,8 @@
-import { Icon } from '@iconify/react'
 import { useState } from 'react'
+import { Icon } from '@iconify/react'
 import { Link } from 'react-scroll'
 import { useActiveTab } from '../../context/ActiveTabProvider'
-import { useCurrentProject } from '../../hooks/useCurrentProject'
+import { useCurrentProject } from '../../hooks'
 
 function SidebarRow({ iconText, title, modal = false, handleOpen }) {
   const [menuOpen, setMenuOpen] = useState(false)

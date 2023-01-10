@@ -2,9 +2,11 @@ import { useEffect } from 'react'
 import { Icon } from '@iconify/react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
-import { useBudget } from '../../../../hooks/useBudget'
-import useFindHotelByName from '../../../../hooks/useFindHotelByName'
-import useFindMeetingByHotel from '../../../../hooks/useFindMeetingByHotel'
+import {
+  useBudget,
+  useFindHotelByName,
+  useFindMeetingByHotel
+} from '../../../../hooks'
 
 export const MeetingSummaryRow = ({
   pax,

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { TableCell } from '@mui/material'
 import accounting from 'accounting'
-import { useBudget } from '../../../../hooks/useBudget'
+import { useBudget } from '../../../../hooks'
 
 const transferIds = ['transfer_in', 'transfer_out', 'assistance', 'meetGreet']
 

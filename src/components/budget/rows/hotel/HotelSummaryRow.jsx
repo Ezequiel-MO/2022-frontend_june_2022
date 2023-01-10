@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import { Icon } from '@iconify/react'
-import { useBudget } from '../../../../hooks/useBudget'
-import useFindHotelByName from '../../../../hooks/useFindHotelByName'
+import { useBudget, useFindHotelByName } from '../../../../hooks'
 import { HotelMultipleChoice, HotelTotalCost } from '../../'
 
 export const HotelSummaryRow = ({ nights }) => {

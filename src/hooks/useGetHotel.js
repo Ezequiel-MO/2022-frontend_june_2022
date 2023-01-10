@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import baseAPI from '../axios/axiosConfig'
 
-const useGetHotel = (hotelId) => {
+export const useGetHotel = (hotelId) => {
   const [hotel, setHotel] = useState({})
   useEffect(() => {
     const getHotelData = async () => {
@@ -19,5 +19,3 @@ const useGetHotel = (hotelId) => {
     hotel
   }
 }
-
-export default useGetHotel

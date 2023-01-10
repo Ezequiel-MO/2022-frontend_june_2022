@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useBudget } from './useBudget'
 
-const useGetEventCosts = () => {
+export const useGetEventCosts = () => {
   const { events } = useBudget()
   const [eventsTotalCost, setEventsTotalCost] = useState(0)
 
@@ -20,5 +20,3 @@ const useGetEventCosts = () => {
     eventsTotalCost
   }
 }
-
-export default useGetEventCosts

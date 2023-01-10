@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import baseAPI from '../../axios/axiosConfig'
-import { useUserLog } from '../../hooks/useUserLog'
-import { useCurrentProject } from '../../hooks/useCurrentProject'
-import { useBudget } from '../../hooks/useBudget'
+import { useBudget, useCurrentProject, useUserLog } from '../../hooks'
 import Spinner from '../../ui/spinner/Spinner'
 import LoginForm from './LoginForm'
 

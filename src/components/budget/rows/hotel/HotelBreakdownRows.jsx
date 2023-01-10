@@ -1,4 +1,5 @@
 import {
+  Box,
   Collapse,
   Table,
   TableBody,
@@ -6,9 +7,7 @@ import {
   TableHead,
   TableRow
 } from '@mui/material'
-import { Box } from '@mui/system'
-import { useBudget } from '../../../../hooks/useBudget'
-import useFindHotelByName from '../../../../hooks/useFindHotelByName'
+import { useBudget, useFindHotelByName } from '../../../../hooks'
 import { HotelBreakdownRow } from '../../'
 
 export const HotelBreakdownRows = ({ hotels, nights }) => {

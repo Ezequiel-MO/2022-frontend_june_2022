@@ -1,9 +1,11 @@
 import { useEffect } from 'react'
 import accounting from 'accounting'
 import { TableCell } from '@mui/material'
-import useFindHotelByName from '../../../../hooks/useFindHotelByName'
-import { useBudget } from '../../../../hooks/useBudget'
-import { useCurrentProject } from '../../../../hooks/useCurrentProject'
+import {
+  useBudget,
+  useCurrentProject,
+  useFindHotelByName
+} from '../../../../hooks'
 
 export const HotelTotalCost = () => {
   const { hotelName, hotels } = useBudget()

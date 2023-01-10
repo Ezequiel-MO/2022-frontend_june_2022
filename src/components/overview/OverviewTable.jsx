@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import { Link } from 'react-scroll'
 import OTLogic from './OTLogic'
-import { useCurrentProject } from '../../hooks/useCurrentProject'
+import { useCurrentProject } from '../../hooks'
 
 const OverviewTable = () => {
   const { currentProject } = useCurrentProject()

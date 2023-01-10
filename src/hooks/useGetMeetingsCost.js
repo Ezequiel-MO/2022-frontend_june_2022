@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useBudget } from './useBudget'
-import { useCurrentProject } from './useCurrentProject'
+import { useCurrentProject, useBudget } from './'
 
-const useGetMeetingsCost = () => {
+export const useGetMeetingsCost = () => {
   const { meetings } = useBudget()
   const { currentHotel } = useCurrentProject()
   const [meetingTotalCost, setMeetingTotalCost] = useState(0)
@@ -24,5 +23,3 @@ const useGetMeetingsCost = () => {
     meetingTotalCost
   }
 }
-
-export default useGetMeetingsCost

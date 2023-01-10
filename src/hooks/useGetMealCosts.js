@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useBudget } from './useBudget'
 
-const useGetMealsCost = () => {
+export const useGetMealsCost = () => {
   const { meals } = useBudget()
   const [mealsTotalCost, setMealsTotalCost] = useState(0)
 
@@ -20,5 +20,3 @@ const useGetMealsCost = () => {
     mealsTotalCost
   }
 }
-
-export default useGetMealsCost

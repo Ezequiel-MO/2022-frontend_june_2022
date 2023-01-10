@@ -2,11 +2,13 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 import { Icon } from '@iconify/react'
 import { accounting } from 'accounting'
-import { useCurrentProject } from '../../../hooks/useCurrentProject'
-import useGetMeetingsCost from '../../../hooks/useGetMeetingsCost'
-import useGetMealsCost from '../../../hooks/useGetMealCosts'
-import useGetEventCosts from '../../../hooks/useGetEventCosts'
-import useGetTransferCosts from '../../../hooks/useGetTransferCosts'
+import {
+  useCurrentProject,
+  useGetEventCosts,
+  useGetMealsCost,
+  useGetMeetingsCost,
+  useGetTransferCosts
+} from '../../../hooks'
 
 export const PartialCosts = () => {
   const { currentHotel } = useCurrentProject()
