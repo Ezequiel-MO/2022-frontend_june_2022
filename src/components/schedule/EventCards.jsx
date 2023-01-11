@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import RenderPhotos from '../../ui/renderPhotos/RenderPhotos'
 import ParagraphText from '../Text'
 
-const EventCards = ({ event }) => {
+export const EventCards = ({ event }) => {
   return (
     <div id={event._id}>
       <Typography variant='h5'>{event.name}</Typography>
@@ -11,5 +11,3 @@ const EventCards = ({ event }) => {
     </div>
   )
 }
-
-export default EventCards

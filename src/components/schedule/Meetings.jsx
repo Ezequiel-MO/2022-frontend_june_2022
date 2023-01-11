@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useGetHotel } from '../../hooks'
 import MeetingCards from './MeetingCards'
 
-const Meetings = ({ meetings, timing }) => {
+export const Meetings = ({ meetings, timing }) => {
   const [openTab, setOpenTab] = useState(1)
   const { hotel } = useGetHotel(meetings[0].hotel)
 
@@ -56,5 +56,3 @@ const Meetings = ({ meetings, timing }) => {
     </>
   )
 }
-
-export default Meetings

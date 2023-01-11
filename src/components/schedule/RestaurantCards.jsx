@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import RenderPhotos from '../../ui/renderPhotos/RenderPhotos'
 import ParagraphText from '../Text'
 
-const RestaurantCards = ({ restaurant }) => {
+export const RestaurantCards = ({ restaurant }) => {
   return (
     <div id={restaurant._id}>
       <Typography variant='h5'>{restaurant.name}</Typography>
@@ -11,5 +11,3 @@ const RestaurantCards = ({ restaurant }) => {
     </div>
   )
 }
-
-export default RestaurantCards

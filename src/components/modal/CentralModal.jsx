@@ -1,10 +1,6 @@
-import { Typography, Modal, Box } from "@mui/material";
-/* import { BtnBackToCenter } from "../map"; */
-import VendorMap from "../map/Map";
-/* import { SearchBar } from "../map"; */
-import { MapProvider } from "react-map-gl";
-import OverviewTable from "../overview/OverviewTable";
-import Controls from "../map/controls";
+import { Typography, Modal, Box } from '@mui/material'
+import OverviewTable from '../overview/OverviewTable'
+import { MapWrapper } from '../vendor_map/Wrapper'
 
 const CentralModal = ({ open, handleClose, typeOfModal }) => {
   return (
@@ -13,25 +9,21 @@ const CentralModal = ({ open, handleClose, typeOfModal }) => {
         <Box
           typeOfModal={typeOfModal}
           className={` ${
-            typeOfModal === "Overview" ? "h-max" : ""
-          } absolute top-10 left-10 right-10 bottom-10 md:left-[150px] md:right-[150px] lg:left-[250px] lg:right-250px] overflow-hidden`}
+            typeOfModal === 'Overview' ? 'h-max' : ''
+          } absolute top-5 left-5 right-5 bottom-5 md:left-[50px] md:right-[50px] lg:left-[150px] lg:right-[150px] lg:bottom-5 lg:top-2 overflow-hidden`}
         >
           <Typography
-            variant="h6"
-            component="h2"
-            className="text-bold text-white-100 indent-2 "
+            variant='h6'
+            component='h2'
+            className='text-bold text-white-100 indent-2 '
           >
             {typeOfModal}
           </Typography>
-          {typeOfModal === "Map" ? (
-            <MapProvider>
-              <Controls />
-              <VendorMap />
-              {/*   <BtnBackToCenter /> */}
-            </MapProvider>
+          {typeOfModal === 'Map' ? (
+            <MapWrapper />
           ) : /*  <SearchBar /> */
 
-          typeOfModal === "Overview" ? (
+          typeOfModal === 'Overview' ? (
             <OverviewTable />
           ) : null}
           {/*  {typeOfModal === "Map" ? (
@@ -44,7 +36,7 @@ const CentralModal = ({ open, handleClose, typeOfModal }) => {
         </Box>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
-export default CentralModal;
+export default CentralModal

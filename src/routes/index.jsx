@@ -10,6 +10,7 @@ import Credentials from '../screens/Credentials'
 import Destination from '../screens/Destination'
 import MainPage from '../screens/MainPage'
 import NotFound from '../ui/NotFound'
+import { ErrorPage } from './error-page'
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,7 +18,11 @@ export const router = createBrowserRouter(
       <Route path='/' element={<AuthLayout />}>
         <Route index element={<LoginPage />} />
       </Route>
-      <Route path='app' element={<ProtectedRoute />}>
+      <Route
+        path='app'
+        element={<ProtectedRoute />}
+        errorElement={<ErrorPage />}
+      >
         <Route index element={<MainPage />} />
         <Route path='credentials' element={<Credentials />} />
         <Route path='destination_info' element={<Destination />} />

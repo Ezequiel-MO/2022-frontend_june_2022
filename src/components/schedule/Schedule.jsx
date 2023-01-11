@@ -3,7 +3,7 @@ import ParagraphText from '../Text'
 import Events from './Events'
 import Meals from './Meals'
 
-const Schedule = () => {
+export const Schedule = () => {
   const { currentProject } = useCurrentProject()
   const { schedule } = currentProject
 
@@ -72,5 +72,3 @@ const Schedule = () => {
 
   return <div>{renderSchedule}</div>
 }
-
-export default Schedule
