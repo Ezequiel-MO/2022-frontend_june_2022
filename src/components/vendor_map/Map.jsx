@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect, useCallback } from 'react'
 import { GoogleMap, MarkerF, InfoWindowF } from '@react-google-maps/api'
 import { VendorList } from './VendorList'
 import { VendorMapLogic } from './MapLogic'
-import './Map.css'
+import './map.css'
 
 export const VendorMap = () => {
   const { hotelCoords, centralCoords, scheduleCoords } = VendorMapLogic()
