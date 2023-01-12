@@ -1,49 +1,18 @@
 import { useMemo, useState, useEffect, useCallback } from 'react'
 import { GoogleMap, MarkerF, InfoWindowF } from '@react-google-maps/api'
 import { VendorList } from './VendorList'
-import './Map.css'
 import { hotel_icon } from './icons/icons'
+import { VendorMapLogic } from './MapLogic'
+import './Map.css'
 
 export const VendorMap = () => {
+  const { hotelCoords, centralCoords, scheduleCoords } = VendorMapLogic()
+
   const [zoom, setZoom] = useState(14)
   const [map, setMap] = useState()
-  const [location, setLocation] = useState({
-    place: 'Valencia City Center',
-    coords: {
-      lat: 39.4697065,
-      lng: -0.3763353
-    }
-  })
+  const [location, setLocation] = useState(centralCoords)
 
-  const centralLocation = useMemo(
-    () => ({
-      place: 'Valencia City Center',
-      coords: {
-        lat: 39.4697065,
-        lng: -0.3763353
-      }
-    }),
-    []
-  )
-
-  const CACLocation = useMemo(
-    () => ({
-      place: 'City of Arts & Sciences',
-      coords: { lat: 39.4527148558, lng: -0.35021693246 }
-    }),
-    []
-  )
-
-  const CampoAnibalLocation = useMemo(
-    () => ({
-      place: 'Campo Anibal',
-      coords: { lat: 39.5887, lng: -0.3033 }
-    }),
-
-    []
-  )
-
-  const vendors = [centralLocation, CACLocation, CampoAnibalLocation]
+  const vendors = [centralCoords, hotelCoords, scheduleCoords].flat()
 
   const bounds = useMemo(() => {
     const bounds = new google.maps.LatLngBounds()
@@ -63,7 +32,7 @@ export const VendorMap = () => {
 
   const options = useMemo(() => ({
     mapId: '37537533e1cc90',
-    center: location.coords,
+    center: centralCoords.coords,
     controlSize: 25,
     disableDefaultUI: false,
     clickableIcons: false,
@@ -92,7 +61,7 @@ export const VendorMap = () => {
           options={options}
           mapContainerStyle={{
             width: '100%',
-            height: '95%'
+            height: '97%'
           }}
         >
           {
@@ -113,7 +82,7 @@ export const VendorMap = () => {
                 title={vendor.place}
                 onLoad={(marker) => {
                   marker.setIcon({
-                    ...hotel_icon,
+                    ...vendor.icon,
                     anchor: new google.maps.Point(15, 30)
                   })
                 }}
