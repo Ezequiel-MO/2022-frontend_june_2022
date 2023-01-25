@@ -4,7 +4,6 @@ import HotelCards from './HotelCards'
 
 const Hotels = ({ hotels }) => {
   const { activeTab, setActiveTab, change } = useActiveTab()
-  //extract suplementary text from currentProject
   const { currentProject } = useCurrentProject()
   const { suplementaryText } = currentProject
 

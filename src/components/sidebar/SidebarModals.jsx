@@ -16,12 +16,12 @@ const SidebarModals = () => {
           modal={true}
           handleOpen={handleOpen}
         />
-        {/*   <SidebarRow
-          iconText="bi:calendar-check"
-          title="overview"
+        <SidebarRow
+          iconText='bi:calendar-check'
+          title='overview'
           modal={true}
           handleOpen={handleOpen}
-        /> */}
+        />
       </div>
       <CentralModal
         open={modal === 'overview'}

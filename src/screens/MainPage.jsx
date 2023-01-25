@@ -5,14 +5,17 @@ import {
   SidebarModals,
   SidebarSmall
 } from '../components'
+import { useCurrentProject } from '../hooks'
 
 const MainPage = () => {
+  const { currentProject } = useCurrentProject()
+  const { hasSideMenu } = currentProject
   return (
     <div className='flex flex-col'>
-      <SidebarSmall />
+      {hasSideMenu && <SidebarSmall />}
+
       <div className='grid grid-cols-12 m-8'>
-        <div className='col-span-2' />
-        <Sidebar />
+        {hasSideMenu ? <Sidebar /> : <div className='col-span-2' />}
         <MainSection />
         <SidebarModals />
       </div>

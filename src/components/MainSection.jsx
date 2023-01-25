@@ -14,7 +14,8 @@ const MainSection = () => {
   const location = useLocation()
 
   const { currentProject } = useCurrentProject()
-  const { groupName, projectIntro, hotels, corporateImage } = currentProject
+  const { groupName, projectIntro, hotels, corporateImage, hasBudget } =
+    currentProject
   const { fonts = [] } = corporateImage[0] || {}
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const MainSection = () => {
       body.style.fontFamily = fonts[0]
     }
   }, [currentProject])
+
   return (
     <div className='col-span-10 lg:col-span-8'>
       {/*       <ScrollToTop smooth color="#ea5933" width="30" height="30" /> */}
@@ -32,7 +34,7 @@ const MainSection = () => {
       <ParagraphText text={projectIntro} />
       <Hotels hotels={hotels} />
       <Schedule />
-      {currentProject?.hasBudget ? (
+      {hasBudget ? (
         <div>
           <ReactToPrint
             trigger={() => (
