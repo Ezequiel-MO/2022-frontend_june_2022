@@ -4,7 +4,68 @@ import { Meals, Events } from './'
 
 export const Schedule = () => {
   const { currentProject } = useCurrentProject()
-  const { schedule, suplementaryText } = currentProject
+  const { schedule, suplementaryText, arrivalDay } = currentProject
+
+  const convertDate = (index) => {
+    const date = new Date(arrivalDay)
+    const day = date.getDay()
+    const dayOfWeek = [
+      'Domingo',
+      'Lunes',
+      'Martes',
+      'Miercoles',
+      'Jueves',
+      'Viernes',
+      'Sabado'
+    ][day]
+    const month = date.getMonth()
+    const monthOfYear = [
+      'January',
+      'February',
+      'March',
+      'Abril',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ][month]
+
+    if (index === 0) {
+      return `${dayOfWeek}, ${date.getDate()} de ${monthOfYear}`
+    }
+    const newDate = new Date(date.setDate(date.getDate() + index))
+    const newDay = newDate.getDay()
+    const newDayOfWeek = [
+      'Domingo',
+      'Lunes',
+      'Martes',
+      'Miercoles',
+      'Jueves',
+      'Viernes',
+      'Sabado'
+    ][newDay]
+    const newMonth = newDate.getMonth()
+    const newMonthOfYear = [
+      'January',
+      'February',
+      'March',
+      'Abril',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ][newMonth]
+
+    return `${newDayOfWeek}, ${newDate.getDate()} de ${newMonthOfYear}`
+  }
 
   const renderSchedule = schedule?.map((day, index) => {
     return (
@@ -14,7 +75,7 @@ export const Schedule = () => {
             className='text-lg md:text-xl mb-4 font-extrabold'
             id={`day_${index}`}
           >
-            {day.date}
+            {day.date} - {convertDate(index)}
           </h2>
           {day.morningEvents.length > 0 ? (
             <>

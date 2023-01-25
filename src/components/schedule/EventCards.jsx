@@ -6,7 +6,7 @@ export const EventCards = ({ event }) => {
   return (
     <div id={event._id}>
       <Typography variant='h5'>{event.name}</Typography>
-      <ParagraphText text={JSON.parse(event.textContent)} />
+      <ParagraphText text={event.textContent} />
       <RenderPhotos images={event.imageContentUrl} />
     </div>
   )
