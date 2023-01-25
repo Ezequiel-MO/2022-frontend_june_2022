@@ -9,10 +9,10 @@ import {
 const MainPage = () => {
   return (
     <div className='flex flex-col'>
-      {/*   <SidebarSmall /> */}
+      <SidebarSmall />
       <div className='grid grid-cols-12 m-8'>
         <div className='col-span-2' />
-        {/*  <Sidebar /> */}
+        <Sidebar />
         <MainSection />
         <SidebarModals />
       </div>

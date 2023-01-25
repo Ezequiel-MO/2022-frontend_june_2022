@@ -31,7 +31,7 @@ const MainSection = () => {
       </h1>
       <ParagraphText text={projectIntro} />
       <Hotels hotels={hotels} />
-      {/*  <Schedule /> */}
+      <Schedule />
       {currentProject?.hasBudget ? (
         <div>
           <ReactToPrint
