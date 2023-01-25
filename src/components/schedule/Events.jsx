@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import EventCards from './EventCards'
+import { EventCards } from './EventCards'
 
 export const Events = ({ events }) => {
   const [openTab, setOpenTab] = useState(1)
