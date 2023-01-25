@@ -4,7 +4,7 @@ import { Meals, Events } from './'
 
 export const Schedule = () => {
   const { currentProject } = useCurrentProject()
-  const { schedule } = currentProject
+  const { schedule, suplementaryText } = currentProject
 
   const renderSchedule = schedule?.map((day, index) => {
     return (
@@ -21,11 +21,11 @@ export const Schedule = () => {
               <ParagraphText text={day.morningEvents[0].introduction} />
               <Events events={day.morningEvents} />
             </>
-          ) : (
+          ) : suplementaryText === true ? (
             <h3 className='italic m-2 hidden'>
               No tours planned in the morning
             </h3>
-          )}
+          ) : null}
           {/* {day.morningMeetings.length > 0 ? (
             <>
               <p className='text-black-50 dark:text-white-50'>
@@ -43,25 +43,25 @@ export const Schedule = () => {
               <ParagraphText text={day.lunch[0].introduction} />
               <Meals restaurants={day.lunch} />
             </>
-          ) : (
+          ) : suplementaryText === true ? (
             <h3 className='italic m-2'>No meals planned for lunch</h3>
-          )}
+          ) : null}
           {day.afternoonEvents.length > 0 ? (
             <>
               <ParagraphText text={day.afternoonEvents[0].introduction} />
               <Events events={day.afternoonEvents} />
             </>
-          ) : (
+          ) : suplementaryText === true ? (
             <h3 className='italic m-2'>No events planned in the afternoon</h3>
-          )}
+          ) : null}
           {day.dinner.length > 0 ? (
             <>
               <ParagraphText text={day.dinner[0].introduction} />
               <Meals restaurants={day.dinner} />
             </>
-          ) : (
+          ) : suplementaryText === true ? (
             <h3 className='italic m-2'>No events planned for dinner</h3>
-          )}
+          ) : null}
         </div>
 
         <hr className='mt-6' />
