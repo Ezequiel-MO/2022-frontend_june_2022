@@ -1,7 +1,6 @@
 import { useCurrentProject } from '../../hooks'
 import ParagraphText from '../Text'
-import Events from './Events'
-import Meals from './Meals'
+import { Meals, Events } from './'
 
 export const Schedule = () => {
   const { currentProject } = useCurrentProject()

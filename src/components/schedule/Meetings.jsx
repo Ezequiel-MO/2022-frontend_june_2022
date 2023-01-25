@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useGetHotel } from '../../hooks'
-import MeetingCards from './MeetingCards'
+import { MeetingCards } from './'
 
 export const Meetings = ({ meetings, timing }) => {
   const [openTab, setOpenTab] = useState(1)

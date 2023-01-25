@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import RestaurantCards from './RestaurantCards'
+import { RestaurantCards } from './'
 
 export const Meals = ({ restaurants }) => {
   const [openTab, setOpenTab] = useState(1)
