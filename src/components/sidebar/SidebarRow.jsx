@@ -7,9 +7,10 @@ import { useCurrentProject } from '../../hooks'
 function SidebarRow({ iconText, title, modal = false, handleOpen }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const { currentProject } = useCurrentProject()
-  const { hotels, schedule, corporateImage } = currentProject
+  const { hotels, schedule, clientCompany } = currentProject
   const { activeTab, setActiveTab, handleChange } = useActiveTab()
-  const { colorPalette = [] } = corporateImage[0] || {}
+
+  const { colorPalette = [] } = clientCompany[0] || {}
   if (modal) {
     return (
       <div

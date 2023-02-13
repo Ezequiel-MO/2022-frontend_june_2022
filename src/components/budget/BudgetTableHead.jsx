@@ -4,8 +4,8 @@ import { useCurrentProject } from '../../hooks'
 export const BudgetTableHead = () => {
   const { currentProject } = useCurrentProject()
 
-  const { corporateImage } = currentProject
-  const { colorPalette = [] } = corporateImage[0] || {}
+  const { clientCompany } = currentProject
+  const { colorPalette = [] } = clientCompany[0] || {}
 
   return (
     <TableHead>

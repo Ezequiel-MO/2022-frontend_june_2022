@@ -14,9 +14,9 @@ const MainSection = () => {
   const location = useLocation()
 
   const { currentProject } = useCurrentProject()
-  const { groupName, projectIntro, hotels, corporateImage, hasBudget } =
+  const { groupName, projectIntro, hotels, clientCompany, hasBudget } =
     currentProject
-  const { fonts = [] } = corporateImage[0] || {}
+  const { fonts = [] } = clientCompany[0] || {}
 
   useEffect(() => {
     var body = document.body
