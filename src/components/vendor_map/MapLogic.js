@@ -12,12 +12,16 @@ export const VendorMapLogic = () => {
   const { hotels, schedule, groupLocation } = currentProject
 
   const centralCoords = useMemo(() => {
+    let locationCoords =
+      groupLocation === 'Barcelona'
+        ? [41.385331792, 2.168665992]
+        : [40.4167754, -3.7037902]
     return {
       place: groupLocation,
       icon: city_icon,
       coords: {
-        lat: 41.385331792,
-        lng: 2.168665992
+        lat: locationCoords[0],
+        lng: locationCoords[1]
       }
     }
   }, [groupLocation])
