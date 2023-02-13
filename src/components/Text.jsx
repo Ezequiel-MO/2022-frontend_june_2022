@@ -5,7 +5,14 @@ const ParagraphText = ({ text }) => {
         .replace(/\\/g, '')
         .replace(/\[/g, '')
         .replace(/\]/g, '')
-        .replace(/"/g, '')}
+        .replace(/"/g, '')
+        .split('&nsbp')
+        .map((str, i) => (
+          <>
+            <span key={i}>{str}</span>
+            <br />
+          </>
+        ))}
     </p>
   )
 }

@@ -10,20 +10,20 @@ export const Schedule = () => {
     const date = new Date(arrivalDay)
     const day = date.getDay()
     const dayOfWeek = [
-      'Domingo',
-      'Lunes',
-      'Martes',
-      'Miercoles',
-      'Jueves',
-      'Viernes',
-      'Sabado'
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday'
     ][day]
     const month = date.getMonth()
     const monthOfYear = [
       'January',
       'February',
       'March',
-      'Abril',
+      'April',
       'May',
       'June',
       'July',
@@ -35,25 +35,25 @@ export const Schedule = () => {
     ][month]
 
     if (index === 0) {
-      return `${dayOfWeek}, ${date.getDate()} de ${monthOfYear}`
+      return `${dayOfWeek}, ${monthOfYear} ${date.getDate()}  `
     }
     const newDate = new Date(date.setDate(date.getDate() + index))
     const newDay = newDate.getDay()
     const newDayOfWeek = [
-      'Domingo',
-      'Lunes',
-      'Martes',
-      'Miercoles',
-      'Jueves',
-      'Viernes',
-      'Sabado'
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday'
     ][newDay]
     const newMonth = newDate.getMonth()
     const newMonthOfYear = [
       'January',
       'February',
       'March',
-      'Abril',
+      'April',
       'May',
       'June',
       'July',
