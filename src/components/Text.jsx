@@ -4,7 +4,6 @@ const ParagraphText = ({ text = '' }) => {
     .replace(/\[/g, '')
     .replace(/\]/g, '')
     .replace(/"/g, '')
-    .replace(/n/g, '')
 
   return (
     <p className='text-black-50 dark:text-white-50 whitespace-pre-line indent-2'>
