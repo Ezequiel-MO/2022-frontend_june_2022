@@ -237,7 +237,7 @@ export const DayRows = ({ day, pax }) => {
               date={date}
               options={dinner}
               description='Dinner Restaurants'
-              multipleChoice={`${dinner.length > 1}`}
+              multipleChoice={Boolean(`${dinner.length > 1}`)}
               id='dinner'
             />
           )}

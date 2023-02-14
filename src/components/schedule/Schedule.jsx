@@ -48,23 +48,8 @@ export const Schedule = () => {
       'Friday',
       'Saturday'
     ][newDay]
-    const newMonth = newDate.getMonth()
-    const newMonthOfYear = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ][newMonth]
 
-    return `${newDayOfWeek}, ${newDate.getDate()} de ${newMonthOfYear}`
+    return `${newDayOfWeek}, ${newDate.getDate()} `
   }
 
   const renderSchedule = schedule?.map((day, index) => {
