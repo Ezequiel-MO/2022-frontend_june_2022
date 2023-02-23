@@ -1,19 +1,7 @@
 import { TableCell, TableRow } from '@mui/material'
-import {
-  MultipleChoiceCells,
-  SingleChoiceCells,
-  TransferCells,
-  TransferInOutCells
-} from '../../'
+import { TransferCells, TransferInOutCells } from '../../'
 
-export const DayRow = ({
-  pax,
-  date,
-  options,
-  description,
-  multipleChoice,
-  id
-}) => {
+export const DayRow = ({ pax, date, options, description, id }) => {
   const props = {
     pax,
     description,
@@ -23,21 +11,6 @@ export const DayRow = ({
   }
 
   if (id === 'meetGreet' || id === 'assistance') {
-    return (
-      <TableRow>
-        <TableCell>{date}</TableCell>
-        <TransferInOutCells
-          date={date}
-          description={description}
-          options={options}
-          pax={pax}
-          id={id}
-        />
-      </TableRow>
-    )
-  }
-
-  if (id === 'transfer_in' || id === 'transfer_out') {
     return (
       <TableRow>
         <TableCell>{date}</TableCell>
@@ -67,32 +40,6 @@ export const DayRow = ({
       <TableRow>
         <TableCell>{date}</TableCell>
         <TransferCells {...props} />
-      </TableRow>
-    )
-  }
-
-  if (id === 'morningEvents' || id === 'afternoonEvents') {
-    return (
-      <TableRow>
-        <TableCell>{date}</TableCell>
-        {multipleChoice === true ? (
-          <MultipleChoiceCells {...props} />
-        ) : (
-          <SingleChoiceCells {...props} />
-        )}
-      </TableRow>
-    )
-  }
-
-  if (id === 'lunch' || id === 'dinner') {
-    return (
-      <TableRow>
-        <TableCell>{date}</TableCell>
-        {multipleChoice === true ? (
-          <MultipleChoiceCells {...props} />
-        ) : (
-          <SingleChoiceCells {...props} />
-        )}
       </TableRow>
     )
   }

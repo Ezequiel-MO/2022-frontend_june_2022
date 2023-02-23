@@ -1,7 +1,13 @@
 import {
+  AfternoonEventsRow,
   DayRow,
+  DinnerRow,
+  LunchRow,
   MeetingBreakdownRows,
   MeetingSummaryRow,
+  MorningEventsRow,
+  TransfersInRow,
+  TransfersOutRow,
   VenueBreakdownRows,
   VenueSummaryRow
 } from '../../'
@@ -21,7 +27,7 @@ export const DayRows = ({ day, pax }) => {
 
   return (
     <>
-      {transfer_in.length > 0 && (
+      {/*  {transfer_in.length > 0 && (
         <>
           {transfer_in[0].meetGreet > 0 ? (
             <DayRow
@@ -41,16 +47,13 @@ export const DayRows = ({ day, pax }) => {
               id='assistance'
             />
           ) : null}
-          <DayRow
-            pax={transfer_in.length}
-            date={date}
-            options={transfer_in}
-            description='Transfer starting @ Airport'
-            id='transfer_in'
-          />
+          
         </>
-      )}
-      {morningEvents.length > 0 && (
+      )} */}
+      <TransfersInRow items={transfer_in} date={date} />
+      <MorningEventsRow items={morningEvents} date={date} pax={pax} />
+
+      {/*  {morningEvents.length > 0 && (
         <>
           {morningEvents[0].transfer.length > 0 && (
             <>
@@ -72,16 +75,9 @@ export const DayRows = ({ day, pax }) => {
               />
             </>
           )}
-          <DayRow
-            pax={pax}
-            date={date}
-            options={morningEvents}
-            description='Morning Events'
-            multipleChoice={morningEvents.length > 1 ? true : false}
-            id='morningEvents'
-          />
+         
         </>
-      )}
+      )} */}
       {morningMeetings.length > 0 && (
         <>
           <MeetingSummaryRow
@@ -99,8 +95,8 @@ export const DayRows = ({ day, pax }) => {
           />
         </>
       )}
-
-      {lunch.length > 0 && (
+      <LunchRow items={lunch} pax={pax} date={date} />
+      {/* {lunch.length > 0 && (
         <>
           {lunch[0].transfer[0].withAssistance === true ? (
             <DayRow
@@ -122,17 +118,10 @@ export const DayRows = ({ day, pax }) => {
             }
             id='transfer_lunch'
           />
-          <DayRow
-            pax={pax}
-            date={date}
-            options={lunch}
-            description='Lunch Restaurants'
-            multipleChoice={`${lunch.length > 1}`}
-            id='lunch'
-          />
         </>
-      )}
-      {afternoonEvents.length > 0 && (
+      )} */}
+      <AfternoonEventsRow items={afternoonEvents} date={date} pax={pax} />
+      {/*  {afternoonEvents.length > 0 && (
         <>
           {afternoonEvents[0].transfer[0].withAssistance === true ? (
             <DayRow
@@ -150,16 +139,8 @@ export const DayRows = ({ day, pax }) => {
             description='Transfer'
             id='transfer_afternoonEvents'
           />
-          <DayRow
-            pax={pax}
-            date={date}
-            options={afternoonEvents}
-            description='Afternoon Events'
-            multipleChoice={`${afternoonEvents.length > 1}`}
-            id='afternoonEvents'
-          />
         </>
-      )}
+      )} */}
       {afternoonMeetings.length > 0 && (
         <>
           <MeetingSummaryRow
@@ -232,19 +213,12 @@ export const DayRows = ({ day, pax }) => {
               />
             </>
           ) : (
-            <DayRow
-              pax={pax}
-              date={date}
-              options={dinner}
-              description='Dinner Restaurants'
-              multipleChoice={Boolean(`${dinner.length > 1}`)}
-              id='dinner'
-            />
+            <DinnerRow items={dinner} date={date} pax={pax} />
           )}
         </>
       )}
-
-      {transfer_out.length > 0 && (
+      <TransfersOutRow items={transfer_out} date={date} />
+      {/*  {transfer_out.length > 0 && (
         <>
           {transfer_out[0].meetGreet > 0 ? (
             <DayRow
@@ -264,15 +238,8 @@ export const DayRows = ({ day, pax }) => {
               id='assistance'
             />
           ) : null}
-          <DayRow
-            pax={transfer_out.length}
-            date={date}
-            options={transfer_out}
-            description='Hotel or City/Airport'
-            id='transfer_out'
-          />
         </>
-      )}
+      )} */}
     </>
   )
 }

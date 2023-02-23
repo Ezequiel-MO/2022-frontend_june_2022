@@ -5,7 +5,7 @@ import { useBudget } from '../../../../hooks'
 
 const transferIds = ['transfer_in', 'transfer_out', 'assistance', 'meetGreet']
 
-export const TransferInOutCells = ({ date, description, options, pax, id }) => {
+export const TransferInOutCells = ({ date, options, description, id }) => {
   const { updateTransfers } = useBudget()
 
   useEffect(() => {

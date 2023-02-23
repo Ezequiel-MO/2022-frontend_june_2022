@@ -10,11 +10,11 @@ export const SingleChoiceCells = ({ pax, options, description, date, id }) => {
 
   useEffect(() => {
     if (id === 'lunch' || id === 'dinner') {
-      setCurrentMeals(date, id, options[0]._id)
+      setCurrentMeals(date, id, options[0]?._id)
     }
     if (id === 'morningEvents' || id === 'afternoonEvents') {
-      setCurrentEvents(date, id, options[0]._id)
-      if (options[0].pricePerPerson === false) {
+      setCurrentEvents(date, id, options[0]?._id)
+      if (options[0]?.pricePerPerson === false) {
         setPricePerPerson(false)
       }
     }
@@ -27,17 +27,19 @@ export const SingleChoiceCells = ({ pax, options, description, date, id }) => {
       id === 'lunch' ||
       id === 'dinner'
     ) {
-      updateEventTotalCost(date, id, pax, options[0]._id)
+      updateEventTotalCost(date, id, pax, options[0]?._id)
     }
   }, [id])
 
   return (
     <>
       <TableCell>{description}</TableCell>
-      <TableCell>{options[0].name}</TableCell>
+      <TableCell>{options[0]?.name}</TableCell>
       <TableCell>{pricePerPerson ? pax : 1}</TableCell>
-      <TableCell>{accounting.formatMoney(options[0].price, '€')}</TableCell>
-      <TableCell>{accounting.formatMoney(options[0].totalCost, '€')}</TableCell>
+      <TableCell>{accounting.formatMoney(options[0]?.price, '€')}</TableCell>
+      <TableCell>
+        {accounting.formatMoney(options[0]?.totalCost, '€')}
+      </TableCell>
     </>
   )
 }
