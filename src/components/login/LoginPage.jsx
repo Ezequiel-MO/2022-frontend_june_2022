@@ -1,88 +1,48 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import baseAPI from '../../axios/axiosConfig'
 import { useBudget, useCurrentProject, useUserLog } from '../../hooks'
 import Spinner from '../../ui/spinner/Spinner'
 import LoginForm from './LoginForm'
+import { useLogin } from './useLogin'
 
 const LoginPage = () => {
   const navigate = useNavigate()
   const [visiblePassword, setVisiblePassword] = useState(false)
-  const { setCurrentProject } = useCurrentProject()
-  const { setBudgetSchedule, setHotels } = useBudget()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [alert, setAlert] = useState({})
-
-  const [loading, setLoading] = useState(false)
-
+  const { setCurrentProject } = useCurrentProject()
+  const { setBudgetSchedule, setHotels } = useBudget()
   const { logUserIn } = useUserLog()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    if ([email, password].includes('')) {
-      setAlert({
-        error: true,
-        msg: 'Please fill in all fields'
-      })
-      setLoading(false)
-      return
-    }
-    try {
-      const response = await baseAPI.get(`/v1/projects?code=${password}`)
-      const receivedData = response.data.data.data.length !== 0
-
-      if (!receivedData) {
-        setAlert({
-          error: true,
-          msg: 'Invalid password, please check your email instructions'
-        })
-        setLoading(false)
-        return
-      }
-      const clientEmail = response.data.data.data[0].clientAccManager[0].email
-
-      if (email !== clientEmail) {
-        setAlert({
-          error: true,
-          msg: 'Invalid email, please check your email instructions'
-        })
-        setLoading(false)
-        return
-      }
-
-      localStorage.setItem(
-        'schedule',
-        JSON.stringify(response.data.data.data[0].schedule)
-      )
-      localStorage.setItem(
-        'hotels',
-        JSON.stringify(response.data.data.data[0].hotels)
-      )
-      localStorage.setItem(
-        'currentProject',
-        JSON.stringify(response.data.data.data[0])
-      )
+  const { login, loading } = useLogin({
+    onSuccess: (data) => {
+      localStorage.setItem('schedule', JSON.stringify(data.schedule))
+      localStorage.setItem('hotels', JSON.stringify(data.hotels))
+      localStorage.setItem('currentProject', JSON.stringify(data))
       setAlert({
         error: false,
         msg: 'Access Granted'
       })
       logUserIn()
       localStorage.setItem('userIsLogged', true)
-      setCurrentProject(response.data.data.data[0])
+      setCurrentProject(data)
 
-      setBudgetSchedule(response.data.data.data[0].schedule)
-      setHotels(response.data.data.data[0].hotels)
+      setBudgetSchedule(data.schedule)
+      setHotels(data.hotels)
       navigate('/app')
-      setLoading(false)
-    } catch (error) {
+    },
+    onError: (error) => {
       setAlert({
         error: true,
-        msg: 'Invalid email or password'
+        msg: error.message
       })
-      setLoading(false)
     }
+  })
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    login(email, password)
   }
 
   const togglePassword = () => {
