@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useBudget, useCurrentProject, useUserLog } from '../../hooks'
 import Spinner from '../../ui/spinner/Spinner'
+import { saveToLocalStorage } from './helperFunctions'
 import LoginForm from './LoginForm'
 import { useLogin } from './useLogin'
 
@@ -17,17 +18,13 @@ const LoginPage = () => {
 
   const { login, loading } = useLogin({
     onSuccess: (data) => {
-      localStorage.setItem('schedule', JSON.stringify(data.schedule))
-      localStorage.setItem('hotels', JSON.stringify(data.hotels))
-      localStorage.setItem('currentProject', JSON.stringify(data))
+      saveToLocalStorage(data)
       setAlert({
         error: false,
         msg: 'Access Granted'
       })
       logUserIn()
-      localStorage.setItem('userIsLogged', true)
       setCurrentProject(data)
-
       setBudgetSchedule(data.schedule)
       setHotels(data.hotels)
       navigate('/app')
