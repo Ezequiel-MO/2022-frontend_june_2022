@@ -1,53 +1,59 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 
-const getUserPreference = () => {
-  const storedTheme = localStorage.getItem('theme')
-  const hasStoredPreference = typeof storedTheme === 'string'
-  if (hasStoredPreference) {
-    return storedTheme === 'dark'
-  }
-
-  const userPreference = window.matchMedia('(prefers-color-scheme: dark)')
-  const hasUserPreference = typeof userPreference.matches === 'boolean'
-  if (hasUserPreference) {
-    return userPreference.matches
-  }
-
-  return true
-}
-
-const setMode = (isDarkMode) => {
-  const html = window.document.documentElement
-  const prevTheme = isDarkMode ? 'light' : 'dark'
-  const nextTheme = isDarkMode ? 'dark' : 'light'
-
-  html.classList.remove(prevTheme)
-  html.classList.add(nextTheme)
-
-  localStorage.setItem('theme', nextTheme)
-}
-
-export const useDarkMode = (storage = localStorage, dom = window.document) => {
-  const [isDarkMode, setIsDarkMode] = useState(() => getUserPreference(storage))
+export const useDarkMode = () => {
+  const [isDarkMode, setIsDarkMode] = useState(
+    () => localStorage.theme === 'dark'
+  )
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode)
   }
   useEffect(() => {
-    const onChange = (e) => {
-      const isDark = e.matches
-      setIsDarkMode(isDark)
-    }
+    // Add listener to update styles
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', (e) =>
+        onSelectMode(e.matches ? 'dark' : 'light')
+      )
 
-    const userPreference = window.matchMedia('(prefers-color-scheme: dark)')
-    userPreference.addEventListener('change', onChange)
+    // Setup dark/light mode for the first time
+    onSelectMode(
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light'
+    )
 
+    // Remove listener
     return () => {
-      userPreference.removeEventListener('change', onChange)
+      window
+        .matchMedia('(prefers-color-scheme: dark)')
+        .removeEventListener('change', () => {})
     }
   }, [])
 
+  const onSelectMode = (mode) => {
+    const html = window.document.documentElement
+
+    if (mode === 'dark') {
+      html.classList.remove('light')
+      html.classList.add('dark')
+    } else {
+      html.classList.remove('dark')
+      html.classList.add('light')
+    }
+
+    localStorage.setItem('theme', mode)
+  }
+
   useEffect(() => {
-    setMode(isDarkMode, dom)
+    const html = window.document.documentElement
+
+    const prevTheme = isDarkMode ? 'light' : 'dark'
+    html.classList.remove(prevTheme)
+
+    const nextTheme = isDarkMode ? 'dark' : 'light'
+    html.classList.add(nextTheme)
+
+    localStorage.setItem('theme', nextTheme)
   }, [isDarkMode])
 
   return [isDarkMode, toggleDarkMode]

@@ -4,15 +4,8 @@ import './App.css'
 import { useDarkMode } from './hooks'
 
 function App() {
-  const { isDarkMode } = useDarkMode()
   return (
-    <div
-      className={`${
-        isDarkMode
-          ? 'dark:bg-black-50 text-white-50'
-          : 'bg-gray-100 text-black-50'
-      } text-lg min-h-screen`}
-    >
+    <div className='dark:bg-black-50 text-lg text-black-50 dark:text-gray-100 p-2 min-h-screen'>
       <RouterProvider router={router} />
     </div>
   )
