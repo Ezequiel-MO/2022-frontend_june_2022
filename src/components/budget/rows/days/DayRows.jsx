@@ -177,7 +177,7 @@ export const DayRows = ({ day, pax }) => {
       )}
       {dinner.length > 0 && (
         <>
-          {dinner[0].transfer[0].withAssistance === true ? (
+          {/*  {dinner[0].transfer[0]?.withAssistance === true ? (
             <DayRow
               pax={dinner[0].transfer.length}
               date={date}
@@ -185,13 +185,13 @@ export const DayRows = ({ day, pax }) => {
               description='Assistance on Bus'
               id='assistance'
             />
-          ) : null}
+          ) : null} */}
           <DayRow
             pax={dinner[0].transfer.length}
             date={date}
             options={dinner[0].transfer}
             description={
-              dinner[0].transfer[0].selectedService === 'dispo_'
+              dinner[0].transfer[0]?.selectedService === 'dispo_'
                 ? 'Transfer 4h at disposal night hours'
                 : 'Transfer'
             }
