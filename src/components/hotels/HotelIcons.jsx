@@ -4,8 +4,8 @@ import { useCurrentProject } from '../../hooks'
 
 const HotelIcons = ({ leftIconsText, rightIconsText }) => {
   const { currentProject } = useCurrentProject()
-  const { corporateImage } = currentProject
-  const { colorPalette = [] } = corporateImage[0] || {}
+  const { clientCompany = [] } = currentProject
+  const { colorPalette = [] } = clientCompany[0] || {}
 
   const leftIcons = [
     <Icon
