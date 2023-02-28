@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import { Icon } from '@iconify/react'
 import { useBudget, useFindByName } from '../../../../hooks'
-import { HotelMultipleChoice, HotelTotalCost } from '../../'
+import { HotelMultipleChoice, HotelTotalCostContainer } from '../../'
 
 export const HotelSummaryRow = ({ nights }) => {
   const {
@@ -39,7 +39,7 @@ export const HotelSummaryRow = ({ nights }) => {
         </TableCell>
         <TableCell></TableCell>
         <TableCell></TableCell>
-        <HotelTotalCost />
+        <HotelTotalCostContainer />
       </TableRow>
     </>
   )
