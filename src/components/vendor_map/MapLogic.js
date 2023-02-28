@@ -15,6 +15,8 @@ export const VendorMapLogic = () => {
     let locationCoords =
       groupLocation === 'Barcelona'
         ? [41.385331792, 2.168665992]
+        : groupLocation === 'Alicante'
+        ? [38.345996, -0.490685]
         : [40.4167754, -3.7037902]
     return {
       place: groupLocation,

@@ -1,22 +1,11 @@
-import { useEffect, useState } from 'react'
-import baseAPI from '../axios/axiosConfig'
+import { useFindByName } from './useFindByName'
+import { useGetLocations } from './useGetLocations'
 
-export const useGetLocations = () => {
-  const [locations, setLocations] = useState([])
-  useEffect(() => {
-    const getLocations = async () => {
-      try {
-        const response = await baseAPI.get('v1/locations')
-        setLocations(response.data.data.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
+export const useGetLocation = (locationName = 'Barcelona') => {
+  const { locations } = useGetLocations()
 
-    getLocations()
-  }, [])
-
+  const { selectedOption } = locations && useFindByName(locations, locationName)
   return {
-    locations
+    selectedOption
   }
 }
