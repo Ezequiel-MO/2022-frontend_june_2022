@@ -13,9 +13,9 @@ const LoginForm = ({
   visiblePassword
 }) => {
   return (
-    <>
+    <div className='w-[500px] mx-auto pt-5'>
       <h1 className='font-black text-4xl capitalize'>
-        Login <span className='text-white-100'>to APP</span>
+        Login <span className='text-orange-50'>to APP</span>
       </h1>
       {msg && <Alert alert={alert} />}
       <form
@@ -77,7 +77,7 @@ const LoginForm = ({
           </button>
         </div>
       </form>
-    </>
+    </div>
   )
 }
 

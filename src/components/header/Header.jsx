@@ -26,7 +26,7 @@ const Header = () => {
   }
   return (
     <>
-      <div className='relative h-32 m-8 overflow-hidden bg-black-50 dark:bg-white-50 rounded-lg'>
+      <div className='relative h-32 m-8 overflow-hidden bg-white-50 dark:bg-black-50 rounded-lg'>
         <div className='absolute z-30 flex w-full h-full'>
           <div className='relative z-30 w-5/6 px-6 py-8 text-white md:py-10 md:w-1/2'>
             <Link to='/'>
