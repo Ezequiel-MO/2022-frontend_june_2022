@@ -7,13 +7,13 @@ import {
   TableHead,
   TableRow
 } from '@mui/material'
-import { useBudget, useFindHotelByName } from '../../../../hooks'
+import { useBudget, useFindByName } from '../../../../hooks'
 import { HotelBreakdownRow } from '../../'
 
 export const HotelBreakdownRows = ({ hotels, nights }) => {
   const { breakdownOpen, hotelName } = useBudget()
 
-  const { selectedHotel } = useFindHotelByName(hotelName, hotels)
+  const { selectedOption: selectedHotel } = useFindByName(hotels, hotelName)
 
   const {
     DUInr,

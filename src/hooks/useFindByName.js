@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
 
-export const useFindEventByName = (options, name) => {
-  const [option, setOption] = useState(options[0])
+export const useFindByName = (options, name) => {
+  const [selectedOption, setSelectedOption] = useState(options[0])
 
   useEffect(() => {
     const foundOption = options.find((option) => option.name === name)
     if (foundOption) {
-      setOption(foundOption)
+      setSelectedOption(foundOption)
     }
   }, [name, options])
-  return { option }
+
+  return {
+    selectedOption
+  }
 }

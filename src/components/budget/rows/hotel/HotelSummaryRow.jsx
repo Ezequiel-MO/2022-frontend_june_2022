@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import { Icon } from '@iconify/react'
-import { useBudget, useFindHotelByName } from '../../../../hooks'
+import { useBudget, useFindByName } from '../../../../hooks'
 import { HotelMultipleChoice, HotelTotalCost } from '../../'
 
 export const HotelSummaryRow = ({ nights }) => {
@@ -13,7 +13,7 @@ export const HotelSummaryRow = ({ nights }) => {
     updateHotelTotalCost
   } = useBudget()
 
-  const { selectedHotel } = useFindHotelByName(hotelName, hotels)
+  const { selectedOption: selectedHotel } = useFindByName(hotels, hotelName)
 
   useEffect(() => {
     if (hotels?.length > 0) {

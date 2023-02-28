@@ -4,7 +4,7 @@ import { IconButton, TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 import {
   useBudget,
-  useFindHotelByName,
+  useFindByName,
   useFindMeetingByHotel
 } from '../../../../hooks'
 
@@ -26,7 +26,7 @@ export const MeetingSummaryRow = ({
   const { meetingBreakdownOpen } = breakdownOpen
   const { open, date, typeOfMeeting } = meetingBreakdownOpen
 
-  const { selectedHotel } = useFindHotelByName(hotelName, hotels)
+  const { selectedOption: selectedHotel } = useFindByName(hotels, hotelName)
   const { meeting } = useFindMeetingByHotel(meetings, selectedHotel)
 
   useEffect(() => {

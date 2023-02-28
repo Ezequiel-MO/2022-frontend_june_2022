@@ -6,7 +6,7 @@ import {
   VenueSingleChoiceCells,
   VenueTotalCost
 } from '../../'
-import { useBudget, useFindVenueByName } from '../../../../hooks'
+import { useBudget, useFindByName } from '../../../../hooks'
 
 export const VenueSummaryRow = ({
   venues,
@@ -25,7 +25,10 @@ export const VenueSummaryRow = ({
   const { venueBreakdownOpen } = breakdownOpen
   const { open, date, typeOfEvent } = venueBreakdownOpen
 
-  const { selectedVenue = venues[0] } = useFindVenueByName(venues, venueName)
+  const { selectedOption: selectedVenue = venues[0] } = useFindByName(
+    venues,
+    venueName
+  )
 
   useEffect(() => {
     updateEventTotalCost(dateProp, id, pax, selectedVenue?._id)

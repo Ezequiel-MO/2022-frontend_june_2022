@@ -10,7 +10,7 @@ import {
 import { MeetingBreakdownRow } from '../../'
 import {
   useBudget,
-  useFindHotelByName,
+  useFindByName,
   useFindMeetingByHotel
 } from '../../../../hooks'
 
@@ -24,7 +24,7 @@ export const MeetingBreakdownRows = ({
   const { meetingBreakdownOpen } = breakdownOpen
   const { open, date, typeOfMeeting } = meetingBreakdownOpen
 
-  const { selectedHotel } = useFindHotelByName(hotelName, hotels)
+  const { selectedOption: selectedHotel } = useFindByName(hotels, hotelName)
   const { meeting } = useFindMeetingByHotel(meetings, selectedHotel)
 
   return (

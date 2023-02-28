@@ -8,14 +8,17 @@ import {
   TableRow
 } from '@mui/material'
 import { VenueBreakdownRow } from '../../'
-import { useBudget, useFindVenueByName } from '../../../../hooks'
+import { useBudget, useFindByName } from '../../../../hooks'
 
 export const VenueBreakdownRows = ({ venues, dateProp, typeOfMeetingProp }) => {
   const { breakdownOpen, venueName } = useBudget()
   const { venueBreakdownOpen } = breakdownOpen
   const { open, date, typeOfEvent } = venueBreakdownOpen
 
-  const { selectedVenue = venues[0] } = useFindVenueByName(venues, venueName)
+  const { selectedOption: selectedVenue = venues[0] } = useFindByName(
+    venues,
+    venueName
+  )
 
   const {
     rental,

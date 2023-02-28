@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { TableCell } from '@mui/material'
 import { MultipleChoice, TotalRow } from '../../'
-import { useBudget, useFindEventByName } from '../../../../hooks'
+import { useBudget, useFindByName } from '../../../../hooks'
 
 export const MultipleChoiceCells = ({
   pax,
@@ -14,7 +14,7 @@ export const MultipleChoiceCells = ({
     useBudget()
   const [value, setValue] = useState(options[0].name)
 
-  const { option } = useFindEventByName(options, value)
+  const { selectedOption: option } = useFindByName(options, value)
 
   useEffect(() => {
     if (id === 'lunch' || id === 'dinner') {
