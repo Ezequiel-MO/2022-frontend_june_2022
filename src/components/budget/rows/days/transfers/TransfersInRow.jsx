@@ -1,11 +1,23 @@
+import { useEffect } from 'react'
 import accounting from 'accounting'
 import { TableCell, TableRow } from '@mui/material'
+import { useBudget } from '../../../../../hooks'
 
 export const TransfersInRow = ({ items, date }) => {
   //this component needs to expand to accommodate multiple transfers
+  const { updateTransfers } = useBudget()
 
   const NoTransfersIn = items.length === 0
   if (NoTransfersIn) return null
+
+  useEffect(() => {
+    updateTransfers(
+      date,
+      'transfer_in',
+      items[0]?.nrVehicles ?? 1,
+      items[0]['transfer_in']
+    )
+  }, [])
   return (
     <TableRow>
       <TableCell>{date}</TableCell>
