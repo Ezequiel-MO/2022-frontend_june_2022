@@ -125,8 +125,8 @@ export const VendorMap = () => {
               position={location.coords}
               options={{ pixelOffset: new google.maps.Size(0, -40) }}
             >
-              <div className='text-center italic p-5 font-bold text-lg'>
-                <h3>{location.place}</h3>
+              <div className='bg-white rounded-lg shadow-md p-4'>
+                <h3 className='text-lg font-bold mb-2'>{location.place}</h3>
               </div>
             </InfoWindowF>
           }
