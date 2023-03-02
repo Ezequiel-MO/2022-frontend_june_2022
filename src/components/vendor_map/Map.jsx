@@ -8,7 +8,7 @@ export const VendorMap = () => {
   const { hotelCoords, centralCoords, scheduleCoords } = VendorMapLogic()
 
   const [zoom, setZoom] = useState(14)
-  const [map, setMap] = useState()
+  const [map, setMap] = useState(null)
   const [location, setLocation] = useState(centralCoords)
 
   const vendors = [centralCoords, hotelCoords, scheduleCoords].flat()
@@ -25,27 +25,39 @@ export const VendorMap = () => {
     //whenever location, bounds or zoom change, fit map to bounds and transtion smoothly to new zoom
     if (map) {
       map.fitBounds(bounds)
-      setMap(map)
+      setZoom(map.getZoom())
     }
-  }, [location, bounds, zoom])
+  }, [location, bounds, map])
 
-  const options = useMemo(() => ({
-    mapId: '37537533e1cc90',
-    center: centralCoords.coords,
-    controlSize: 25,
-    disableDefaultUI: false,
-    clickableIcons: false,
-    zoomControl: true,
-    mapTypeControl: true,
-    scaleControl: true,
-    rotateControl: false,
-    fullscreenControl: true
-  }))
+  const options = useMemo(
+    () => ({
+      mapId: '37537533e1cc90',
+      center: centralCoords.coords,
+      controlSize: 25,
+      disableDefaultUI: false,
+      clickableIcons: false,
+      zoomControl: true,
+      mapTypeControl: true,
+      scaleControl: true,
+      rotateControl: false,
+      fullscreenControl: true
+    }),
+    []
+  )
 
-  const onLoad = useCallback((map) => {
-    map.fitBounds(bounds)
-    return setMap(map)
-  }, [])
+  const onLoad = useCallback(
+    (map) => {
+      map.fitBounds(bounds)
+      setMap(map)
+    },
+    [bounds]
+  )
+
+  const onZoomChanged = useCallback(() => {
+    if (map) {
+      setZoom(map.getZoom())
+    }
+  }, [map])
 
   return (
     <div className='flex w-full h-full relative'>
@@ -54,9 +66,7 @@ export const VendorMap = () => {
         <GoogleMap
           onLoad={onLoad}
           zoom={zoom}
-          onBoundsChanged={() => {
-            setZoom(map?.getZoom())
-          }}
+          onZoomChanged={onZoomChanged}
           options={options}
           mapContainerStyle={{
             width: '100%',
