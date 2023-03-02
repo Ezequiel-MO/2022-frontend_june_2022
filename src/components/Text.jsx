@@ -1,14 +1,22 @@
 const ParagraphText = ({ text = '' }) => {
-  const textArray = JSON.stringify(text)
+  const formattedText = JSON.stringify(text)
     .replace(/\\/g, '')
     .replace(/\[/g, '')
     .replace(/\]/g, '')
     .replace(/"/g, '')
+    .replace(/\.\s*n/g, '.')
 
   return (
-    <p className='text-black-50 dark:text-white-50 whitespace-pre-line indent-2'>
-      {textArray}
-    </p>
+    <pre
+      className='text-black-50 dark:text-white-50 indent-2'
+      style={{
+        whiteSpace: 'pre-wrap',
+        overflowWrap: 'break-word',
+        fontFamily: 'Barlow Condensed, sans-serif'
+      }}
+    >
+      {formattedText}
+    </pre>
   )
 }
 
