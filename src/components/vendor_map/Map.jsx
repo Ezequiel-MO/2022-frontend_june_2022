@@ -5,14 +5,27 @@ import { VendorMapLogic } from './MapLogic'
 import './map.css'
 
 export const VendorMap = () => {
-  const { hotelCoords, centralCoords, scheduleCoords, distance } =
-    VendorMapLogic()
+  const { hotelCoords, centralCoords, scheduleCoords } = VendorMapLogic()
 
   const [zoom, setZoom] = useState(14)
   const [map, setMap] = useState(null)
   const [location, setLocation] = useState(centralCoords)
+  const [showAllVendors, setShowAllVendors] = useState(true)
+  const [clickedVendor, setClickedVendor] = useState(null)
 
-  const vendors = [centralCoords, hotelCoords, scheduleCoords].flat()
+  const vendors = useMemo(() => {
+    if (showAllVendors || clickedVendor?.distance !== null) {
+      return [centralCoords, hotelCoords, scheduleCoords].flat()
+    } else {
+      return [centralCoords, clickedVendor]
+    }
+  }, [
+    centralCoords,
+    hotelCoords,
+    scheduleCoords,
+    showAllVendors,
+    clickedVendor
+  ])
 
   const bounds = useMemo(() => {
     const bounds = new google.maps.LatLngBounds()
@@ -22,7 +35,7 @@ export const VendorMap = () => {
         bounds.extend(vendor.coords)
       })
     return bounds
-  }, [])
+  }, [vendors])
 
   useEffect(() => {
     if (map) {
@@ -57,7 +70,7 @@ export const VendorMap = () => {
       rotateControl: false,
       fullscreenControl: true
     }),
-    []
+    [centralCoords]
   )
 
   const onLoad = useCallback(
@@ -74,9 +87,28 @@ export const VendorMap = () => {
     }
   }, [map])
 
+  const handleVendorClick = (vendor) => {
+    setClickedVendor(vendor)
+    setLocation({
+      place: vendor.place,
+      coords: vendor.coords
+    })
+    setShowAllVendors(false)
+  }
+
+  const handleShowAllVendors = () => {
+    setShowAllVendors(true)
+    setClickedVendor(null)
+  }
+
   return (
     <div className='flex w-full h-full relative'>
-      <VendorList vendors={vendors} setLocation={setLocation} />
+      <VendorList
+        vendors={vendors}
+        setLocation={setLocation}
+        onVendorClick={handleVendorClick}
+        onShowAllVendors={handleShowAllVendors}
+      />
       <div className='map'>
         <GoogleMap
           onLoad={onLoad}
