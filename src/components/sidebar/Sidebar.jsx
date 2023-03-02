@@ -1,5 +1,5 @@
 import { useCurrentProject } from '../../hooks'
-import SidebarRow from './SidebarRow'
+import { SidebarRow } from './'
 
 const Sidebar = () => {
   const { currentProject } = useCurrentProject()

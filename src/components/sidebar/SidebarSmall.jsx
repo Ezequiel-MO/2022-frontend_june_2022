@@ -1,41 +1,39 @@
-import { useState } from "react";
-import SidebarRow from "./SidebarRow";
-import CentralModal from "../modal/CentralModal";
+import { useState } from 'react'
+import { ModalsRow } from './'
+import CentralModal from '../modal/CentralModal'
 
 const SidebarSmall = () => {
-  const [modal, setModal] = useState("closed");
-  const handleOpen = (string) => setModal(string);
-  const handleClose = () => setModal("closed");
+  const [modal, setModal] = useState('closed')
+  const handleOpen = (string) => setModal(string)
+  const handleClose = () => setModal('closed')
 
   return (
-    <div className="inline lg:hidden">
-      <div className="flex items-center justify-center">
-        <SidebarRow
-          iconText="akar-icons:map"
-          title="map"
-          modal={true}
+    <div className='inline lg:hidden'>
+      <div className='flex items-center justify-center'>
+        <ModalsRow
+          iconText='akar-icons:map'
+          title='map'
           handleOpen={handleOpen}
         />
 
-        <SidebarRow
-          iconText="bi:calendar-check"
-          title="overview"
-          modal={true}
+        <ModalsRow
+          iconText='bi:calendar-check'
+          title='overview'
           handleOpen={handleOpen}
         />
       </div>
       <CentralModal
-        open={modal === "overview"}
+        open={modal === 'overview'}
         handleClose={handleClose}
-        typeOfModal="Overview"
+        typeOfModal='Overview'
       />
       <CentralModal
-        open={modal === "map"}
+        open={modal === 'map'}
         handleClose={handleClose}
-        typeOfModal="Map"
+        typeOfModal='Map'
       />
     </div>
-  );
-};
+  )
+}
 
-export default SidebarSmall;
+export default SidebarSmall

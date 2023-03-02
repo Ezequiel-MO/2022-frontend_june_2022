@@ -1,36 +1,16 @@
 import { useState } from 'react'
 import { Icon } from '@iconify/react'
 import { Link } from 'react-scroll'
-import { useActiveTab } from '../../context/ActiveTabProvider'
-import { useCurrentProject } from '../../hooks'
+import { useActiveTab } from '../../../context/ActiveTabProvider'
+import { useCurrentProject } from '../../../hooks'
 
-function SidebarRow({ iconText, title, modal = false, handleOpen }) {
+export const SidebarRow = ({ iconText, title }) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const { currentProject } = useCurrentProject()
   const { hotels, schedule, clientCompany } = currentProject
-  const { activeTab, setActiveTab, handleChange } = useActiveTab()
+  const { activeTab, handleChange } = useActiveTab()
 
   const { colorPalette = [] } = clientCompany[0] || {}
-  if (modal) {
-    return (
-      <div
-        data-for='main'
-        data-tip={title}
-        data-iscapture='true'
-        className='flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-green-50 cursor-pointer transition-all duration-200 group'
-        onClick={() => handleOpen(`${title}`)}
-      >
-        <Icon
-          icon={iconText}
-          color={`${colorPalette.length > 0 ? colorPalette[0] : '#ea5933'}`}
-          width='40'
-        />
-        <p className='group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg'>
-          {title?.replace(/^\w/, (c) => c.toUpperCase())}
-        </p>
-      </div>
-    )
-  }
   return (
     <>
       <Link
@@ -147,5 +127,3 @@ function SidebarRow({ iconText, title, modal = false, handleOpen }) {
     </>
   )
 }
-
-export default SidebarRow

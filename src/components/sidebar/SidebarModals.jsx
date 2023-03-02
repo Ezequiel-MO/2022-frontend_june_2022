@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import CentralModal from '../modal/CentralModal'
-import SidebarRow from './SidebarRow'
+import { ModalsRow } from './'
 
 const SidebarModals = () => {
   const [modal, setModal] = useState('closed')
@@ -10,16 +10,14 @@ const SidebarModals = () => {
   return (
     <div className='hidden lg:col-span-2 px-2 lg:inline relative'>
       <div className='flex flex-col sticky top-10'>
-        <SidebarRow
+        <ModalsRow
           iconText='akar-icons:map'
           title='map'
-          modal={true}
           handleOpen={handleOpen}
         />
-        <SidebarRow
+        <ModalsRow
           iconText='bi:calendar-check'
           title='overview'
-          modal={true}
           handleOpen={handleOpen}
         />
       </div>
