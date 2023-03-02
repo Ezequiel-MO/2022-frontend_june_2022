@@ -5,7 +5,8 @@ import { VendorMapLogic } from './MapLogic'
 import './map.css'
 
 export const VendorMap = () => {
-  const { hotelCoords, centralCoords, scheduleCoords } = VendorMapLogic()
+  const { hotelCoords, centralCoords, scheduleCoords, distance } =
+    VendorMapLogic()
 
   const [zoom, setZoom] = useState(14)
   const [map, setMap] = useState(null)
@@ -15,19 +16,33 @@ export const VendorMap = () => {
 
   const bounds = useMemo(() => {
     const bounds = new google.maps.LatLngBounds()
-    vendors.forEach((vendor) => {
-      bounds.extend(vendor.coords)
-    })
+    vendors
+      .filter((vendor) => vendor.distance !== null)
+      .forEach((vendor) => {
+        bounds.extend(vendor.coords)
+      })
     return bounds
   }, [])
 
   useEffect(() => {
-    //whenever location, bounds or zoom change, fit map to bounds and transtion smoothly to new zoom
     if (map) {
-      map.fitBounds(bounds)
+      const newBounds = new google.maps.LatLngBounds()
+      if (location.distance === null) {
+        vendors.forEach((vendor) => {
+          newBounds.extend(vendor.coords)
+        })
+      } else {
+        newBounds.extend(location.coords)
+        vendors.forEach((vendor) => {
+          if (vendor.distance !== null) {
+            newBounds.extend(vendor.coords)
+          }
+        })
+      }
+      map.fitBounds(newBounds)
       setZoom(map.getZoom())
     }
-  }, [location, bounds, map])
+  }, [location, vendors, map])
 
   const options = useMemo(
     () => ({
