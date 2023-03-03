@@ -8,6 +8,7 @@ import Budget from './budget/Budget'
 import ScrollToTopButton from '../ui/ScrollToTopButton'
 import ParagraphText from './Text'
 import { useLocation } from 'react-router-dom'
+import { PartialCosts } from './budget'
 
 const MainSection = () => {
   const componentRef = useRef()
@@ -52,6 +53,7 @@ const MainSection = () => {
             content={() => componentRef.current}
           />
           <Budget ref={componentRef} />
+          <PartialCosts />
         </div>
       ) : null}
 
