@@ -17,7 +17,11 @@ const Hotels = ({ hotels }) => {
               role='tablist'
             >
               {hotels?.map((hotel, index) => (
-                <li key={hotel._id} className='mr-2 last:mr-0 flex-auto'>
+                <li
+                  key={hotel._id}
+                  className='mr-2 last:mr-0 flex-auto'
+                  id={hotel._id}
+                >
                   <a
                     className={`${
                       change && activeTab === index + 1

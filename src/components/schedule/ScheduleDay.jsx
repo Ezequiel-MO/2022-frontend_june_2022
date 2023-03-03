@@ -8,6 +8,7 @@ export const ScheduleDay = ({ day, index, suplementaryText, arrivalDay }) => {
       <div className='flex flex-col' id={`${day.date}_id`}>
         <DateHeader date={day.date} index={index} arrivalDay={arrivalDay} />
         <ScheduleDayEvents
+          id={`${day.date}-morning-events`}
           title='Morning Events'
           events={day.morningEvents}
           suplementaryText={suplementaryText}
@@ -25,16 +26,19 @@ export const ScheduleDay = ({ day, index, suplementaryText, arrivalDay }) => {
 			  </h3>
 			)} */}
         <ScheduleDayMeals
+          id={`${day.date}-lunch`}
           title='Lunch'
           restaurants={day.lunch}
           suplementaryText={suplementaryText}
         />
         <ScheduleDayEvents
+          id={`${day.date}-afternoon-events`}
           title='Afternoon Events'
           events={day.afternoonEvents}
           suplementaryText={suplementaryText}
         />
         <ScheduleDayMeals
+          id={`${day.date}-dinner`}
           title='Dinner'
           restaurants={day.dinner}
           suplementaryText={suplementaryText}

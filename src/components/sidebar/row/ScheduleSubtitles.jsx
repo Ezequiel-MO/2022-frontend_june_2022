@@ -1,4 +1,3 @@
-import { Link } from 'react-scroll'
 import { ScheduleDaySubtitles } from './ScheduleDaySubtitles'
 
 export const ScheduleSubtitles = ({
@@ -8,12 +7,7 @@ export const ScheduleSubtitles = ({
   schedule
 }) => {
   return (
-    <Link
-      to={`${title}._id`}
-      spy={true}
-      smooth={true}
-      duration={700}
-      offset={-100}
+    <div
       className={`${
         menuOpen
           ? 'inline-block transition-all ease-in-out duration-300'
@@ -31,6 +25,6 @@ export const ScheduleSubtitles = ({
             />
           )
       )}
-    </Link>
+    </div>
   )
 }

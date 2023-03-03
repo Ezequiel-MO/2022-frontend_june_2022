@@ -10,12 +10,8 @@ export const HotelSubtitles = ({
 }) => {
   if (!hotels?.length) return null
   return (
-    <Link
-      to={`${title}._id`}
-      spy={true}
-      smooth={true}
-      duration={700}
-      offset={-100}
+    <div
+      id={title}
       className={`${
         menuOpen
           ? 'inline-block transition-all ease-in-out duration-300'
@@ -26,23 +22,31 @@ export const HotelSubtitles = ({
         <div
           className={`${
             menuOpen ? 'flex flex-col' : 'hidden'
-          } bg-white shadow-md rounded-lg overflow-hidden transition-all ease-in-out duration-300 space-y-4 p-4 ml-4 hover:shadow-lg`}
+          } bg-white dark:bg-green-50 shadow-md rounded-lg overflow-hidden transition-all ease-in-out duration-300 space-y-4 p-4 ml-4 hover:shadow-lg`}
           onMouseEnter={() => setMenuOpen(true)}
           onMouseLeave={() => setMenuOpen(false)}
         >
           {hotels?.map((hotel, index) => (
-            <p
-              onClick={() => handleChange(index + 1)}
+            <Link
               key={index}
-              className={`${
-                activeTab === index + 1 ? 'text-white-100' : ''
-              } text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm`}
+              to={`${hotel._id}`}
+              spy={true}
+              smooth={true}
+              duration={700}
+              offset={-100}
             >
-              {hotel?.name.replace(/^\w/, (c) => c.toUpperCase())}
-            </p>
+              <p
+                onClick={() => handleChange(index + 1)}
+                className={`${
+                  activeTab === index + 1 ? 'text-white-100' : ''
+                } text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm`}
+              >
+                {hotel?.name.replace(/^\w/, (c) => c.toUpperCase())}
+              </p>
+            </Link>
           ))}
         </div>
       )}
-    </Link>
+    </div>
   )
 }

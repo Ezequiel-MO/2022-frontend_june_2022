@@ -1,3 +1,5 @@
+import { Link } from 'react-scroll'
+
 export const ScheduleDaySubtitles = ({ day, menuOpen, setMenuOpen }) => {
   if (
     !day.morningEvents?.length &&
@@ -15,45 +17,79 @@ export const ScheduleDaySubtitles = ({ day, menuOpen, setMenuOpen }) => {
       key={day._id}
       className={`${
         menuOpen ? 'flex flex-col' : 'hidden'
-      } bg-white shadow-md rounded-lg overflow-hidden transition-all ease-in-out duration-300 space-y-4 p-4 ml-4 hover:shadow-lg`}
+      } dark:bg-green-50 dark:bg-white shadow-md rounded-lg overflow-hidden transition-all ease-in-out duration-300 space-y-4 p-4 ml-4 hover:shadow-lg`}
       onMouseEnter={() => setMenuOpen(true)}
       onMouseLeave={() => setMenuOpen(false)}
     >
       <div className='flex flex-col'>
         {day.morningEvents?.length > 0 ? (
-          <span className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'>
+          <Link
+            className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'
+            to={`${day.date}-morning-events`}
+            smooth={true}
+            offset={-100}
+          >
             Morning Events
-          </span>
+          </Link>
         ) : null}
         {day.morningMeetings?.length > 0 ? (
-          <span className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'>
+          <Link
+            className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'
+            to={`${day.date}-morning-meetings`}
+            smooth={true}
+            offset={-100}
+          >
             Morning Meetings
-          </span>
+          </Link>
         ) : null}
         {day.lunch?.length > 0 ? (
-          <span className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'>
+          <Link
+            className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'
+            to={`${day.date}-lunch`}
+            smooth={true}
+            offset={-100}
+          >
             Lunch
-          </span>
+          </Link>
         ) : null}
         {day.afternoonEvents?.length > 0 ? (
-          <span className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'>
+          <Link
+            className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'
+            to={`${day.date}-afternoon-events`}
+            smooth={true}
+            offset={-100}
+          >
             Afternoon Events
-          </span>
+          </Link>
         ) : null}
         {day.afternoonMeetings?.length > 0 ? (
-          <span className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'>
+          <Link
+            className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'
+            to={`${day.date}-afternoon-meetings`}
+            smooth={true}
+            offset={-100}
+          >
             Afternoon Meetings
-          </span>
+          </Link>
         ) : null}
         {day.dinner?.length > 0 ? (
-          <span className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'>
+          <Link
+            className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'
+            to={`${day.date}-dinner`}
+            smooth={true}
+            offset={-100}
+          >
             Dinner
-          </span>
+          </Link>
         ) : null}
         {day.fulldayMeetings?.length > 0 ? (
-          <span className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'>
+          <Link
+            className='text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm'
+            to={`${day.date}-fullday-meetings`}
+            smooth={true}
+          >
             Full Day Meetings
-          </span>
+          </Link>
         ) : null}
       </div>
     </div>
