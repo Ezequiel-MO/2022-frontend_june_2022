@@ -11,6 +11,8 @@ import {
   VenueBreakdownRows,
   VenueSummaryRow
 } from '../../'
+import { AssistanceRow } from './transfers'
+
 export const DayRows = ({ day, pax }) => {
   const {
     date,
@@ -27,7 +29,7 @@ export const DayRows = ({ day, pax }) => {
 
   return (
     <>
-      {/*  {transfer_in.length > 0 && (
+      {transfer_in.length > 0 && (
         <>
           {transfer_in[0].meetGreet > 0 ? (
             <DayRow
@@ -38,22 +40,13 @@ export const DayRows = ({ day, pax }) => {
               id='meetGreet'
             />
           ) : null}
-          {transfer_in[0].assistance > 0 ? (
-            <DayRow
-              pax={transfer_in.length}
-              date={date}
-              options={transfer_in}
-              description='Assistant on Bus'
-              id='assistance'
-            />
-          ) : null}
-          
         </>
-      )} */}
+      )}
+      <AssistanceRow items={transfer_in} date={date} />
       <TransfersInRow items={transfer_in} date={date} />
       <MorningEventsRow items={morningEvents} date={date} pax={pax} />
 
-      {/*  {morningEvents.length > 0 && (
+      {morningEvents.length > 0 && (
         <>
           {morningEvents[0].transfer.length > 0 && (
             <>
@@ -75,9 +68,8 @@ export const DayRows = ({ day, pax }) => {
               />
             </>
           )}
-         
         </>
-      )} */}
+      )}
       {morningMeetings.length > 0 && (
         <>
           <MeetingSummaryRow
@@ -96,7 +88,7 @@ export const DayRows = ({ day, pax }) => {
         </>
       )}
       <LunchRow items={lunch} pax={pax} date={date} />
-      {/* {lunch.length > 0 && (
+      {lunch.length > 0 && (
         <>
           {lunch[0].transfer[0].withAssistance === true ? (
             <DayRow
@@ -119,9 +111,9 @@ export const DayRows = ({ day, pax }) => {
             id='transfer_lunch'
           />
         </>
-      )} */}
+      )}
       <AfternoonEventsRow items={afternoonEvents} date={date} pax={pax} />
-      {/*  {afternoonEvents.length > 0 && (
+      {afternoonEvents.length > 0 && (
         <>
           {afternoonEvents[0].transfer[0].withAssistance === true ? (
             <DayRow
@@ -140,7 +132,7 @@ export const DayRows = ({ day, pax }) => {
             id='transfer_afternoonEvents'
           />
         </>
-      )} */}
+      )}
       {afternoonMeetings.length > 0 && (
         <>
           <MeetingSummaryRow
@@ -177,7 +169,7 @@ export const DayRows = ({ day, pax }) => {
       )}
       {dinner.length > 0 && (
         <>
-          {/*  {dinner[0].transfer[0]?.withAssistance === true ? (
+          {dinner[0].transfer[0]?.withAssistance === true ? (
             <DayRow
               pax={dinner[0].transfer.length}
               date={date}
@@ -185,7 +177,7 @@ export const DayRows = ({ day, pax }) => {
               description='Assistance on Bus'
               id='assistance'
             />
-          ) : null} */}
+          ) : null}
           <DayRow
             pax={dinner[0].transfer.length}
             date={date}
@@ -218,7 +210,7 @@ export const DayRows = ({ day, pax }) => {
         </>
       )}
       <TransfersOutRow items={transfer_out} date={date} />
-      {/*  {transfer_out.length > 0 && (
+      {transfer_out.length > 0 && (
         <>
           {transfer_out[0].meetGreet > 0 ? (
             <DayRow
@@ -239,7 +231,7 @@ export const DayRows = ({ day, pax }) => {
             />
           ) : null}
         </>
-      )} */}
+      )}
     </>
   )
 }
