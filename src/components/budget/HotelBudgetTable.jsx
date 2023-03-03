@@ -1,8 +1,12 @@
 import { Table, TableBody } from '@mui/material'
-import { BudgetTableHead, DayRows, TotalBudgetCost } from './'
-import { HotelRows } from './rows/hotel'
+import {
+  BudgetTableHead,
+  DayRows,
+  HotelBreakdownRows,
+  HotelSummaryRow
+} from './'
 
-export const BudgetTable = ({ hotels, schedule, nrPax }) => {
+export const HotelBudgetTable = ({ hotels, schedule, nrPax }) => {
   return (
     <Table
       stickyHeader
@@ -11,11 +15,16 @@ export const BudgetTable = ({ hotels, schedule, nrPax }) => {
     >
       <BudgetTableHead />
       <TableBody>
-        <HotelRows hotels={hotels} nights={schedule.length - 1} />
+        {hotels?.length > 0 && (
+          <>
+            <HotelSummaryRow nights={schedule?.length - 1} />
+            <HotelBreakdownRows hotels={hotels} nights={schedule?.length - 1} />
+          </>
+        )}
+
         {schedule?.map((day) => (
           <DayRows key={day._id} day={day} pax={nrPax} />
         ))}
-        <TotalBudgetCost />
       </TableBody>
     </Table>
   )
