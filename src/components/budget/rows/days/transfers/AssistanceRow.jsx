@@ -1,7 +1,10 @@
 import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
+import { useEffect } from 'react'
+import { useBudget } from '../../../../../hooks'
 
 export const AssistanceRow = ({ items, date }) => {
+  const { updateTransfersIn } = useBudget()
   const assistanceObj = items.find((item) => item.assistance > 0)
 
   if (!assistanceObj) {
@@ -9,6 +12,10 @@ export const AssistanceRow = ({ items, date }) => {
   }
 
   const { assistance, assistanceCost } = assistanceObj
+
+  useEffect(() => {
+    updateTransfersIn({ assistance, assistanceCost })
+  }, [])
 
   return (
     <TableRow>

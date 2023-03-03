@@ -24,7 +24,8 @@ export const budgetSlice = createSlice({
     meetings: {},
     meals: {},
     events: {},
-    transfers: {}
+    transfers: {},
+    transfersIn: {}
   },
   reducers: {
     SET_BUDGET_SCHEDULE: (state, action) => {
@@ -221,6 +222,17 @@ export const budgetSlice = createSlice({
       const day_id = `${date}_${id}`
       state.transfers[day_id] = nrBuses * cost
     },
+    UPDATE_TRANSFERS_IN: (state, action) => {
+      const { assistance, assistanceCost } = action.payload
+      return {
+        ...state,
+        transfersIn: {
+          ...state.transfersIn,
+          assistance,
+          assistanceCost
+        }
+      }
+    },
     SET_CURRENT_MEETINGS: (state, action) => {
       const { date, typeOfEvent, id } = action.payload
       const selectedMeeting = state.schedule
@@ -286,6 +298,7 @@ export const {
   UPDATE_MEETING_TOTAL_COST,
   UPDATE_EVENT_TOTAL_COST,
   UPDATE_TRANSFERS,
+  UPDATE_TRANSFERS_IN,
   SET_CURRENT_MEETINGS,
   SET_CURRENT_MEALS,
   SET_CURRENT_EVENTS
