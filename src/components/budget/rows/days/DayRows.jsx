@@ -11,7 +11,7 @@ import {
   VenueBreakdownRows,
   VenueSummaryRow
 } from '../../'
-import { AssistanceRow } from './transfers'
+import { AssistanceRow, MeetGreetRow } from './transfers'
 
 export const DayRows = ({ day, pax }) => {
   const {
@@ -29,7 +29,7 @@ export const DayRows = ({ day, pax }) => {
 
   return (
     <>
-      {transfer_in.length > 0 && (
+      {/*  {transfer_in.length > 0 && (
         <>
           {transfer_in[0].meetGreet > 0 ? (
             <DayRow
@@ -41,7 +41,8 @@ export const DayRows = ({ day, pax }) => {
             />
           ) : null}
         </>
-      )}
+      )} */}
+      <MeetGreetRow items={transfer_in} date={date} />
       <AssistanceRow items={transfer_in} date={date} />
       <TransfersInRow items={transfer_in} date={date} />
       <MorningEventsRow items={morningEvents} date={date} pax={pax} />

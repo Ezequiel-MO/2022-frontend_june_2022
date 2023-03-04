@@ -14,7 +14,7 @@ export const AssistanceRow = ({ items, date }) => {
   const { assistance, assistanceCost } = assistanceObj
 
   useEffect(() => {
-    updateTransfersIn({ assistance, assistanceCost })
+    updateTransfersIn('assistance', assistance, assistanceCost)
   }, [])
 
   return (

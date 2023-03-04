@@ -25,7 +25,12 @@ export const budgetSlice = createSlice({
     meals: {},
     events: {},
     transfers: {},
-    transfersIn: {}
+    transfersIn: {
+      assistance: 0,
+      assistanceCost: 0,
+      meetGreet: 0,
+      meetGreetCost: 0
+    }
   },
   reducers: {
     SET_BUDGET_SCHEDULE: (state, action) => {
@@ -36,18 +41,15 @@ export const budgetSlice = createSlice({
     },
     UPDATE_BUDGET_SCHEDULE: (state, action) => {
       const { date, id, selectedOption } = action.payload
-      return {
-        ...state,
-        schedule: state.schedule.map((item) => {
-          if (item.date === date) {
-            return {
-              ...item,
-              [id]: [selectedOption]
-            }
+      state.schedule = state.schedule.map((item) => {
+        if (item.date === date) {
+          return {
+            ...item,
+            [id]: [selectedOption]
           }
-          return item
-        })
-      }
+        }
+        return item
+      })
     },
     SET_SELECTED_HOTEL_NAME: (state, action) => {
       state.hotelName = action.payload
@@ -99,53 +101,60 @@ export const budgetSlice = createSlice({
     },
     UPDATE_MEETING_TOTAL_COST: (state, action) => {
       const { date, id, nrPax, hotelName } = action.payload
+      const selectedHotel = state.hotels.find(
+        (hotel) => hotel.name === hotelName
+      )
+
+      const updatedSchedule = state.schedule.map((day) => {
+        if (day.date !== date) {
+          return day
+        }
+
+        const updatedMeetings = day[id].map((meeting) => {
+          const { hotel } = meeting
+          if (hotel[0] !== selectedHotel._id) {
+            return meeting
+          }
+
+          const {
+            FDDDR = 0,
+            FDRate = 0,
+            HDDDR = 0,
+            HDRate = 0,
+            aavvPackage = 0,
+            coffeeBreakUnits = 0,
+            coffeeBreakPrice = 0,
+            hotelDinnerUnits = 0,
+            hotelDinnerPrice = 0,
+            workingLunchUnits = 0,
+            workingLunchPrice = 0
+          } = meeting
+
+          const meetingTotal =
+            FDDDR * nrPax +
+            FDRate +
+            HDDDR * nrPax +
+            HDRate +
+            aavvPackage +
+            coffeeBreakUnits * coffeeBreakPrice +
+            hotelDinnerUnits * hotelDinnerPrice +
+            workingLunchUnits * workingLunchPrice
+
+          return {
+            ...meeting,
+            totalCost: meetingTotal
+          }
+        })
+
+        return {
+          ...day,
+          [id]: updatedMeetings
+        }
+      })
 
       return {
         ...state,
-        schedule: state.schedule.map((day) => {
-          if (day.date === date) {
-            return {
-              ...day,
-              [id]: day[id].map((meeting) => {
-                const hotel = state.hotels.find(
-                  (hotel) => hotel.name === hotelName
-                )
-                const hotelId = meeting.hotel[0]
-                if (hotelId === hotel._id) {
-                  const {
-                    FDDDR = 0,
-                    FDRate = 0,
-                    HDDDR = 0,
-                    HDRate = 0,
-                    aavvPackage = 0,
-                    coffeeBreakUnits = 0,
-                    coffeeBreakPrice = 0,
-                    hotelDinnerUnits = 0,
-                    hotelDinnerPrice = 0,
-                    workingLunchUnits = 0,
-                    workingLunchPrice = 0
-                  } = meeting
-                  const meetingTotal =
-                    FDDDR * nrPax +
-                    FDRate +
-                    HDDDR * nrPax +
-                    HDRate +
-                    aavvPackage +
-                    coffeeBreakUnits * coffeeBreakPrice +
-                    hotelDinnerUnits * hotelDinnerPrice +
-                    workingLunchUnits * workingLunchPrice
-
-                  return {
-                    ...meeting,
-                    totalCost: meetingTotal
-                  }
-                }
-                return meeting
-              })
-            }
-          }
-          return day
-        })
+        schedule: updatedSchedule
       }
     },
     UPDATE_EVENT_TOTAL_COST: (state, action) => {
@@ -223,13 +232,13 @@ export const budgetSlice = createSlice({
       state.transfers[day_id] = nrBuses * cost
     },
     UPDATE_TRANSFERS_IN: (state, action) => {
-      const { assistance, assistanceCost } = action.payload
+      const { type, item, itemCost } = action.payload
       return {
         ...state,
         transfersIn: {
           ...state.transfersIn,
-          assistance,
-          assistanceCost
+          [type]: item,
+          [`${type}Cost`]: itemCost
         }
       }
     },

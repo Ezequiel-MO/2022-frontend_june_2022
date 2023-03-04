@@ -65,8 +65,8 @@ export const useBudget = () => {
     dispatch(SET_CURRENT_EVENTS({ date, typeOfEvent, id }))
   const updateTransfers = (date, id, nrBuses, cost) =>
     dispatch(UPDATE_TRANSFERS({ date, id, nrBuses, cost }))
-  const updateTransfersIn = ({ assistance, assistanceCost }) =>
-    dispatch(UPDATE_TRANSFERS_IN({ assistance, assistanceCost }))
+  const updateTransfersIn = (type, item, itemCost) =>
+    dispatch(UPDATE_TRANSFERS_IN({ type, item, itemCost }))
 
   return {
     schedule,
