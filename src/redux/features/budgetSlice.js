@@ -30,6 +30,12 @@ export const budgetSlice = createSlice({
       assistanceCost: 0,
       meetGreet: 0,
       meetGreetCost: 0
+    },
+    transfersOut: {
+      assistance: 0,
+      assistanceCost: 0,
+      meetGreet: 0,
+      meetGreetCost: 0
     }
   },
   reducers: {
@@ -159,72 +165,67 @@ export const budgetSlice = createSlice({
     },
     UPDATE_EVENT_TOTAL_COST: (state, action) => {
       const { date, id, nrPax, eventId } = action.payload
-      return {
-        ...state,
-        schedule: state.schedule.map((day) => {
-          if (day.date === date) {
-            return {
-              ...day,
-              [id]: day[id].map((event) => {
-                if (event._id === eventId) {
-                  if (id === 'morningEvents' || id === 'afternoonEvents') {
-                    const { price, pricePerPerson = true } = event
 
-                    const eventTotal =
-                      pricePerPerson === true ? price * nrPax : price
-                    console.log(eventTotal)
-                    return {
-                      ...event,
-                      totalCost: eventTotal
-                    }
-                  }
-                  if (id === 'lunch' || id === 'dinner') {
-                    if (event.venue_price.length === 0) {
-                      const eventTotal = event.price * nrPax
-                      return {
-                        ...event,
-                        totalCost: eventTotal
-                      }
-                    }
-                    if (event.venue_price.length > 0) {
-                      const { venue_price } = event
-                      const {
-                        rental,
-                        cocktail_units,
-                        cocktail_price,
-                        catering_units,
-                        catering_price,
-                        staff_units,
-                        staff_menu_price,
-                        audiovisuals,
-                        cleaning,
-                        security,
-                        entertainment
-                      } = venue_price[0]
-                      const eventTotal =
-                        rental +
-                        cocktail_units * cocktail_price +
-                        catering_units * catering_price +
-                        staff_units * staff_menu_price +
-                        audiovisuals +
-                        cleaning +
-                        security +
-                        entertainment
-
-                      return {
-                        ...event,
-                        totalCost: eventTotal
-                      }
-                    }
-                  }
-                }
-                return event
-              })
-            }
-          }
+      const updatedSchedule = state.schedule.map((day) => {
+        if (day.date !== date) {
           return day
+        }
+
+        const updatedEvents = day[id].map((event) => {
+          if (event._id !== eventId) {
+            return event
+          }
+
+          if (id === 'morningEvents' || id === 'afternoonEvents') {
+            const { price, pricePerPerson = true } = event
+
+            const eventTotal = pricePerPerson ? price * nrPax : price
+
+            return { ...event, totalCost: eventTotal }
+          }
+
+          if (id === 'lunch' || id === 'dinner') {
+            if (event.venue_price.length === 0) {
+              const eventTotal = event.price * nrPax
+
+              return { ...event, totalCost: eventTotal }
+            }
+
+            const { venue_price } = event
+            const {
+              rental,
+              cocktail_units,
+              cocktail_price,
+              catering_units,
+              catering_price,
+              staff_units,
+              staff_menu_price,
+              audiovisuals,
+              cleaning,
+              security,
+              entertainment
+            } = venue_price[0]
+
+            const eventTotal =
+              rental +
+              cocktail_units * cocktail_price +
+              catering_units * catering_price +
+              staff_units * staff_menu_price +
+              audiovisuals +
+              cleaning +
+              security +
+              entertainment
+
+            return { ...event, totalCost: eventTotal }
+          }
+
+          return event
         })
-      }
+
+        return { ...day, [id]: updatedEvents }
+      })
+
+      return { ...state, schedule: updatedSchedule }
     },
     UPDATE_TRANSFERS: (state, action) => {
       const { date, id, nrBuses, cost } = action.payload
@@ -237,6 +238,17 @@ export const budgetSlice = createSlice({
         ...state,
         transfersIn: {
           ...state.transfersIn,
+          [type]: item,
+          [`${type}Cost`]: itemCost
+        }
+      }
+    },
+    UPDATE_TRANSFERS_OUT: (state, action) => {
+      const { type, item, itemCost } = action.payload
+      return {
+        ...state,
+        transfersOut: {
+          ...state.transfersOut,
           [type]: item,
           [`${type}Cost`]: itemCost
         }
@@ -308,6 +320,7 @@ export const {
   UPDATE_EVENT_TOTAL_COST,
   UPDATE_TRANSFERS,
   UPDATE_TRANSFERS_IN,
+  UPDATE_TRANSFERS_OUT,
   SET_CURRENT_MEETINGS,
   SET_CURRENT_MEALS,
   SET_CURRENT_EVENTS

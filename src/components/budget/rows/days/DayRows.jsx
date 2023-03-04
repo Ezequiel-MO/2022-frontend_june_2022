@@ -11,7 +11,12 @@ import {
   VenueBreakdownRows,
   VenueSummaryRow
 } from '../../'
-import { AssistanceRow, MeetGreetRow } from './transfers'
+import {
+  DispatchRow,
+  MeetGreetRow,
+  TransfersInAssistanceRow,
+  TransfersOutAssistanceRow
+} from './transfers'
 
 export const DayRows = ({ day, pax }) => {
   const {
@@ -29,21 +34,12 @@ export const DayRows = ({ day, pax }) => {
 
   return (
     <>
-      {/*  {transfer_in.length > 0 && (
-        <>
-          {transfer_in[0].meetGreet > 0 ? (
-            <DayRow
-              pax={1}
-              date={date}
-              options={transfer_in}
-              description='Meet & Greet @ Airport'
-              id='meetGreet'
-            />
-          ) : null}
-        </>
-      )} */}
       <MeetGreetRow items={transfer_in} date={date} />
-      <AssistanceRow items={transfer_in} date={date} />
+      <TransfersInAssistanceRow
+        items={transfer_in}
+        date={date}
+        description='On-board assistance in buses'
+      />
       <TransfersInRow items={transfer_in} date={date} />
       <MorningEventsRow items={morningEvents} date={date} pax={pax} />
 
@@ -210,29 +206,9 @@ export const DayRows = ({ day, pax }) => {
           )}
         </>
       )}
+      <DispatchRow items={transfer_out} date={date} />
+      <TransfersOutAssistanceRow items={transfer_out} date={date} />
       <TransfersOutRow items={transfer_out} date={date} />
-      {transfer_out.length > 0 && (
-        <>
-          {transfer_out[0].meetGreet > 0 ? (
-            <DayRow
-              pax={1}
-              date={date}
-              options={transfer_out}
-              description='Bus dispatcher'
-              id='meetGreet'
-            />
-          ) : null}
-          {transfer_out[0].assistance > 0 ? (
-            <DayRow
-              pax={transfer_out.length}
-              date={date}
-              options={transfer_out}
-              description='Assistant on bus'
-              id='assistance'
-            />
-          ) : null}
-        </>
-      )}
     </>
   )
 }

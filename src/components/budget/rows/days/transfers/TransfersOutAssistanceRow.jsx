@@ -3,8 +3,8 @@ import accounting from 'accounting'
 import { useEffect } from 'react'
 import { useBudget } from '../../../../../hooks'
 
-export const AssistanceRow = ({ items, date }) => {
-  const { updateTransfersIn } = useBudget()
+export const TransfersOutAssistanceRow = ({ items, date }) => {
+  const { updateTransfersOut } = useBudget()
   const assistanceObj = items.find((item) => item.assistance > 0)
 
   if (!assistanceObj) {
@@ -14,14 +14,14 @@ export const AssistanceRow = ({ items, date }) => {
   const { assistance, assistanceCost } = assistanceObj
 
   useEffect(() => {
-    updateTransfersIn('assistance', assistance, assistanceCost)
+    updateTransfersOut('assistance', assistance, assistanceCost)
   }, [])
 
   return (
     <TableRow>
       <TableCell>{date}</TableCell>
       <TableCell></TableCell>
-      <TableCell>Assistance on Board Buses</TableCell>
+      <TableCell>On-board Assistance @ Buses</TableCell>
       <TableCell>{assistance}</TableCell>
       <TableCell>{accounting.formatMoney(assistanceCost, '€')}</TableCell>
       <TableCell>
