@@ -1,6 +1,5 @@
 import { TableCell, TableRow } from '@mui/material'
-import { MultipleChoiceCells } from '../../cells/MultipleChoiceCells'
-import { SingleChoiceCells } from '../../cells/SingleChoiceCells'
+import { RenderChoiceCells } from '../../cells'
 
 export const DinnerRow = ({ items, date, pax }) => {
   const NoDinner = items.length === 0
@@ -17,11 +16,7 @@ export const DinnerRow = ({ items, date, pax }) => {
   return (
     <TableRow>
       <TableCell>{date}</TableCell>
-      {multipleChoice === true ? (
-        <MultipleChoiceCells {...props} />
-      ) : (
-        <SingleChoiceCells {...props} />
-      )}
+      <RenderChoiceCells multipleChoice={multipleChoice} props={props} />
     </TableRow>
   )
 }

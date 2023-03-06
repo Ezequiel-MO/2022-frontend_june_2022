@@ -35,11 +35,7 @@ export const DayRows = ({ day, pax }) => {
   return (
     <>
       <MeetGreetRow items={transfer_in} date={date} />
-      <TransfersInAssistanceRow
-        items={transfer_in}
-        date={date}
-        description='On-board assistance in buses'
-      />
+      <TransfersInAssistanceRow items={transfer_in} date={date} />
       <TransfersInRow items={transfer_in} date={date} />
       <MorningEventsRow items={morningEvents} date={date} pax={pax} />
 
