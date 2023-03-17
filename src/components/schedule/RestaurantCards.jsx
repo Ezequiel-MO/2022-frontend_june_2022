@@ -6,7 +6,7 @@ export const RestaurantCards = ({ restaurant }) => {
   return (
     <div id={restaurant._id}>
       <Typography variant='h5'>{restaurant.name}</Typography>
-      <ParagraphText text={JSON.parse(restaurant.textContent)} />
+      <ParagraphText text={restaurant.textContent} />
       <RenderPhotos images={restaurant.imageContentUrl} />
     </div>
   )

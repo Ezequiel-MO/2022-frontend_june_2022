@@ -41,9 +41,9 @@ export const DayRows = ({ day, pax }) => {
 
       {morningEvents.length > 0 && (
         <>
-          {morningEvents[0].transfer.length > 0 && (
+          {morningEvents[0]?.transfer.length > 0 && (
             <>
-              {morningEvents[0].transfer[0].withAssistance === true ? (
+              {morningEvents[0].transfer[0]?.withAssistance === true ? (
                 <DayRow
                   pax={morningEvents[0].transfer.length}
                   date={date}
@@ -53,9 +53,9 @@ export const DayRows = ({ day, pax }) => {
                 />
               ) : null}
               <DayRow
-                pax={morningEvents[0].transfer.length}
+                pax={morningEvents[0]?.transfer.length}
                 date={date}
-                options={morningEvents[0].transfer}
+                options={morningEvents[0]?.transfer}
                 description='Transfer'
                 id='transfer_morningEvents'
               />
@@ -83,7 +83,7 @@ export const DayRows = ({ day, pax }) => {
       <LunchRow items={lunch} pax={pax} date={date} />
       {lunch.length > 0 && (
         <>
-          {lunch[0].transfer[0].withAssistance === true ? (
+          {lunch[0].transfer[0]?.withAssistance === true ? (
             <DayRow
               pax={lunch[0].transfer.length}
               date={date}
@@ -97,7 +97,7 @@ export const DayRows = ({ day, pax }) => {
             date={date}
             options={lunch[0].transfer}
             description={
-              lunch[0].transfer[0].selectedService === 'dispo_4h'
+              lunch[0].transfer[0]?.selectedService === 'dispo_4h'
                 ? 'Transfer 4h at disposal'
                 : 'Transfer'
             }
@@ -108,7 +108,7 @@ export const DayRows = ({ day, pax }) => {
       <AfternoonEventsRow items={afternoonEvents} date={date} pax={pax} />
       {afternoonEvents.length > 0 && (
         <>
-          {afternoonEvents[0].transfer[0].withAssistance === true ? (
+          {afternoonEvents[0]?.transfer[0]?.withAssistance === true ? (
             <DayRow
               pax={afternoonEvents[0].transfer.length}
               date={date}

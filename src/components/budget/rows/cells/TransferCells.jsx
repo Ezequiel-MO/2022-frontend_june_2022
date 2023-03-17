@@ -35,7 +35,7 @@ export const TransferCells = ({ pax, description, options, id, date }) => {
       </TableCell>
       <TableCell>
         {accounting.formatMoney(
-          options[0][options[0].selectedService] * pax,
+          options[0][options[0]?.selectedService] * pax,
           '€'
         )}
       </TableCell>
