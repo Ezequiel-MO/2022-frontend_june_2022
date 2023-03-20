@@ -1,6 +1,6 @@
-import { useQuill } from 'react-quilljs'
-import 'quill/dist/quill.snow.css'
-import { useEffect } from 'react'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
+import { useEffect, useRef } from 'react'
 
 export const RichParagraph = ({ text = '' }) => {
   const formattedText = JSON.stringify(text)
@@ -11,20 +11,24 @@ export const RichParagraph = ({ text = '' }) => {
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&amp;/g, '&')
-  const { quill, quillRef } = useQuill({
-    modules: { toolbar: false },
-    theme: 'snow',
-    readOnly: true
-  })
+
+  const quillRef = useRef()
+
   useEffect(() => {
-    if (quill) {
-      quill.clipboard.dangerouslyPasteHTML(formattedText)
+    if (quillRef.current) {
+      quillRef.current.getEditor().clipboard.dangerouslyPasteHTML(formattedText)
     }
-  }, [quill, text])
+  }, [quillRef, text])
 
   return (
     <div className='ql-container ql-snow border-0'>
-      <div ref={quillRef} className='ql-editor border-0' />
+      <ReactQuill
+        ref={quillRef}
+        readOnly
+        theme='snow'
+        modules={{ toolbar: false }}
+        className='ql-editor border-0'
+      />
     </div>
   )
 }
