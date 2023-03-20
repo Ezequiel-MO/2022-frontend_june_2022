@@ -7,6 +7,7 @@ import moon from '../../assets/moon-svgrepo-com.svg'
 import switch_off from '../../assets/switch_off.svg'
 import { useUserLog, useDarkMode, useCurrentProject } from '../../hooks'
 import HeaderDropdown from './HeaderDropdown'
+import styles from './Header.module.css'
 
 const Header = () => {
   const location = useLocation()
@@ -26,7 +27,7 @@ const Header = () => {
   }
   return (
     <>
-      <div className='relative h-32 m-8 overflow-hidden bg-white-50 dark:bg-black-50 rounded-lg'>
+      <div className={styles.header__container}>
         <div className='absolute z-30 flex w-full h-full'>
           <div className='relative z-30 w-5/6 px-6 py-8 text-white md:py-10 md:w-1/2'>
             <Link to='/'>
