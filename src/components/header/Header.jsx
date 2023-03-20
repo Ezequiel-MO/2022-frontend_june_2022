@@ -7,7 +7,7 @@ import moon from '../../assets/moon-svgrepo-com.svg'
 import switch_off from '../../assets/switch_off.svg'
 import { useUserLog, useDarkMode, useCurrentProject } from '../../hooks'
 import HeaderDropdown from './HeaderDropdown'
-import styles from './Header.module.css'
+import styles from './header.module.css'
 
 const Header = () => {
   const location = useLocation()
