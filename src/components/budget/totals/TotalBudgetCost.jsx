@@ -1,9 +1,9 @@
 import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
-import { useBudgetData } from '../../../hooks'
+import { usePartialCostsData } from '../partial-costs/usePartialCostsData'
 
 export const TotalBudgetCost = () => {
-  const { totalCost } = useBudgetData()
+  const { totalCostOfItems } = usePartialCostsData()
 
   return (
     <TableRow>
@@ -12,7 +12,7 @@ export const TotalBudgetCost = () => {
         <strong>TOTAL BUDGET</strong>
       </TableCell>
       <TableCell>
-        <strong>{accounting.formatMoney(totalCost, '€')}</strong>
+        <strong>{accounting.formatMoney(totalCostOfItems, '€')}</strong>
       </TableCell>
     </TableRow>
   )

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import {
   useCurrentProject,
   useGetEventCosts,
@@ -12,6 +13,7 @@ export const usePartialCostsData = () => {
   const { mealsTotalCost = 0 } = useGetMealsCost()
   const { eventsTotalCost = 0 } = useGetEventCosts()
   const { transfersTotalCost = 0 } = useGetTransferCosts()
+  const [totalCostOfItems, setTotalCostOfItems] = useState(0)
 
   const data = {
     labels: ['Accommodation', 'Meetings', 'Transfers', 'Meals', 'Activities'],
@@ -72,6 +74,17 @@ export const usePartialCostsData = () => {
     }
   ]
 
+  useEffect(() => {
+    const total = costItems.reduce((acc, item) => acc + (item.cost || 0), 0)
+    setTotalCostOfItems(total)
+  }, [
+    currentHotel,
+    meetingTotalCost,
+    mealsTotalCost,
+    eventsTotalCost,
+    transfersTotalCost
+  ])
+
   return {
     currentHotel,
     meetingTotalCost,
@@ -79,6 +92,7 @@ export const usePartialCostsData = () => {
     eventsTotalCost,
     transfersTotalCost,
     data,
-    costItems
+    costItems,
+    totalCostOfItems
   }
 }
