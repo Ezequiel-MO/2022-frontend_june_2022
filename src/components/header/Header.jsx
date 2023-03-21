@@ -14,17 +14,15 @@ const Header = () => {
   const { logUserOut, userIsLoggedIn } = useUserLog()
   const { currentProject } = useCurrentProject()
   const [dropdownActive, setDropdownActive] = useState(false)
-  const { accountManager = [], groupLocation, corporateImage } = currentProject
-  const { imageContentUrl = [] } = accountManager[0] || {}
+  const { groupLocation, clientCompany } = currentProject
 
-  const imageUrl =
-    corporateImage?.length > 0 ? corporateImage[0].imageContentUrl : []
+  const { imageContentUrl: logoImageUrl } = clientCompany[0] || {}
 
   return (
     <>
       <div className={styles.header__container}>
         <div className='absolute z-30 flex w-full h-full'>
-          <Logo userIsLoggedIn={userIsLoggedIn} imageUrl={imageUrl} />
+          <Logo userIsLoggedIn={userIsLoggedIn} imageUrl={logoImageUrl} />
           <SvgBackground />
 
           <DarkModeToggle
