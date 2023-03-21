@@ -15,7 +15,10 @@ import { useCurrentProject } from '../../hooks'
 
 const OverviewTable = () => {
   const { currentProject } = useCurrentProject()
-  const { arrivalDay, departureDay, schedule } = currentProject
+  const { arrivalDay, departureDay, schedule, clientCompany } = currentProject
+  const { fonts = [], colorPalette = [] } = clientCompany[0] || {}
+
+  const iconColor = colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
   const { transformDates, getDays, getEvents, renderEvent } = OTLogic()
   return (
     <TableContainer component={Paper}>
@@ -42,7 +45,7 @@ const OverviewTable = () => {
                 <span className='ml-2'>
                   <Icon
                     icon='mdi:weather-sunset-up'
-                    color='#ea5933'
+                    color={iconColor}
                     width='40'
                   />
                 </span>
@@ -66,7 +69,7 @@ const OverviewTable = () => {
               <Typography variant='body1' className='flex items-center'>
                 Lunch
                 <span className='ml-2'>
-                  <Icon icon='bx:bx-restaurant' color='#ea5033' width='35' />
+                  <Icon icon='bx:bx-restaurant' color={iconColor} width='35' />
                 </span>
               </Typography>
             </TableCell>
@@ -90,7 +93,7 @@ const OverviewTable = () => {
                 <span className='ml-2'>
                   <Icon
                     icon='mdi:weather-sunset-down'
-                    color='#ea5933'
+                    color={iconColor}
                     width='40'
                   />
                 </span>
@@ -114,7 +117,7 @@ const OverviewTable = () => {
               <Typography variant='body1' className='flex items-center'>
                 Dinner
                 <span className='ml-2'>
-                  <Icon icon='cil:dinner' color='#ea5033' width='35' />
+                  <Icon icon='cil:dinner' color={iconColor} width='35' />
                 </span>
               </Typography>
             </TableCell>

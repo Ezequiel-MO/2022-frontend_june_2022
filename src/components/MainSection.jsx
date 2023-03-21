@@ -17,6 +17,8 @@ const MainSection = () => {
     currentProject
   const { fonts = [], colorPalette = [] } = clientCompany[0] || {}
 
+  const iconColor = colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
+
   const fontFamilyStyle = useFontFamily(fonts[0])
 
   return (
@@ -52,7 +54,7 @@ const MainSection = () => {
         </div>
       ) : null}
 
-      <ScrollToTopButton />
+      <ScrollToTopButton iconColor={iconColor} />
     </div>
   )
 }

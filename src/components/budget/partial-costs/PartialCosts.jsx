@@ -8,13 +8,13 @@ export const PartialCosts = ({ colorPalette = [] }) => {
 
   ChartJS.register(ArcElement, Tooltip, Legend)
 
-  const costColor = colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
+  const iconColor = colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
 
   return (
     <div className='flex flex-row items-center justify-center'>
       <div className='mt-10 w-2/3'>
         {costItems.map((item) => (
-          <CostItem key={item.title} {...item} color={costColor} />
+          <CostItem key={item.title} {...item} color={iconColor} />
         ))}
       </div>
       <div className='w-1/3 hidden md:flex md:justify-center md:items-center'>

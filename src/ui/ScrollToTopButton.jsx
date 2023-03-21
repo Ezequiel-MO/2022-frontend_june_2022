@@ -1,34 +1,34 @@
-import { useState } from "react";
-import { Icon } from "@iconify/react";
+import { useState } from 'react'
+import { Icon } from '@iconify/react'
 
-const ScrollToTopButton = () => {
-  const [visible, setVisible] = useState(false);
+const ScrollToTopButton = ({ iconColor }) => {
+  const [visible, setVisible] = useState(false)
 
   const toggleVisible = () => {
-    const scrolled = document.documentElement.scrollTop;
+    const scrolled = document.documentElement.scrollTop
     if (scrolled > 300) {
-      setVisible(true);
+      setVisible(true)
     } else if (scrolled <= 300) {
-      setVisible(false);
+      setVisible(false)
     }
-  };
+  }
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
-    });
-  };
+      behavior: 'smooth'
+    })
+  }
 
-  window.addEventListener("scroll", toggleVisible);
+  window.addEventListener('scroll', toggleVisible)
   return (
     <button
       onClick={scrollToTop}
-      style={{ display: visible ? "inline" : "none" }}
+      style={{ display: visible ? 'inline' : 'none' }}
     >
-      <Icon icon="bxs:up-arrow" color="#ea5933" width="30" height="30" />
+      <Icon icon='bxs:up-arrow' color={iconColor} width='30' height='30' />
     </button>
-  );
-};
+  )
+}
 
-export default ScrollToTopButton;
+export default ScrollToTopButton

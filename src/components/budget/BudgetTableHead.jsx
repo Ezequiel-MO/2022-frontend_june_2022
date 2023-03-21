@@ -7,6 +7,9 @@ export const BudgetTableHead = () => {
   const { clientCompany } = currentProject
   const { colorPalette = [] } = clientCompany[0] || {}
 
+  const textColorClass =
+    colorPalette.length > 0 ? `text-[${colorPalette[0]}]` : 'text-orange-50'
+
   return (
     <TableHead>
       <TableRow>
@@ -24,7 +27,7 @@ export const BudgetTableHead = () => {
             colorPalette.length > 1
               ? `dark:!bg-[${colorPalette[1]}]`
               : 'dark:!bg-brown-100'
-          } dark:text-orange-50 !bg-brown-50 text-orange-50 dark:font-extrabold `}
+          } ${textColorClass} !bg-brown-50 font-extrabold`}
         >
           Event Type
         </TableCell>
@@ -34,17 +37,17 @@ export const BudgetTableHead = () => {
             colorPalette.length > 1
               ? `dark:!bg-[${colorPalette[1]}]`
               : 'dark:!bg-brown-100'
-          } dark:text-orange-50 !bg-brown-50 text-orange-50 dark:font-extrabold `}
+          } ${textColorClass} !bg-brown-50 font-extrabold`}
         >
           Service
         </TableCell>
         <TableCell
           width='5%'
           className={`${
-            colorPalette?.[1]
-              ? `dark:!bg-[${colorPalette?.[1]}]`
+            colorPalette.length > 1
+              ? `dark:!bg-[${colorPalette[1]}]`
               : 'dark:!bg-brown-100'
-          } dark:text-orange-50 !bg-brown-50 text-orange-50 dark:font-extrabold `}
+          } ${textColorClass} !bg-brown-50 font-extrabold`}
         >
           Pax/units
         </TableCell>
@@ -54,7 +57,7 @@ export const BudgetTableHead = () => {
             colorPalette.length > 1
               ? `dark:!bg-[${colorPalette[1]}]`
               : 'dark:!bg-brown-100'
-          } dark:text-orange-50 !bg-brown-50 text-orange-50 dark:font-extrabold `}
+          } ${textColorClass} !bg-brown-50 font-extrabold`}
         >
           Unit cost w/VAT
         </TableCell>
@@ -64,7 +67,7 @@ export const BudgetTableHead = () => {
             colorPalette.length > 1
               ? `dark:!bg-[${colorPalette[1]}]`
               : 'dark:!bg-brown-100'
-          } dark:text-orange-50 !bg-brown-50 text-orange-50 dark:font-extrabold `}
+          } ${textColorClass} !bg-brown-50 font-extrabold`}
         >
           Total cost w/VAT
         </TableCell>
