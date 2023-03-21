@@ -34,7 +34,7 @@ export const MultipleChoiceCells = ({
     ) {
       updateEventTotalCost(date, id, pax, option._id)
     }
-  }, [value])
+  }, [value, option])
 
   const handleChange = (e) => {
     setValue(e.target.value)
