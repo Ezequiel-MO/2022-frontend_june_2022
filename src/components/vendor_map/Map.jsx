@@ -1,5 +1,6 @@
 import { useMemo, useState, useEffect, useCallback } from 'react'
 import { GoogleMap, MarkerF, InfoWindowF } from '@react-google-maps/api'
+import { filterUniqueCoordinates } from './filterUniqueCoordinates'
 import { VendorList } from './VendorList'
 import { VendorMapLogic } from './MapLogic'
 import './map.css'
@@ -14,11 +15,12 @@ export const VendorMap = () => {
   const [clickedVendor, setClickedVendor] = useState(null)
 
   const vendors = useMemo(() => {
-    if (showAllVendors || clickedVendor?.distance !== null) {
-      return [centralCoords, hotelCoords, scheduleCoords].flat()
-    } else {
-      return [centralCoords, clickedVendor]
-    }
+    const allVendors =
+      showAllVendors || clickedVendor?.distance !== null
+        ? [centralCoords, hotelCoords, scheduleCoords].flat()
+        : [centralCoords, clickedVendor]
+
+    return filterUniqueCoordinates(allVendors)
   }, [
     centralCoords,
     hotelCoords,

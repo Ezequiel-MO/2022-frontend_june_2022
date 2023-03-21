@@ -1,4 +1,8 @@
-export const HeaderDropdownWrapper = ({ children }) => {
+export const HeaderDropdownWrapper = ({
+  children,
+  dropdownActive,
+  setDropdownActive
+}) => {
   return (
     <div
       onMouseEnter={() => setDropdownActive(true)}

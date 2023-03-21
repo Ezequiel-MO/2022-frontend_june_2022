@@ -39,7 +39,10 @@ const Header = () => {
         </div>
       </div>
       {dropdownActive && (
-        <HeaderDropdownWrapper>
+        <HeaderDropdownWrapper
+          setDropdownActive={setDropdownActive}
+          dropdownActive={dropdownActive}
+        >
           <HeaderDropdown groupLocation={groupLocation} />
         </HeaderDropdownWrapper>
       )}

@@ -9,7 +9,7 @@ export const Logo = ({ userIsLoggedIn, imageUrl }) => {
       return ''
     }
 
-    if (userIsLoggedIn && imageUrl.length > 0) {
+    if (userIsLoggedIn && imageUrl?.length > 0) {
       return (
         <img
           alt='front-end header'
