@@ -1,8 +1,15 @@
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { useEffect, useRef } from 'react'
+import { useCurrentProject, useFontFamily } from '../../hooks'
+import './custom-quill-styles.css'
 
 export const RichParagraph = ({ text = '' }) => {
+  const { currentProject } = useCurrentProject()
+  const { clientCompany } = currentProject
+  const { fonts = [] } = clientCompany[0] || {}
+
+  const fontFamilyStyle = useFontFamily(fonts[0])
   const formattedText = JSON.stringify(text)
     .replace(/\\/g, '')
     .replace(/\[/g, '')
@@ -21,7 +28,13 @@ export const RichParagraph = ({ text = '' }) => {
   }, [quillRef, text])
 
   return (
-    <div className='ql-container ql-snow border-0'>
+    <div
+      style={{
+        fontSize: '14px',
+        fontFamily: fonts[0]
+      }}
+      className={`${fontFamilyStyle} ql-container ql-snow no-border custom-font`}
+    >
       <ReactQuill
         ref={quillRef}
         readOnly

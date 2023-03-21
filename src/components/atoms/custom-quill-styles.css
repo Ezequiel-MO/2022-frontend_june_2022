@@ -1,0 +1,13 @@
+/* custom-quill-styles.css */
+.custom-font .ql-container.ql-snow * {
+  font-family: inherit;
+}
+
+/* custom-quill-styles.css */
+.no-border .ql-container.ql-snow {
+  border: none;
+}
+
+.no-border .ql-editor {
+  border: none;
+}

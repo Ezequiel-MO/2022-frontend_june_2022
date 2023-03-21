@@ -1,9 +1,17 @@
+import { useCurrentProject, useFontFamily } from '../hooks'
+
 const ParagraphText = ({ text = '' }) => {
+  const { currentProject } = useCurrentProject()
+  const { clientCompany } = currentProject
+  const { fonts = [] } = clientCompany[0] || {}
   const formattedText = JSON.stringify(text)
     .replace(/\\/g, '')
     .replace(/\[/g, '')
     .replace(/\]/g, '')
     .replace(/"/g, '')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
 
   const paragraphs = formattedText.split('.n')
 
@@ -18,7 +26,8 @@ const ParagraphText = ({ text = '' }) => {
           style={{
             whiteSpace: 'pre-wrap',
             overflowWrap: 'break-word',
-            fontFamily: 'Barlow Condensed, sans-serif'
+            fontSize: '14px',
+            fontFamily: fonts[0]
           }}
         >
           {paragraph.replace(/\.\s*n/g, '.')}
