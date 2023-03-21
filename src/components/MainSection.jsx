@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react'
 import ReactToPrint from 'react-to-print'
 import Hotels from './hotels/Hotels'
 import { Schedule } from './schedule'
-import { useCurrentProject } from '../hooks'
+import { useCurrentProject, useFontFamily } from '../hooks'
 import Budget from './budget/Budget'
 import ScrollToTopButton from '../ui/ScrollToTopButton'
 import ParagraphText from './Text'
@@ -19,15 +19,10 @@ const MainSection = () => {
     currentProject
   const { fonts = [] } = clientCompany[0] || {}
 
-  useEffect(() => {
-    var body = document.body
-    if (fonts?.length > 0 && location !== '/') {
-      body.style.fontFamily = fonts[0]
-    }
-  }, [currentProject])
+  const fontFamilyStyle = useFontFamily(fonts[0])
 
   return (
-    <div className='col-span-10 lg:col-span-8'>
+    <div className={`${fontFamilyStyle} col-span-10 lg:col-span-8`}>
       {/*   <ScrollToTop smooth color='#ea5933' width='30' height='30' /> */}
       <h1 className='text-2xl md:text-2xl mb-4 font-extrabold'>
         {`Quotation for Gr. ${groupName}`}

@@ -19,7 +19,8 @@ module.exports = {
       '8xl': '6rem'
     },
     fontFamily: {
-      body: ['Barlow Condensed', 'sans-serif']
+      body: ['Barlow Condensed', 'sans-serif'],
+      custom: ['inherit']
     },
     container: {
       center: true,
