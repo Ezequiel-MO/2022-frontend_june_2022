@@ -16,7 +16,7 @@ export const ModalsRow = ({ iconText, title, handleOpen }) => {
     >
       <Icon
         icon={iconText}
-        color={`${colorPalette.length > 0 ? colorPalette[0] : '#ea5933'}`}
+        color={`${colorPalette.length > 0 ? colorPalette[2] : '#ea5933'}`}
         width='40'
       />
       <p className='group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg'>

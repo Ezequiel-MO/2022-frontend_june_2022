@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { Icon } from '@iconify/react'
 import ReactToPrint from 'react-to-print'
 import Hotels from './hotels/Hotels'
@@ -7,17 +7,15 @@ import { useCurrentProject, useFontFamily } from '../hooks'
 import Budget from './budget/Budget'
 import ScrollToTopButton from '../ui/ScrollToTopButton'
 import ParagraphText from './Text'
-import { useLocation } from 'react-router-dom'
 import { PartialCosts } from './budget'
 
 const MainSection = () => {
   const componentRef = useRef()
-  const location = useLocation()
 
   const { currentProject } = useCurrentProject()
   const { groupName, projectIntro, hotels, clientCompany, hasBudget } =
     currentProject
-  const { fonts = [] } = clientCompany[0] || {}
+  const { fonts = [], colorPalette = [] } = clientCompany[0] || {}
 
   const fontFamilyStyle = useFontFamily(fonts[0])
 
@@ -38,7 +36,9 @@ const MainSection = () => {
                 <span>
                   <Icon
                     icon='ant-design:file-pdf-twotone'
-                    color='#ea5933'
+                    color={`${
+                      colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
+                    }`}
                     width='40'
                   />
                 </span>
@@ -48,7 +48,7 @@ const MainSection = () => {
             content={() => componentRef.current}
           />
           <Budget ref={componentRef} />
-          <PartialCosts />
+          <PartialCosts colorPalette={colorPalette} />
         </div>
       ) : null}
 

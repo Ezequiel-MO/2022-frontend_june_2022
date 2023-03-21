@@ -26,11 +26,13 @@ export const SidebarTitles = ({
       >
         <Icon
           icon={iconText}
-          color={`${colorPalette.length > 0 ? colorPalette[0] : '#ea5933'}`}
+          color={`${colorPalette.length > 0 ? colorPalette[2] : '#ea5933'}`}
           width='40'
         />
       </div>
-      <p className='group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg'>
+      <p
+        className={`group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg`}
+      >
         {title?.replace(/^\w/, (c) => c.toUpperCase())}
       </p>
     </Link>
