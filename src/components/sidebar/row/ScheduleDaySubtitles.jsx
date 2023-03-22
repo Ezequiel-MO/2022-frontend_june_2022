@@ -1,4 +1,5 @@
 import { Link } from 'react-scroll'
+import { useTranslation } from '../../../translations/translationContext'
 
 export const ScheduleDaySubtitles = ({ day, menuOpen, setMenuOpen }) => {
   if (
@@ -12,6 +13,7 @@ export const ScheduleDaySubtitles = ({ day, menuOpen, setMenuOpen }) => {
   ) {
     return null
   }
+  const { t } = useTranslation()
   return (
     <div
       key={day._id}
@@ -29,7 +31,7 @@ export const ScheduleDaySubtitles = ({ day, menuOpen, setMenuOpen }) => {
             smooth={true}
             offset={-100}
           >
-            Morning Events
+            {t('Morning Events')}
           </Link>
         ) : null}
         {day.morningMeetings?.length > 0 ? (
@@ -49,7 +51,7 @@ export const ScheduleDaySubtitles = ({ day, menuOpen, setMenuOpen }) => {
             smooth={true}
             offset={-100}
           >
-            Lunch
+            {t('Lunch')}
           </Link>
         ) : null}
         {day.afternoonEvents?.length > 0 ? (
@@ -59,7 +61,7 @@ export const ScheduleDaySubtitles = ({ day, menuOpen, setMenuOpen }) => {
             smooth={true}
             offset={-100}
           >
-            Afternoon Events
+            {t('Afternoon Events')}
           </Link>
         ) : null}
         {day.afternoonMeetings?.length > 0 ? (
@@ -79,7 +81,7 @@ export const ScheduleDaySubtitles = ({ day, menuOpen, setMenuOpen }) => {
             smooth={true}
             offset={-100}
           >
-            Dinner
+            {t('Dinner')}
           </Link>
         ) : null}
         {day.fulldayMeetings?.length > 0 ? (

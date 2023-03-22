@@ -1,4 +1,3 @@
-// translationContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react'
 import EN from './EN.json'
 import ES from './ES.json'

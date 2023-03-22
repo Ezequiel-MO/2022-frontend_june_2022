@@ -11,5 +11,15 @@
   "TRANSFERS": "TRASLADOS",
   "MEAL FUNCTIONS": "COMIDAS Y FUNCIONES",
   "ACTIVITIES": "ACTIVIDADES",
-  "quotation": "Cotización para"
+  "quotation": "Cotización para",
+  "Event Type": "Tipo de evento",
+  "Service": "Servicio",
+  "Pax/units": "Pax/unidades",
+  "Unit cost w/VAT": "Coste unitario con IVA",
+  "Total cost w/VAT": "Coste total con IVA",
+  "TOTAL BUDGET": "TOTAL PRESUPUESTO",
+  "Morning Events": "Mañana",
+  "Lunch": "Almuerzo",
+  "Afternoon Events": "Tarde",
+  "Dinner": "Cena"
 }

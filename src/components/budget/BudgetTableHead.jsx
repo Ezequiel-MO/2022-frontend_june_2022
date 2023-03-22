@@ -1,5 +1,6 @@
 import { TableCell, TableHead, TableRow } from '@mui/material'
 import { useCurrentProject } from '../../hooks'
+import { useTranslation } from '../../translations/translationContext'
 
 export const BudgetTableHead = () => {
   const { currentProject } = useCurrentProject()
@@ -9,6 +10,8 @@ export const BudgetTableHead = () => {
 
   const textColorClass =
     colorPalette.length > 0 ? `text-[${colorPalette[0]}]` : 'text-orange-50'
+
+  const { t } = useTranslation()
 
   return (
     <TableHead>
@@ -29,7 +32,7 @@ export const BudgetTableHead = () => {
               : 'dark:!bg-brown-100'
           } ${textColorClass} !bg-brown-50 font-extrabold`}
         >
-          Event Type
+          {t('Event Type')}
         </TableCell>
         <TableCell
           width='35%'
@@ -39,7 +42,7 @@ export const BudgetTableHead = () => {
               : 'dark:!bg-brown-100'
           } ${textColorClass} !bg-brown-50 font-extrabold`}
         >
-          Service
+          {t('Service')}
         </TableCell>
         <TableCell
           width='5%'
@@ -49,7 +52,7 @@ export const BudgetTableHead = () => {
               : 'dark:!bg-brown-100'
           } ${textColorClass} !bg-brown-50 font-extrabold`}
         >
-          Pax/units
+          {t('Pax/units')}
         </TableCell>
         <TableCell
           width='15%'
@@ -59,7 +62,7 @@ export const BudgetTableHead = () => {
               : 'dark:!bg-brown-100'
           } ${textColorClass} !bg-brown-50 font-extrabold`}
         >
-          Unit cost w/VAT
+          {t('Unit cost w/VAT')}
         </TableCell>
         <TableCell
           width='15%'
@@ -69,7 +72,7 @@ export const BudgetTableHead = () => {
               : 'dark:!bg-brown-100'
           } ${textColorClass} !bg-brown-50 font-extrabold`}
         >
-          Total cost w/VAT
+          {t('Total cost w/VAT')}
         </TableCell>
       </TableRow>
     </TableHead>

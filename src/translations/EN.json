@@ -11,5 +11,15 @@
   "TRANSFERS": "TRANSFERS",
   "MEAL FUNCTIONS": "MEAL FUNCTIONS",
   "ACTIVITIES": "ACTIVITIES",
-  "quotation": "Quotation for"
+  "quotation": "Quotation for",
+  "Event Type": "Event Type",
+  "Service": "Service",
+  "Pax/units": "Pax/units",
+  "Unit cost w/VAT": "Unit cost w/VAT",
+  "Total cost w/VAT": "Total cost w/VAT",
+  "TOTAL BUDGET": "TOTAL BUDGET",
+  "Morning Events": "Morning Events",
+  "Lunch": "Lunch",
+  "Afternoon Events": "Afternoon Events",
+  "Dinner": "Dinner"
 }
