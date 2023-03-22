@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react'
 import { Link } from 'react-scroll'
+import { useTranslation } from '../../../translations/translationContext.jsx'
 
 export const SidebarTitles = ({
   iconText,
@@ -7,6 +8,7 @@ export const SidebarTitles = ({
   colorPalette,
   setMenuOpen
 }) => {
+  const { t } = useTranslation()
   return (
     <Link
       to={`${title}_id`}
@@ -33,7 +35,7 @@ export const SidebarTitles = ({
       <p
         className={`group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg`}
       >
-        {title?.replace(/^\w/, (c) => c.toUpperCase())}
+        {t(title)?.replace(/^\w/, (c) => c.toUpperCase())}
       </p>
     </Link>
   )

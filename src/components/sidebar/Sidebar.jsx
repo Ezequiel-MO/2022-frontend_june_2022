@@ -1,4 +1,5 @@
 import { useCurrentProject } from '../../hooks'
+import { useTranslation } from '../../translations/translationContext'
 import { SidebarRow } from './'
 
 const Sidebar = () => {

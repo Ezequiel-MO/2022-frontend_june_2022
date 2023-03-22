@@ -8,6 +8,7 @@ import Budget from './budget/Budget'
 import ScrollToTopButton from '../ui/ScrollToTopButton'
 import ParagraphText from './Text'
 import { PartialCosts } from './budget'
+import { useTranslation } from '../translations/translationContext'
 
 const MainSection = () => {
   const componentRef = useRef()
@@ -15,6 +16,7 @@ const MainSection = () => {
   const { currentProject } = useCurrentProject()
   const { groupName, projectIntro, hotels, clientCompany, hasBudget } =
     currentProject
+  const { t } = useTranslation()
   const { fonts = [], colorPalette = [] } = clientCompany[0] || {}
 
   const iconColor = colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
@@ -25,7 +27,7 @@ const MainSection = () => {
     <div className={`${fontFamilyStyle} col-span-10 lg:col-span-8`}>
       {/*   <ScrollToTop smooth color='#ea5933' width='30' height='30' /> */}
       <h1 className='text-2xl md:text-2xl mb-4 font-extrabold'>
-        {`Quotation for Gr. ${groupName}`}
+        {`${t('quotation')} Gr. ${groupName}`}
       </h1>
       <ParagraphText text={projectIntro} />
       <Hotels hotels={hotels} />
@@ -44,7 +46,7 @@ const MainSection = () => {
                     width='40'
                   />
                 </span>
-                Print the Budget to a PDF
+                {t('budgetPrint')}
               </button>
             )}
             content={() => componentRef.current}

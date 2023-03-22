@@ -6,21 +6,25 @@ import {
   SidebarSmall
 } from '../components'
 import { useCurrentProject } from '../hooks'
+import { TranslationProvider } from '../translations/translationContext'
 
 const MainPage = () => {
   const { currentProject } = useCurrentProject()
-  const { hasSideMenu } = currentProject
+  const { hasSideMenu, clientAccManager = [] } = currentProject
+  const { quoteLanguage = 'EN' } = clientAccManager[0] || {}
   return (
-    <div className='flex flex-col'>
-      {hasSideMenu && <SidebarSmall />}
+    <TranslationProvider quoteLanguage={quoteLanguage}>
+      <div className='flex flex-col'>
+        {hasSideMenu && <SidebarSmall />}
 
-      <div className='grid grid-cols-12 m-8'>
-        {hasSideMenu ? <Sidebar /> : <div className='col-span-2' />}
-        <MainSection />
-        <SidebarModals />
+        <div className='grid grid-cols-12 m-8'>
+          {hasSideMenu ? <Sidebar /> : <div className='col-span-2' />}
+          <MainSection />
+          <SidebarModals />
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </TranslationProvider>
   )
 }
 
