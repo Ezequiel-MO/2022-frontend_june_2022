@@ -20,13 +20,16 @@ export const RichParagraph = ({ text = '' }) => {
   const cleanedText = decodedText
     .replace(/t([A-Z\.]|\n\n)/g, '$1')
     .replace(/\\/g, '')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
 
   return (
     <div
       style={{
         fontFamily: fonts[0]
       }}
-      className={`${fontFamilyStyle} custom-font -mb-20`}
+      className={`${fontFamilyStyle} custom-font`}
       dangerouslySetInnerHTML={{ __html: cleanedText }}
     ></div>
   )
