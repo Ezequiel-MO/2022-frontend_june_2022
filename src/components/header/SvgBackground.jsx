@@ -3,7 +3,7 @@ import header_image from '../../assets/header_image.jpg'
 export const SvgBackground = () => {
   return (
     <>
-      <div className='absolute top-0 right-0 flex w-full h-full'>
+      <div className='absolute top-0 right-0 w-full h-full hidden sm:flex'>
         <div className='w-1/3 h-full '></div>
         <div className='relative w-1/3'>
           <svg
@@ -22,11 +22,13 @@ export const SvgBackground = () => {
           </svg>
         </div>
       </div>
-      <img
-        alt='Backoffice header'
-        className='object-cover h-full w-full z-10 bg-[#facb62]'
-        src={header_image}
-      />
+      {
+        <img
+          alt='Backoffice header'
+          className='object-cover h-full w-full z-10 hidden md:block'
+          src={header_image}
+        />
+      }
     </>
   )
 }

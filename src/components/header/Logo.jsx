@@ -13,7 +13,7 @@ export const Logo = ({ userIsLoggedIn, imageUrl }) => {
       return (
         <img
           alt='front-end header'
-          className='object-cover object-center h-36 absolute -top-2 left-0 z-50 '
+          className='object-cover object-left w-full h-auto md:h-36 absolute -top-4 left-0 z-50'
           src={imageUrl[0]}
         />
       )
@@ -29,7 +29,7 @@ export const Logo = ({ userIsLoggedIn, imageUrl }) => {
   }
 
   return (
-    <div className='relative z-50 w-5/6 px-6 py-8 text-white md:py-10 md:w-1/2'>
+    <div className='z-50 w-5/6 px-6 py-8 text-white md:py-10 md:w-1/2'>
       <Link to='/'>{getLogoImage()}</Link>
     </div>
   )
