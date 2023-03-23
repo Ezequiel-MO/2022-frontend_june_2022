@@ -24,10 +24,9 @@ export const RichParagraph = ({ text = '' }) => {
   return (
     <div
       style={{
-        fontSize: '15px',
         fontFamily: fonts[0]
       }}
-      className={`${fontFamilyStyle} custom-font`}
+      className={`${fontFamilyStyle} custom-font -mb-20`}
       dangerouslySetInnerHTML={{ __html: cleanedText }}
     ></div>
   )
