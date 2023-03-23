@@ -24,7 +24,9 @@ const MainSection = () => {
   const fontFamilyStyle = useFontFamily(fonts[0])
 
   return (
-    <div className={`${fontFamilyStyle} col-span-10 lg:col-span-8`}>
+    <div
+      className={`${fontFamilyStyle} col-span-10 lg:col-span-8 relative z-0`}
+    >
       {/*   <ScrollToTop smooth color='#ea5933' width='30' height='30' /> */}
       <h1 className='text-2xl md:text-2xl mb-4 font-extrabold'>
         {`${t('quotation')} Gr. ${groupName}`}
