@@ -4,7 +4,7 @@ export const SvgBackground = () => {
   return (
     <>
       <div className='absolute top-0 right-0 flex w-full h-full'>
-        <div className='w-1/3 h-full bg-white-50'></div>
+        <div className='w-1/3 h-full '></div>
         <div className='relative w-1/3'>
           <svg
             fill='currentColor'
@@ -24,7 +24,7 @@ export const SvgBackground = () => {
       </div>
       <img
         alt='Backoffice header'
-        className='object-cover h-full w-full z-10'
+        className='object-cover h-full w-full z-10 bg-[#facb62]'
         src={header_image}
       />
     </>

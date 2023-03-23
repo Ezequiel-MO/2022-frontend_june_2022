@@ -13,7 +13,7 @@ export const Logo = ({ userIsLoggedIn, imageUrl }) => {
       return (
         <img
           alt='front-end header'
-          className='object-fill h-36 absolute -top-4 -left-5 w-40 z-50'
+          className='object-cover object-center h-36 absolute -top-2 left-0 z-50 '
           src={imageUrl[0]}
         />
       )
