@@ -9,6 +9,7 @@ import ScrollToTopButton from '../ui/ScrollToTopButton'
 import ParagraphText from './Text'
 import { PartialCosts } from './budget'
 import { useTranslation } from '../translations/translationContext'
+import { RichParagraph } from './atoms/RichParagraph'
 
 const MainSection = () => {
   const componentRef = useRef()
@@ -31,7 +32,7 @@ const MainSection = () => {
       <h1 className='text-2xl md:text-2xl mb-4 font-extrabold'>
         {`${t('quotation')} Gr. ${groupName}`}
       </h1>
-      <ParagraphText text={projectIntro} />
+      <RichParagraph text={projectIntro} />
       <Hotels hotels={hotels} />
       <Schedule />
       {hasBudget ? (

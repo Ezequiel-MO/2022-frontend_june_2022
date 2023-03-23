@@ -1,4 +1,4 @@
-import { useCurrentProject, useFontFamily } from '../hooks'
+import { useCurrentProject } from '../hooks'
 
 const ParagraphText = ({ text = '' }) => {
   const { currentProject } = useCurrentProject()
