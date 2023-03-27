@@ -1,9 +1,9 @@
 import header_image from '../../assets/header_image.jpg'
 
-export const SvgBackground = () => {
+export const SvgBackground = ({ hasExternalCorporateImage }) => {
   return (
     <>
-      <div className='absolute top-0 right-0 w-full h-full hidden sm:flex'>
+      <div className={`absolute top-0 right-0 w-full h-full hidden sm:flex`}>
         <div className='w-1/3 h-full '></div>
         <div className='relative w-1/3'>
           <svg
