@@ -55,7 +55,11 @@ const MainSection = () => {
           <Budget ref={componentRef} />
           <PartialCosts colorPalette={colorPalette} />
         </div>
-      ) : null}
+      ) : budget === 'budgetAsPdf' ? (
+        <p>pdf here</p>
+      ) : /* <PDFBudgetViewer pdfUrl={currentProject.imageContentUrl[0]} /> */
+
+      null}
 
       <ScrollToTopButton iconColor={iconColor} />
     </div>
