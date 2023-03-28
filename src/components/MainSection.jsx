@@ -6,7 +6,6 @@ import { Schedule } from './schedule'
 import { useCurrentProject, useFontFamily } from '../hooks'
 import Budget from './budget/Budget'
 import ScrollToTopButton from '../ui/ScrollToTopButton'
-import ParagraphText from './Text'
 import { PartialCosts } from './budget'
 import { useTranslation } from '../translations/translationContext'
 import { RichParagraph } from './atoms/RichParagraph'
@@ -15,7 +14,7 @@ const MainSection = () => {
   const componentRef = useRef()
 
   const { currentProject } = useCurrentProject()
-  const { groupName, projectIntro, hotels, clientCompany, hasBudget } =
+  const { groupName, projectIntro, hotels, clientCompany, budget } =
     currentProject
   const { t } = useTranslation()
   const { fonts = [], colorPalette = [] } = clientCompany[0] || {}
@@ -28,14 +27,13 @@ const MainSection = () => {
     <div
       className={`${fontFamilyStyle} col-span-10 lg:col-span-8 relative z-0`}
     >
-      {/*   <ScrollToTop smooth color='#ea5933' width='30' height='30' /> */}
       <h1 className='text-2xl md:text-2xl mb-4 font-extrabold'>
         {`${t('quotation')} Gr. ${groupName}`}
       </h1>
       <RichParagraph text={projectIntro} />
       <Hotels hotels={hotels} />
       <Schedule />
-      {hasBudget ? (
+      {budget === 'budget' ? (
         <div>
           <ReactToPrint
             trigger={() => (

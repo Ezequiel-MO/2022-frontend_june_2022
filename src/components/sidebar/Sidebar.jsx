@@ -3,7 +3,7 @@ import { SidebarRow } from './'
 
 const Sidebar = () => {
   const { currentProject } = useCurrentProject()
-  const { schedule, hasBudget, hotels } = currentProject
+  const { schedule, budget, hotels } = currentProject
 
   return (
     <div className='col-span-2 relative'>
@@ -16,7 +16,7 @@ const Sidebar = () => {
             <SidebarRow iconText='akar-icons:calendar' title={day.date} />
           </div>
         ))}
-        {hasBudget ? (
+        {budget === 'budget' ? (
           <SidebarRow iconText='ri:money-euro-circle-line' title='budget' />
         ) : null}
       </div>
