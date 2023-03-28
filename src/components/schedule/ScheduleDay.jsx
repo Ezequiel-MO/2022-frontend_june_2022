@@ -1,6 +1,7 @@
 import { DateHeader } from './ScheduleDayDateHeader'
 import { ScheduleDayEvents } from './ScheduleDayEvents'
 import { ScheduleDayMeals } from './ScheduleDayMeals'
+import { ScheduleDayMeetings } from './ScheduleDayMeetings'
 
 export const ScheduleDay = ({ day, index, suplementaryText, arrivalDay }) => {
   return (
@@ -13,18 +14,13 @@ export const ScheduleDay = ({ day, index, suplementaryText, arrivalDay }) => {
           events={day.morningEvents}
           suplementaryText={suplementaryText}
         />
-        {/* {day.morningMeetings.length > 0 ? (
-			  <>
-				<p className='text-black-50 dark:text-white-50'>
-				  {day.morningMeetings[0].introduction}
-				</p>
-				<Meetings meetings={day.morningMeetings} timing='Morning' />
-			  </>
-			) : (
-			  <h3 className='italic m-2 hidden'>
-				No events planned in the morning
-			  </h3>
-			)} */}
+        <ScheduleDayMeetings
+          title='Morning Meeting'
+          meetings={day.morningMeetings}
+          timing='Morning'
+          suplementaryText={suplementaryText}
+          id={`${day.date}-morning-meetings`}
+        />
         <ScheduleDayMeals
           id={`${day.date}-lunch`}
           title='Lunch'
@@ -36,6 +32,13 @@ export const ScheduleDay = ({ day, index, suplementaryText, arrivalDay }) => {
           title='Afternoon Events'
           events={day.afternoonEvents}
           suplementaryText={suplementaryText}
+        />
+        <ScheduleDayMeetings
+          title='Afternoon Meeting'
+          meetings={day.afternoonMeetings}
+          timing='Afternoon'
+          suplementaryText={suplementaryText}
+          id={`${day.date}-afternoon-meetings`}
         />
         <ScheduleDayMeals
           id={`${day.date}-dinner`}

@@ -10,7 +10,6 @@ export const Meetings = ({ meetings, timing }) => {
     <>
       <div className='flex flex-wrap'>
         <div className='w-full'>
-          <h2 className='font-bold'>HOTEL MORNING MEETING at</h2>
           <ul
             className='flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row'
             role='tablist'
