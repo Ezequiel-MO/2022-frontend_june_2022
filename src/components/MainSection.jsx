@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Icon } from '@iconify/react'
 import ReactToPrint from 'react-to-print'
 import Hotels from './hotels/Hotels'
@@ -9,19 +9,31 @@ import ScrollToTopButton from '../ui/ScrollToTopButton'
 import { PartialCosts } from './budget'
 import { useTranslation } from '../translations/translationContext'
 import { RichParagraph } from './atoms/RichParagraph'
+import { Document, Page } from 'react-pdf/dist/esm/entry.vite'
 
 const MainSection = () => {
   const componentRef = useRef()
-
+  const [numPages, setNumPages] = useState(null)
+  const [pageNumber, setPageNumber] = useState(1)
   const { currentProject } = useCurrentProject()
-  const { groupName, projectIntro, hotels, clientCompany, budget } =
-    currentProject
+  const {
+    groupName,
+    projectIntro,
+    hotels,
+    clientCompany,
+    budget,
+    imageContentUrl
+  } = currentProject
   const { t } = useTranslation()
   const { fonts = [], colorPalette = [] } = clientCompany[0] || {}
 
   const iconColor = colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
 
   const fontFamilyStyle = useFontFamily(fonts[0])
+
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages)
+  }
 
   return (
     <div
@@ -56,10 +68,18 @@ const MainSection = () => {
           <PartialCosts colorPalette={colorPalette} />
         </div>
       ) : budget === 'budgetAsPdf' ? (
-        <p>pdf here</p>
-      ) : /* <PDFBudgetViewer pdfUrl={currentProject.imageContentUrl[0]} /> */
-
-      null}
+        <div>
+          <Document
+            file={imageContentUrl[0]}
+            onLoadSuccess={onDocumentLoadSuccess}
+          >
+            <Page pageNumber={pageNumber} />
+          </Document>
+          <p>
+            Page {pageNumber} of {numPages}
+          </p>
+        </div>
+      ) : null}
 
       <ScrollToTopButton iconColor={iconColor} />
     </div>
