@@ -1,4 +1,6 @@
 export * from './DispatchRow'
 export * from './MeetGreetRow'
 export * from './TransfersInAssistanceRow'
+export * from './TransfersInRow'
+export * from './TransfersOutRow'
 export * from './TransfersOutAssistanceRow'
