@@ -4,12 +4,12 @@ import ReactToPrint from 'react-to-print'
 import Hotels from './hotels/Hotels'
 import { Schedule } from './schedule'
 import { useCurrentProject, useFontFamily } from '../hooks'
-import Budget from './budget/Budget'
 import ScrollToTopButton from '../ui/ScrollToTopButton'
-import { PartialCosts } from './budget'
 import { useTranslation } from '../translations/translationContext'
 import { RichParagraph } from './atoms/RichParagraph'
 import { Document, Page } from 'react-pdf/dist/esm/entry.vite'
+import { Budget } from './budget/MainTable/higherComponents'
+import { PartialCosts } from './budget/partial-costs/'
 
 const MainSection = () => {
   const componentRef = useRef()
