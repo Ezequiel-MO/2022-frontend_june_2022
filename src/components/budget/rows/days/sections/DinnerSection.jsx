@@ -1,25 +1,16 @@
 import { VenueBreakdownRows } from '../../venue/VenueBreakdownRows'
 import { VenueSummaryRow } from '../../venue/VenueSummaryRow'
-import { DayRow } from '../DayRow'
 import { DinnerRow } from '../meals/DinnerRow'
+import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
 
 export const DinnerSection = ({ dinner, date, pax }) => (
   <>
     {dinner.length > 0 && (
       <>
-        {dinner[0].transfer[0]?.withAssistance === true ? (
-          <DayRow
-            pax={dinner[0].transfer.length}
-            date={date}
-            options={dinner[0].transfer}
-            description='Assistance on Bus'
-            id='assistance'
-          />
-        ) : null}
-        <DayRow
-          pax={dinner[0].transfer.length}
+        <AssistanceEventTransferRow transfer={dinner[0].transfer} date={date} />
+        <EventTransferRow
+          transfer={dinner[0].transfer}
           date={date}
-          options={dinner[0].transfer}
           description={
             dinner[0].transfer[0]?.selectedService === 'dispo_'
               ? 'Transfer 4h at disposal night hours'

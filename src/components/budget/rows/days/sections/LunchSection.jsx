@@ -1,24 +1,14 @@
-import { DayRow } from '../DayRow'
 import { LunchRow } from '../meals/LunchRow'
+import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
 
 export const LunchSection = ({ lunch, date, pax }) => (
   <>
-    <LunchRow items={lunch} pax={pax} date={date} />
     {lunch.length > 0 && (
       <>
-        {lunch[0].transfer[0]?.withAssistance === true ? (
-          <DayRow
-            pax={lunch[0].transfer.length}
-            date={date}
-            options={lunch[0].transfer}
-            description='Assistance on Bus'
-            id='assistance'
-          />
-        ) : null}
-        <DayRow
-          pax={lunch[0].transfer.length}
+        <AssistanceEventTransferRow transfer={lunch[0].transfer} date={date} />
+        <EventTransferRow
+          transfer={lunch[0].transfer}
           date={date}
-          options={lunch[0].transfer}
           description={
             lunch[0].transfer[0]?.selectedService === 'dispo_4h'
               ? 'Transfer 4h at disposal'
@@ -28,5 +18,6 @@ export const LunchSection = ({ lunch, date, pax }) => (
         />
       </>
     )}
+    <LunchRow items={lunch} pax={pax} date={date} />
   </>
 )
