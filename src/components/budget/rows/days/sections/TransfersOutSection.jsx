@@ -2,7 +2,7 @@ import {
   DispatchRow,
   TransfersOutAssistanceRow,
   TransfersOutRow
-} from '../transfers'
+} from '../../cells'
 
 export const TransfersOutSection = ({ transfers, date }) => (
   <>

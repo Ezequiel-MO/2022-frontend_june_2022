@@ -1,10 +1,10 @@
 import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 import { useEffect } from 'react'
-import { useBudget } from '../../../../../hooks'
+import { useBudget } from '../../../../hooks'
 
-export const MeetGreetRow = ({ items, date }) => {
-  const { updateTransfersIn } = useBudget()
+export const DispatchRow = ({ items, date }) => {
+  const { updateTransfersOut } = useBudget()
   const meetGreetObj = items.find((item) => item.meetGreet > 0)
 
   if (!meetGreetObj) {
@@ -14,14 +14,14 @@ export const MeetGreetRow = ({ items, date }) => {
   const { meetGreet, meetGreetCost } = meetGreetObj
 
   useEffect(() => {
-    updateTransfersIn('meetGreet', meetGreet, meetGreetCost)
+    updateTransfersOut('meetGreet', meetGreet, meetGreetCost)
   }, [])
 
   return (
     <TableRow>
       <TableCell>{date}</TableCell>
       <TableCell></TableCell>
-      <TableCell>Meet & Greet @ Airport</TableCell>
+      <TableCell>Bus Dispatcher</TableCell>
       <TableCell>{meetGreet}</TableCell>
       <TableCell>{accounting.formatMoney(meetGreetCost, '€')}</TableCell>
       <TableCell>

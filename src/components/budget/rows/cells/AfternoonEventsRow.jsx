@@ -1,17 +1,16 @@
 import { TableCell, TableRow } from '@mui/material'
-import { RenderChoiceCells } from '../../cells'
+import { RenderChoiceCells } from '.'
 
-export const MorningEventsRow = ({ items, date, pax }) => {
+export const AfternoonEventsRow = ({ items, date, pax }) => {
   const NoEvents = items.length === 0
   if (NoEvents) return null
-
   const multipleChoice = items.length > 1
   const props = {
     pax,
     date,
     options: items,
-    description: 'Morning Event',
-    id: 'morningEvents'
+    description: 'Afternoon Event',
+    id: 'afternoonEvents'
   }
 
   return (

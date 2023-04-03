@@ -1,7 +1,7 @@
 import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 import { useEffect } from 'react'
-import { useBudget } from '../../../../../hooks'
+import { useBudget } from '../../../../hooks'
 
 export const TransfersOutAssistanceRow = ({ items, date }) => {
   const { updateTransfersOut } = useBudget()

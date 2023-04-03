@@ -1,6 +1,6 @@
 import { VenueBreakdownRows } from '../../venue/VenueBreakdownRows'
 import { VenueSummaryRow } from '../../venue/VenueSummaryRow'
-import { DinnerRow } from '../meals/DinnerRow'
+import { DinnerRow } from '../../cells/DinnerRow'
 import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
 
 export const DinnerSection = ({ dinner, date, pax }) => (

@@ -1,4 +1,4 @@
-import { AfternoonEventsRow } from '../events/AfternoonEventsRow'
+import { AfternoonEventsRow } from '../../cells/AfternoonEventsRow'
 import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
 import { MeetingSection } from './MeetingSection'
 

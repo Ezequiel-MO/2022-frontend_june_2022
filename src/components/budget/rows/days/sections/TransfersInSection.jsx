@@ -2,7 +2,7 @@ import {
   MeetGreetRow,
   TransfersInAssistanceRow,
   TransfersInRow
-} from '../transfers'
+} from '../../cells'
 
 export const TransfersInSection = ({ transfers, date }) => (
   <>

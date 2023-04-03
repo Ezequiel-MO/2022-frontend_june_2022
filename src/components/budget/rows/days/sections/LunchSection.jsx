@@ -1,4 +1,4 @@
-import { LunchRow } from '../meals/LunchRow'
+import { LunchRow } from '../../cells/LunchRow'
 import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
 
 export const LunchSection = ({ lunch, date, pax }) => (
