@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { Icon } from '@iconify/react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 import {
@@ -7,6 +6,7 @@ import {
   useFindByName,
   useFindMeetingByHotel
 } from '../../../../hooks'
+import { ArrowIcon } from '../atoms'
 
 export const MeetingSummaryRow = ({
   pax,
@@ -23,6 +23,7 @@ export const MeetingSummaryRow = ({
     updateMeetingTotalCost,
     setCurrentMeetings
   } = useBudget()
+
   const { meetingBreakdownOpen } = breakdownOpen
   const { open, date, typeOfMeeting } = meetingBreakdownOpen
 
@@ -37,27 +38,29 @@ export const MeetingSummaryRow = ({
     updateMeetingTotalCost(dateProp, id, pax, hotelName || selectedHotel.name)
   }, [dateProp, typeOfMeetingProp, hotelName])
 
+  const handleToggleMeetingBreakdown = () => {
+    toggleMeetingBreakdown({
+      open: !open,
+      date: dateProp,
+      typeOfMeeting: typeOfMeetingProp
+    })
+  }
+
   return (
     <TableRow>
       <TableCell>{dateProp}</TableCell>
       <TableCell>
-        <IconButton
-          onClick={() =>
-            toggleMeetingBreakdown({
-              open: !open,
-              date: dateProp,
-              typeOfMeeting: typeOfMeetingProp
-            })
-          }
-        >
-          {open && date === dateProp && typeOfMeeting === typeOfMeetingProp ? (
-            <Icon icon='bx:up-arrow' color='#ea5933' />
-          ) : (
-            <Icon icon='bx:down-arrow' color='#ea5933' />
-          )}
+        <IconButton onClick={handleToggleMeetingBreakdown}>
+          <ArrowIcon
+            open={open}
+            date={date}
+            dateProp={dateProp}
+            typeOfMeeting={typeOfMeeting}
+            typeOfMeetingProp={typeOfMeetingProp}
+          />
         </IconButton>
       </TableCell>
-      <TableCell>{`${typeOfMeetingProp}  @ ${selectedHotel.name}`}</TableCell>
+      <TableCell>{`${typeOfMeetingProp} @ ${selectedHotel.name}`}</TableCell>
       <TableCell></TableCell>
       <TableCell></TableCell>
       <TableCell>{accounting.formatMoney(meeting.totalCost, '€')}</TableCell>

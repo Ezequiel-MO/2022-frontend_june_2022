@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
 import { TableCell, TableRow } from '@mui/material'
 import { useBudget, useFindByName } from '../../../../hooks'
-import { HotelMultipleChoice, HotelTotalCostContainer } from './'
+import { HotelTotalCostContainer } from './'
 import { BudgetToggleIcon } from '../../ui/'
+import { OptionSelect } from '../multipleOrSingle'
 
 export const HotelSummaryRow = ({ nights }) => {
   const {
@@ -10,7 +11,8 @@ export const HotelSummaryRow = ({ nights }) => {
     hotels,
     hotelName,
     toggleBreakdown,
-    updateHotelTotalCost
+    updateHotelTotalCost,
+    setSelectedHotelName
   } = useBudget()
 
   const { selectedOption: selectedHotel } = useFindByName(hotels, hotelName)
@@ -20,6 +22,10 @@ export const HotelSummaryRow = ({ nights }) => {
       updateHotelTotalCost(selectedHotel, nights)
     }
   }, [hotels, nights, updateHotelTotalCost])
+
+  const handleChange = (e) => {
+    setSelectedHotelName(e.target.value)
+  }
 
   return (
     <>
@@ -32,7 +38,11 @@ export const HotelSummaryRow = ({ nights }) => {
         </TableCell>
         <TableCell></TableCell>
         <TableCell>
-          <HotelMultipleChoice options={hotels} />
+          <OptionSelect
+            options={hotels}
+            value={hotelName || hotels[0].name}
+            handleChange={handleChange}
+          />
         </TableCell>
         <TableCell></TableCell>
         <TableCell></TableCell>

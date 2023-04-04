@@ -1,6 +1,5 @@
 export * from './HotelBreakdownRow'
 export * from './HotelBreakdownRows'
-export * from './HotelMultipleChoice'
 export * from './HotelRows'
 export * from './HotelSummaryRow'
 export * from './HotelTotalCostContainer'

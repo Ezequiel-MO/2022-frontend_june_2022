@@ -4,6 +4,21 @@ import { useBudget, useFindByName } from '../../../../hooks'
 import { OptionSelect } from './'
 import { TotalRow } from '../../totals'
 
+const handleEffectById = (
+  id,
+  date,
+  option,
+  setCurrentMeals,
+  setCurrentEvents
+) => {
+  if (id === 'lunch' || id === 'dinner') {
+    setCurrentMeals(date, id, option._id)
+  }
+  if (id === 'morningEvents' || id === 'afternoonEvents') {
+    setCurrentEvents(date, id, option._id)
+  }
+}
+
 export const MultipleChoiceCells = ({
   pax,
   description,
@@ -13,17 +28,12 @@ export const MultipleChoiceCells = ({
 }) => {
   const { updateEventTotalCost, setCurrentMeals, setCurrentEvents } =
     useBudget()
-  const [value, setValue] = useState(options[0].name)
+  const [selectedValue, setSelectedValue] = useState(options[0].name)
 
-  const { selectedOption: option } = useFindByName(options, value)
+  const { selectedOption: option } = useFindByName(options, selectedValue)
 
   useEffect(() => {
-    if (id === 'lunch' || id === 'dinner') {
-      setCurrentMeals(date, id, option._id)
-    }
-    if (id === 'morningEvents' || id === 'afternoonEvents') {
-      setCurrentEvents(date, id, option._id)
-    }
+    handleEffectById(id, date, option, setCurrentMeals, setCurrentEvents)
   }, [option, id])
 
   useEffect(() => {
@@ -35,10 +45,10 @@ export const MultipleChoiceCells = ({
     ) {
       updateEventTotalCost(date, id, pax, option._id)
     }
-  }, [value, option])
+  }, [selectedValue, option])
 
-  const handleChange = (e) => {
-    setValue(e.target.value)
+  const handleSelectChange = (e) => {
+    setSelectedValue(e.target.value)
   }
 
   return (
@@ -47,8 +57,8 @@ export const MultipleChoiceCells = ({
       <TableCell>
         <OptionSelect
           options={options}
-          value={value}
-          handleChange={handleChange}
+          value={selectedValue}
+          handleChange={handleSelectChange}
         />
       </TableCell>
       <TableCell>{pax}</TableCell>
