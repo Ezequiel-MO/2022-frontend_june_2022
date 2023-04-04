@@ -1,79 +1,56 @@
-import { TableCell, TableHead, TableRow } from '@mui/material'
+import { TableHead, TableRow } from '@mui/material'
 import { useCurrentProject } from '../../../../hooks'
 import { useTranslation } from '../../../../translations/translationContext'
+import { HeaderCell } from '../atoms'
 
 export const BudgetTableHead = () => {
   const { currentProject } = useCurrentProject()
-
   const { clientCompany } = currentProject
   const { colorPalette = [] } = clientCompany[0] || {}
 
   const textColorClass =
     colorPalette.length > 0 ? `text-[${colorPalette[0]}]` : 'text-orange-50'
+  const backgroundColorClass =
+    colorPalette.length > 1
+      ? `dark:!bg-[${colorPalette[1]}]`
+      : 'dark:!bg-brown-100'
 
   const { t } = useTranslation()
 
   return (
     <TableHead>
       <TableRow>
-        <TableCell
-          width='10%'
-          className={`${
-            colorPalette.length > 1
-              ? `dark:!bg-[${colorPalette[1]}]`
-              : 'dark:!bg-brown-100'
-          } !bg-brown-50`}
-        />
-        <TableCell
+        <HeaderCell width='10%' className={backgroundColorClass} />
+        <HeaderCell
           width='20%'
-          className={`${
-            colorPalette.length > 1
-              ? `dark:!bg-[${colorPalette[1]}]`
-              : 'dark:!bg-brown-100'
-          } ${textColorClass} !bg-brown-50 font-extrabold`}
+          className={`${backgroundColorClass} ${textColorClass}`}
         >
           {t('Event Type')}
-        </TableCell>
-        <TableCell
+        </HeaderCell>
+        <HeaderCell
           width='35%'
-          className={`${
-            colorPalette.length > 1
-              ? `dark:!bg-[${colorPalette[1]}]`
-              : 'dark:!bg-brown-100'
-          } ${textColorClass} !bg-brown-50 font-extrabold`}
+          className={`${backgroundColorClass} ${textColorClass}`}
         >
           {t('Service')}
-        </TableCell>
-        <TableCell
+        </HeaderCell>
+        <HeaderCell
           width='5%'
-          className={`${
-            colorPalette.length > 1
-              ? `dark:!bg-[${colorPalette[1]}]`
-              : 'dark:!bg-brown-100'
-          } ${textColorClass} !bg-brown-50 font-extrabold`}
+          className={`${backgroundColorClass} ${textColorClass}`}
         >
           {t('Pax/units')}
-        </TableCell>
-        <TableCell
+        </HeaderCell>
+        <HeaderCell
           width='15%'
-          className={`${
-            colorPalette.length > 1
-              ? `dark:!bg-[${colorPalette[1]}]`
-              : 'dark:!bg-brown-100'
-          } ${textColorClass} !bg-brown-50 font-extrabold`}
+          className={`${backgroundColorClass} ${textColorClass}`}
         >
           {t('Unit cost w/VAT')}
-        </TableCell>
-        <TableCell
+        </HeaderCell>
+        <HeaderCell
           width='15%'
-          className={`${
-            colorPalette.length > 1
-              ? `dark:!bg-[${colorPalette[1]}]`
-              : 'dark:!bg-brown-100'
-          } ${textColorClass} !bg-brown-50 font-extrabold`}
+          className={`${backgroundColorClass} ${textColorClass}`}
         >
           {t('Total cost w/VAT')}
-        </TableCell>
+        </HeaderCell>
       </TableRow>
     </TableHead>
   )
