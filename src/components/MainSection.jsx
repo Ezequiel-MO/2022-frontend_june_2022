@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { useEffect } from 'react'
 import { Icon } from '@iconify/react'
 import ReactToPrint from 'react-to-print'
 import Hotels from './hotels/Hotels'
@@ -10,6 +11,7 @@ import { RichParagraph } from './atoms/RichParagraph'
 import { Document, Page } from 'react-pdf/dist/esm/entry.vite'
 import { Budget } from './budget/MainTable/higherComponents'
 import { PartialCosts } from './budget/partial-costs/'
+import io from 'socket.io-client'
 
 const MainSection = () => {
   const componentRef = useRef()
@@ -34,6 +36,11 @@ const MainSection = () => {
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages)
   }
+
+  useEffect(() => {
+    let socket = io(import.meta.env.VITE_BACKEND_URL)
+    console.log('socket', socket)
+  }, [])
 
   return (
     <div
