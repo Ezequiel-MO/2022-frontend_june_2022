@@ -3,6 +3,7 @@ import { Rating } from '@mui/material'
 import RenderPhotos from '../../ui/renderPhotos/RenderPhotos'
 import HotelIcons from './HotelIcons'
 import ParagraphText from '../Text'
+import { RichParagraph } from '../atoms/RichParagraph'
 
 const HotelCards = ({ hotel }) => {
   const [stars] = useState(hotel.numberStars)
@@ -33,10 +34,10 @@ const HotelCards = ({ hotel }) => {
   return (
     <div className='flex flex-col'>
       <div className='flex items-center'>
-        <h2>{hotel.name}</h2>
+        <h2 className='font-bold'>{hotel.name}</h2>
         <Rating readOnly value={stars} />
       </div>
-      <ParagraphText text={hotel.textContent} />
+      <RichParagraph text={hotel.textContent} />
       <RenderPhotos images={hotel.imageContentUrl} />
       <HotelIcons
         leftIconsText={leftIconsText}

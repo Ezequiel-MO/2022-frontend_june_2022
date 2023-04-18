@@ -1,4 +1,4 @@
-import ParagraphText from '../Text'
+import { RichParagraph } from '../atoms/RichParagraph'
 import { Events } from './Events'
 
 export const ScheduleDayEvents = ({ title, events, suplementaryText, id }) => {
@@ -9,7 +9,7 @@ export const ScheduleDayEvents = ({ title, events, suplementaryText, id }) => {
   }
   return (
     <div id={id}>
-      <ParagraphText text={events[0].introduction} />
+      <RichParagraph text={events[0].introduction} />
       <Events events={events} />
     </div>
   )

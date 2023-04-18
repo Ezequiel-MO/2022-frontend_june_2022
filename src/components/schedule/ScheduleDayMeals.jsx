@@ -1,4 +1,4 @@
-import ParagraphText from '../Text'
+import { RichParagraph } from '../atoms/RichParagraph'
 import { Meals } from './Meals'
 
 export const ScheduleDayMeals = ({
@@ -14,7 +14,7 @@ export const ScheduleDayMeals = ({
   }
   return (
     <div id={id}>
-      <ParagraphText text={restaurants[0].introduction} />
+      <RichParagraph text={restaurants[0].introduction} />
       <Meals restaurants={restaurants} />
     </div>
   )

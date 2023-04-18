@@ -1,6 +1,6 @@
 import React from 'react'
 import { useCurrentProject, useFontFamily } from '../../hooks'
-import './custom-quill-styles.css'
+import './RichParagraph.module.css'
 
 export const RichParagraph = ({ text = '' }) => {
   const { currentProject } = useCurrentProject()
