@@ -30,7 +30,7 @@ const LoginForm = ({
             USER EMAIL - provided in the email
           </label>
           <input
-            className='w-full mt-3 p-3 border rounded-xl bg-gray-100'
+            className='w-full mt-3 p-3 border rounded-xl bg-gray-100 dark:text-black-50'
             id='email'
             type='text'
             placeholder='User Email'
@@ -46,7 +46,7 @@ const LoginForm = ({
             Code - must be 11 digits long
           </label>
           <input
-            className='w-full mt-3 p-3 border rounded-xl bg-gray-100'
+            className='w-full mt-3 p-3 border rounded-xl bg-gray-100 dark:text-black-50'
             id='password'
             type={visiblePassword ? 'text' : 'password'}
             placeholder='Enter password'

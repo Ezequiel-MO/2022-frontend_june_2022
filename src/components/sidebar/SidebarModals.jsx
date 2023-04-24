@@ -8,8 +8,8 @@ const SidebarModals = () => {
   const handleClose = () => setModal('closed')
 
   return (
-    <div className='hidden lg:col-span-2 px-2 lg:inline'>
-      <div className='flex flex-col sticky top-10'>
+    <div className='hidden lg:col-span-2 px-2 lg:inline sticky top-10'>
+      <div className='flex flex-col'>
         <ModalsRow
           iconText='akar-icons:map'
           title='map'
