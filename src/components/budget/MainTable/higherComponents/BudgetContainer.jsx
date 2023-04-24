@@ -1,8 +1,9 @@
 import { forwardRef } from 'react'
+import styles from '../styles.module.css'
 
 export const BudgetContainer = forwardRef(({ children }, ref) => (
   <div
-    className='overflow-x-auto relative -mx-56 2xl:-mx-0 bg-[#fff] mb-10'
+    className={`${styles.tableResponsive} ${styles.tableOnTop} relative bg-white-100 mb-10`}
     id='budget_id'
     ref={ref}
   >

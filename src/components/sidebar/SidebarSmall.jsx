@@ -8,7 +8,7 @@ const SidebarSmall = () => {
   const handleClose = () => setModal('closed')
 
   return (
-    <div className='inline lg:hidden'>
+    <div className='inline'>
       <div className='flex items-center justify-center'>
         <ModalsRow
           iconText='akar-icons:map'
@@ -22,6 +22,7 @@ const SidebarSmall = () => {
           handleOpen={handleOpen}
         />
       </div>
+      <div className='h-4 my-2 bg-gradient-to-r from-white-100 via-orange-50 to-green-50 w-full'></div>
       <CentralModal
         open={modal === 'overview'}
         handleClose={handleClose}

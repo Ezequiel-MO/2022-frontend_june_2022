@@ -1,10 +1,4 @@
-import {
-  Footer,
-  MainSection,
-  Sidebar,
-  SidebarModals,
-  SidebarSmall
-} from '../components'
+import { Footer, MainSection, Sidebar, SidebarSmall } from '../components'
 import { useCurrentProject } from '../hooks'
 import { TranslationProvider } from '../translations/translationContext'
 
@@ -19,8 +13,9 @@ const MainPage = () => {
 
         <div className='grid grid-cols-12 m-8'>
           {hasSideMenu ? <Sidebar /> : <div className='col-span-2' />}
-          <MainSection />
-          <SidebarModals />
+          <div className='relative col-span-10 lg:col-span-8'>
+            <MainSection />
+          </div>
         </div>
         <Footer />
       </div>
