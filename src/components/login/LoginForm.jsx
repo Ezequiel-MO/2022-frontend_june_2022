@@ -56,7 +56,7 @@ const LoginForm = ({
           <button
             type='button'
             onClick={togglePassword}
-            className='absolute top-[60px] right-5 cursor-pointer'
+            className='absolute top-[53px] rounded right-5 cursor-pointer dark:bg-orange-50 dark:text-white-100 bg-white-100 text-orange'
           >
             <Icon
               icon={
