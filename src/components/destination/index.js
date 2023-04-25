@@ -1,0 +1,5 @@
+export * from './DestinationFacts'
+export * from './DestinationGallery'
+export * from './DestinationHeader'
+export * from './DestinationTable'
+export * from './DestinationDescription'

@@ -8,7 +8,7 @@ const SidebarSmall = () => {
   const handleClose = () => setModal('closed')
 
   return (
-    <div className='inline'>
+    <div className='inline sticky top-0 z-[100]'>
       <div className='flex items-center justify-center'>
         <ModalsRow
           iconText='akar-icons:map'
