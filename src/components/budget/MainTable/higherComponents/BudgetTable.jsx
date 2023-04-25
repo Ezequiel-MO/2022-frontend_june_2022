@@ -8,7 +8,7 @@ export const BudgetTable = ({ hotels, schedule, nrPax }) => {
     <Table
       stickyHeader
       size='small'
-      className='text-left divide-y divide-gray-700 dark:divide-black-50 dark:bg-gray-50'
+      className='main-table text-left divide-y divide-gray-700 dark:divide-black-50 dark:bg-gray-50'
     >
       <BudgetTableHead />
       <TableBody>

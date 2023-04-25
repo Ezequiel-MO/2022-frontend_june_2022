@@ -29,7 +29,7 @@ export const HotelBreakdownRows = ({ hotels, nights }) => {
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
         <Collapse in={breakdownOpen['hotel']} timeout='auto' unmountOnExit>
           <Box margin={1}>
-            <Table size='small'>
+            <Table size='small' className='table-breakdown'>
               <TableHead>
                 <TableRow>
                   <TableCell>Description</TableCell>

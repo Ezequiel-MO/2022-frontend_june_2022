@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { Rating } from '@mui/material'
 import RenderPhotos from '../../ui/renderPhotos/RenderPhotos'
 import HotelIcons from './HotelIcons'
-import ParagraphText from '../Text'
 import { RichParagraph } from '../atoms/RichParagraph'
 
 const HotelCards = ({ hotel }) => {
