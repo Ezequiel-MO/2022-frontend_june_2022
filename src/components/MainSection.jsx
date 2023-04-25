@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { forwardRef, useRef, useState } from 'react'
 import { useEffect } from 'react'
 import { Icon } from '@iconify/react'
 import ReactToPrint from 'react-to-print'
@@ -13,10 +13,10 @@ import { Budget } from './budget/MainTable/higherComponents'
 import { PartialCosts } from './budget/partial-costs/'
 import io from 'socket.io-client'
 
-const MainSection = () => {
+const MainSection = forwardRef(({ setIconColor, onReady }, ref) => {
   const componentRef = useRef()
   const [numPages, setNumPages] = useState(null)
-  const [pageNumber, setPageNumber] = useState(1)
+  const [pageNumber] = useState(1)
   const { currentProject } = useCurrentProject()
   const {
     groupName,
@@ -38,12 +38,23 @@ const MainSection = () => {
   }
 
   useEffect(() => {
+    if (onReady) {
+      onReady(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    setIconColor(iconColor)
+  }, [iconColor])
+
+  /* useEffect(() => {
     let socket = io(import.meta.env.VITE_BACKEND_URL)
     console.log('socket', socket)
-  }, [])
+  }, []) */
 
   return (
     <div
+      ref={ref}
       className={`${fontFamilyStyle} col-span-10 lg:col-span-8 z-50 bg-white-0 dark:bg-black-50`}
     >
       <h1 className='text-2xl md:text-2xl mb-4 font-extrabold'>
@@ -91,6 +102,6 @@ const MainSection = () => {
       <ScrollToTopButton iconColor={iconColor} />
     </div>
   )
-}
+})
 
 export default MainSection
