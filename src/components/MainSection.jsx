@@ -43,7 +43,9 @@ const MainSection = () => {
   }, [])
 
   return (
-    <div className={`${fontFamilyStyle} col-span-10 lg:col-span-8`}>
+    <div
+      className={`${fontFamilyStyle} col-span-10 lg:col-span-8 z-50 bg-white-0 dark:bg-black-50`}
+    >
       <h1 className='text-2xl md:text-2xl mb-4 font-extrabold'>
         {`${t('quotation')} Gr. ${groupName}`}
       </h1>
