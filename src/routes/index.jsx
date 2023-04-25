@@ -19,7 +19,7 @@ export const router = createBrowserRouter(
         <Route index element={<LoginPage />} />
       </Route>
       <Route
-        path='app'
+        path='/app'
         element={<ProtectedRoute />}
         errorElement={<ErrorPage />}
       >
