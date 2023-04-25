@@ -6,7 +6,7 @@ import {
   DestinationTable
 } from '../components/destination'
 
-const Destination = () => {
+export const Destination = () => {
   return (
     <div className='container mx-auto px-4'>
       <DestinationHeader />
@@ -17,5 +17,3 @@ const Destination = () => {
     </div>
   )
 }
-
-export default Destination

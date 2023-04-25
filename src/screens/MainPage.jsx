@@ -2,7 +2,7 @@ import { Footer, MainSection, Sidebar, SidebarSmall } from '../components'
 import { useCurrentProject } from '../hooks'
 import { TranslationProvider } from '../translations/translationContext'
 
-const MainPage = () => {
+export const MainPage = () => {
   const { currentProject } = useCurrentProject()
   const { hasSideMenu, clientAccManager = [] } = currentProject
   const { quoteLanguage = 'EN' } = clientAccManager[0] || {}
@@ -22,5 +22,3 @@ const MainPage = () => {
     </TranslationProvider>
   )
 }
-
-export default MainPage

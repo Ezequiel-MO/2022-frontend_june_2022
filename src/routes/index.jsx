@@ -4,11 +4,8 @@ import {
   createRoutesFromElements
 } from 'react-router-dom'
 import LoginPage from '../components/login/LoginPage'
-import AuthLayout from '../layouts/AuthLayout'
-import ProtectedRoute from '../layouts/ProtectedRoute'
-import Credentials from '../screens/Credentials'
-import Destination from '../screens/Destination'
-import MainPage from '../screens/MainPage'
+import { AuthLayout, ProtectedRoute } from '../layouts'
+import { Credentials, Destination, MainPage } from '../screens'
 import NotFound from '../ui/NotFound'
 import { ErrorPage } from './error-page'
 
