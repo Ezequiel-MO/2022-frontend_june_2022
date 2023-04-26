@@ -194,4 +194,14 @@
   .printable-icon {
     display: none !important;
   }
+
+  .photos-layout {
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    grid-gap: 1rem !important;
+  }
+
+  .page-break-after {
+    break-after: page !important;
+  }
 }

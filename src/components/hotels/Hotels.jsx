@@ -9,7 +9,7 @@ const Hotels = ({ hotels }) => {
 
   return (
     <>
-      <div className='flex flex-wrap' id='hotels_id'>
+      <div className='flex flex-wrap page-break-after' id='hotels_id'>
         {hotels?.length > 0 ? (
           <div className='w-full'>
             <ul

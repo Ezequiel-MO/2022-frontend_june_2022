@@ -13,7 +13,7 @@ export const ScheduleDayMeals = ({
     ) : null
   }
   return (
-    <div id={id}>
+    <div id={id} className='page-break-after'>
       <RichParagraph text={restaurants[0].introduction} />
       <Meals restaurants={restaurants} />
     </div>

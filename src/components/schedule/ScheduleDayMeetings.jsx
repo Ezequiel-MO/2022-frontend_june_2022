@@ -13,7 +13,7 @@ export const ScheduleDayMeetings = ({
     ) : null
   }
   return (
-    <div id={id}>
+    <div id={id} className='page-break-after'>
       <Meetings meetings={meetings} timing={timing} />
     </div>
   )

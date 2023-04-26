@@ -8,7 +8,7 @@ export const ScheduleDayEvents = ({ title, events, suplementaryText, id }) => {
     ) : null
   }
   return (
-    <div id={id}>
+    <div id={id} className='page-break-after'>
       <RichParagraph text={events[0].introduction} />
       <Events events={events} />
     </div>

@@ -45,7 +45,7 @@ const RenderPhotos = ({ images }) => {
   return (
     <>
       <div className='m-auto w-full'>
-        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 pt-10'>
+        <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 pt-10 photos-layout'>
           {images.map((item, index) => (
             <div
               className='m-2 p-2 scale-125 hover:scale-150 ease-in duration-200 hover:z-50'

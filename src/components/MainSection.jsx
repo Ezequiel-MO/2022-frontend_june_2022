@@ -67,7 +67,7 @@ const MainSection = forwardRef(({ setIconColor, onReady }, ref) => {
         <div>
           <ReactToPrint
             trigger={() => (
-              <button className='flex flex-row items-center mb-2 py-4'>
+              <button className='flex flex-row items-center mb-2 py-4 printable-icon'>
                 <span>
                   <Icon
                     icon='ant-design:file-pdf-twotone'
