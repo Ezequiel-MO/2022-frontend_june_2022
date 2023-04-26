@@ -109,11 +109,15 @@
   /* Set page size, margins, and layout */
   @page {
     size: auto;
-    margin: 20mm;
+    margin: 10mm;
   }
 
+  html,
   body {
-    margin: 20mm;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   /* Properly format the table without selectors */
@@ -122,6 +126,7 @@
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    transform: scaleX(0.9);
   }
 
   .main-table th,
@@ -142,7 +147,7 @@
 
   /* Handle page breaks */
   .table-wrapper {
-    page-break-inside: avoid;
+    page-break-inside: avoid !important;
   }
 
   .table-breakdown {
@@ -175,5 +180,18 @@
 
   .table-heading-underline {
     border-bottom: 1px solid grey;
+  }
+
+  .printable-select {
+    border: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .printable-icon {
+    display: none !important;
   }
 }

@@ -7,7 +7,9 @@ export const SingleChoiceCells = ({ pax, options, date, description, id }) => {
   return (
     <>
       <TableCell>{description}</TableCell>
-      <TableCell>{options[0]?.name}</TableCell>
+      <TableCell>
+        <span className='pl-2'>{`${options[0]?.name}`}</span>
+      </TableCell>
       <TableCell>{pricePerPerson ? pax : 1}</TableCell>
       <TableCell>{accounting.formatMoney(options[0]?.price, '€')}</TableCell>
       <TableCell>
