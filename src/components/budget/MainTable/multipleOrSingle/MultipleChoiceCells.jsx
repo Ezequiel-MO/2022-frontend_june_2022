@@ -1,23 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { TableCell } from '@mui/material'
 import { useBudget, useFindByName } from '../../../../hooks'
 import { OptionSelect } from './'
 import { TotalRow } from '../../totals'
-
-const handleEffectById = (
-  id,
-  date,
-  option,
-  setCurrentMeals,
-  setCurrentEvents
-) => {
-  if (id === 'lunch' || id === 'dinner') {
-    setCurrentMeals(date, id, option._id)
-  }
-  if (id === 'morningEvents' || id === 'afternoonEvents') {
-    setCurrentEvents(date, id, option._id)
-  }
-}
+import { useUpdateEventTotalCost } from './useUpdateEventTotalCost'
+import { useHandleEffectById } from './useHandleEffectById'
 
 export const MultipleChoiceCells = ({
   pax,
@@ -32,20 +19,8 @@ export const MultipleChoiceCells = ({
 
   const { selectedOption: option } = useFindByName(options, selectedValue)
 
-  useEffect(() => {
-    handleEffectById(id, date, option, setCurrentMeals, setCurrentEvents)
-  }, [option, id])
-
-  useEffect(() => {
-    if (
-      id === 'morningEvents' ||
-      id === 'afternoonEvents' ||
-      id === 'lunch' ||
-      id === 'dinner'
-    ) {
-      updateEventTotalCost(date, id, pax, option._id)
-    }
-  }, [selectedValue, option])
+  useHandleEffectById(id, date, option, setCurrentMeals, setCurrentEvents)
+  useUpdateEventTotalCost(id, date, pax, option, updateEventTotalCost)
 
   const handleSelectChange = (e) => {
     setSelectedValue(e.target.value)

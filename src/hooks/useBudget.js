@@ -19,6 +19,7 @@ import {
   SET_CURRENT_MEALS,
   SET_CURRENT_EVENTS
 } from '../redux/features/budgetSlice'
+import { useCallback } from 'react'
 
 export const useBudget = () => {
   const dispatch = useDispatch()
@@ -61,10 +62,18 @@ export const useBudget = () => {
     dispatch(UPDATE_EVENT_TOTAL_COST({ date, id, nrPax, eventId }))
   const setCurrentMeetings = (date, typeOfEvent, id) =>
     dispatch(SET_CURRENT_MEETINGS({ date, typeOfEvent, id }))
-  const setCurrentMeals = (date, typeOfEvent, id) =>
-    dispatch(SET_CURRENT_MEALS({ date, typeOfEvent, id }))
-  const setCurrentEvents = (date, typeOfEvent, id) =>
-    dispatch(SET_CURRENT_EVENTS({ date, typeOfEvent, id }))
+  const setCurrentMeals = useCallback(
+    (date, typeOfEvent, id) => {
+      dispatch(SET_CURRENT_MEALS({ date, typeOfEvent, id }))
+    },
+    [dispatch]
+  )
+  const setCurrentEvents = useCallback(
+    (date, typeOfEvent, id) => {
+      dispatch(SET_CURRENT_EVENTS({ date, typeOfEvent, id }))
+    },
+    [dispatch]
+  )
   const updateTransfers = (date, id, nrBuses, cost) =>
     dispatch(UPDATE_TRANSFERS({ date, id, nrBuses, cost }))
   const updateTransfersIn = (type, item, itemCost) =>
