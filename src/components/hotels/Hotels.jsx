@@ -1,8 +1,8 @@
 import { useActiveTab } from '../../context/ActiveTabProvider'
 import { useCurrentProject } from '../../hooks'
 import HotelCards from './HotelCards'
-import { TabList } from './'
 import { TabContent } from '../atoms'
+import { TabList } from '../molecules'
 
 const Hotels = ({ hotels }) => {
   const { activeTab, setActiveTab } = useActiveTab()
