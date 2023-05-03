@@ -202,6 +202,11 @@
   }
 
   .page-break-after {
-    break-after: page !important;
+    break-after: avoid !important;
+  }
+
+  .page-number {
+    display: inline-block !important;
+    padding-top: 10px;
   }
 }
