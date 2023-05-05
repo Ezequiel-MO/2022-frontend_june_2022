@@ -1,6 +1,6 @@
 module.exports = {
   important: true,
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: ['./src/**/*.{js,jsx,ts,tsx}', './index.html'],
   darkMode: 'class',
   theme: {
     fontSize: {

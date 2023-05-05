@@ -90,7 +90,7 @@ const MainSection = forwardRef(
           <div className='page-break-after'>
             <ReactToPrint
               trigger={() => (
-                <button className='flex flex-row items-center mb-2 py-4 printable-icon'>
+                <button className='flex flex-row items-center printable-icon'>
                   <span>
                     <Icon
                       icon='ant-design:file-pdf-twotone'
