@@ -3,11 +3,27 @@ import { ModalsRow } from './'
 import CentralModal from '../modal/CentralModal'
 import ReactToPrint from 'react-to-print'
 import { Icon } from '@iconify/react'
+import { useCurrentProject } from '../../hooks'
 
 const SidebarSmall = ({ mainSectionRef, iconColor, isReady }) => {
   const [modal, setModal] = useState('closed')
   const handleOpen = (string) => setModal(string)
   const handleClose = () => setModal('closed')
+
+  const { currentProject } = useCurrentProject()
+  const { clientCompany, hasExternalCorporateImage } = currentProject
+
+  const colorPalette = hasExternalCorporateImage
+    ? clientCompany[0].colorPalette[0]
+    : '#EA5933'
+
+  const gradientStyle = {
+    background: `linear-gradient(90deg, #f0f9ff 0%, ${colorPalette} 50%, #e0fce9 100%)`,
+    height: '1rem',
+    marginTop: '0.5rem',
+    marginBottom: '0.5rem',
+    width: '100%'
+  }
 
   return (
     <div className='inline sticky top-0'>
@@ -39,7 +55,7 @@ const SidebarSmall = ({ mainSectionRef, iconColor, isReady }) => {
           />
         )}
       </div>
-      <div className='h-4 my-2 bg-gradient-to-r from-white-100 via-orange-50 to-green-50 w-full'></div>
+      <div style={gradientStyle}></div>
       <CentralModal
         open={modal === 'overview'}
         handleClose={handleClose}
