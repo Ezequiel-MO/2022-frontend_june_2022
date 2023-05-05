@@ -6,7 +6,7 @@ export const useGetMealsCost = () => {
   const [mealsTotalCost, setMealsTotalCost] = useState(0)
   useEffect(() => {
     const mealsArray = Object.values(meals)
-    let totalCostPerDayArray = mealsArray.map((day) => {
+    let totalCostPerDayArray = mealsArray?.map((day) => {
       return Object.values(day)
         .map((meal) => meal.price)
         .reduce((a, b) => a + b, 0)

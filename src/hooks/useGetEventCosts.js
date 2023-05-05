@@ -7,12 +7,13 @@ export const useGetEventCosts = () => {
 
   useEffect(() => {
     const eventsArray = Object.values(events)
-    const newArray = eventsArray.map((event) => {
-      return Object.values(event).map(({ totalCost }) => {
-        return totalCost
-      })
+    let totalCostPerDayArray = eventsArray?.map((day) => {
+      return Object.values(day)
+        .map((event) => event.price)
+        .reduce((a, b) => a + b, 0)
     })
-    const totalCost = newArray.flat().reduce((a, b) => a + b, 0)
+
+    let totalCost = totalCostPerDayArray.reduce((a, b) => a + b, 0)
 
     setEventsTotalCost(totalCost)
   }, [events])
