@@ -1,9 +1,23 @@
-import { useCurrentProject } from '../../hooks'
+import { useEffect } from 'react'
+import { useBudget, useCurrentProject } from '../../hooks'
 
-export const TabItem = ({ tabListItem, index, activeTab, setActiveTab }) => {
+export const TabItem = ({
+  tabListItem,
+  type,
+  index,
+  activeTab,
+  setActiveTab
+}) => {
   const isActive = activeTab === index + 1
   const { currentProject } = useCurrentProject()
   const { clientCompany, hasExternalCorporateImage } = currentProject
+  const { setSelectedHotelName } = useBudget()
+
+  useEffect(() => {
+    if (type === 'hotel' && isActive) {
+      setSelectedHotelName(tabListItem.name)
+    }
+  }, [tabListItem, type, isActive])
 
   const colorPalette = hasExternalCorporateImage
     ? clientCompany[0].colorPalette[0]

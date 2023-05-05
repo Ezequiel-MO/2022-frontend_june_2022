@@ -16,6 +16,7 @@ const Hotels = ({ hotels }) => {
           <div className='w-full'>
             <TabList
               tabListItems={hotels}
+              type='hotel'
               activeTab={activeTab}
               setActiveTab={setActiveTab}
             />

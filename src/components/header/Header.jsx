@@ -28,7 +28,7 @@ const Header = () => {
           }`}
           style={{ backgroundColor: '#C7BAAE' }}
         ></div>
-        <div className='absolute z-30 flex w-full h-full'>
+        <div className='absolute z-30 flex w-full h-full items-center justify-center'>
           <Logo
             hasExternalCorporateImage={hasExternalCorporateImage}
             imageUrl={`${
