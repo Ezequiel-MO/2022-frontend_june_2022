@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useBudget, useCurrentProject, useFindByName } from '../../../../hooks'
 import { HotelTotalCost } from './'
 
@@ -9,7 +10,9 @@ export const HotelTotalCostContainer = () => {
 
   const { selectedOption: selectedHotel } = useFindByName(hotels, hotel_name)
 
-  setCurrentHotel(selectedHotel)
+  useEffect(() => {
+    setCurrentHotel(selectedHotel)
+  }, [selectedHotel, setCurrentHotel])
 
   return <HotelTotalCost selectedHotel={selectedHotel} />
 }
