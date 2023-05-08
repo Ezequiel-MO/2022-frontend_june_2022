@@ -6,6 +6,7 @@ import { TotalBudgetCost } from '../../totals'
 export const BudgetTable = ({ hotels, schedule, nrPax }) => {
   return (
     <Table
+      id='budget-table'
       stickyHeader
       size='small'
       className='main-table text-left divide-y divide-gray-700 dark:divide-black-50 dark:bg-gray-50'

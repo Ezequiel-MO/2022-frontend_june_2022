@@ -11,6 +11,7 @@ import { RichParagraph } from './atoms/RichParagraph'
 import { Document, Page } from 'react-pdf/dist/esm/entry.vite'
 import { Budget } from './budget/MainTable/higherComponents'
 import { PartialCosts } from './budget/partial-costs/'
+import { exportTableToExcel } from './budget/MainTable/higherComponents/exportTableToExcel'
 
 const MainSection = forwardRef(
   ({ setIconColor, onReady, parentWidth }, ref) => {
@@ -66,23 +67,32 @@ const MainSection = forwardRef(
         <Schedule />
         {budget === 'budget' ? (
           <div>
-            <ReactToPrint
-              trigger={() => (
-                <button className='flex flex-row items-center mb-2 py-4 printable-icon'>
-                  <span>
-                    <Icon
-                      icon='ant-design:file-pdf-twotone'
-                      color={`${
-                        colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
-                      }`}
-                      width='40'
-                    />
-                  </span>
-                  {t('budgetPrint')}
-                </button>
-              )}
-              content={() => componentRef.current}
-            />
+            <div className='flex flex-row items-center'>
+              <ReactToPrint
+                trigger={() => (
+                  <button className='flex flex-row items-center mb-2 py-4 printable-icon'>
+                    <span>
+                      <Icon
+                        icon='ant-design:file-pdf-twotone'
+                        color={`${
+                          colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
+                        }`}
+                        width='40'
+                      />
+                    </span>
+                    {t('budgetPrint')}
+                  </button>
+                )}
+                content={() => componentRef.current}
+              />
+              <button
+                onClick={exportTableToExcel}
+                className='flex flex-row items-center ml-2 mb-2 py-4 printable-icon'
+              >
+                <Icon icon='vscode-icons:file-type-excel' width='40' />
+                <span>Export to Excel</span>
+              </button>
+            </div>
             <Budget ref={componentRef} />
             <PartialCosts colorPalette={colorPalette} />
           </div>
