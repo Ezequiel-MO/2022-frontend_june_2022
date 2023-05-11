@@ -10,7 +10,7 @@ export const useLogin = ({ onSuccess, onError }) => {
         setLoading(false)
         throw new Error('Please fill all fields')
       }
-      const response = await baseAPI.get(`/v2/projects?code=${password}`)
+      const response = await baseAPI.get(`/projects?code=${password}`)
       const receivedData = response.data.data.data.length !== 0
       if (!receivedData) {
         setLoading(false)
