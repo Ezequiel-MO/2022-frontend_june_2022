@@ -12,6 +12,7 @@ import { Document, Page } from 'react-pdf/dist/esm/entry.vite'
 import { Budget } from './budget/MainTable/higherComponents'
 import { PartialCosts } from './budget/partial-costs/'
 import { exportTableToExcel } from './budget/MainTable/higherComponents/exportTableToExcel'
+import { Gifts } from './gifts/Gifts'
 
 const MainSection = forwardRef(
   ({ setIconColor, onReady, parentWidth }, ref) => {
@@ -23,6 +24,7 @@ const MainSection = forwardRef(
       groupName,
       projectIntro,
       hotels,
+      gifts,
       clientCompany,
       budget,
       imageContentUrl
@@ -65,6 +67,7 @@ const MainSection = forwardRef(
         <RichParagraph text={projectIntro} />
         <Hotels hotels={hotels} />
         <Schedule />
+        <Gifts gifts={gifts} />
         {budget === 'budget' ? (
           <div>
             <div className='flex flex-row items-center'>
