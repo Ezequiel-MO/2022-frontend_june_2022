@@ -1,10 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom'
 import LoginPage from '../components/login/LoginPage'
-import { AuthLayout } from '../layouts'
+import { AuthLayout, ProtectedRoute } from '../layouts'
 import { Credentials, Destination, MainPage } from '../screens'
 import NotFound from '../ui/NotFound'
 import { ErrorPage } from './error-page'
-import GeneralLayout from '../layouts/GeneralLayout'
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +19,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/app',
-    element: <GeneralLayout />,
+    element: <ProtectedRoute />,
     errorElement: <ErrorPage />,
     children: [
       {
