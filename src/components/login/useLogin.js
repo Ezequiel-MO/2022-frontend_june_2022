@@ -10,6 +10,17 @@ export const useLogin = ({ onSuccess, onError }) => {
         setLoading(false)
         throw new Error('Please fill all fields')
       }
+      const {
+        data: { token }
+      } = await baseAPI.post('/users/client_login', {
+        email,
+        password
+      })
+      if (!token) {
+        setLoading(false)
+        throw new Error('Invalid Email or Password')
+      }
+      localStorage.setItem('token', token)
       const response = await baseAPI.get(`/projects?code=${password}`)
       const receivedData = response.data.data.data.length !== 0
       if (!receivedData) {
