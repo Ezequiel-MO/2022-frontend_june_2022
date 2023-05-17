@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TableCell } from '@mui/material'
 import { useBudget, useFindByName } from '../../../../hooks'
 import { OptionSelect } from './'
@@ -13,14 +13,19 @@ export const MultipleChoiceCells = ({
   id,
   date
 }) => {
+  const [nrPax, setNrPax] = useState(pax)
   const { updateEventTotalCost, setCurrentMeals, setCurrentEvents } =
     useBudget()
   const [selectedValue, setSelectedValue] = useState(options[0].name)
 
   const { selectedOption: option } = useFindByName(options, selectedValue)
 
+  useEffect(() => {
+    if (option && option.pricePerPerson === false) setNrPax(1)
+  }, [option])
+
   useHandleEffectById(id, date, option, setCurrentMeals, setCurrentEvents)
-  useUpdateEventTotalCost(id, date, pax, option, updateEventTotalCost)
+  useUpdateEventTotalCost(id, date, nrPax, option, updateEventTotalCost)
 
   const handleSelectChange = (e) => {
     setSelectedValue(e.target.value)
@@ -36,7 +41,7 @@ export const MultipleChoiceCells = ({
           handleChange={handleSelectChange}
         />
       </TableCell>
-      <TableCell>{pax}</TableCell>
+      <TableCell>{nrPax}</TableCell>
       <TotalRow option={option} />
     </>
   )
