@@ -38,7 +38,8 @@
     "@babel/core": "^7.18.13",
     "@babel/preset-env": "^7.18.10",
     "@babel/preset-react": "^7.18.6",
-    "@testing-library/react": "^13.4.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
     "@types/google.maps": "^3.50.4",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
@@ -46,9 +47,11 @@
     "@vitest/coverage-c8": "^0.23.4",
     "autoprefixer": "^10.4.7",
     "babel-jest": "^29.0.1",
-    "jest": "^29.1.2",
+    "babel-plugin-transform-vite-meta-env": "^1.0.3",
+    "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.1.2",
     "postcss": "^8.4.14",
+    "react-testing-library": "^8.0.1",
     "tailwindcss": "^3.1.4",
     "vite": "^4.2.1"
   }

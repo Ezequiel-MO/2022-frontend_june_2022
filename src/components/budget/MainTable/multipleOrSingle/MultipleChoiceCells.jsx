@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { TableCell } from '@mui/material'
 import { useBudget, useFindByName } from '../../../../hooks'
 import { OptionSelect } from './'
-import { TotalRow } from '../../totals'
 import { useUpdateEventTotalCost } from './useUpdateEventTotalCost'
 import { useHandleEffectById } from './useHandleEffectById'
+import accounting from 'accounting'
 
 export const MultipleChoiceCells = ({
   pax,
@@ -21,7 +21,12 @@ export const MultipleChoiceCells = ({
   const { selectedOption: option } = useFindByName(options, selectedValue)
 
   useEffect(() => {
-    if (option && option.pricePerPerson === false) setNrPax(1)
+    if (
+      option &&
+      option.pricePerPerson === false &&
+      option.pricePerPerson !== undefined
+    )
+      setNrPax(1)
   }, [option])
 
   useHandleEffectById(id, date, option, setCurrentMeals, setCurrentEvents)
@@ -42,7 +47,8 @@ export const MultipleChoiceCells = ({
         />
       </TableCell>
       <TableCell>{nrPax}</TableCell>
-      <TotalRow option={option} />
+      <TableCell>{accounting.formatMoney(option.price, '€')}</TableCell>
+      <TableCell>{accounting.formatMoney(option.totalCost, '€')}</TableCell>
     </>
   )
 }

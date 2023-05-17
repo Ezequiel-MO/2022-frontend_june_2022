@@ -11,7 +11,9 @@ export const useGetEventCosts = () => {
     let totalCostPerDayArray = eventsArray?.map((day) => {
       return Object.values(day)
         .map(({ pricePerPerson, price, totalCost }) => {
-          return pricePerPerson === true ? totalCost : price
+          return pricePerPerson === true || pricePerPerson === undefined
+            ? totalCost
+            : price
         })
         .reduce((a, b) => a + b, 0)
     })
