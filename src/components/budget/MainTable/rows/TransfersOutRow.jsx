@@ -3,16 +3,19 @@ import accounting from 'accounting'
 import { TableCell, TableRow } from '@mui/material'
 import { useBudget } from '../../../../hooks'
 export const TransfersOutRow = ({ items, date }) => {
-  const { updateTransfers } = useBudget()
+  const { updateTransfersOut } = useBudget()
   const NoTransfersOut = items.length === 0
   if (NoTransfersOut) return null
+  const transferOutItem = items.find((item) => item.transfer_out)
+  const transferOutValue = transferOutItem?.transfer_out ?? 0
+
+  console.log('transferOutItem', transferOutItem)
 
   useEffect(() => {
-    updateTransfers(
-      date,
+    updateTransfersOut(
       'transfer_out',
-      items[0]?.nrVehicles ?? 1,
-      items[0]['transfer_out']
+      transferOutItem?.nrVehicles ?? 1,
+      transferOutValue
     )
   }, [])
 
@@ -20,17 +23,15 @@ export const TransfersOutRow = ({ items, date }) => {
     <TableRow>
       <TableCell>{date}</TableCell>
       <TableCell>Departure Transfer</TableCell>
-      <TableCell>{`${items[0].vehicleCapacity} seater ${items[0].vehicleType}`}</TableCell>
-      <TableCell>{items[0]?.nrVehicles}</TableCell>{' '}
-      <TableCell>
-        {accounting.formatMoney(items[0].transfer_out ?? 0, '€')}
-      </TableCell>
+      <TableCell>{`${transferOutItem.vehicleCapacity} seater ${transferOutItem.vehicleType}`}</TableCell>
+      <TableCell>{transferOutItem?.nrVehicles}</TableCell>{' '}
       <TableCell>
         {accounting.formatMoney(
-          items[0]?.transfer_out * items[0]?.nrVehicles,
+          transferOutItem.transfer_out / transferOutItem?.nrVehicles ?? 0,
           '€'
         )}
       </TableCell>
+      <TableCell>{accounting.formatMoney(transferOutValue, '€')}</TableCell>
     </TableRow>
   )
 }
