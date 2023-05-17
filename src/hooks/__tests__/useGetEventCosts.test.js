@@ -1,42 +1,90 @@
 import { renderHook } from '@testing-library/react'
 import { useGetEventCosts } from '../'
 import { useBudget } from '../useBudget'
+import { Provider } from 'react-redux'
+import { configureStore } from '@reduxjs/toolkit'
+import budgetReducer from '../../redux/features/budgetSlice'
 
 jest.mock('../useBudget')
 
-describe('useGetEventCosts hook', () => {
-  test('calculates the total event costs correctly', () => {
-    useBudget.mockReturnValue({
-      events: {
-        day1: {
-          event1: { pricePerPerson: true, price: 100, totalCost: 200 },
-          event2: { pricePerPerson: false, price: 300, totalCost: 600 }
-        },
-        day2: {
-          event3: { pricePerPerson: true, price: 150, totalCost: 300 },
-          event4: { pricePerPerson: false, price: 200, totalCost: 400 }
-        }
-      }
-    })
+describe('useGetEventCosts', () => {
+  let store
 
-    const { result } = renderHook(() => useGetEventCosts())
-    expect(result.current.eventsTotalCost).toEqual(1000)
+  beforeEach(() => {
+    store = configureStore({
+      reducer: { budget: budgetReducer }
+    })
   })
-  test('handles missing pricePerPerson', () => {
+  it('calculates total event costs correctly', () => {
     useBudget.mockReturnValue({
       events: {
-        day1: {
-          event1: { price: 100, totalCost: 200 },
-          event2: { price: 300, totalCost: 600 }
+        'Day 1': {
+          'Event 1': { pricePerPerson: true, price: 100, totalCost: 200 },
+          'Event 2': { pricePerPerson: false, price: 300, totalCost: 600 }
         },
-        day2: {
-          event3: { price: 150, totalCost: 300 },
-          event4: { price: 200, totalCost: 400 }
+        'Day 2': {
+          'Event 3': { pricePerPerson: true, price: 150, totalCost: 300 },
+          'Event 4': { pricePerPerson: false, price: 200, totalCost: 400 }
         }
       }
     })
 
-    const { result } = renderHook(() => useGetEventCosts())
-    expect(result.current.eventsTotalCost).toEqual(1500)
+    const { result } = renderHook(() => useGetEventCosts(), {
+      wrapper: ({ children }) => <Provider store={store}>{children}</Provider>
+    })
+
+    expect(result.current.eventsTotalCost).toBe(1000)
+  })
+  it('handles missing pricePerPerson', () => {
+    useBudget.mockReturnValue({
+      events: {
+        'Day 1': {
+          'Event 1': { price: 100, totalCost: 200 },
+          'Event 2': { price: 300, totalCost: 600 }
+        },
+        'Day 2': {
+          'Event 3': { price: 150, totalCost: 300 },
+          'Event 4': { price: 200, totalCost: 400 }
+        }
+      }
+    })
+
+    const { result } = renderHook(() => useGetEventCosts(), {
+      wrapper: ({ children }) => <Provider store={store}>{children}</Provider>
+    })
+
+    expect(result.current.eventsTotalCost).toBe(1500)
+  })
+
+  it('updates total event costs when events are updated', () => {
+    useBudget.mockReturnValue({
+      events: {
+        'Day 1': {
+          'Event 1': { price: 100, totalCost: 200 },
+          'Event 2': { price: 300, totalCost: 600 }
+        }
+      }
+    })
+
+    const { result, rerender } = renderHook(() => useGetEventCosts(), {
+      wrapper: ({ children }) => <Provider store={store}>{children}</Provider>
+    })
+
+    expect(result.current.eventsTotalCost).toBe(800)
+
+    useBudget.mockReturnValue({
+      events: {
+        'Day 1': {
+          'Event 1': { price: 100, totalCost: 200 },
+          'Event 2': { price: 300, totalCost: 600 }
+        },
+        'Day 2': {
+          'Event 3': { price: 150, totalCost: 300 },
+          'Event 4': { price: 200, totalCost: 400 }
+        }
+      }
+    })
+    rerender()
+    expect(result.current.eventsTotalCost).toBe(1500)
   })
 })
