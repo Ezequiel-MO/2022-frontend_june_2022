@@ -1,18 +1,9 @@
-import {
-  Box,
-  Collapse,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow
-} from '@mui/material'
+import { Collapse } from '@mui/material'
 import { useBudget, useFindByName } from '../../../../hooks'
 import { HotelBreakdownRow } from './'
 
 export const HotelBreakdownRows = ({ hotels, nights }) => {
   const { breakdownOpen, hotelName } = useBudget()
-
   const { selectedOption: selectedHotel } = useFindByName(hotels, hotelName)
 
   const {
@@ -25,21 +16,21 @@ export const HotelBreakdownRows = ({ hotels, nights }) => {
   } = selectedHotel.price[0]
 
   return (
-    <TableRow>
-      <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+    <tr className='w-full bg-white-100 dark:bg-gray-50'>
+      <td colSpan={6} className='p-0'>
         <Collapse in={breakdownOpen['hotel']} timeout='auto' unmountOnExit>
-          <Box margin={1}>
-            <Table size='small' className='table-breakdown'>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Description</TableCell>
-                  <TableCell>Nr. Units </TableCell>
-                  <TableCell>Nr. of nights </TableCell>
-                  <TableCell>Cost per room per night</TableCell>
-                  <TableCell>Total Cost</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
+          <div className='w-full mx-auto '>
+            <table className='w-full'>
+              <thead className='text-white-100 bg-zinc-800'>
+                <tr>
+                  <td align='center'>Description</td>
+                  <td align='center'>Nr. Units </td>
+                  <td align='center'>Nr. of nights </td>
+                  <td align='center'>Cost per room per night</td>
+                  <td align='center'>Total Cost</td>
+                </tr>
+              </thead>
+              <tbody>
                 <HotelBreakdownRow
                   units={DUInr}
                   rate={DUIprice}
@@ -66,11 +57,11 @@ export const HotelBreakdownRows = ({ hotels, nights }) => {
                     title='Breakfast'
                   />
                 ) : null}
-              </TableBody>
-            </Table>
-          </Box>
+              </tbody>
+            </table>
+          </div>
         </Collapse>
-      </TableCell>
-    </TableRow>
+      </td>
+    </tr>
   )
 }

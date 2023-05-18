@@ -4,7 +4,7 @@ import { MeetingCards } from './'
 
 export const Meetings = ({ meetings, timing }) => {
   const [openTab, setOpenTab] = useState(1)
-  const { hotel } = useGetHotel(meetings[0].hotel)
+  const { hotel, error, isLoading } = useGetHotel(meetings[0].hotel)
 
   return (
     <>

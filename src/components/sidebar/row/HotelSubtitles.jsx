@@ -22,7 +22,7 @@ export const HotelSubtitles = ({
         <div
           className={`${
             menuOpen ? 'flex flex-col' : 'hidden'
-          } bg-white dark:bg-green-50 shadow-md rounded-lg overflow-hidden transition-all ease-in-out duration-300 space-y-4 p-4 ml-4 hover:shadow-lg`}
+          }  dark:bg-green-50 shadow-md rounded-lg overflow-hidden transition-all ease-in-out duration-300 space-y-4 p-4 ml-4 hover:shadow-lg`}
           onMouseEnter={() => setMenuOpen(true)}
           onMouseLeave={() => setMenuOpen(false)}
         >
@@ -38,8 +38,8 @@ export const HotelSubtitles = ({
               <p
                 onClick={() => handleChange(index + 1)}
                 className={`${
-                  activeTab === index + 1 ? 'text-white-100' : ''
-                } text-gray-700 font-medium hover:text-orange-500 cursor-pointer text-sm`}
+                  activeTab === index + 1 ? 'text-gray-700' : ''
+                }  font-medium hover:text-orange-500 cursor-pointer text-sm`}
               >
                 {hotel?.name.replace(/^\w/, (c) => c.toUpperCase())}
               </p>
