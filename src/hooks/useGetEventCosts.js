@@ -3,6 +3,7 @@ import { useBudget } from './useBudget'
 
 export const useGetEventCosts = () => {
   const { events } = useBudget()
+
   const [eventsTotalCost, setEventsTotalCost] = useState(0)
 
   useEffect(() => {

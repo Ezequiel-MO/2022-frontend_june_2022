@@ -17,11 +17,13 @@ export const useLogin = ({ onSuccess, onError }) => {
         password
       })
       if (!token) {
-        setLoading(false)
         throw new Error('Invalid Email or Password')
       }
-      localStorage.setItem('token', token)
-      const response = await baseAPI.get(`/projects?code=${password}`)
+      const response = await baseAPI.get(`/projects?code=${password}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       const receivedData = response.data.data.data.length !== 0
       if (!receivedData) {
         setLoading(false)
@@ -32,10 +34,9 @@ export const useLogin = ({ onSuccess, onError }) => {
         setLoading(false)
         throw new Error('Invalid Email')
       }
-      setLoading(false)
+      localStorage.setItem('token', token)
       onSuccess && onSuccess(response.data.data.data[0])
     } catch (error) {
-      setLoading(false)
       onError && onError(error)
     } finally {
       setLoading(false)
