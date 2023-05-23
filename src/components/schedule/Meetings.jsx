@@ -4,7 +4,7 @@ import { MeetingCards } from './'
 
 export const Meetings = ({ meetings, timing }) => {
   const [openTab, setOpenTab] = useState(1)
-  const { hotel, error, isLoading } = useGetHotel(meetings[0].hotel)
+  const { hotel } = useGetHotel(meetings[0].hotel)
 
   return (
     <>
@@ -25,7 +25,7 @@ export const Meetings = ({ meetings, timing }) => {
                   href={`#tab${index + 1}`}
                   role='tablist'
                 >
-                  {hotel.name}
+                  {hotel?.name}
                 </a>
               </li>
             ))}
@@ -42,7 +42,7 @@ export const Meetings = ({ meetings, timing }) => {
                   >
                     <MeetingCards
                       meeting={meeting}
-                      hotelName={hotel.name}
+                      hotelName={hotel?.name}
                       timing={timing}
                     />
                   </div>
