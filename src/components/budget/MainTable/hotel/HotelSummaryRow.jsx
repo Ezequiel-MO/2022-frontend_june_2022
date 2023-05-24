@@ -30,12 +30,7 @@ export const HotelSummaryRow = ({ nights }) => {
   return (
     <>
       <TableRow>
-        <TableCell>
-          <BudgetToggleIcon
-            isOpen={breakdownOpen['hotel']}
-            onClick={() => toggleBreakdown('hotel')}
-          />
-        </TableCell>
+        <TableCell></TableCell>
         <TableCell></TableCell>
         <TableCell>
           <OptionSelect

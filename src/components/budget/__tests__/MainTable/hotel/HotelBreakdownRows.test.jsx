@@ -7,14 +7,20 @@ it('renders correctly', () => {
   const units = 2
   const rate = 100
   const nights = 4
+
   render(
-    <HotelBreakdownRow
-      title={title}
-      units={units}
-      rate={rate}
-      nights={nights}
-    />
+    <table>
+      <tbody>
+        <HotelBreakdownRow
+          title={title}
+          units={units}
+          rate={rate}
+          nights={nights}
+        />
+      </tbody>
+    </table>
   )
+
   expect(screen.getByText(title)).toBeInTheDocument()
   expect(screen.getByText(units.toString())).toBeInTheDocument()
   expect(screen.getByText(nights.toString())).toBeInTheDocument()

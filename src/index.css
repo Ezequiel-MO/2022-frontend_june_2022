@@ -99,6 +99,7 @@
 @media print {
   /* Hide unwanted elements when printing */
   button,
+  #hotel-details,
   .overlay,
   .overlay-arrows_left,
   .overlay-arrows_right,
