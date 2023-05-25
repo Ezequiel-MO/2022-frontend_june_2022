@@ -1,5 +1,5 @@
 // hooks/useUpdateEventTotalCost.js
-import { useEffect, useRef } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 export const useUpdateEventTotalCost = (
   id,
@@ -10,18 +10,22 @@ export const useUpdateEventTotalCost = (
 ) => {
   const prevOptionIdRef = useRef(null)
 
+  const memoizedOption = useMemo(
+    () => option,
+    [option._id, option.price, option.pricePerPerson]
+  )
+
   useEffect(() => {
     if (
-      (id === 'morningEvents' ||
-        id === 'afternoonEvents' ||
-        id === 'lunch' ||
-        id === 'dinner') &&
-      prevOptionIdRef.current !== option._id
+      id === 'morningEvents' ||
+      id === 'afternoonEvents' ||
+      id === 'lunch' ||
+      (id === 'dinner' && prevOptionIdRef.current !== memoizedOption._id)
     ) {
-      updateEventTotalCost(date, id, pax, option._id)
-      prevOptionIdRef.current = option._id
+      updateEventTotalCost(date, id, pax, memoizedOption._id)
+      prevOptionIdRef.current = memoizedOption._id
     }
-  }, [id, date, pax, option])
+  }, [id, date, pax, memoizedOption])
 }
 
 export default useUpdateEventTotalCost

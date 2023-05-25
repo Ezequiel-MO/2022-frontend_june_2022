@@ -3,7 +3,6 @@ import '@testing-library/jest-dom'
 import { usePartialCostsData } from '../../partial-costs/usePartialCostsData'
 import { TotalBudgetCost } from '../../totals'
 
-// Mock the hooks
 jest.mock('../../partial-costs/usePartialCostsData', () => ({
   usePartialCostsData: jest.fn()
 }))
@@ -14,28 +13,66 @@ jest.mock('../../../../translations/translationContext', () => ({
 
 describe('TotalBudgetCost', () => {
   it('renders correctly', () => {
-    // Mock the return value of usePartialCostsData
     usePartialCostsData.mockReturnValue({
       totalCostOfItems: 100
     })
 
-    const { getByText } = render(<TotalBudgetCost />)
+    const { getByText } = render(
+      <table>
+        <tbody>
+          <TotalBudgetCost />
+        </tbody>
+      </table>
+    )
 
-    // Check if the total cost is displayed correctly
     expect(getByText('TOTAL BUDGET')).toBeInTheDocument()
     expect(getByText('€100.00')).toBeInTheDocument()
   })
 
   it('renders correctly when totalCostOfItems is 0', () => {
-    // Mock the return value of usePartialCostsData
     usePartialCostsData.mockReturnValue({
       totalCostOfItems: 0
     })
 
-    const { getByText } = render(<TotalBudgetCost />)
+    const { getByText } = render(
+      <table>
+        <tbody>
+          <TotalBudgetCost />
+        </tbody>
+      </table>
+    )
 
-    // Check if the total cost is displayed correctly
     expect(getByText('TOTAL BUDGET')).toBeInTheDocument()
     expect(getByText('€0.00')).toBeInTheDocument()
+  })
+
+  it('updates when totalCostOfItems changes', () => {
+    usePartialCostsData.mockReturnValue({
+      totalCostOfItems: 100
+    })
+
+    const { getByText, rerender } = render(
+      <table>
+        <tbody>
+          <TotalBudgetCost />
+        </tbody>
+      </table>
+    )
+
+    expect(getByText('€100.00')).toBeInTheDocument()
+
+    usePartialCostsData.mockReturnValue({
+      totalCostOfItems: 200
+    })
+
+    rerender(
+      <table>
+        <tbody>
+          <TotalBudgetCost />
+        </tbody>
+      </table>
+    )
+
+    expect(getByText('€200.00')).toBeInTheDocument()
   })
 })

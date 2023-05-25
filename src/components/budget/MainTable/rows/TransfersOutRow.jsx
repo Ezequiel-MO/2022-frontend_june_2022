@@ -9,8 +9,6 @@ export const TransfersOutRow = ({ items, date }) => {
   const transferOutItem = items.find((item) => item.transfer_out)
   const transferOutValue = transferOutItem?.transfer_out ?? 0
 
-  console.log('transferOutItem', transferOutItem)
-
   useEffect(() => {
     updateTransfersOut(
       'transfer_out',

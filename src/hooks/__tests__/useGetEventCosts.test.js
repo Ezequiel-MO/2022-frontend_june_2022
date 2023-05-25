@@ -87,4 +87,19 @@ describe('useGetEventCosts', () => {
     rerender()
     expect(result.current.eventsTotalCost).toBe(1500)
   })
+  it('returns 0 when events is empty or undefined', () => {
+    useBudget.mockReturnValue({})
+
+    const { result } = renderHook(() => useGetEventCosts(), {
+      wrapper: ({ children }) => <Provider store={store}>{children}</Provider>
+    })
+
+    expect(result.current.eventsTotalCost).toBe(0)
+
+    useBudget.mockReturnValue({
+      events: {}
+    })
+
+    expect(result.current.eventsTotalCost).toBe(0)
+  })
 })

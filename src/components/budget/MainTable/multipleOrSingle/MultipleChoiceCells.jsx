@@ -21,6 +21,10 @@ export const MultipleChoiceCells = ({
   const { selectedOption: option } = useFindByName(options, selectedValue)
 
   useEffect(() => {
+    updateEventTotalCost(date, id, nrPax, option._id)
+  }, [])
+
+  useEffect(() => {
     if (
       option &&
       option.pricePerPerson === false &&
