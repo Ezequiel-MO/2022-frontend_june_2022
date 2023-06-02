@@ -1,6 +1,8 @@
 /* custom-quill-styles.css */
 .custom-font .ql-container.ql-snow * {
   font-family: inherit;
+  /* in dark mode , the font color is white */
+  color: #fff !important;
 }
 
 /* custom-quill-styles.css */

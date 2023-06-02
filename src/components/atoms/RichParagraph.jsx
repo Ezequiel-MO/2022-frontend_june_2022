@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect, useRef } from 'react'
 import { useCurrentProject, useFontFamily } from '../../hooks'
 import './RichParagraph.module.css'
 
@@ -7,6 +7,8 @@ export const RichParagraph = ({ text = '' }) => {
   const { clientCompany } = currentProject
   const { fonts = [] } = clientCompany[0] || {}
 
+  const ref = useRef(null)
+
   const fontFamilyStyle = useFontFamily(fonts[0])
 
   const decodeHtmlEntities = (str) => {
@@ -14,7 +16,6 @@ export const RichParagraph = ({ text = '' }) => {
     textarea.innerHTML = str
     return textarea.value
   }
-
   const decodedText = decodeHtmlEntities(text)
 
   const cleanedText = decodedText
@@ -24,8 +25,19 @@ export const RichParagraph = ({ text = '' }) => {
     .replace(/&gt;/g, '>')
     .replace(/&amp;/g, '&')
 
+  useEffect(() => {
+    if (ref.current) {
+      const elements = ref.current.querySelectorAll('*')
+
+      for (const element of elements) {
+        element.classList.add('dark:text-white-0')
+      }
+    }
+  }, [cleanedText])
+
   return (
     <div
+      ref={ref}
       style={{
         fontFamily: fonts[0]
       }}
