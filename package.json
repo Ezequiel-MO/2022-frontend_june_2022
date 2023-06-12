@@ -52,7 +52,6 @@
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.1.2",
     "postcss": "^8.4.14",
-    "react-testing-library": "^8.0.1",
     "tailwindcss": "^3.1.4",
     "vite": "^4.2.1"
   }
