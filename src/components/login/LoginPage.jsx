@@ -32,7 +32,7 @@ const LoginPage = () => {
     onError: (error) => {
       setAlert({
         error: true,
-        msg: error.message
+        msg: error.response.data.msg
       })
     }
   })
