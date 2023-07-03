@@ -4,6 +4,7 @@ import { Meals } from './Meals'
 export const ScheduleDayMeals = ({
   title,
   restaurants,
+  introduction,
   suplementaryText,
   id
 }) => {
@@ -14,7 +15,7 @@ export const ScheduleDayMeals = ({
   }
   return (
     <div id={id} className='page-break-after'>
-      <RichParagraph text={restaurants[0].introduction} />
+      <RichParagraph text={introduction} />
       <Meals restaurants={restaurants} />
     </div>
   )

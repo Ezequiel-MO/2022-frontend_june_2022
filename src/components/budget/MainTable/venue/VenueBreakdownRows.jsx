@@ -7,7 +7,7 @@ import {
   TableHead,
   TableRow
 } from '@mui/material'
-import { VenueBreakdownRow } from '../../'
+import { VenueBreakdownRow } from './'
 import { useBudget, useFindByName } from '../../../../hooks'
 
 export const VenueBreakdownRows = ({ venues, dateProp, typeOfMeetingProp }) => {
