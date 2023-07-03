@@ -1,5 +1,6 @@
 import { DinnerRow } from '../rows'
 import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
+import { VenueBreakdownRows, VenueSummaryRow } from '../venue'
 
 export const DinnerSection = ({ dinner, date, pax }) => (
   <>

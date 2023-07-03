@@ -1,12 +1,9 @@
 import { useEffect } from 'react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import { Icon } from '@iconify/react'
-import {
-  VenueMultipleChoice,
-  VenueSingleChoiceCells,
-  VenueTotalCost
-} from '../../'
+
 import { useBudget, useFindByName } from '../../../../hooks'
+import { VenueSingleChoiceCells, VenueMultipleChoice, VenueTotalCost } from './'
 
 export const VenueSummaryRow = ({
   venues,
