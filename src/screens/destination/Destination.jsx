@@ -8,7 +8,7 @@ import {
 
 export const Destination = () => {
   return (
-    <div className='container mx-auto px-4'>
+    <div className='container mx-auto px-4 text-white-0'>
       <DestinationHeader />
       <DestinationDescription />
       <DestinationFacts />

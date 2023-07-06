@@ -18,6 +18,13 @@ module.exports = {
       '7xl': '5rem',
       '8xl': '6rem'
     },
+    screens: {
+      xs: '320px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px'
+    },
     fontFamily: {
       body: ['Barlow Condensed', 'sans-serif'],
       custom: ['inherit']
