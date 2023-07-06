@@ -12,7 +12,8 @@ const SidebarSmall = ({ mainSectionRef, iconColor, isReady }) => {
   const handleClose = () => setModal('closed')
 
   const { currentProject } = useCurrentProject()
-  const { clientCompany, hasExternalCorporateImage } = currentProject
+  const { clientCompany, hasExternalCorporateImage, groupLocation } =
+    currentProject
 
   const colorPalette = hasExternalCorporateImage
     ? clientCompany[0].colorPalette[0]
@@ -29,11 +30,14 @@ const SidebarSmall = ({ mainSectionRef, iconColor, isReady }) => {
   return (
     <div className='inline sticky top-0'>
       <div className='flex items-center justify-center'>
-        <ModalsRow
-          iconText='bx:world'
-          title='destination'
-          handleOpen={handleOpen}
-        />
+        {groupLocation === 'Barcelona' && (
+          <ModalsRow
+            iconText='bx:world'
+            title='destination'
+            handleOpen={handleOpen}
+          />
+        )}
+
         <ModalsRow
           iconText='akar-icons:map'
           title='map'

@@ -41,11 +41,6 @@ export const BackdropModal = ({ open, handleClose }) => {
       onClose={handleCloseWithAnimation}
       closeAfterTransition
       slots={{ backdrop: Backdrop }}
-      slotProps={{
-        backdrop: {
-          timeout: 500
-        }
-      }}
     >
       <Box
         className={`absolute top-0 left-0 w-full h-full bg-black-50 bg-opacity-0 border-2 border-black-50 shadow-lg p-4 transition-transform duration-1000 overflow-y-auto backdrop-blur-md ${

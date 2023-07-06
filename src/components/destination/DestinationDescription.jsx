@@ -1,6 +1,14 @@
 import { Icon } from '@iconify/react'
+import { useEffect } from 'react'
 
-export const DestinationDescription = () => {
+export const DestinationDescription = ({ locationObject }) => {
+  const { textContent } = locationObject || {}
+
+  useEffect(() => {
+    if (textContent)
+      console.log('DestinationDescription textContent', textContent)
+  }, [textContent])
+
   return (
     <div className='w-full p-4 flex flex-col'>
       <h3 className='text-2xl font-bold'>
