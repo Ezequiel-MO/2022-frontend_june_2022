@@ -15,7 +15,7 @@ export const ModalsRow = ({ iconText, title, handleOpen }) => {
       data-for='main'
       data-tip={title}
       data-iscapture='true'
-      className='flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-green-50 hover:text-black-50 cursor-pointer transition-all duration-200'
+      className='my-1 flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-green-50 hover:text-black-50 cursor-pointer transition-all duration-200'
       onClick={() => handleOpen(`${title}`)}
     >
       <Icon
