@@ -51,11 +51,6 @@ const MainSection = forwardRef(
       setIconColor(iconColor)
     }, [iconColor])
 
-    /* useEffect(() => {
-    let socket = io(import.meta.env.VITE_BACKEND_URL)
-    console.log('socket', socket)
-  }, []) */
-
     return (
       <div
         ref={ref}

@@ -12,7 +12,6 @@ export const Destination = () => {
   const { currentProject } = useCurrentProject()
   const { groupLocation } = currentProject || {}
   const { selectedOption, loading } = useGetLocation(groupLocation)
-  console.log('Destination selectedOption', selectedOption)
 
   if (loading) {
     return <div>Loading...</div>
