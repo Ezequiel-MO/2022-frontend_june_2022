@@ -1,0 +1,31 @@
+import { FC } from 'react'
+
+interface LocationObj {
+  imageContentUrl: string[]
+}
+
+interface DestinationGalleryProps {
+  locationObj: LocationObj
+}
+
+export const DestinationGallery: FC<DestinationGalleryProps> = ({
+  locationObj
+}) => {
+  return (
+    <div className='w-full p-4 grid grid-cols-3 gap-4'>
+      {locationObj?.imageContentUrl.map((image, index) => (
+        <div
+          key={index}
+          className='rounded-lg overflow-hidden bg-gray-200 h-48 relative'
+        >
+          <img
+            src={image}
+            alt='destination gallery'
+            className='absolute inset-0 w-full h-full object-cover transform transition-transform duration-500 hover:scale-105'
+            loading='lazy'
+          />
+        </div>
+      ))}
+    </div>
+  )
+}

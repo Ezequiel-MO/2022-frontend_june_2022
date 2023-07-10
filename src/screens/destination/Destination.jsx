@@ -23,7 +23,7 @@ export const Destination = () => {
       <DestinationDescription locationObj={selectedOption} />
       <DestinationFacts />
       <DestinationTable />
-      <DestinationGallery />
+      <DestinationGallery locationObj={selectedOption} />
     </div>
   )
 }
