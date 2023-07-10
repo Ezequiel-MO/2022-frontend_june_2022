@@ -1,4 +1,10 @@
 module.exports = {
-  testEnvironment: 'jest-environment-jsdom'
-  /*   setupFiles: ['./jest.setup.js'] */
+  preset: 'ts-jest',
+  testEnvironment: 'jest-environment-jsdom',
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': 'ts-jest'
+  },
+  moduleNameMapper: {
+    '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js'
+  }
 }
