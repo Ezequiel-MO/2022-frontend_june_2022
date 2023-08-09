@@ -4,6 +4,7 @@ import CentralModal from '../modal/CentralModal'
 import ReactToPrint from 'react-to-print'
 import { Icon } from '@iconify/react'
 import { useCurrentProject } from '../../hooks'
+import { BackdropModal } from '../modal/BackdropModal'
 
 const SidebarSmall = ({ mainSectionRef, iconColor, isReady }) => {
   const [modal, setModal] = useState('closed')
@@ -11,7 +12,8 @@ const SidebarSmall = ({ mainSectionRef, iconColor, isReady }) => {
   const handleClose = () => setModal('closed')
 
   const { currentProject } = useCurrentProject()
-  const { clientCompany, hasExternalCorporateImage } = currentProject
+  const { clientCompany, hasExternalCorporateImage, groupLocation } =
+    currentProject
 
   const colorPalette = hasExternalCorporateImage
     ? clientCompany[0].colorPalette[0]
@@ -28,6 +30,14 @@ const SidebarSmall = ({ mainSectionRef, iconColor, isReady }) => {
   return (
     <div className='inline sticky top-0'>
       <div className='flex items-center justify-center'>
+        {groupLocation === 'Barcelona' && (
+          <ModalsRow
+            iconText='bx:world'
+            title='destination'
+            handleOpen={handleOpen}
+          />
+        )}
+
         <ModalsRow
           iconText='akar-icons:map'
           title='map'
@@ -42,7 +52,7 @@ const SidebarSmall = ({ mainSectionRef, iconColor, isReady }) => {
         {isReady && (
           <ReactToPrint
             trigger={() => (
-              <button className='flex flex-row items-center'>
+              <button className='my-1 flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-green-50 hover:text-black-50 cursor-pointer transition-all duration-200'>
                 <Icon
                   icon='ant-design:printer-twotone'
                   color={iconColor}
@@ -66,6 +76,7 @@ const SidebarSmall = ({ mainSectionRef, iconColor, isReady }) => {
         handleClose={handleClose}
         typeOfModal='Map'
       />
+      <BackdropModal open={modal === 'destination'} handleClose={handleClose} />
     </div>
   )
 }

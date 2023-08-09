@@ -31,7 +31,7 @@ export const MeetingSummaryRow = ({
   const { meeting } = useFindMeetingByHotel(meetings, selectedHotel)
 
   useEffect(() => {
-    setCurrentMeetings(dateProp, id, meeting._id)
+    setCurrentMeetings(dateProp, id, meeting?._id)
   }, [meeting])
 
   useEffect(() => {

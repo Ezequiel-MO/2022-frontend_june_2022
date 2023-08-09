@@ -15,7 +15,7 @@ const CentralModal = ({ open, handleClose, typeOfModal }) => {
           <Typography
             variant='h6'
             component='h2'
-            className='text-bold text-white-100 indent-2 '
+            className='ttext-white-100 indent-2 '
           >
             {typeOfModal}
           </Typography>

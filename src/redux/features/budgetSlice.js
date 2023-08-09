@@ -171,23 +171,28 @@ export const budgetSlice = createSlice({
           return day
         }
 
-        const updatedEvents = day[id].map((event) => {
-          if (event._id !== eventId) {
-            return event
-          }
+        let updatedEvents = []
 
-          if (id === 'morningEvents' || id === 'afternoonEvents') {
+        if (id === 'morningEvents' || id === 'afternoonEvents') {
+          updatedEvents = day[id].events.map((event) => {
+            if (event._id !== eventId) {
+              return event
+            }
+
             const { price, pricePerPerson = true } = event
-
             const eventTotal = pricePerPerson ? price * nrPax : price
-
             return { ...event, totalCost: eventTotal }
-          }
+          })
+        }
 
-          if (id === 'lunch' || id === 'dinner') {
+        if (id === 'lunch' || id === 'dinner') {
+          updatedEvents = day[id].restaurants.map((event) => {
+            if (event._id !== eventId) {
+              return event
+            }
+
             if (event.venue_price.length === 0) {
               const eventTotal = event.price * nrPax
-
               return { ...event, totalCost: eventTotal }
             }
 
@@ -217,16 +222,18 @@ export const budgetSlice = createSlice({
               entertainment
 
             return { ...event, totalCost: eventTotal }
-          }
+          })
+        }
 
-          return event
-        })
-
-        return { ...day, [id]: updatedEvents }
+        return day
       })
 
-      return { ...state, schedule: updatedSchedule }
+      return {
+        ...state,
+        schedule: updatedSchedule
+      }
     },
+
     UPDATE_TRANSFERS: (state, action) => {
       const { date, id, nrBuses, cost } = action.payload
       const day_id = `${date}_${id}`
@@ -274,7 +281,7 @@ export const budgetSlice = createSlice({
       const { date, typeOfEvent, id } = action.payload
       const selectedMeal = state.schedule
         .find((item) => item.date === date)
-        [typeOfEvent]?.find((item) => item._id === id)
+        [typeOfEvent]?.restaurants?.find((item) => item._id === id)
       return {
         ...state,
         meals: {
@@ -290,7 +297,7 @@ export const budgetSlice = createSlice({
       const { date, typeOfEvent, id } = action.payload
       const selectedEvent = state.schedule
         .find((item) => item.date === date)
-        [typeOfEvent]?.find((item) => item._id === id)
+        [typeOfEvent]?.events.find((item) => item._id === id)
       return {
         ...state,
         events: {

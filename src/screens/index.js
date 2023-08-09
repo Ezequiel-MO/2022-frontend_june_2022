@@ -1,3 +1,3 @@
 export * from './Credentials'
-export * from './Destination'
+export * from './destination/Destination'
 export * from './MainPage'

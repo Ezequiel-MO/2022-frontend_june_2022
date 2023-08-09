@@ -4,8 +4,11 @@ import { useGetLocations } from './useGetLocations'
 export const useGetLocation = (locationName = 'Barcelona') => {
   const { locations } = useGetLocations()
 
-  const { selectedOption } = locations && useFindByName(locations, locationName)
+  const { selectedOption, loading } =
+    locations && useFindByName(locations, locationName)
+
   return {
-    selectedOption
+    selectedOption,
+    loading
   }
 }

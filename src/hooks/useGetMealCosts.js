@@ -8,6 +8,7 @@ export const useGetMealsCost = () => {
     const mealsArray = Object.values(meals)
     let totalCostPerDayArray = mealsArray?.map((day) => {
       return Object.values(day)
+        .filter((meal) => meal)
         .map((meal) => meal.price || 0)
         .reduce((a, b) => a + b, 0)
     })

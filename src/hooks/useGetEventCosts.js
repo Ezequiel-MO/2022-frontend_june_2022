@@ -3,7 +3,6 @@ import { useBudget } from './useBudget'
 
 export const useGetEventCosts = () => {
   const { events } = useBudget()
-
   const [eventsTotalCost, setEventsTotalCost] = useState(0)
 
   useEffect(() => {
@@ -12,6 +11,7 @@ export const useGetEventCosts = () => {
 
       let totalCostPerDayArray = eventsArray?.map((day) => {
         return Object.values(day)
+          .filter((event) => event)
           .map(({ pricePerPerson, price, totalCost = 0 }) => {
             return pricePerPerson === true ||
               pricePerPerson === undefined ||
