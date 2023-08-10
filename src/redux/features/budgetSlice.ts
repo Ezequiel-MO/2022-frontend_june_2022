@@ -1,61 +1,100 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IDay, IEvent, IHotel, IMeeting, IRestaurant } from '../../interfaces'
+
+interface IBreakdownOpen {
+  hotel: boolean
+  transfer_in: boolean
+  meetingBreakdownOpen: {
+    open: boolean
+    date: string
+    typeOfMeeting: string
+  }
+  venueBreakdownOpen: {
+    open: boolean
+    date: string
+    typeOfEvent: string
+  }
+}
+
+interface ITransfers {
+  [key: string]: number
+}
+
+interface IBudgetState {
+  hotelName: string
+  venueName: string
+  breakdownOpen: IBreakdownOpen
+  hotels: IHotel[]
+  schedule: IDay[]
+  meetings: Record<string, MeetingType>
+  meals: IRestaurant[]
+  events: IEvent[]
+  transfers: ITransfers
+  transfersIn: {
+    assistance: number
+    assistanceCost: number
+    meetGreet: number
+    meetGreetCost: number
+  }
+  transfersOut: {
+    assistance: number
+    assistanceCost: number
+    meetGreet: number
+    meetGreetCost: number
+  }
+}
+
+type BreakdownKeys = 'hotel' | 'transfer_in'
+type MeetingType = 'morningMeetings' | 'afternoonMeetings' | 'fullDayMeetings'
+type MealType = 'lunch' | 'dinner'
+type EventType = 'morningEvents' | 'afternoonEvents'
+
+const initialState: IBudgetState = {
+  hotelName: '',
+  venueName: '',
+  breakdownOpen: {
+    hotel: true,
+    transfer_in: false,
+    meetingBreakdownOpen: {
+      open: false,
+      date: '',
+      typeOfMeeting: ''
+    },
+    venueBreakdownOpen: {
+      open: false,
+      date: '',
+      typeOfEvent: ''
+    }
+  },
+  hotels: JSON.parse(localStorage.getItem('hotels') || '[]'),
+  schedule: JSON.parse(localStorage.getItem('schedule') || '[]'),
+  meetings: {},
+  meals: [],
+  events: [],
+  transfers: {},
+  transfersIn: {
+    assistance: 0,
+    assistanceCost: 0,
+    meetGreet: 0,
+    meetGreetCost: 0
+  },
+  transfersOut: {
+    assistance: 0,
+    assistanceCost: 0,
+    meetGreet: 0,
+    meetGreetCost: 0
+  }
+}
 
 export const budgetSlice = createSlice({
   name: 'budget',
-  initialState: {
-    hotelName: '',
-    venueName: '',
-    breakdownOpen: {
-      hotel: true,
-      transfer_in: false,
-      meetingBreakdownOpen: {
-        open: false,
-        date: '',
-        typeOfMeeting: ''
-      },
-      venueBreakdownOpen: {
-        open: false,
-        date: '',
-        typeOfMeeting: ''
-      }
-    },
-    hotels: JSON.parse(localStorage.getItem('hotels')) || [],
-    schedule: JSON.parse(localStorage.getItem('schedule')) || [],
-    meetings: {},
-    meals: {},
-    events: {},
-    transfers: {},
-    transfersIn: {
-      assistance: 0,
-      assistanceCost: 0,
-      meetGreet: 0,
-      meetGreetCost: 0
-    },
-    transfersOut: {
-      assistance: 0,
-      assistanceCost: 0,
-      meetGreet: 0,
-      meetGreetCost: 0
-    }
-  },
+  initialState,
   reducers: {
-    SET_BUDGET_SCHEDULE: (state, action) => {
+    SET_BUDGET_SCHEDULE: (state, action: PayloadAction<IDay[]>) => {
       state.schedule = action.payload
     },
-    SET_HOTELS: (state, action) => {
+    SET_HOTELS: (state, action: PayloadAction<IHotel[]>) => {
       state.hotels = action.payload
-    },
-    UPDATE_BUDGET_SCHEDULE: (state, action) => {
-      const { date, id, selectedOption } = action.payload
-      state.schedule = state.schedule.map((item) => {
-        if (item.date === date) {
-          return {
-            ...item,
-            [id]: [selectedOption]
-          }
-        }
-        return item
-      })
     },
     SET_SELECTED_HOTEL_NAME: (state, action) => {
       state.hotelName = action.payload
@@ -63,7 +102,7 @@ export const budgetSlice = createSlice({
     SET_SELECTED_VENUE_NAME: (state, action) => {
       state.venueName = action.payload
     },
-    TOGGLE_BREAKDOWN: (state, action) => {
+    TOGGLE_BREAKDOWN: (state, action: PayloadAction<{ id: BreakdownKeys }>) => {
       const { id } = action.payload
       state.breakdownOpen[id] = !state.breakdownOpen[id]
     },
@@ -75,7 +114,14 @@ export const budgetSlice = createSlice({
         typeOfMeeting
       }
     },
-    TOGGLE_VENUE_BREAKDOWN: (state, action) => {
+    TOGGLE_VENUE_BREAKDOWN: (
+      state,
+      action: PayloadAction<{
+        open: boolean
+        date: string
+        typeOfEvent: string
+      }>
+    ) => {
       const { open, date, typeOfEvent } = action.payload
       state.breakdownOpen.venueBreakdownOpen = {
         open,
@@ -105,20 +151,28 @@ export const budgetSlice = createSlice({
       const index = state.hotels.findIndex((hotel) => hotel._id === _id)
       state.hotels[index].totalCost = hotelTotal
     },
-    UPDATE_MEETING_TOTAL_COST: (state, action) => {
+    UPDATE_MEETING_TOTAL_COST: (
+      state,
+      action: PayloadAction<{
+        date: string
+        id: 'morningMeetings' | 'afternoonMeetings' | 'fullDayMeetings'
+        nrPax: number
+        hotelName: string
+      }>
+    ) => {
       const { date, id, nrPax, hotelName } = action.payload
       const selectedHotel = state.hotels.find(
         (hotel) => hotel.name === hotelName
-      )
+      ) as IHotel
 
       const updatedSchedule = state.schedule.map((day) => {
         if (day.date !== date) {
           return day
         }
 
-        const updatedMeetings = day[id].map((meeting) => {
+        const updatedMeetings = day[id].meetings.map((meeting) => {
           const { hotel } = meeting
-          if (hotel[0] !== selectedHotel._id) {
+          if (hotel[0]._id !== selectedHotel?._id) {
             return meeting
           }
 
@@ -163,7 +217,15 @@ export const budgetSlice = createSlice({
         schedule: updatedSchedule
       }
     },
-    UPDATE_EVENT_TOTAL_COST: (state, action) => {
+    UPDATE_EVENT_TOTAL_COST: (
+      state,
+      action: PayloadAction<{
+        date: string
+        id: 'morningEvents' | 'afternoonEvents' | 'lunch' | 'dinner'
+        nrPax: number
+        eventId: string
+      }>
+    ) => {
       const { date, id, nrPax, eventId } = action.payload
 
       const updatedSchedule = state.schedule.map((day) => {
@@ -179,7 +241,7 @@ export const budgetSlice = createSlice({
               return event
             }
 
-            const { price, pricePerPerson = true } = event
+            const { price = 0, pricePerPerson = true } = event
             const eventTotal = pricePerPerson ? price * nrPax : price
             return { ...event, totalCost: eventTotal }
           })
@@ -191,7 +253,7 @@ export const budgetSlice = createSlice({
               return event
             }
 
-            if (event.venue_price.length === 0) {
+            if (event?.venue_price?.length === 0) {
               const eventTotal = event.price * nrPax
               return { ...event, totalCost: eventTotal }
             }
@@ -261,49 +323,52 @@ export const budgetSlice = createSlice({
         }
       }
     },
-    SET_CURRENT_MEETINGS: (state, action) => {
+
+    SET_CURRENT_MEALS: (
+      state,
+      action: PayloadAction<{
+        date: string
+        typeOfEvent: MealType
+        id: string
+      }>
+    ) => {
       const { date, typeOfEvent, id } = action.payload
-      const selectedMeeting = state.schedule
-        .find((item) => item.date === date)
-        [typeOfEvent]?.find((item) => item._id === id)
-      return {
-        ...state,
-        meetings: {
-          ...state.meetings,
-          [date]: {
-            ...state.meetings[date],
-            [typeOfEvent]: selectedMeeting
-          }
-        }
-      }
-    },
-    SET_CURRENT_MEALS: (state, action) => {
-      const { date, typeOfEvent, id } = action.payload
-      const selectedMeal = state.schedule
-        .find((item) => item.date === date)
-        [typeOfEvent]?.restaurants?.find((item) => item._id === id)
+      const day = state.schedule.find((item) => item.date === date)
+      const selectedMeal = day
+        ? day[typeOfEvent]?.restaurants?.find((item) => item._id === id)
+        : undefined
       return {
         ...state,
         meals: {
           ...state.meals,
           [date]: {
-            ...state.meals[date],
+            ...state.meals[Number(date)],
             [typeOfEvent]: selectedMeal
           }
         }
       }
     },
-    SET_CURRENT_EVENTS: (state, action) => {
+
+    SET_CURRENT_EVENTS: (
+      state,
+      action: PayloadAction<{
+        date: string
+        typeOfEvent: EventType
+        id: string
+      }>
+    ) => {
       const { date, typeOfEvent, id } = action.payload
-      const selectedEvent = state.schedule
-        .find((item) => item.date === date)
-        [typeOfEvent]?.events.find((item) => item._id === id)
+      const day = state.schedule.find((item) => item.date === date)
+      const selectedEvent = day
+        ? day[typeOfEvent]?.events?.find((item) => item._id === id)
+        : undefined
+
       return {
         ...state,
         events: {
           ...state.events,
           [date]: {
-            ...state.events[date],
+            ...state.events[Number(date)],
             [typeOfEvent]: selectedEvent
           }
         }
@@ -313,10 +378,8 @@ export const budgetSlice = createSlice({
 })
 
 export const {
-  budget,
   SET_BUDGET_SCHEDULE,
   SET_HOTELS,
-  UPDATE_BUDGET_SCHEDULE,
   SET_SELECTED_HOTEL_NAME,
   SET_SELECTED_VENUE_NAME,
   TOGGLE_BREAKDOWN,
@@ -328,11 +391,10 @@ export const {
   UPDATE_TRANSFERS,
   UPDATE_TRANSFERS_IN,
   UPDATE_TRANSFERS_OUT,
-  SET_CURRENT_MEETINGS,
   SET_CURRENT_MEALS,
   SET_CURRENT_EVENTS
 } = budgetSlice.actions
 
-export const selectBudget = (state) => state.budget
+export const selectBudget = (state: { budget: any }) => state.budget
 
 export default budgetSlice.reducer
