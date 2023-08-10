@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   SET_BUDGET_SCHEDULE,
   SET_HOTELS,
-  UPDATE_BUDGET_SCHEDULE,
   SET_SELECTED_HOTEL_NAME,
   SET_SELECTED_VENUE_NAME,
   selectBudget,
@@ -15,7 +14,6 @@ import {
   UPDATE_TRANSFERS,
   UPDATE_TRANSFERS_IN,
   UPDATE_TRANSFERS_OUT,
-  SET_CURRENT_MEETINGS,
   SET_CURRENT_MEALS,
   SET_CURRENT_EVENTS
 } from '../redux/features/budgetSlice'
@@ -43,8 +41,6 @@ export const useBudget = () => {
   const setBudgetSchedule = (schedule) =>
     dispatch(SET_BUDGET_SCHEDULE(schedule))
   const setHotels = (hotels) => dispatch(SET_HOTELS(hotels))
-  const updateBudgetSchedule = (schedule) =>
-    dispatch(UPDATE_BUDGET_SCHEDULE(schedule))
   const setSelectedHotelName = (hotel_name) =>
     dispatch(SET_SELECTED_HOTEL_NAME(hotel_name))
   const setSelectedVenueName = (venue_name) =>
@@ -60,8 +56,6 @@ export const useBudget = () => {
     dispatch(UPDATE_MEETING_TOTAL_COST({ date, id, nrPax, hotelName }))
   const updateEventTotalCost = (date, id, nrPax, eventId) =>
     dispatch(UPDATE_EVENT_TOTAL_COST({ date, id, nrPax, eventId }))
-  const setCurrentMeetings = (date, typeOfEvent, id) =>
-    dispatch(SET_CURRENT_MEETINGS({ date, typeOfEvent, id }))
   const setCurrentMeals = useCallback(
     (date, typeOfEvent, id) => {
       dispatch(SET_CURRENT_MEALS({ date, typeOfEvent, id }))
@@ -97,7 +91,6 @@ export const useBudget = () => {
     venueBreakdownOpen,
     setBudgetSchedule,
     setHotels,
-    updateBudgetSchedule,
     updateHotelTotalCost,
     updateTransfers,
     updateTransfersIn,
@@ -109,7 +102,7 @@ export const useBudget = () => {
     toggleVenueBreakdown,
     updateMeetingTotalCost,
     updateEventTotalCost,
-    setCurrentMeetings,
+
     setCurrentMeals,
     setCurrentEvents
   }

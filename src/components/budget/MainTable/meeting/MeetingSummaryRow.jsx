@@ -20,8 +20,7 @@ export const MeetingSummaryRow = ({
     breakdownOpen,
     hotelName,
     hotels,
-    updateMeetingTotalCost,
-    setCurrentMeetings
+    updateMeetingTotalCost
   } = useBudget()
 
   const { meetingBreakdownOpen } = breakdownOpen
@@ -29,10 +28,6 @@ export const MeetingSummaryRow = ({
 
   const { selectedOption: selectedHotel } = useFindByName(hotels, hotelName)
   const { meeting } = useFindMeetingByHotel(meetings, selectedHotel)
-
-  useEffect(() => {
-    setCurrentMeetings(dateProp, id, meeting?._id)
-  }, [meeting])
 
   useEffect(() => {
     updateMeetingTotalCost(dateProp, id, pax, hotelName || selectedHotel.name)
