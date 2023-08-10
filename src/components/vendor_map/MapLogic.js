@@ -80,8 +80,8 @@ export const VendorMapLogic = () => {
   const scheduleCoords = useMemo(() => {
     let coords = []
     schedule.forEach((day) => {
-      day.morningEvents?.forEach((event) => {
-        day.morningEvents?.forEach((event) => {
+      day.morningEvents?.events.forEach((event) => {
+        day.morningEvents?.events.forEach((event) => {
           if (
             !event.name.includes('meeting') &&
             !event.name.includes('Meeting')
@@ -103,7 +103,7 @@ export const VendorMapLogic = () => {
           }
         })
       })
-      day.lunch?.forEach((restaurant) => {
+      day.lunch?.restaurants.forEach((restaurant) => {
         const distance = getDistanceFromCentralCoords(
           restaurant.location.coordinates[0],
           restaurant.location.coordinates[1],
@@ -119,7 +119,7 @@ export const VendorMapLogic = () => {
           distance
         })
       })
-      day.afternoonEvents?.forEach((event) => {
+      day.afternoonEvents?.events.forEach((event) => {
         if (
           !event.name.includes('meeting') &&
           !event.name.includes('Meeting')
@@ -140,7 +140,7 @@ export const VendorMapLogic = () => {
           })
         }
       })
-      day.dinner?.forEach((restaurant) => {
+      day.dinner?.restaurants.forEach((restaurant) => {
         const distance = getDistanceFromCentralCoords(
           restaurant.location.coordinates[0],
           restaurant.location.coordinates[1],
