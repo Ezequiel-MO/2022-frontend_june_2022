@@ -1,8 +1,8 @@
 import { forwardRef } from 'react'
 import { useBudgetData } from '../../../../hooks'
-import { BudgetContainer, BudgetTable } from './'
+import { BudgetContainer, BudgetTable } from '.'
 
-export const Budget = forwardRef((props, ref) => {
+export const Budget = forwardRef<HTMLDivElement>((_, ref) => {
   const { hotels, schedule, nrPax } = useBudgetData()
   return (
     <BudgetContainer ref={ref}>

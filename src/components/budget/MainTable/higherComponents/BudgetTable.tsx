@@ -1,9 +1,16 @@
 import { Table, TableBody } from '@mui/material'
-import { BudgetTableHead, DayRows } from './'
+import { BudgetTableHead, DayRows } from '.'
 import { HotelRows } from '../hotel'
 import { TotalBudgetCost } from '../../totals'
+import { IDay, IHotel } from '../../../../interfaces'
 
-export const BudgetTable = ({ hotels, schedule, nrPax }) => {
+interface BudgetTableProps {
+  hotels: IHotel[]
+  schedule: IDay[]
+  nrPax: number
+}
+
+export const BudgetTable = ({ hotels, schedule, nrPax }: BudgetTableProps) => {
   return (
     <Table
       id='budget-table'
