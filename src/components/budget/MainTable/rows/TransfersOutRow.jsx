@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import accounting from 'accounting'
 import { TableCell, TableRow } from '@mui/material'
 import { useBudget } from '../../../../hooks'
+
 export const TransfersOutRow = ({ items, date }) => {
   const { updateTransfersOut } = useBudget()
   const NoTransfersOut = items.length === 0

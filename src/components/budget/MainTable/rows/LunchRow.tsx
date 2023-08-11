@@ -1,16 +1,23 @@
 import { TableCell, TableRow } from '@mui/material'
 import { RenderChoiceCells } from '../multipleOrSingle'
+import { IRestaurant } from '../../../../interfaces'
 
-export const DinnerRow = ({ items, date, pax }) => {
-  const NoDinner = items.length === 0
-  if (NoDinner) return null
+interface LunchRowProps {
+  items: IRestaurant[]
+  date: string
+  pax: number
+}
+
+export const LunchRow = ({ items, date, pax }: LunchRowProps) => {
+  const NoLunch = items.length === 0
+  if (NoLunch) return null
   const multipleChoice = items.length > 1
   const props = {
     pax,
     date,
     options: items,
-    description: 'Dinner Restaurants',
-    id: 'dinner'
+    description: 'Lunch Restaurants',
+    id: 'lunch'
   }
 
   return (

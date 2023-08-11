@@ -20,7 +20,7 @@ interface ITransfers {
   [key: string]: number
 }
 
-interface IBudgetState {
+export interface IBudgetState {
   hotelName: string
   venueName: string
   breakdownOpen: IBreakdownOpen

@@ -1,9 +1,16 @@
+import { IRestaurant } from '../../../../interfaces'
 import { LunchRow } from '../rows'
 import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
 
-export const LunchSection = ({ lunch, date, pax }) => (
+interface LunchSectionProps {
+  lunch: IRestaurant[]
+  date: string
+  pax: number
+}
+
+export const LunchSection = ({ lunch, date, pax }: LunchSectionProps) => (
   <>
-    {lunch.length > 0 && (
+    {lunch.length > 0 && lunch[0].transfer && (
       <>
         <AssistanceEventTransferRow transfer={lunch[0].transfer} date={date} />
         <EventTransferRow

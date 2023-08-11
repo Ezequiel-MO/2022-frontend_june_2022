@@ -1,5 +1,5 @@
 import { IDay } from '../../../../interfaces'
-import { FC } from 'react'
+
 import {
   AfternoonSection,
   DinnerSection,
@@ -22,7 +22,7 @@ export const DayRows = ({ day, pax }: DayRowsProps) => {
       <TransfersInSection transfers={day.transfer_in} date={date} />
       <MorningSection
         events={day.morningEvents.events}
-        meetings={day.morningMeetings}
+        meetings={day.morningMeetings.meetings}
         date={date}
         pax={pax}
       />

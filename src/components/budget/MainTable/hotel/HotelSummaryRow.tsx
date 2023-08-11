@@ -1,19 +1,16 @@
 import { useEffect } from 'react'
 import { TableCell, TableRow } from '@mui/material'
 import { useBudget, useFindByName } from '../../../../hooks'
-import { HotelTotalCostContainer } from './'
-import { BudgetToggleIcon } from '../../ui/'
+import { HotelTotalCostContainer } from '.'
 import { OptionSelect } from '../multipleOrSingle'
 
-export const HotelSummaryRow = ({ nights }) => {
-  const {
-    breakdownOpen,
-    hotels,
-    hotelName,
-    toggleBreakdown,
-    updateHotelTotalCost,
-    setSelectedHotelName
-  } = useBudget()
+interface HotelSummaryRowProps {
+  nights: number
+}
+
+export const HotelSummaryRow = ({ nights }: HotelSummaryRowProps) => {
+  const { hotels, hotelName, updateHotelTotalCost, setSelectedHotelName } =
+    useBudget()
 
   const { selectedOption: selectedHotel } = useFindByName(hotels, hotelName)
 
@@ -23,8 +20,8 @@ export const HotelSummaryRow = ({ nights }) => {
     }
   }, [hotels, nights, updateHotelTotalCost])
 
-  const handleChange = (e) => {
-    setSelectedHotelName(e.target.value)
+  const handleChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+    setSelectedHotelName(e.target.value as string)
   }
 
   return (

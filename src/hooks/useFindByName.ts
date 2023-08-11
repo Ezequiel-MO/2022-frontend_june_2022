@@ -1,8 +1,18 @@
 import { useState, useEffect } from 'react'
+import { IHotel } from '../interfaces'
 
-export const useFindByName = (options, name) => {
-  console.log('useFindByName', options, name)
-  const [selectedOption, setSelectedOption] = useState(options[0])
+interface UseFindByNameReturn {
+  selectedOption?: IHotel
+  loading: boolean
+}
+
+export const useFindByName = (
+  options: IHotel[],
+  name: string
+): UseFindByNameReturn => {
+  const [selectedOption, setSelectedOption] = useState<IHotel | undefined>(
+    options[0]
+  )
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {

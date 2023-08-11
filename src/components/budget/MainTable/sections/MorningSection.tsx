@@ -1,12 +1,25 @@
 import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
 import { MeetingSection } from './MeetingSection'
 import { MorningEventsRow } from '../rows'
+import { IEvent, IMeeting } from '../../../../interfaces'
 
-export const MorningSection = ({ events, meetings, date, pax }) => {
+interface MorningSectionProps {
+  events: IEvent[]
+  meetings: IMeeting[]
+  date: string
+  pax: number
+}
+
+export const MorningSection = ({
+  events,
+  meetings,
+  date,
+  pax
+}: MorningSectionProps) => {
   const transferIsNeeded = events.length > 0 && events[0]?.transfer.length > 0
   return (
     <>
-      {transferIsNeeded > 0 && (
+      {transferIsNeeded && (
         <>
           <AssistanceEventTransferRow
             transfer={events[0].transfer}

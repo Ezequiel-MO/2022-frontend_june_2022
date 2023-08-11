@@ -1,13 +1,24 @@
 import { Icon } from '@iconify/react'
+import { IHotel } from '../../../../interfaces'
 
-export const OptionSelect = ({ options, value, handleChange }) => {
+interface OptionSelectProps {
+  options: IHotel[]
+  value: string
+  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+}
+
+export const OptionSelect = ({
+  options,
+  value,
+  handleChange
+}: OptionSelectProps) => {
   return (
     <div className='min-w-[120px] relative'>
       <div className='mx-1 min-w-[15rem]'>
         <select
           value={value || ''}
           onChange={handleChange}
-          className='printable-select appearance-none bg-white-100 border border-gray-200 rounded-md shadow-sm py-2 pl-3 pr-10 w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300'
+          className='appearance-none bg-white-100 border border-gray-200 rounded-md shadow-sm py-2 pl-3 pr-10 w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300'
         >
           {options.map((option) => (
             <option key={option._id} value={option.name}>
