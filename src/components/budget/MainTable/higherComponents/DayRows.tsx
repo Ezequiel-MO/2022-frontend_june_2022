@@ -29,8 +29,8 @@ export const DayRows = ({ day, pax }: DayRowsProps) => {
       <LunchSection lunch={day.lunch.restaurants} date={date} pax={pax} />
       <AfternoonSection
         events={day.afternoonEvents.events}
-        meetings={day.afternoonMeetings}
-        fullDayMeetings={day.fullDayMeetings}
+        meetings={day.afternoonMeetings.meetings}
+        fullDayMeetings={day.fullDayMeetings.meetings}
         date={date}
         pax={pax}
       />
