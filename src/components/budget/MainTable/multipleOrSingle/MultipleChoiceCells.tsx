@@ -69,7 +69,7 @@ export const MultipleChoiceCells: FC<MultipleChoiceCellsProps> = ({
         {accounting.formatMoney(Number(option?.price), '€')}
       </TableCell>
       <TableCell>
-        {accounting.formatMoney(Number(option?.totalCost), '€')}
+        {accounting.formatMoney(Number(nrPax * Number(option?.price)), '€')}
       </TableCell>
     </>
   )

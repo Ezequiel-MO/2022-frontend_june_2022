@@ -20,16 +20,18 @@ export const SingleChoiceCells = ({
 }: SingleChoiceCellsProps) => {
   const { pricePerPerson } = useSingleChoiceCells(pax, options, date, id)
 
+  let paxOrOne = pricePerPerson ? pax : 1
+
   return (
     <>
       <TableCell>{description}</TableCell>
       <TableCell>
         <span className='pl-2'>{`${options[0]?.name}`}</span>
       </TableCell>
-      <TableCell>{pricePerPerson ? pax : 1}</TableCell>
+      <TableCell>{paxOrOne}</TableCell>
       <TableCell>{accounting.formatMoney(options[0]?.price, '€')}</TableCell>
       <TableCell>
-        {accounting.formatMoney(options[0].totalCost || 0, '€')}
+        {accounting.formatMoney(paxOrOne * options[0]?.price || 0, '€')}
       </TableCell>
     </>
   )
