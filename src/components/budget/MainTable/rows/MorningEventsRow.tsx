@@ -23,7 +23,11 @@ export const MorningEventsRow = ({
     date,
     options: items,
     description: 'Morning Event',
-    id: 'morningEvents'
+    id: 'morningEvents' as
+      | 'morningEvents'
+      | 'afternoonEvents'
+      | 'lunch'
+      | 'dinner'
   }
 
   return (
