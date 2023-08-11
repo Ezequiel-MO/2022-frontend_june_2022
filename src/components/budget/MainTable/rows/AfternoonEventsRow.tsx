@@ -1,7 +1,14 @@
 import { TableCell, TableRow } from '@mui/material'
 import { RenderChoiceCells } from '../multipleOrSingle'
+import { IEvent } from '../../../../interfaces'
 
-export const AfternoonEventsRow = ({ items, date, pax }) => {
+interface Props {
+  items: IEvent[]
+  date: string
+  pax: number
+}
+
+export const AfternoonEventsRow = ({ items, date, pax }: Props) => {
   const NoEvents = items.length === 0
   if (NoEvents) return null
   const multipleChoice = items.length > 1

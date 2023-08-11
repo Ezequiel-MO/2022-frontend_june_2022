@@ -40,7 +40,7 @@ export const useSingleChoiceCells = (
         updateEventTotalCost(date, id, pax, options[0]?._id)
       }
     }
-  }, [id])
+  }, [id, options[0], pax])
 
   return { pricePerPerson }
 }

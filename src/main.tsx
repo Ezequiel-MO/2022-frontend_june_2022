@@ -6,7 +6,7 @@ import store from './redux/store'
 import './index.css'
 import { ActiveTabContextProvider } from './context/ActiveTabProvider'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ActiveTabContextProvider>
       <Provider store={store}>

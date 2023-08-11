@@ -1,8 +1,8 @@
 import { Icon } from '@iconify/react'
-import { IHotel } from '../../../../interfaces'
+import { IEvent, IHotel, IRestaurant } from '../../../../interfaces'
 
 interface OptionSelectProps {
-  options: IHotel[]
+  options: IEvent[] | IRestaurant[]
   value: string
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }

@@ -1,5 +1,5 @@
 import { SingleChoiceCells, MultipleChoiceCells } from '.'
-import { IEvent, IRestaurant } from '../../../../interfaces'
+import { IEvent, IHotel, IRestaurant } from '../../../../interfaces'
 
 interface RenderChoiceCellsProps {
   multipleChoice: boolean
@@ -8,7 +8,7 @@ interface RenderChoiceCellsProps {
     date: string
     options: IEvent[] | IRestaurant[]
     description: string
-    id: string
+    id: 'morningEvents' | 'afternoonEvents' | 'lunch' | 'dinner'
   }
 }
 

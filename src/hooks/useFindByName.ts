@@ -1,22 +1,26 @@
 import { useState, useEffect } from 'react'
-import { IHotel } from '../interfaces'
+import { IEvent, IHotel, IRestaurant } from '../interfaces'
+
+type IOption = IHotel | IEvent | IRestaurant
 
 interface UseFindByNameReturn {
-  selectedOption?: IHotel
+  selectedOption?: IOption
   loading: boolean
 }
 
 export const useFindByName = (
-  options: IHotel[],
+  options: IOption[],
   name: string
 ): UseFindByNameReturn => {
-  const [selectedOption, setSelectedOption] = useState<IHotel | undefined>(
+  const [selectedOption, setSelectedOption] = useState<IOption | undefined>(
     options[0]
   )
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const foundOption = options.find((option) => option.name === name)
+    const foundOption: IOption | undefined = options.find(
+      (option) => option.name === name
+    )
     if (foundOption) {
       setSelectedOption(foundOption)
     }
