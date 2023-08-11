@@ -7,7 +7,7 @@ export const MeetingSection = ({
   typeOfMeetingProp,
   id
 }) =>
-  meetings.length > 0 && (
+  meetings?.length > 0 && (
     <>
       <MeetingSummaryRow
         pax={pax}
