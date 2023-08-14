@@ -28,7 +28,7 @@ export interface IBudgetState {
   schedule: IDay[]
   meetings: Record<string, MeetingType>
   meals: Record<string, { [key: string]: IRestaurant }>
-  events: IEvent[]
+  events: Record<string, { [key: string]: IEvent }>
   transfers: ITransfers
   transfersIn: {
     assistance: number
@@ -70,7 +70,7 @@ const initialState: IBudgetState = {
   schedule: JSON.parse(localStorage.getItem('schedule') || '[]'),
   meetings: {},
   meals: {},
-  events: [],
+  events: {},
   transfers: {},
   transfersIn: {
     assistance: 0,
@@ -358,16 +358,10 @@ export const budgetSlice = createSlice({
       const selectedEvent = day
         ? day[typeOfEvent]?.events?.find((item) => item._id === id)
         : undefined
-
-      return {
-        ...state,
-        events: {
-          ...state.events,
-          [date]: {
-            ...state.events[Number(date)],
-            [typeOfEvent]: selectedEvent
-          }
-        }
+      const currentEventsForDate = state.events[date] || {}
+      if (selectedEvent) {
+        currentEventsForDate[typeOfEvent] = selectedEvent
+        state.events[date] = currentEventsForDate
       }
     }
   }

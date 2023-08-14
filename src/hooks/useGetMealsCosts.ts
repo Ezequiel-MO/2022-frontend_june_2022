@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useBudget } from './useBudget'
 import { IRestaurant } from '../interfaces'
+import { useCurrentProject } from './useCurrentProject'
 
 export const useGetMealsCost = () => {
+  const {
+    currentProject: { nrPax }
+  } = useCurrentProject()
   const { meals } = useBudget() as {
     meals: Record<string, { lunch?: IRestaurant; dinner?: IRestaurant }>
   }
@@ -18,7 +22,7 @@ export const useGetMealsCost = () => {
         totalCost += meals[key].dinner?.price || 0
       }
     })
-    setMealsTotalCost(totalCost)
+    setMealsTotalCost(totalCost * nrPax)
   }, [meals])
   return {
     mealsTotalCost

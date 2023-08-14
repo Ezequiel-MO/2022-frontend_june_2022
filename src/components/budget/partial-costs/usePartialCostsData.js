@@ -27,7 +27,7 @@ export const usePartialCostsData = () => {
           currentHotel?.totalCost,
           meetingTotalCost,
           transfersTotalCost,
-          mealsTotalCost,
+          mealsTotalCost * nrPax,
           eventsTotalCost
         ],
         backgroundColor: [
@@ -68,7 +68,7 @@ export const usePartialCostsData = () => {
     {
       icon: 'carbon:restaurant',
       title: 'MEAL FUNCTIONS',
-      cost: mealsTotalCost * nrPax
+      cost: mealsTotalCost
     },
     {
       icon: 'akar-icons:people-multiple',
