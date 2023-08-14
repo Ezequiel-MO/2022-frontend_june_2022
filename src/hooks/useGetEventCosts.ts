@@ -16,7 +16,9 @@ export const useGetEventCosts = () => {
 
   const calculateEventCost = (event?: IEvent) => {
     if (!event) return 0
-    return event.pricePerPerson ? (event.price || 0) * nrPax : event.price || 0
+    return event.pricePerPerson === true
+      ? (event.price || 0) * nrPax
+      : event.price || 0
   }
 
   useEffect(() => {

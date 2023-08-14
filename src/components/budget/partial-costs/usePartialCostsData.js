@@ -27,7 +27,7 @@ export const usePartialCostsData = () => {
           currentHotel?.totalCost,
           meetingTotalCost,
           transfersTotalCost,
-          mealsTotalCost * nrPax,
+          mealsTotalCost,
           eventsTotalCost
         ],
         backgroundColor: [

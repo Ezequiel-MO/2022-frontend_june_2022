@@ -44,6 +44,8 @@ export const MultipleChoiceCells: FC<MultipleChoiceCellsProps> = ({
       option.pricePerPerson === false
     ) {
       setNrPax(1)
+    } else {
+      setNrPax(pax)
     }
   }, [option])
 
