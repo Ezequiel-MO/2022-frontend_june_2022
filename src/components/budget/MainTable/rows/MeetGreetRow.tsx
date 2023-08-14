@@ -2,16 +2,21 @@ import { useEffect } from 'react'
 import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 import { useBudget } from '../../../../hooks'
+import { ITransfer } from '../../../../interfaces'
 
-export const MeetGreetRow = ({ items, date }) => {
+interface MeetGreetRowProps {
+  firstItem: ITransfer
+  date: string
+}
+
+export const MeetGreetRow = ({ firstItem, date }: MeetGreetRowProps) => {
   const { updateTransfersIn } = useBudget()
-  const meetGreetObj = items.find((item) => item.meetGreet > 0)
 
-  if (!meetGreetObj) {
+  if (!firstItem) {
     return null
   }
 
-  const { meetGreet, meetGreetCost } = meetGreetObj
+  const { meetGreet = 0, meetGreetCost = 0 } = firstItem
 
   useEffect(() => {
     updateTransfersIn('meetGreet', meetGreet, meetGreetCost)

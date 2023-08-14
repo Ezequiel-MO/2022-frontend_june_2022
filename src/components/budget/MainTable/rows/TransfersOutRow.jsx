@@ -22,11 +22,11 @@ export const TransfersOutRow = ({ items, date }) => {
     <TableRow>
       <TableCell>{date}</TableCell>
       <TableCell>Departure Transfer</TableCell>
-      <TableCell>{`${transferOutItem.vehicleCapacity} seater ${transferOutItem.vehicleType}`}</TableCell>
+      <TableCell>{`${transferOutItem?.vehicleCapacity} seater ${transferOutItem?.vehicleType}`}</TableCell>
       <TableCell>{transferOutItem?.nrVehicles}</TableCell>{' '}
       <TableCell>
         {accounting.formatMoney(
-          transferOutItem.transfer_out / transferOutItem?.nrVehicles ?? 0,
+          transferOutItem?.transfer_out / transferOutItem?.nrVehicles ?? 0,
           '€'
         )}
       </TableCell>

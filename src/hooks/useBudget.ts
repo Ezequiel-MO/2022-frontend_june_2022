@@ -111,7 +111,7 @@ export const useBudget = () => {
 
   const updateTransfersIn = (
     type: 'meetGreet' | 'assistance',
-    item: ITransfer,
+    item: number,
     itemCost: number
   ) => dispatch(UPDATE_TRANSFERS_IN({ type, item, itemCost }))
 
