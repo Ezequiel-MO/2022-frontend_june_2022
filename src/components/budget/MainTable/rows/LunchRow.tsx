@@ -17,7 +17,7 @@ export const LunchRow = ({ items, date, pax }: LunchRowProps) => {
     date,
     options: items,
     description: 'Lunch Restaurants',
-    id: 'lunch'
+    id: 'lunch' as 'lunch'
   }
 
   return (

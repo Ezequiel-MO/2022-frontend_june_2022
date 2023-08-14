@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IDay, IEvent, IHotel, IMeeting, IRestaurant } from '../../interfaces'
+import { IDay, IEvent, IHotel, IRestaurant } from '../../interfaces'
 
 interface IBreakdownOpen {
   hotel: boolean
@@ -27,7 +27,7 @@ export interface IBudgetState {
   hotels: IHotel[]
   schedule: IDay[]
   meetings: Record<string, MeetingType>
-  meals: IRestaurant[]
+  meals: Record<string, { [key: string]: IRestaurant }>
   events: IEvent[]
   transfers: ITransfers
   transfersIn: {
@@ -69,7 +69,7 @@ const initialState: IBudgetState = {
   hotels: JSON.parse(localStorage.getItem('hotels') || '[]'),
   schedule: JSON.parse(localStorage.getItem('schedule') || '[]'),
   meetings: {},
-  meals: [],
+  meals: {},
   events: [],
   transfers: {},
   transfersIn: {
@@ -337,18 +337,14 @@ export const budgetSlice = createSlice({
       const selectedMeal = day
         ? day[typeOfEvent]?.restaurants?.find((item) => item._id === id)
         : undefined
-      return {
-        ...state,
-        meals: {
-          ...state.meals,
-          [date]: {
-            ...state.meals[Number(date)],
-            [typeOfEvent]: selectedMeal
-          }
-        }
+
+      const currentMealsForDate = state.meals[date] || {}
+
+      if (selectedMeal) {
+        currentMealsForDate[typeOfEvent] = selectedMeal
+        state.meals[date] = currentMealsForDate
       }
     },
-
     SET_CURRENT_EVENTS: (
       state,
       action: PayloadAction<{
@@ -395,6 +391,6 @@ export const {
   SET_CURRENT_EVENTS
 } = budgetSlice.actions
 
-export const selectBudget = (state: { budget: any }) => state.budget
+export const selectBudget = (state: { budget: IBudgetState }) => state.budget
 
 export default budgetSlice.reducer

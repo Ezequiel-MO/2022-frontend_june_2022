@@ -8,7 +8,10 @@ import {
 } from '../../../hooks'
 
 export const usePartialCostsData = () => {
-  const { currentHotel } = useCurrentProject()
+  const {
+    currentHotel,
+    currentProject: { nrPax }
+  } = useCurrentProject()
   const { meetingTotalCost = 0 } = useGetMeetingsCost()
   const { mealsTotalCost = 0 } = useGetMealsCost()
   const { eventsTotalCost = 0 } = useGetEventCosts()
@@ -65,7 +68,7 @@ export const usePartialCostsData = () => {
     {
       icon: 'carbon:restaurant',
       title: 'MEAL FUNCTIONS',
-      cost: mealsTotalCost
+      cost: mealsTotalCost * nrPax
     },
     {
       icon: 'akar-icons:people-multiple',

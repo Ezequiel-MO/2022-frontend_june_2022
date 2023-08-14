@@ -8,7 +8,7 @@ interface SingleChoiceCellsProps {
   date: string
   options: IEvent[] | IRestaurant[]
   description: string
-  id: string
+  id: 'morningEvents' | 'afternoonEvents' | 'lunch' | 'dinner'
 }
 
 export const SingleChoiceCells = ({
