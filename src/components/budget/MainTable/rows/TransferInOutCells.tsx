@@ -5,7 +5,21 @@ import { useBudget } from '../../../../hooks'
 
 const transferIds = ['transfer_in', 'transfer_out', 'assistance', 'meetGreet']
 
-export const TransferInOutCells = ({ date, options, description, id }) => {
+interface Props {
+  date: string
+  description: string
+  options: any
+  pax: number
+  id: 'meetGreet' | 'assistance' | 'transfer_in' | 'transfer_out'
+}
+
+export const TransferInOutCells = ({
+  date,
+  description,
+  options,
+  pax,
+  id
+}: Props) => {
   const { updateTransfers } = useBudget()
 
   useEffect(() => {
@@ -17,11 +31,7 @@ export const TransferInOutCells = ({ date, options, description, id }) => {
   return (
     <>
       <TableCell>{description}</TableCell>
-      <TableCell>
-        {id === 'transfer_in' || id === 'transfer_out'
-          ? `${options[0].vehicleCapacity} seater Bus `
-          : null}
-      </TableCell>
+      <TableCell>{id === 'assistance' && 'On Board Assistance'}</TableCell>
       <TableCell>{pax}</TableCell>
       <TableCell>{accounting.formatMoney(options[0][id], '€')}</TableCell>
       <TableCell>{accounting.formatMoney(options[0][id] * pax, '€')}</TableCell>

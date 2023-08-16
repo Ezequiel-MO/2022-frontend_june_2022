@@ -1,5 +1,14 @@
 import { TableCell, TableRow } from '@mui/material'
-import { TransferInOutCells } from './'
+import { TransferInOutCells } from '.'
+import { ITransfer } from '../../../../interfaces'
+
+interface Props {
+  pax: number
+  date: string
+  description: string
+  options: ITransfer[]
+  id: 'meetGreet' | 'assistance'
+}
 
 export const MeetGreetAssistanceRow = ({
   pax,
@@ -7,7 +16,7 @@ export const MeetGreetAssistanceRow = ({
   description,
   options,
   id
-}) => (
+}: Props) => (
   <TableRow>
     <TableCell>{date}</TableCell>
     <TransferInOutCells

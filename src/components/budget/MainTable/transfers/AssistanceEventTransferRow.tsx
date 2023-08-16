@@ -1,7 +1,13 @@
+import { ITransfer } from '../../../../interfaces'
 import { TransportationServicesRow } from './TransportationServicesRow'
 
-export const AssistanceEventTransferRow = ({ transfer, date }) =>
-  transfer[0]?.withAssistance ? (
+interface Props {
+  transfer: ITransfer[]
+  date: string
+}
+
+export const AssistanceEventTransferRow = ({ transfer, date }: Props) =>
+  transfer[0]?.assistance > 0 ? (
     <TransportationServicesRow
       pax={transfer.length}
       date={date}
