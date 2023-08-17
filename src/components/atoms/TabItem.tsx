@@ -47,7 +47,7 @@ export const TabItem: React.FC<TabItemProps> = ({
 `
 
   const inactiveClasses = `
-    text-white-0 bg-transparent hover:bg-gray-50 hover:text-white-0 dark:hover:text-black-50
+    text-black-50 dark:text-white-0 bg-transparent hover:bg-gray-50 hover:text-white-0 dark:hover:text-black-50
 `
 
   return (
