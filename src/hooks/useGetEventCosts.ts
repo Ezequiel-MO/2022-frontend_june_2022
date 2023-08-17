@@ -3,9 +3,13 @@ import { useBudget } from './useBudget'
 import { IEvent } from '../interfaces'
 import { useCurrentProject } from './useCurrentProject'
 
-export const useGetEventCosts = () => {
+interface UseGetEventCostsHook {
+  eventsTotalCost: number
+}
+
+export const useGetEventCosts = (): UseGetEventCostsHook => {
   const {
-    currentProject: { nrPax }
+    currentProject: { nrPax = 0 }
   } = useCurrentProject()
 
   const { events } = useBudget() as {

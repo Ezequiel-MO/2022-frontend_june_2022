@@ -25,7 +25,7 @@ export const MeetingBreakdownRows = ({
   const { open, date, typeOfMeeting } = meetingBreakdownOpen
 
   const { selectedOption: selectedHotel } = useFindByName(hotels, hotelName)
-  const { meeting } = useFindMeetingByHotel(meetings, selectedHotel)
+  const { meeting } = useFindMeetingByHotel(meetings, selectedHotel._id)
 
   return (
     <TableRow>
