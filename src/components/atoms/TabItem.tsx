@@ -37,7 +37,7 @@ export const TabItem: React.FC<TabItemProps> = ({
     : '#EA5933'
 
   const tabClasses = `
-    text-sm font-bold uppercase px-4 py-2 shadow-sm leading-normal
+    text-lg font-bold uppercase px-4 py-2 shadow-sm leading-normal
     transition-all ease-in-out duration-300 transform focus:outline-none focus:shadow-outline
     md:px-5 md:py-3
   `

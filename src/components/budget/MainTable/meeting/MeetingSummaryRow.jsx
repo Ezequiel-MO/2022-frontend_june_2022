@@ -6,7 +6,7 @@ import {
   useFindByName,
   useFindMeetingByHotel
 } from '../../../../hooks'
-import { ArrowIcon } from '../atoms'
+import { ArrowIcon } from '../../../atoms'
 
 export const MeetingSummaryRow = ({
   pax,

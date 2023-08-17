@@ -1,10 +1,10 @@
-interface IHotelPrice {
-  DUInr: number
-  DUIprice: number
-  DoubleRoomNr: number
-  DoubleRoomPrice: number
-  breakfast: number
-  DailyTax: number
+export interface IHotelPrice {
+  DUInr?: number
+  DUIprice?: number
+  DoubleRoomNr?: number
+  DoubleRoomPrice?: number
+  breakfast?: number
+  DailyTax?: number
 }
 
 export interface IHotel {

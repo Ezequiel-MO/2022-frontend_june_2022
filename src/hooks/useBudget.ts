@@ -19,7 +19,7 @@ import {
   SET_CURRENT_EVENTS,
   IBudgetState
 } from '../redux/features/budgetSlice'
-import { IDay, IHotel, ITransfer } from '../interfaces'
+import { IDay, IHotel, IHotelPrice, ITransfer } from '../interfaces'
 
 export const useBudget = () => {
   const dispatch = useDispatch()
@@ -69,8 +69,11 @@ export const useBudget = () => {
     typeOfEvent: 'lunch' | 'dinner'
   }) => dispatch(TOGGLE_VENUE_BREAKDOWN({ open, date, typeOfEvent }))
 
-  const updateHotelTotalCost = (hotel: IHotel, nights: number) =>
-    dispatch(UPDATE_HOTEL_TOTAL_COST({ hotel, nights }))
+  const updateHotelTotalCost = (
+    price: IHotelPrice[],
+    _id: string,
+    nights: number
+  ) => dispatch(UPDATE_HOTEL_TOTAL_COST({ price, _id, nights }))
 
   const updateMeetingTotalCost = (
     date: string,

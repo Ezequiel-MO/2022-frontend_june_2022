@@ -3,6 +3,7 @@ import { TableCell, TableRow } from '@mui/material'
 import { useBudget, useFindByName } from '../../../../hooks'
 import { HotelTotalCostContainer } from '.'
 import { OptionSelect } from '../multipleOrSingle'
+import { IHotelPrice } from '../../../../interfaces'
 
 interface HotelSummaryRowProps {
   nights: number
@@ -15,10 +16,14 @@ export const HotelSummaryRow = ({ nights }: HotelSummaryRowProps) => {
   const { selectedOption: selectedHotel } = useFindByName(hotels, hotelName)
 
   useEffect(() => {
-    if (hotels?.length > 0) {
-      updateHotelTotalCost(selectedHotel, nights)
+    if (hotels?.length > 0 && selectedHotel) {
+      const { price, _id } = selectedHotel as {
+        price: IHotelPrice[]
+        _id: string
+      }
+      updateHotelTotalCost(price, _id, nights)
     }
-  }, [hotels, nights, updateHotelTotalCost])
+  }, [hotels, nights, updateHotelTotalCost, selectedHotel])
 
   const handleChange = (e: React.ChangeEvent<{ value: unknown }>) => {
     setSelectedHotelName(e.target.value as string)

@@ -1,5 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IDay, IEvent, IHotel, IRestaurant, ITransfer } from '../../interfaces'
+import {
+  IDay,
+  IEvent,
+  IHotel,
+  IHotelPrice,
+  IRestaurant,
+  ITransfer
+} from '../../interfaces'
 
 interface IBreakdownOpen {
   hotel: boolean
@@ -129,17 +136,25 @@ export const budgetSlice = createSlice({
         typeOfEvent
       }
     },
-    UPDATE_HOTEL_TOTAL_COST: (state, action) => {
-      const { hotel, nights } = action.payload
-      const { price, _id } = hotel
+    UPDATE_HOTEL_TOTAL_COST: (
+      state,
+      action: PayloadAction<{
+        price: IHotelPrice[]
+        _id: string
+        nights: number
+      }>
+    ) => {
+      const { price, _id, nights } = action.payload
+      if (!price[0]) return
       const {
-        DUInr,
-        DUIprice,
-        DoubleRoomNr,
-        DoubleRoomPrice,
-        breakfast,
-        DailyTax
+        DUInr = 0,
+        DUIprice = 0,
+        DoubleRoomNr = 0,
+        DoubleRoomPrice = 0,
+        breakfast = 0,
+        DailyTax = 0
       } = price[0]
+
       const hotelTotal =
         nights *
         (DUInr * DUIprice +

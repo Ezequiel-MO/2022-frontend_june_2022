@@ -1,3 +1,5 @@
 export * from './TabItem'
 export * from './TabContent'
 export * from './ImageTile'
+export * from './ArrowIcon'
+export * from './HeaderCell'

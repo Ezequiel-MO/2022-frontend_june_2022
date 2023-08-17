@@ -1,17 +1,24 @@
 import { useEffect, useRef } from 'react'
 import { useCurrentProject, useFontFamily } from '../../hooks'
 import './RichParagraph.module.css'
+import { IClientCompany, IProject } from '../../interfaces'
 
-export const RichParagraph = ({ text = '' }) => {
-  const { currentProject } = useCurrentProject()
-  const { clientCompany } = currentProject
-  const { fonts = [] } = clientCompany[0] || {}
+interface RichParagraphProps {
+  text?: string
+}
 
-  const ref = useRef(null)
+export const RichParagraph = ({ text = '' }: RichParagraphProps) => {
+  const { currentProject } = useCurrentProject() as { currentProject: IProject }
+  const { clientCompany } = currentProject as {
+    clientCompany: IClientCompany[]
+  }
+  const { fonts = [] } = clientCompany[0] as IClientCompany
+
+  const ref = useRef<HTMLDivElement>(null)
 
   const fontFamilyStyle = useFontFamily(fonts[0])
 
-  const decodeHtmlEntities = (str) => {
+  const decodeHtmlEntities = (str: string) => {
     const textarea = document.createElement('textarea')
     textarea.innerHTML = str
     return textarea.value
@@ -28,20 +35,16 @@ export const RichParagraph = ({ text = '' }) => {
   useEffect(() => {
     if (ref.current) {
       const elements = ref.current.querySelectorAll('*')
-
-      for (const element of elements) {
-        element.classList.add('dark:text-white-0')
-      }
+      elements.forEach((element: Element) => {
+        element.classList.add('dark:text-white')
+      })
     }
   }, [cleanedText])
 
   return (
     <div
       ref={ref}
-      style={{
-        fontFamily: fonts[0]
-      }}
-      className={`${fontFamilyStyle} custom-font`}
+      className={`${fontFamilyStyle} custom-font text-base dark:text-white border-0`}
       dangerouslySetInnerHTML={{ __html: cleanedText }}
     ></div>
   )

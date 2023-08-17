@@ -1,11 +1,14 @@
 import { TableHead, TableRow } from '@mui/material'
 import { useCurrentProject } from '../../../../hooks'
 import { useTranslation } from '../../../../translations/translationContext'
-import { HeaderCell } from '../atoms'
+import { HeaderCell } from '../../../atoms'
+import { IClientCompany, IProject } from '../../../../interfaces'
 
-export const BudgetTableHead = () => {
-  const { currentProject } = useCurrentProject()
-  const { clientCompany } = currentProject
+export const BudgetTableHead: React.FC = () => {
+  const { currentProject } = useCurrentProject() as { currentProject: IProject }
+  const { clientCompany } = currentProject as {
+    clientCompany: IClientCompany[]
+  }
   const { colorPalette = [] } = clientCompany[0] || {}
 
   const textColorClass =
