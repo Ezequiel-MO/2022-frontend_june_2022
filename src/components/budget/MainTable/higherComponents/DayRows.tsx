@@ -22,15 +22,15 @@ export const DayRows = ({ day, pax }: DayRowsProps) => {
       <TransfersInSection transfers={day.transfer_in} date={date} />
       <MorningSection
         events={day.morningEvents.events}
-        meetings={day.morningMeetings.meetings}
+        meetings={day.morningMeetings?.meetings || []}
         date={date}
         pax={pax}
       />
       <LunchSection lunch={day.lunch.restaurants} date={date} pax={pax} />
       <AfternoonSection
         events={day.afternoonEvents.events}
-        meetings={day.afternoonMeetings.meetings}
-        fullDayMeetings={day.fullDayMeetings.meetings}
+        meetings={day.afternoonMeetings?.meetings || []}
+        fullDayMeetings={day.fullDayMeetings?.meetings || []}
         date={date}
         pax={pax}
       />

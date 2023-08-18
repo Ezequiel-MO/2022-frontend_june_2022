@@ -185,7 +185,7 @@ export const budgetSlice = createSlice({
           return day
         }
 
-        const updatedMeetings = day[id].meetings.map((meeting) => {
+        const updatedMeetings = day[id].meetings?.map((meeting) => {
           const { hotel } = meeting
           if (hotel[0]._id !== selectedHotel?._id) {
             return meeting

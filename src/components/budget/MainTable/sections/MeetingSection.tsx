@@ -1,4 +1,16 @@
+import { IMeeting } from '../../../../interfaces'
 import { MeetingSummaryRow, MeetingBreakdownRows } from '../meeting'
+
+interface MeetingSectionProps {
+  meetings: IMeeting[]
+  date: string
+  pax: number
+  typeOfMeetingProp:
+    | 'Morning Meeting'
+    | 'Afternoon Meeting'
+    | 'Full Day Meeting'
+  id: 'morningMeetings' | 'afternoonMeetings' | 'fullDayMeetings'
+}
 
 export const MeetingSection = ({
   meetings,
@@ -6,7 +18,7 @@ export const MeetingSection = ({
   pax,
   typeOfMeetingProp,
   id
-}) =>
+}: MeetingSectionProps) =>
   meetings?.length > 0 && (
     <>
       <MeetingSummaryRow
