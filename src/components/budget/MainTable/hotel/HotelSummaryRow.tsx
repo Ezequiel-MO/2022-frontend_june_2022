@@ -31,7 +31,7 @@ export const HotelSummaryRow = ({ nights }: HotelSummaryRowProps) => {
 
   return (
     <>
-      <TableRow>
+      <TableRow className='dark:bg-[#a9ba9d]'>
         <TableCell></TableCell>
         <TableCell></TableCell>
         <TableCell>
