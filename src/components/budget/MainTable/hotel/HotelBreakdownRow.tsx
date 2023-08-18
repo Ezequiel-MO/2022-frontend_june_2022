@@ -1,6 +1,13 @@
 import accounting from 'accounting'
 
-export const HotelBreakdownRow = ({ title, units, rate, nights }) => {
+interface Props {
+  units: number
+  rate: number
+  nights: number
+  title: string
+}
+
+export const HotelBreakdownRow = ({ units, rate, nights, title }: Props) => {
   return (
     <tr className='border-b border-gray-200 hover:bg-gray-100 hover:text-[#000]'>
       <td className='py-3 px-6 text-left whitespace-nowrap flex items-center font-medium'>

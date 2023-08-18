@@ -1,25 +1,35 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useBudget, useFindByName } from '../../../../hooks'
-import { HotelBreakdownRow } from './'
+import { HotelBreakdownRow } from '.'
 import { Icon } from '@iconify/react'
+import { IHotel } from '../../../../interfaces'
 
-export const HotelBreakdownRows = ({ hotels, nights }) => {
+interface Props {
+  hotels: IHotel[]
+  nights: number
+}
+
+export const HotelBreakdownRows = ({ hotels, nights }: Props) => {
   const [isOpen, setIsOpen] = useState(true)
   const { hotelName } = useBudget()
-  const { selectedOption: selectedHotel } = useFindByName(hotels, hotelName)
+  const { selectedOption: foundOption } = useFindByName(hotels, hotelName)
+
+  if (!foundOption || !('price' in foundOption)) return null
+
+  const selectedHotel = foundOption as IHotel
 
   const {
-    DUInr,
-    DUIprice,
-    DoubleRoomNr,
-    DoubleRoomPrice,
-    DailyTax,
-    breakfast
+    DUInr = 0,
+    DUIprice = 0,
+    DoubleRoomNr = 0,
+    DoubleRoomPrice = 0,
+    DailyTax = 0,
+    breakfast = 0
   } = selectedHotel.price[0]
 
   return (
     <>
-      <tr className='w-full bg-white-100 dark:bg-gray-50'>
+      <tr className='w-full bg-white-100 dark:bg-[#a9ba9d]'>
         <td colSpan={6} className='p-0 bg-transparent'>
           <button
             id='hotel-details'
@@ -36,7 +46,10 @@ export const HotelBreakdownRows = ({ hotels, nights }) => {
         </td>
       </tr>
       {isOpen && (
-        <tr className='w-full bg-white-100 dark:bg-gray-50'>
+        <tr className='w-full bg-white-100 dark:bg-[#a9ba9d] relative'>
+          <div className='absolute inset-0 flex items-center justify-center opacity-10 dark:opacity-20 z-0'>
+            <Icon icon='ic:twotone-local-hotel' width={300} />
+          </div>
           <td colSpan={6} className='p-0 bg-transparent'>
             <table className='w-full'>
               <thead className='text-white-100 bg-zinc-800'>
@@ -48,7 +61,7 @@ export const HotelBreakdownRows = ({ hotels, nights }) => {
                   <td align='center'>Total Cost</td>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className='dark:text-[#000]'>
                 <HotelBreakdownRow
                   units={DUInr}
                   rate={DUIprice}
