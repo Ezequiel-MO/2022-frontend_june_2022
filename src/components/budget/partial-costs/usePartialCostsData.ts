@@ -6,8 +6,37 @@ import {
   useGetMeetingsCost,
   useGetTransferCosts
 } from '../../../hooks'
+import { IHotel } from '../../../interfaces'
 
-export const usePartialCostsData = () => {
+export interface ICostItem {
+  icon: string
+  title: string
+  cost?: number
+}
+
+interface IData {
+  labels: string[]
+  datasets: {
+    label: string
+    data: number[]
+    backgroundColor: string[]
+    borderColor: string[]
+    borderWidth: number
+  }[]
+}
+
+interface PartialCostsDataReturn {
+  currentHotel: IHotel
+  meetingTotalCost: number
+  mealsTotalCost: number
+  eventsTotalCost: number
+  transfersTotalCost: number
+  data: IData
+  costItems: any
+  totalCostOfItems: number
+}
+
+export const usePartialCostsData = (): PartialCostsDataReturn => {
   const {
     currentHotel,
     currentProject: { nrPax }
@@ -16,15 +45,15 @@ export const usePartialCostsData = () => {
   const { mealsTotalCost = 0 } = useGetMealsCost()
   const { eventsTotalCost = 0 } = useGetEventCosts()
   const { transfersTotalCost = 0 } = useGetTransferCosts()
-  const [totalCostOfItems, setTotalCostOfItems] = useState(0)
+  const [totalCostOfItems, setTotalCostOfItems] = useState<number>(0)
 
-  const data = {
+  const data: IData = {
     labels: ['Accommodation', 'Meetings', 'Transfers', 'Meals', 'Activities'],
     datasets: [
       {
         label: 'Budget Breakdown',
         data: [
-          currentHotel?.totalCost,
+          currentHotel?.totalCost || 0,
           meetingTotalCost,
           transfersTotalCost,
           mealsTotalCost,
@@ -49,7 +78,7 @@ export const usePartialCostsData = () => {
     ]
   }
 
-  const costItems = [
+  const costItems: ICostItem[] = [
     {
       icon: 'bx:hotel',
       title: 'ACCOMMODATION',

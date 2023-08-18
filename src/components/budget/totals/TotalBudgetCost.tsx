@@ -3,7 +3,7 @@ import accounting from 'accounting'
 import { useTranslation } from '../../../translations/translationContext'
 import { usePartialCostsData } from '../partial-costs/usePartialCostsData'
 
-export const TotalBudgetCost = () => {
+export const TotalBudgetCost: React.FC = () => {
   const { totalCostOfItems } = usePartialCostsData()
   const { t } = useTranslation()
 
