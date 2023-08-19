@@ -19,7 +19,7 @@ export const Destination = () => {
 
   return (
     <div className='container mx-auto px-4 text-white-0'>
-      <DestinationHeader />
+      <DestinationHeader groupLocation={groupLocation} />
       <DestinationDescription locationObj={selectedOption} />
       <DestinationFacts locationObj={selectedOption} />
       <DestinationTable locationObj={selectedOption} />

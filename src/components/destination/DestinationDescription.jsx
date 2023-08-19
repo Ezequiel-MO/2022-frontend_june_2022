@@ -28,7 +28,7 @@ export const DestinationDescription = ({ locationObj }) => {
     <div className='w-full p-4 flex flex-col'>
       <h3 className='text-2xl font-bold'>
         <Icon icon='raphael:raphael' className='w-6 h-6 inline-block' />
-        <span className='ml-2'>Barcelona Overview</span>
+        <span className='ml-2'>{`${locationObj?.name} Overview`}</span>
       </h3>
       <div className='grid grid-cols-1 xs:grid-cols-2 gap-1'>
         {textArray.map((text, index) => (

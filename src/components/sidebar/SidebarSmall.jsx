@@ -5,6 +5,7 @@ import ReactToPrint from 'react-to-print'
 import { Icon } from '@iconify/react'
 import { useCurrentProject } from '../../hooks'
 import { BackdropModal } from '../modal/BackdropModal'
+import { cities } from '../../constants/cities'
 
 const SidebarSmall = ({ mainSectionRef, iconColor, isReady }) => {
   const [modal, setModal] = useState('closed')
@@ -30,7 +31,7 @@ const SidebarSmall = ({ mainSectionRef, iconColor, isReady }) => {
   return (
     <div className='inline sticky top-0'>
       <div className='flex items-center justify-center'>
-        {groupLocation === 'Barcelona' && (
+        {cities.includes(groupLocation) && (
           <ModalsRow
             iconText='bx:world'
             title='destination'
