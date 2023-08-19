@@ -1,13 +1,13 @@
 import { Icon } from '@iconify/react'
 
 export const DestinationFacts = ({ locationObj }) => {
-  const { inFigures } = locationObj || {}
+  const { inFigures, name } = locationObj || {}
 
   return (
     <div className='w-full p-4 grid grid-cols-1 sm:grid-cols-2 gap-4'>
       <h3 className='text-2xl font-bold col-span-full'>
         <Icon icon='raphael:list' className='w-6 h-6 inline-block' />
-        <span className='ml-2'>Barcelona in Figures</span>
+        <span className='ml-2'>{`${name} In Figures`}</span>
       </h3>
       {inFigures?.map((fact, index) => (
         <div
