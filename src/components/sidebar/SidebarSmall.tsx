@@ -1,18 +1,32 @@
-import { useState } from 'react'
-import { ModalsRow } from './'
+import { RefObject, useState } from 'react'
+import { ModalsRow } from '.'
 import CentralModal from '../modal/CentralModal'
 import ReactToPrint from 'react-to-print'
 import { Icon } from '@iconify/react'
 import { useCurrentProject } from '../../hooks'
 import { BackdropModal } from '../modal/BackdropModal'
 import { cities } from '../../constants/cities'
+import { IProject } from '../../interfaces'
 
-const SidebarSmall = ({ mainSectionRef, iconColor, isReady }) => {
-  const [modal, setModal] = useState('closed')
-  const handleOpen = (string) => setModal(string)
+interface SidebarSmallProps {
+  mainSectionRef: RefObject<HTMLDivElement>
+  iconColor: string
+  isReady: boolean
+}
+
+const SidebarSmall = ({
+  mainSectionRef,
+  iconColor,
+  isReady
+}: SidebarSmallProps) => {
+  const [modal, setModal] = useState<
+    'closed' | 'overview' | 'map' | 'destination'
+  >('closed')
+  const handleOpen = (modalType: 'overview' | 'map' | 'destination') =>
+    setModal(modalType)
   const handleClose = () => setModal('closed')
 
-  const { currentProject } = useCurrentProject()
+  const { currentProject } = useCurrentProject() as { currentProject: IProject }
   const { clientCompany, hasExternalCorporateImage, groupLocation } =
     currentProject
 

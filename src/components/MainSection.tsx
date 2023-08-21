@@ -8,18 +8,27 @@ import { useCurrentProject, useFontFamily } from '../hooks'
 import ScrollToTopButton from '../ui/ScrollToTopButton'
 import { useTranslation } from '../translations/translationContext'
 import { RichParagraph } from './atoms/RichParagraph'
-import { Document, Page } from 'react-pdf/dist/esm/entry.vite'
+import { Document, Page } from 'react-pdf'
 import { Budget } from './budget/MainTable/higherComponents'
-import { PartialCosts } from './budget/partial-costs/'
+import { PartialCosts } from './budget/partial-costs'
 import { exportTableToExcel } from './budget/MainTable/higherComponents/exportTableToExcel'
 import { Gifts } from './gifts/Gifts'
+import { IProject } from '../interfaces'
 
-const MainSection = forwardRef(
+interface MainSectionProps {
+  setIconColor: React.Dispatch<React.SetStateAction<string>>
+  onReady: React.Dispatch<React.SetStateAction<boolean>>
+  parentWidth: number
+}
+
+const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
   ({ setIconColor, onReady, parentWidth }, ref) => {
-    const componentRef = useRef()
-    const [numPages, setNumPages] = useState(null)
+    const componentRef = useRef<HTMLDivElement>(null)
+    const [numPages, setNumPages] = useState<number>(0)
     const [pageNumber] = useState(1)
-    const { currentProject } = useCurrentProject()
+    const { currentProject } = useCurrentProject() as {
+      currentProject: IProject
+    }
     const {
       groupName,
       projectIntro,
@@ -35,9 +44,9 @@ const MainSection = forwardRef(
     const iconColor = colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
 
     const fontFamilyStyle = useFontFamily(fonts[0])
-    const pdfToPrintRef = useRef()
+    const pdfToPrintRef = useRef<HTMLDivElement | null>(null)
 
-    function onDocumentLoadSuccess({ numPages }) {
+    function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
       setNumPages(numPages)
     }
 
@@ -59,7 +68,7 @@ const MainSection = forwardRef(
         <h1 className='text-2xl md:text-2xl mb-4 font-extrabold'>
           {`${t('quotation')} Gr. ${groupName}`}
         </h1>
-        <RichParagraph text={projectIntro} />
+        <RichParagraph text={projectIntro[0]} />
         <Hotels hotels={hotels} />
         <Schedule />
         <Gifts gifts={gifts} />

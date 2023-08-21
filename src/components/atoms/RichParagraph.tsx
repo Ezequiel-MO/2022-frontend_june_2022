@@ -4,7 +4,7 @@ import './RichParagraph.module.css'
 import { IClientCompany, IProject } from '../../interfaces'
 
 interface RichParagraphProps {
-  text?: string
+  text: string
 }
 
 export const RichParagraph = ({ text = '' }: RichParagraphProps) => {

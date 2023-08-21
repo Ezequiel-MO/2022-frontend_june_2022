@@ -17,6 +17,10 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src/interfaces/declarations/vite-env.d.ts", "src"],
+  "include": [
+    "src/interfaces/declarations/vite-env.d.ts",
+    "src/interfaces/declarations/declarations.d.ts",
+    "src"
+  ],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,17 +1,18 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState, FC } from 'react'
 import { Footer, MainSection, Sidebar, SidebarSmall } from '../components'
 import { useCurrentProject } from '../hooks'
 import { TranslationProvider } from '../translations/translationContext'
+import { IProject } from '../interfaces'
 
-export const MainPage = () => {
+export const MainPage: FC = () => {
   const [isMainSectionReady, setIsMainSectionReady] = useState(false)
   const [iconColor, setIconColor] = useState('')
-  const { currentProject } = useCurrentProject()
+  const { currentProject } = useCurrentProject() as { currentProject: IProject }
   const { hasSideMenu, clientAccManager = [] } = currentProject
   const { quoteLanguage = 'EN' } = clientAccManager[0] || {}
-  const mainSectionRef = useRef()
+  const mainSectionRef = useRef<HTMLDivElement>(null)
   const [parentWidth, setParentWidth] = useState(0)
-  const mainSectionParentRef = useRef()
+  const mainSectionParentRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     if (mainSectionParentRef && mainSectionParentRef.current) {
