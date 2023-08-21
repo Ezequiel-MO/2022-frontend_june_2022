@@ -12,11 +12,11 @@ interface DispatchRowProps {
 export const DispatchRow = ({ firstItem, date }: DispatchRowProps) => {
   const { updateTransfersOut } = useBudget()
 
-  if (!firstItem) {
+  const { meetGreet = 0, meetGreetCost = 0 } = firstItem || {}
+
+  if (!firstItem || meetGreet === 0 || meetGreetCost === 0) {
     return null
   }
-
-  const { meetGreet = 0, meetGreetCost = 0 } = firstItem
 
   useEffect(() => {
     updateTransfersOut('meetGreet', meetGreet, meetGreetCost)

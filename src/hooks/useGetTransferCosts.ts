@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useBudget } from './useBudget'
 import { IBudgetState } from '../redux/features/budgetSlice'
+import { useCurrentProject } from './useCurrentProject'
+import { IProject } from '../interfaces'
 
 type ITransfersDetails = {
   assistance?: number
@@ -12,6 +14,8 @@ type ITransfersDetails = {
 export const useGetTransferCosts = () => {
   const budget: IBudgetState = useBudget()
   const [transfersTotalCost, setTransfersTotalCost] = useState<number>(0)
+  const { currentProject } = useCurrentProject() as { currentProject: IProject }
+  const { schedule } = currentProject
 
   useEffect(() => {
     const { transfers, transfersIn = {}, transfersOut = {} } = budget
@@ -32,8 +36,12 @@ export const useGetTransferCosts = () => {
 
     const transferInOutTotalCost = transfersArray.reduce((a, b) => a + b, 0)
 
+    const transferOutCost =
+      schedule[schedule.length - 1].transfer_out[0].transfer_out
+
     const totalTransferCost =
       transferInOutTotalCost +
+      transferOutCost +
       assistanceCostIn * assistanceIn +
       meetGreetCostIn * meetGreetIn +
       assistanceCostOut * assistanceOut +
