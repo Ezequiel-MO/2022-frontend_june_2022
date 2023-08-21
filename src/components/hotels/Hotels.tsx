@@ -1,13 +1,25 @@
+import { useMemo } from 'react'
 import { useActiveTab } from '../../context/ActiveTabProvider'
 import { useCurrentProject } from '../../hooks'
 import HotelCards from './HotelCards'
 import { TabContent } from '../atoms'
 import { TabList } from '../molecules'
+import { IHotel, IProject } from '../../interfaces'
 
-const Hotels = ({ hotels }) => {
+interface Props {
+  hotels: IHotel[]
+}
+
+const Hotels = ({ hotels }: Props) => {
   const { activeTab, setActiveTab } = useActiveTab()
-  const { currentProject } = useCurrentProject()
+  const { currentProject } = useCurrentProject() as { currentProject: IProject }
   const { suplementaryText } = currentProject
+
+  const hotelsTabItems = useMemo(
+    () =>
+      hotels.map((hotel) => ({ _id: hotel._id as string, name: hotel.name })),
+    [hotels]
+  )
 
   return (
     <>
@@ -15,7 +27,7 @@ const Hotels = ({ hotels }) => {
         {hotels?.length > 0 ? (
           <div className='w-full'>
             <TabList
-              tabListItems={hotels}
+              tabListItems={hotelsTabItems}
               type='hotel'
               activeTab={activeTab}
               setActiveTab={setActiveTab}

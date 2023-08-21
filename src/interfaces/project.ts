@@ -10,17 +10,17 @@ import {
   IGift
 } from './'
 
-interface IMeal {
+export interface IMeal {
   intro: string
   restaurants: IRestaurant[]
 }
 
-interface IActivity {
+export interface IActivity {
   intro: string
   events: IEvent[]
 }
 
-interface IMeetingDetails {
+export interface IMeetingDetails {
   intro: string
   meetings: IMeeting[]
 }

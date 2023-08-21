@@ -1,17 +1,27 @@
+import { IActivity, IDay, IMeal, IMeetingDetails } from '../../interfaces'
 import { DateHeader } from './ScheduleDayDateHeader'
 import { ScheduleDayEvents } from './ScheduleDayEvents'
 import { ScheduleDayMeals } from './ScheduleDayMeals'
 import { ScheduleDayMeetings } from './ScheduleDayMeetings'
 
-export const ScheduleDay = ({ day, index, suplementaryText, arrivalDay }) => {
-  const extractData = (data) => {
-    if (Array.isArray(data)) {
-      return { introduction: data[0]?.introduction, data }
-    } else if (typeof data === 'object') {
-      const { intro, ...rest } = data
-      return { introduction: intro, data: Object.values(rest)[0] }
-    }
-    return { introduction: null, data: [] }
+interface Props {
+  day: IDay
+  index: number
+  suplementaryText: boolean
+  arrivalDay: string
+}
+
+type Data = IActivity | IMeal | IMeetingDetails
+
+export const ScheduleDay = ({
+  day,
+  index,
+  suplementaryText,
+  arrivalDay
+}: Props) => {
+  const extractData = (data: Data) => {
+    const { intro, ...rest } = data
+    return { introduction: intro, data: Object.values(rest)[0] }
   }
   const morningEvents = extractData(day.morningEvents)
   const morningMeetings = extractData(day.morningMeetings)
@@ -34,7 +44,6 @@ export const ScheduleDay = ({ day, index, suplementaryText, arrivalDay }) => {
         <ScheduleDayMeetings
           title='Morning Meeting'
           meetings={morningMeetings.data}
-          introduction={morningMeetings.introduction}
           timing='Morning'
           suplementaryText={suplementaryText}
           id={`${day.date}-morning-meetings`}
@@ -56,7 +65,6 @@ export const ScheduleDay = ({ day, index, suplementaryText, arrivalDay }) => {
         <ScheduleDayMeetings
           title='Afternoon Meeting'
           meetings={afternoonMeetings.data}
-          introduction={afternoonMeetings.introduction}
           timing='Afternoon'
           suplementaryText={suplementaryText}
           id={`${day.date}-afternoon-meetings`}
@@ -67,6 +75,13 @@ export const ScheduleDay = ({ day, index, suplementaryText, arrivalDay }) => {
           restaurants={dinner.data}
           introduction={dinner.introduction}
           suplementaryText={suplementaryText}
+        />
+        <ScheduleDayMeetings
+          title='Full Day Meeting'
+          meetings={afternoonMeetings.data}
+          timing='Full Day'
+          suplementaryText={suplementaryText}
+          id={`${day.date}-fullday-meetings`}
         />
       </div>
 

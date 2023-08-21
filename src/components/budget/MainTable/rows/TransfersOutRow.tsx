@@ -10,7 +10,6 @@ interface TransfersOutRowProps {
 }
 
 export const TransfersOutRow = ({ items, date }: TransfersOutRowProps) => {
-  const { updateTransfers } = useBudget()
   const NoTransfersOut = items.length === 0
   if (NoTransfersOut) return null
 
@@ -24,17 +23,6 @@ export const TransfersOutRow = ({ items, date }: TransfersOutRowProps) => {
     })
     return groups
   }, [items])
-
-  useEffect(() => {
-    Object.keys(groupedItems).forEach((key) => {
-      updateTransfers(
-        date,
-        key,
-        groupedItems[key].length,
-        groupedItems[key][0].transfer_out
-      )
-    })
-  }, [groupedItems])
 
   return (
     <>
