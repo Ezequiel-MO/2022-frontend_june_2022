@@ -1,11 +1,19 @@
+import { IDay } from '../../../interfaces'
 import { ScheduleDaySubtitles } from './ScheduleDaySubtitles'
+
+interface Props {
+  title: string
+  menuOpen: boolean
+  setMenuOpen: (value: boolean) => void
+  schedule: IDay[]
+}
 
 export const ScheduleSubtitles = ({
   title,
   menuOpen,
   setMenuOpen,
   schedule
-}) => {
+}: Props) => {
   return (
     <div
       className={`${
@@ -14,7 +22,7 @@ export const ScheduleSubtitles = ({
           : 'opacity-0 h-0'
       }`}
     >
-      {schedule?.map(
+      {schedule.map(
         (day) =>
           title === day.date && (
             <ScheduleDaySubtitles

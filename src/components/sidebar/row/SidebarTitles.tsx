@@ -16,6 +16,7 @@ export const SidebarTitles = ({
   setMenuOpen
 }: SidebarTitlesProps) => {
   const { t } = useTranslation()
+
   return (
     <Link
       to={`${title}_id`}
@@ -23,7 +24,7 @@ export const SidebarTitles = ({
       smooth={true}
       duration={500}
       offset={-100}
-      className='flex items-center space-x-2 px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 group'
+      className='flex items-center space-x-2 px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 group bg-white-0 dark:bg-black-50 hover:bg-gray-50 dark:hover:bg-gray-50'
       onMouseEnter={() => setMenuOpen(true)}
       onMouseLeave={() => setMenuOpen(false)}
     >
@@ -35,13 +36,11 @@ export const SidebarTitles = ({
       >
         <Icon
           icon={iconText}
-          color={`${colorPalette.length > 0 ? colorPalette[2] : '#ea5933'}`}
+          color={colorPalette.length > 0 ? colorPalette[2] : '#ea5933'}
           width='40'
         />
       </div>
-      <p
-        className={`group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg`}
-      >
+      <p className='group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg font-body'>
         {t(title)?.replace(/^\w/, (c: string) => c.toUpperCase())}
       </p>
     </Link>

@@ -9,24 +9,21 @@ export const HotelSubtitles = ({
   handleChange
 }) => {
   if (!hotels?.length) return null
+
   return (
     <div
       id={title}
-      className={`${
-        menuOpen
-          ? 'inline-block transition-all ease-in-out duration-300'
-          : 'opacity-0 h-0'
+      className={`transition-all ease-in-out duration-300 ${
+        menuOpen ? 'block' : 'hidden'
       }`}
     >
       {title === 'hotels' && (
         <div
-          className={`${
-            menuOpen ? 'flex flex-col' : 'hidden'
-          }  dark:bg-green-50 dark:text-black-50 shadow-md rounded-lg overflow-hidden transition-all ease-in-out duration-300 space-y-4 p-4 ml-4 hover:shadow-lg`}
+          className='flex flex-col space-y-4 p-4 ml-4 bg-white-0 dark:bg-black-50 transition-all ease-in-out duration-300'
           onMouseEnter={() => setMenuOpen(true)}
           onMouseLeave={() => setMenuOpen(false)}
         >
-          {hotels?.map((hotel, index) => (
+          {hotels.map((hotel, index) => (
             <Link
               key={index}
               to={`${hotel._id}`}
@@ -37,11 +34,13 @@ export const HotelSubtitles = ({
             >
               <p
                 onClick={() => handleChange(index + 1)}
-                className={`${
-                  activeTab === index + 1 ? 'text-gray-700' : ''
-                }  font-medium hover:text-orange-500 cursor-pointer text-sm`}
+                className={`font-body ${
+                  activeTab === index + 1
+                    ? 'text-gray-700 dark:text-slate-50'
+                    : 'text-gray-50'
+                } hover:text-orange-50 cursor-pointer text-sm`}
               >
-                {hotel?.name.replace(/^\w/, (c) => c.toUpperCase())}
+                {hotel.name.replace(/^\w/, (c) => c.toUpperCase())}
               </p>
             </Link>
           ))}

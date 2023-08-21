@@ -8,7 +8,7 @@ const Sidebar: FC = () => {
   const { schedule, budget, hotels } = currentProject
 
   return (
-    <div className='col-span-2 relative'>
+    <div className='col-span-2 relative bg-white-0 dark:bg-black-50'>
       <div className='flex flex-col items-center px-4 md:items-start sticky top-20'>
         {hotels && hotels.length > 0 && (
           <SidebarRow iconText='bx:hotel' title='hotels' />
