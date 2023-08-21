@@ -1,8 +1,10 @@
+import { FC } from 'react'
 import { useCurrentProject } from '../../hooks'
-import { SidebarRow } from './'
+import { SidebarRow } from '.'
+import { IProject } from '../../interfaces'
 
-const Sidebar = () => {
-  const { currentProject } = useCurrentProject()
+const Sidebar: FC = () => {
+  const { currentProject } = useCurrentProject() as { currentProject: IProject }
   const { schedule, budget, hotels } = currentProject
 
   return (

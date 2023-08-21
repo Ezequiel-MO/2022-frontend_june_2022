@@ -1,11 +1,17 @@
 import { useState } from 'react'
 import { useActiveTab } from '../../../context/ActiveTabProvider'
 import { useCurrentProject } from '../../../hooks'
-import { SidebarSubtitles, SidebarTitles } from '../'
+import { SidebarSubtitles, SidebarTitles } from '..'
+import { IProject } from '../../../interfaces'
 
-export const SidebarRow = ({ iconText, title }) => {
+interface Props {
+  iconText: string
+  title: string
+}
+
+export const SidebarRow = ({ iconText, title }: Props) => {
   const [menuOpen, setMenuOpen] = useState(false)
-  const { currentProject } = useCurrentProject()
+  const { currentProject } = useCurrentProject() as { currentProject: IProject }
   const { hotels, schedule, clientCompany } = currentProject
   const { activeTab, handleChange } = useActiveTab()
 
