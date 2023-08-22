@@ -16,7 +16,7 @@ export const ScheduleDayMeetings = ({
   timing,
   suplementaryText
 }: Props) => {
-  if (!meetings.length) {
+  if (meetings?.length === 0) {
     return suplementaryText ? (
       <h3 className='italic m-2'>{`No ${title.toLowerCase()} planned`}</h3>
     ) : null

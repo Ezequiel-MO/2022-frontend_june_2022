@@ -169,25 +169,21 @@ export const budgetSlice = createSlice({
     UPDATE_MEETING_TOTAL_COST: (
       state,
       action: PayloadAction<{
-        date: string
+        dateProp: string
         id: 'morningMeetings' | 'afternoonMeetings' | 'fullDayMeetings'
-        nrPax: number
-        hotelName: string
+        pax: number
+        hotelId: string
       }>
     ) => {
-      const { date, id, nrPax, hotelName } = action.payload
-      const selectedHotel = state.hotels.find(
-        (hotel) => hotel.name === hotelName
-      ) as IHotel
+      const { dateProp, id, pax, hotelId } = action.payload
 
       const updatedSchedule = state.schedule.map((day) => {
-        if (day.date !== date) {
+        if (day.date !== dateProp) {
           return day
         }
 
-        const updatedMeetings = day[id].meetings?.map((meeting) => {
-          const { hotel } = meeting
-          if (hotel[0]._id !== selectedHotel?._id) {
+        const updatedMeetings = day[id]?.meetings?.map((meeting) => {
+          if (meeting.hotel[0] !== hotelId) {
             return meeting
           }
 
@@ -206,9 +202,9 @@ export const budgetSlice = createSlice({
           } = meeting
 
           const meetingTotal =
-            FDDDR * nrPax +
+            FDDDR * pax +
             FDRate +
-            HDDDR * nrPax +
+            HDDDR * pax +
             HDRate +
             aavvPackage +
             coffeeBreakUnits * coffeeBreakPrice +
@@ -223,7 +219,10 @@ export const budgetSlice = createSlice({
 
         return {
           ...day,
-          [id]: updatedMeetings
+          [id]: {
+            ...day[id],
+            meetings: updatedMeetings
+          }
         }
       })
 

@@ -17,5 +17,5 @@ export const HotelTotalCostContainer: FC = () => {
     }
   }, [selectedHotel, setCurrentHotel])
 
-  return <HotelTotalCost selectedHotel={selectedHotel} />
+  return <HotelTotalCost selectedHotel={selectedHotel as IHotel} />
 }

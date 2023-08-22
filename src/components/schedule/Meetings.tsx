@@ -1,10 +1,16 @@
 import { useState } from 'react'
 import { useGetHotel } from '../../hooks'
-import { MeetingCards } from './'
+import { MeetingCards } from '.'
+import { IMeeting } from '../../interfaces'
 
-export const Meetings = ({ meetings, timing }) => {
-  const [openTab, setOpenTab] = useState(1)
-  const { hotel } = useGetHotel(meetings[0].hotel)
+interface Props {
+  meetings: IMeeting[]
+  timing: string
+}
+
+export const Meetings = ({ meetings = [], timing }: Props) => {
+  const [openTab, setOpenTab] = useState<number>(1)
+  const { hotel } = useGetHotel(meetings[0]?.hotelName)
 
   return (
     <>
@@ -42,7 +48,7 @@ export const Meetings = ({ meetings, timing }) => {
                   >
                     <MeetingCards
                       meeting={meeting}
-                      hotelName={hotel?.name}
+                      hotelName={meeting.hotelName}
                       timing={timing}
                     />
                   </div>

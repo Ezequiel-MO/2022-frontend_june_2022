@@ -37,7 +37,7 @@ export const useGetTransferCosts = () => {
     const transferInOutTotalCost = transfersArray.reduce((a, b) => a + b, 0)
 
     const transferOutCost =
-      schedule[schedule.length - 1].transfer_out[0].transfer_out
+      schedule[schedule.length - 1].transfer_out[0]?.transfer_out
 
     const totalTransferCost =
       transferInOutTotalCost +

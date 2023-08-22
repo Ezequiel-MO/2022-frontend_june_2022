@@ -59,11 +59,11 @@ export const MeetingSummaryRow = ({
   ) as {
     selectedOption: IHotel
   }
-  const { meeting } = useFindMeetingByHotel(meetings, selectedHotel?._id || '')
+  const { meeting } = useFindMeetingByHotel(meetings, selectedHotel._id)
 
   useEffect(() => {
-    updateMeetingTotalCost(dateProp, id, pax, hotelName || selectedHotel.name)
-  }, [dateProp, typeOfMeetingProp, hotelName])
+    updateMeetingTotalCost(dateProp, id, pax, selectedHotel._id)
+  }, [dateProp, typeOfMeetingProp, selectedHotel])
 
   const handleToggleMeetingBreakdown = () => {
     toggleMeetingBreakdown({

@@ -12,7 +12,7 @@ export const useFindMeetingByHotel = (
   useEffect(() => {
     if (meetings) {
       meetings.forEach((meeting) => {
-        if (meeting.hotel[0]._id === hotelId) {
+        if (meeting.hotel[0] === hotelId) {
           setMeeting(meeting)
         }
       })

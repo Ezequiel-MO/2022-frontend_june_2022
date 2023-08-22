@@ -76,11 +76,11 @@ export const useBudget = () => {
   ) => dispatch(UPDATE_HOTEL_TOTAL_COST({ price, _id, nights }))
 
   const updateMeetingTotalCost = (
-    date: string,
+    dateProp: string,
     id: 'morningMeetings' | 'afternoonMeetings' | 'fullDayMeetings',
-    nrPax: number,
-    hotelName: string
-  ) => dispatch(UPDATE_MEETING_TOTAL_COST({ date, id, nrPax, hotelName }))
+    pax: number,
+    hotelId: string
+  ) => dispatch(UPDATE_MEETING_TOTAL_COST({ dateProp, id, pax, hotelId }))
 
   const updateEventTotalCost = (
     date: string,

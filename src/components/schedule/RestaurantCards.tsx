@@ -1,10 +1,15 @@
+import { IRestaurant } from '../../interfaces'
 import RenderPhotos from '../../ui/renderPhotos/RenderPhotos'
 import { RichParagraph } from '../atoms/RichParagraph'
 
-export const RestaurantCards = ({ restaurant }) => {
+interface Props {
+  restaurant: IRestaurant
+}
+
+export const RestaurantCards = ({ restaurant }: Props) => {
   return (
     <div id={restaurant._id}>
-      <RichParagraph text={restaurant.textContent} />
+      <RichParagraph text={restaurant.textContent || ''} />
       <RenderPhotos images={restaurant.imageContentUrl} />
     </div>
   )
