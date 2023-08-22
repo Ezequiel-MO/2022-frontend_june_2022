@@ -1,17 +1,32 @@
-import { useState } from 'react'
-import { RestaurantCards } from './'
+import { useState, useMemo } from 'react'
+import { EventCards } from '.'
 import { TabList } from '../molecules'
 import { TabContent } from '../atoms'
+import { IEvent } from '../../interfaces'
 
-export const Meals = ({ restaurants }) => {
+interface Props {
+  events: IEvent[]
+}
+
+export const Events = ({ events }: Props) => {
   const [openTab, setOpenTab] = useState(1)
+
+  const eventListItems = useMemo(
+    () =>
+      events.map((event) => ({
+        _id: event._id,
+        name: event.name
+      })),
+    [events]
+  )
 
   return (
     <>
       <div className='flex flex-wrap'>
         <div className='w-full'>
           <TabList
-            tabListItems={restaurants}
+            tabListItems={eventListItems}
+            type='event'
             activeTab={openTab}
             setActiveTab={setOpenTab}
           />
@@ -19,9 +34,9 @@ export const Meals = ({ restaurants }) => {
           <div className='relative flex flex-col min-w-0 break-words w-full mb-6 rounded'>
             <div className='px-4 py-5 flex-auto'>
               <div className='tab-content tab-space'>
-                {restaurants.map((restaurant, index) => (
+                {events.map((event, index) => (
                   <TabContent key={index} activeTab={openTab} index={index}>
-                    <RestaurantCards restaurant={restaurant} />
+                    <EventCards event={event} />
                   </TabContent>
                 ))}
               </div>

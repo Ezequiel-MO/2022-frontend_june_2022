@@ -1,4 +1,4 @@
-import { IActivity, IDay, IMeal, IMeetingDetails } from '../../interfaces'
+import { IDay } from '../../interfaces'
 import { DateHeader } from './ScheduleDayDateHeader'
 import { ScheduleDayEvents } from './ScheduleDayEvents'
 import { ScheduleDayMeals } from './ScheduleDayMeals'
@@ -11,24 +11,21 @@ interface Props {
   arrivalDay: string
 }
 
-type Data = IActivity | IMeal | IMeetingDetails
-
 export const ScheduleDay = ({
   day,
   index,
   suplementaryText,
   arrivalDay
 }: Props) => {
-  const extractData = (data: Data) => {
-    const { intro, ...rest } = data
-    return { introduction: intro, data: Object.values(rest)[0] }
-  }
-  const morningEvents = extractData(day.morningEvents)
-  const morningMeetings = extractData(day.morningMeetings)
-  const lunch = extractData(day.lunch)
-  const afternoonEvents = extractData(day.afternoonEvents)
-  const afternoonMeetings = extractData(day.afternoonMeetings)
-  const dinner = extractData(day.dinner)
+  const {
+    morningEvents,
+    morningMeetings,
+    lunch,
+    afternoonEvents,
+    afternoonMeetings,
+    dinner,
+    fullDayMeetings
+  } = day
 
   return (
     <div className='mb-6'>
@@ -37,34 +34,34 @@ export const ScheduleDay = ({
         <ScheduleDayEvents
           id={`${day.date}-morning-events`}
           title='Morning Events'
-          events={morningEvents.data}
-          introduction={morningEvents.introduction}
+          events={morningEvents.events}
+          introduction={morningEvents.intro}
           suplementaryText={suplementaryText}
         />
         <ScheduleDayMeetings
+          id={`${day.date}-morning-meetings`}
           title='Morning Meeting'
-          meetings={morningMeetings.data}
+          meetings={morningMeetings.meetings}
           timing='Morning'
           suplementaryText={suplementaryText}
-          id={`${day.date}-morning-meetings`}
         />
         <ScheduleDayMeals
           id={`${day.date}-lunch`}
           title='Lunch'
-          restaurants={lunch.data}
-          introduction={lunch.introduction}
+          restaurants={lunch.restaurants}
+          introduction={lunch.intro}
           suplementaryText={suplementaryText}
         />
         <ScheduleDayEvents
           id={`${day.date}-afternoon-events`}
           title='Afternoon Events'
-          events={afternoonEvents.data}
-          introduction={afternoonEvents.introduction}
+          events={afternoonEvents.events}
+          introduction={afternoonEvents.intro}
           suplementaryText={suplementaryText}
         />
         <ScheduleDayMeetings
           title='Afternoon Meeting'
-          meetings={afternoonMeetings.data}
+          meetings={afternoonMeetings.meetings}
           timing='Afternoon'
           suplementaryText={suplementaryText}
           id={`${day.date}-afternoon-meetings`}
@@ -72,13 +69,13 @@ export const ScheduleDay = ({
         <ScheduleDayMeals
           id={`${day.date}-dinner`}
           title='Dinner'
-          restaurants={dinner.data}
-          introduction={dinner.introduction}
+          restaurants={dinner.restaurants}
+          introduction={dinner.intro}
           suplementaryText={suplementaryText}
         />
         <ScheduleDayMeetings
           title='Full Day Meeting'
-          meetings={afternoonMeetings.data}
+          meetings={fullDayMeetings.meetings}
           timing='Full Day'
           suplementaryText={suplementaryText}
           id={`${day.date}-fullday-meetings`}
