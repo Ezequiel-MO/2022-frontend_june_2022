@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const HotelBreakdownRows = ({ hotels, nights }: Props) => {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState<boolean>(true)
   const { hotelName } = useBudget()
   const { selectedOption: foundOption } = useFindByName(hotels, hotelName)
 

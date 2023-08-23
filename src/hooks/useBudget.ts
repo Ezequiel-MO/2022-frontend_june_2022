@@ -7,7 +7,6 @@ import {
   SET_SELECTED_VENUE_NAME,
   selectBudget,
   TOGGLE_BREAKDOWN,
-  TOGGLE_MEETING_BREAKDOWN,
   TOGGLE_VENUE_BREAKDOWN,
   UPDATE_HOTEL_TOTAL_COST,
   UPDATE_MEETING_TOTAL_COST,
@@ -48,16 +47,6 @@ export const useBudget = () => {
 
   const toggleBreakdown = (id: 'hotel' | 'transfer_in') =>
     dispatch(TOGGLE_BREAKDOWN({ id }))
-
-  const toggleMeetingBreakdown = ({
-    open,
-    date,
-    typeOfMeeting
-  }: {
-    open: boolean
-    date: string
-    typeOfMeeting: 'morningMeetings' | 'afternoonMeetings' | 'fullDayMeetings'
-  }) => dispatch(TOGGLE_MEETING_BREAKDOWN({ open, date, typeOfMeeting }))
 
   const toggleVenueBreakdown = ({
     open,
@@ -142,7 +131,6 @@ export const useBudget = () => {
     setSelectedHotelName,
     setSelectedVenueName,
     toggleBreakdown,
-    toggleMeetingBreakdown,
     toggleVenueBreakdown,
     updateMeetingTotalCost,
     updateEventTotalCost,

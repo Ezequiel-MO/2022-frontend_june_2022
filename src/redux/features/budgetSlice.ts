@@ -11,15 +11,6 @@ import {
 interface IBreakdownOpen {
   hotel: boolean
   transfer_in: boolean
-  meetingBreakdownOpen: {
-    open: boolean
-    date: string
-    typeOfMeeting:
-      | 'morningMeetings'
-      | 'afternoonMeetings'
-      | 'fullDayMeetings'
-      | ''
-  }
   venueBreakdownOpen: {
     open: boolean
     date: string
@@ -66,11 +57,6 @@ const initialState: IBudgetState = {
   breakdownOpen: {
     hotel: true,
     transfer_in: false,
-    meetingBreakdownOpen: {
-      open: true,
-      date: '',
-      typeOfMeeting: ''
-    },
     venueBreakdownOpen: {
       open: false,
       date: '',
@@ -116,14 +102,6 @@ export const budgetSlice = createSlice({
     TOGGLE_BREAKDOWN: (state, action: PayloadAction<{ id: BreakdownKeys }>) => {
       const { id } = action.payload
       state.breakdownOpen[id] = !state.breakdownOpen[id]
-    },
-    TOGGLE_MEETING_BREAKDOWN: (state, action) => {
-      const { open, date, typeOfMeeting } = action.payload
-      state.breakdownOpen.meetingBreakdownOpen = {
-        open,
-        date,
-        typeOfMeeting
-      }
     },
     TOGGLE_VENUE_BREAKDOWN: (
       state,
@@ -392,7 +370,6 @@ export const {
   SET_SELECTED_HOTEL_NAME,
   SET_SELECTED_VENUE_NAME,
   TOGGLE_BREAKDOWN,
-  TOGGLE_MEETING_BREAKDOWN,
   TOGGLE_VENUE_BREAKDOWN,
   UPDATE_HOTEL_TOTAL_COST,
   UPDATE_MEETING_TOTAL_COST,

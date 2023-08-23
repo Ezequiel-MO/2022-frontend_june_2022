@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
-import { IconButton, TableCell, TableRow } from '@mui/material'
+import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 import { useBudget, useFindMeetingByHotel } from '../../../../hooks'
-import { ArrowIcon } from '../../../atoms'
 import { IMeeting } from '../../../../interfaces'
 
 interface MeetingSummaryRowProps {
@@ -38,15 +37,7 @@ export const MeetingSummaryRow = ({
   meetings,
   id
 }: MeetingSummaryRowProps) => {
-  const {
-    toggleMeetingBreakdown,
-    breakdownOpen,
-    hotelName,
-    updateMeetingTotalCost
-  } = useBudget()
-
-  const { meetingBreakdownOpen } = breakdownOpen
-  const { open, date, typeOfMeeting } = meetingBreakdownOpen
+  const { hotelName, updateMeetingTotalCost } = useBudget()
 
   const { meeting } = useFindMeetingByHotel(meetings, hotelName)
 
@@ -54,30 +45,12 @@ export const MeetingSummaryRow = ({
     updateMeetingTotalCost(dateProp, id, pax, hotelName)
   }, [dateProp, typeOfMeetingProp, hotelName])
 
-  const handleToggleMeetingBreakdown = () => {
-    toggleMeetingBreakdown({
-      open: !open,
-      date: dateProp,
-      typeOfMeeting: mapTypeOfMeeting(typeOfMeetingProp)
-    })
-  }
-
   if (!meeting) return null
 
   return (
-    <TableRow>
+    <TableRow className='dark:bg-[#a9ba9d]'>
       <TableCell>{dateProp}</TableCell>
-      <TableCell>
-        <IconButton onClick={handleToggleMeetingBreakdown}>
-          <ArrowIcon
-            open={open}
-            date={date}
-            dateProp={dateProp}
-            typeOfMeeting={typeOfMeeting}
-            typeOfMeetingProp={typeOfMeetingProp}
-          />
-        </IconButton>
-      </TableCell>
+      <TableCell></TableCell>
       <TableCell>{`${typeOfMeetingProp} @ ${hotelName}`}</TableCell>
       <TableCell></TableCell>
       <TableCell></TableCell>
