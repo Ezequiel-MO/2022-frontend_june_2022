@@ -172,10 +172,10 @@ export const budgetSlice = createSlice({
         dateProp: string
         id: 'morningMeetings' | 'afternoonMeetings' | 'fullDayMeetings'
         pax: number
-        hotelId: string
+        hotelName: string
       }>
     ) => {
-      const { dateProp, id, pax, hotelId } = action.payload
+      const { dateProp, id, pax, hotelName } = action.payload
 
       const updatedSchedule = state.schedule.map((day) => {
         if (day.date !== dateProp) {
@@ -183,7 +183,7 @@ export const budgetSlice = createSlice({
         }
 
         const updatedMeetings = day[id]?.meetings?.map((meeting) => {
-          if (meeting.hotel[0] !== hotelId) {
+          if (meeting.hotelName !== hotelName) {
             return meeting
           }
 

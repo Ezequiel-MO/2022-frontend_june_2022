@@ -1,13 +1,9 @@
 import { useEffect } from 'react'
 import { IconButton, TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
-import {
-  useBudget,
-  useFindByName,
-  useFindMeetingByHotel
-} from '../../../../hooks'
+import { useBudget, useFindMeetingByHotel } from '../../../../hooks'
 import { ArrowIcon } from '../../../atoms'
-import { IHotel, IMeeting } from '../../../../interfaces'
+import { IMeeting } from '../../../../interfaces'
 
 interface MeetingSummaryRowProps {
   pax: number
@@ -46,24 +42,17 @@ export const MeetingSummaryRow = ({
     toggleMeetingBreakdown,
     breakdownOpen,
     hotelName,
-    hotels,
     updateMeetingTotalCost
   } = useBudget()
 
   const { meetingBreakdownOpen } = breakdownOpen
   const { open, date, typeOfMeeting } = meetingBreakdownOpen
 
-  const { selectedOption: selectedHotel } = useFindByName(
-    hotels,
-    hotelName
-  ) as {
-    selectedOption: IHotel
-  }
-  const { meeting } = useFindMeetingByHotel(meetings, selectedHotel._id)
+  const { meeting } = useFindMeetingByHotel(meetings, hotelName)
 
   useEffect(() => {
-    updateMeetingTotalCost(dateProp, id, pax, selectedHotel._id)
-  }, [dateProp, typeOfMeetingProp, selectedHotel])
+    updateMeetingTotalCost(dateProp, id, pax, hotelName)
+  }, [dateProp, typeOfMeetingProp, hotelName])
 
   const handleToggleMeetingBreakdown = () => {
     toggleMeetingBreakdown({
@@ -72,6 +61,8 @@ export const MeetingSummaryRow = ({
       typeOfMeeting: mapTypeOfMeeting(typeOfMeetingProp)
     })
   }
+
+  if (!meeting) return null
 
   return (
     <TableRow>
@@ -87,7 +78,7 @@ export const MeetingSummaryRow = ({
           />
         </IconButton>
       </TableCell>
-      <TableCell>{`${typeOfMeetingProp} @ ${selectedHotel.name}`}</TableCell>
+      <TableCell>{`${typeOfMeetingProp} @ ${hotelName}`}</TableCell>
       <TableCell></TableCell>
       <TableCell></TableCell>
       <TableCell>
