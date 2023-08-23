@@ -14,7 +14,11 @@ interface IBreakdownOpen {
   meetingBreakdownOpen: {
     open: boolean
     date: string
-    typeOfMeeting: string
+    typeOfMeeting:
+      | 'morningMeetings'
+      | 'afternoonMeetings'
+      | 'fullDayMeetings'
+      | ''
   }
   venueBreakdownOpen: {
     open: boolean
@@ -63,7 +67,7 @@ const initialState: IBudgetState = {
     hotel: true,
     transfer_in: false,
     meetingBreakdownOpen: {
-      open: false,
+      open: true,
       date: '',
       typeOfMeeting: ''
     },

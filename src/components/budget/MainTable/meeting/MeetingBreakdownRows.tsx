@@ -7,31 +7,41 @@ import {
   TableHead,
   TableRow
 } from '@mui/material'
-import { MeetingBreakdownRow } from './'
-import {
-  useBudget,
-  useFindByName,
-  useFindMeetingByHotel
-} from '../../../../hooks'
+import { MeetingBreakdownRow, mapTypeOfMeeting } from '.'
+import { useBudget, useFindMeetingByHotel } from '../../../../hooks'
+import { IMeeting } from '../../../../interfaces'
+
+interface Props {
+  pax: number
+  dateProp: string
+  typeOfMeetingProp:
+    | 'Morning Meeting'
+    | 'Afternoon Meeting'
+    | 'Full Day Meeting'
+  meetings: IMeeting[]
+}
 
 export const MeetingBreakdownRows = ({
   pax,
   dateProp,
   typeOfMeetingProp,
   meetings
-}) => {
-  const { breakdownOpen, hotelName, hotels } = useBudget()
+}: Props) => {
+  const { breakdownOpen, hotelName } = useBudget()
   const { meetingBreakdownOpen } = breakdownOpen
   const { open, date, typeOfMeeting } = meetingBreakdownOpen
 
-  const { selectedOption: selectedHotel } = useFindByName(hotels, hotelName)
-  const { meeting } = useFindMeetingByHotel(meetings, selectedHotel._id)
+  const { meeting } = useFindMeetingByHotel(meetings, hotelName)
 
   return (
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
         <Collapse
-          in={open && date === dateProp && typeOfMeeting === typeOfMeetingProp}
+          in={
+            open &&
+            date === dateProp &&
+            typeOfMeeting === mapTypeOfMeeting(typeOfMeetingProp)
+          }
           timeout='auto'
           unmountOnExit
         >
@@ -52,12 +62,12 @@ export const MeetingBreakdownRows = ({
                     <MeetingBreakdownRow
                       units={1}
                       title='Full Day Rental Rate'
-                      rate={meeting?.FDRate}
+                      rate={meeting?.FDRate || 0}
                     />
                     <MeetingBreakdownRow
                       units={pax}
                       title='Full Day Delegate Rate'
-                      rate={meeting?.FDDDR}
+                      rate={meeting?.FDDDR || 0}
                     />
                   </>
                 ) : (
@@ -65,35 +75,35 @@ export const MeetingBreakdownRows = ({
                     <MeetingBreakdownRow
                       units={1}
                       title='Half Day Rental Rate'
-                      rate={meeting?.HDRate}
+                      rate={meeting?.HDRate || 0}
                     />
                     <MeetingBreakdownRow
                       units={pax}
                       title='Half Day Delegate Rate'
-                      rate={meeting?.HDDDR}
+                      rate={meeting?.HDDDR || 0}
                     />
                   </>
                 )}
 
                 <MeetingBreakdownRow
-                  units={meeting?.coffeeBreakUnits}
+                  units={meeting?.coffeeBreakUnits || 0}
                   title='Coffee Breaks'
-                  rate={meeting?.coffeeBreakPrice}
+                  rate={meeting?.coffeeBreakPrice || 0}
                 />
                 <MeetingBreakdownRow
-                  units={meeting?.workingLunchUnits}
+                  units={meeting?.workingLunchUnits || 0}
                   title='Working Lunch'
-                  rate={meeting?.workingLunchPrice}
+                  rate={meeting?.workingLunchPrice || 0}
                 />
                 <MeetingBreakdownRow
-                  units={meeting?.hotelDinnerUnits}
+                  units={meeting?.hotelDinnerUnits || 0}
                   title='Dinner @ Hotel'
-                  rate={meeting?.hotelDinnerPrice}
+                  rate={meeting?.hotelDinnerPrice || 0}
                 />
                 <MeetingBreakdownRow
                   units={1}
                   title='Audio Visuals Package'
-                  rate={meeting?.aavvPackage}
+                  rate={meeting?.aavvPackage || 0}
                 />
               </TableBody>
             </Table>

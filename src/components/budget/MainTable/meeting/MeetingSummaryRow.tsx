@@ -16,7 +16,7 @@ interface MeetingSummaryRowProps {
   id: 'morningMeetings' | 'afternoonMeetings' | 'fullDayMeetings'
 }
 
-const mapTypeOfMeeting = (
+export const mapTypeOfMeeting = (
   type: string
 ): 'morningMeetings' | 'afternoonMeetings' | 'fullDayMeetings' => {
   switch (type) {
