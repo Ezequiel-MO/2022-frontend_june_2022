@@ -6,9 +6,14 @@ import { Icon } from '@iconify/react'
 import { Destination } from '../../screens/destination/Destination'
 import Spinner from '../../ui/spinner/Spinner'
 
-export const BackdropModal = ({ open, handleClose }) => {
-  const [showContent, setShowContent] = useState(false)
-  const [showDestination, setShowDestination] = useState(false)
+interface Props {
+  open: boolean
+  handleClose: () => void
+}
+
+export const BackdropModal = ({ open, handleClose }: Props) => {
+  const [showContent, setShowContent] = useState<boolean>(false)
+  const [showDestination, setShowDestination] = useState<boolean>(false)
 
   useEffect(() => {
     if (open) {

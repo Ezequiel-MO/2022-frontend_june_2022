@@ -19,5 +19,5 @@ export interface ILocation {
   textContent: string
   inFigures: IInfigure[]
   corporateFacts: ICorporateFact[]
-  imageContentUrl: string[]
+  imageContentUrl: string[] | []
 }
