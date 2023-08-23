@@ -2,7 +2,15 @@ import { Icon } from '@iconify/react'
 import { useCurrentProject } from '../../../hooks'
 import { useTranslation } from '../../../translations/translationContext'
 
-export const ModalsRow = ({ iconText, title, handleOpen }) => {
+type ModalType = 'overview' | 'map' | 'destination'
+
+interface Props {
+  iconText: string
+  title: ModalType
+  handleOpen: (modalType: ModalType) => void
+}
+
+export const ModalsRow = ({ iconText, title, handleOpen }: Props) => {
   const { currentProject } = useCurrentProject()
   const { clientCompany } = currentProject
   const { colorPalette = [] } = clientCompany[0] || {}
@@ -24,7 +32,7 @@ export const ModalsRow = ({ iconText, title, handleOpen }) => {
         width='40'
       />
       <p className='group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg'>
-        {translatedTitle?.replace(/^\w/, (c) => c.toUpperCase())}
+        {translatedTitle?.replace(/^\w/, (c: string) => c.toUpperCase())}
       </p>
     </div>
   )

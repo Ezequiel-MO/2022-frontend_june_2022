@@ -22,8 +22,10 @@ const SidebarSmall = ({
   const [modal, setModal] = useState<
     'closed' | 'overview' | 'map' | 'destination'
   >('closed')
+
   const handleOpen = (modalType: 'overview' | 'map' | 'destination') =>
     setModal(modalType)
+
   const handleClose = () => setModal('closed')
 
   const { currentProject } = useCurrentProject() as { currentProject: IProject }

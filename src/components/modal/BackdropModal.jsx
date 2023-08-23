@@ -4,6 +4,7 @@ import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import { Icon } from '@iconify/react'
 import { Destination } from '../../screens/destination/Destination'
+import Spinner from '../../ui/spinner/Spinner'
 
 export const BackdropModal = ({ open, handleClose }) => {
   const [showContent, setShowContent] = useState(false)
@@ -54,7 +55,7 @@ export const BackdropModal = ({ open, handleClose }) => {
           className='absolute top-10 right-20 cursor-pointer'
           onClick={handleCloseWithAnimation}
         />
-        {showDestination && <Destination />}
+        {showDestination ? <Destination /> : <Spinner />}
       </Box>
     </Modal>
   )
