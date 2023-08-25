@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Rating } from '@mui/material'
-import RenderPhotos from '../../ui/renderPhotos/RenderPhotos'
+import RenderPhotos from '../organisms/RenderPhotos'
 import HotelIcons from './HotelIcons'
 import { RichParagraph } from '../atoms/RichParagraph'
 

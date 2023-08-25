@@ -1,4 +1,4 @@
-import RenderPhotos from '../../ui/renderPhotos/RenderPhotos'
+import RenderPhotos from '../organisms/RenderPhotos'
 import { RichParagraph } from '../atoms/RichParagraph'
 
 export const GiftCard = ({ gift }) => {

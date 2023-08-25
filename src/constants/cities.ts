@@ -1,4 +1,10 @@
-export const cities: string[] = ['Barcelona', 'Paris', 'Bilbao', 'Valencia']
+export const cities: string[] = [
+  'Barcelona',
+  'Paris',
+  'Bilbao',
+  'Valencia',
+  'Madrid'
+]
 
 export const locations = {
   Barcelona: [41.385331792, 2.168665992],
