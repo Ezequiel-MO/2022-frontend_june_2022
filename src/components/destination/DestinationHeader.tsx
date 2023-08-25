@@ -1,6 +1,10 @@
 import { Icon } from '@iconify/react'
 
-export const DestinationHeader = ({ groupLocation }) => {
+interface Props {
+  groupLocation: string
+}
+
+export const DestinationHeader = ({ groupLocation }: Props) => {
   return (
     <div className='w-full my-2 p-4 bg-gradient-to-r from-blue-800 to-red-700 text-white'>
       <h2 className='text-3xl font-bold'>{groupLocation}</h2>

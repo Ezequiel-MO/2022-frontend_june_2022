@@ -1,6 +1,11 @@
 import { Icon } from '@iconify/react'
+import { ILocation } from '../../interfaces/location'
 
-export const DestinationFacts = ({ locationObj }) => {
+interface Props {
+  locationObj: ILocation
+}
+
+export const DestinationFacts = ({ locationObj }: Props) => {
   const { inFigures, name } = locationObj || {}
 
   return (

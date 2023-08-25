@@ -1,4 +1,10 @@
-export const DestinationTable = ({ locationObj }) => {
+import { ILocation } from '../../interfaces/location'
+
+interface Props {
+  locationObj: ILocation
+}
+
+export const DestinationTable = ({ locationObj }: Props) => {
   const { corporateFacts } = locationObj || {}
   return (
     <div className='py-8'>

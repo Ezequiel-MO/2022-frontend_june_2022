@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react'
+import { ILocation } from '../../interfaces/location'
 
-export const DestinationDescription = ({ locationObj }) => {
-  const [textArray, setTextArray] = useState([])
+interface DestinationDescriptionProps {
+  locationObj: ILocation
+}
+
+export const DestinationDescription = ({
+  locationObj
+}: DestinationDescriptionProps) => {
+  const [textArray, setTextArray] = useState<string[]>([])
   const { textContent } = locationObj || {}
 
   useEffect(() => {
@@ -12,7 +19,7 @@ export const DestinationDescription = ({ locationObj }) => {
       'text/html'
     )
     const paragraphs = htmlDoc.getElementsByTagName('p')
-    let texts = []
+    let texts: string[] = []
     for (let i = 0; i < paragraphs.length; i++) {
       let paragraphText = paragraphs[i].innerText.trim()
       paragraphText = paragraphText.replace(
