@@ -6,27 +6,29 @@ import {
   useGetMealsCost,
   useGetMeetingsCost,
   useGetTransferCosts
-} from './'
+} from '.'
 
 export const useBudgetData = () => {
   const [totalCost, setTotalCost] = useState(0)
   const { currentProject, currentHotel } = useCurrentProject()
   const { nrPax } = currentProject
-  const { hotels, schedule } = useBudget()
+  const { hotels, gifts, schedule } = useBudget()
   const { meetingTotalCost = 0 } = useGetMeetingsCost()
   const { mealsTotalCost = 0 } = useGetMealsCost()
   const { eventsTotalCost = 0 } = useGetEventCosts()
   const { transfersTotalCost = 0 } = useGetTransferCosts()
 
   useMemo(() => {
-    const totalCost =
-      currentHotel.totalCost +
-      meetingTotalCost +
-      mealsTotalCost +
-      eventsTotalCost +
-      transfersTotalCost
+    if (currentHotel && currentHotel.totalCost !== undefined) {
+      const totalCost =
+        currentHotel.totalCost +
+        meetingTotalCost +
+        mealsTotalCost +
+        eventsTotalCost +
+        transfersTotalCost
 
-    setTotalCost(totalCost)
+      setTotalCost(totalCost)
+    }
   }, [
     currentHotel,
     meetingTotalCost,
@@ -37,6 +39,7 @@ export const useBudgetData = () => {
 
   return {
     hotels,
+    gifts,
     currentHotel,
     schedule,
     nrPax,

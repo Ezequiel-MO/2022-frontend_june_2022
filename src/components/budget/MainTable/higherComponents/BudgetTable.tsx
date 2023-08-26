@@ -2,15 +2,22 @@ import { Table, TableBody } from '@mui/material'
 import { BudgetTableHead, DayRows } from '.'
 import { HotelRows } from '../hotel'
 import { TotalBudgetCost } from '../../totals'
-import { IDay, IHotel } from '../../../../interfaces'
+import { IDay, IGift, IHotel } from '../../../../interfaces'
+import { GiftsRow } from '../rows'
 
 interface BudgetTableProps {
   hotels: IHotel[]
+  gifts: IGift[]
   schedule: IDay[]
   nrPax: number
 }
 
-export const BudgetTable = ({ hotels, schedule, nrPax }: BudgetTableProps) => {
+export const BudgetTable = ({
+  hotels,
+  gifts,
+  schedule,
+  nrPax
+}: BudgetTableProps) => {
   return (
     <Table
       id='budget-table'
@@ -24,6 +31,7 @@ export const BudgetTable = ({ hotels, schedule, nrPax }: BudgetTableProps) => {
         {schedule?.map((day) => (
           <DayRows key={day._id} day={day} pax={nrPax} />
         ))}
+        <GiftsRow gifts={gifts} pax={nrPax} />
         <TotalBudgetCost />
       </TableBody>
     </Table>

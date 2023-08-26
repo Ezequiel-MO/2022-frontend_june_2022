@@ -29,12 +29,14 @@ export const HotelBreakdownRows = ({ hotels, nights }: Props) => {
 
   return (
     <>
-      <tr className='w-full bg-white-100 dark:bg-[#a9ba9d]'>
+      <tr
+        className='w-full bg-white-100 dark:bg-[#a9ba9d]'
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <td colSpan={6} className='p-0 bg-transparent'>
           <button
             id='hotel-details'
             className='m-1 py-2 px-4 flex items-center justify-between bg-orange-300 dark:bg-slate-700 dark:hover:bg-slate-500 dark:text-white-0 rounded-md transition duration-500 ease-in-out hover:bg-orange-500 focus:outline-none'
-            onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? 'Hide Hotel Details' : 'Show Hotel Details'}
             {isOpen ? (

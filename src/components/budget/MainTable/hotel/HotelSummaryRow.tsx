@@ -25,7 +25,7 @@ export const HotelSummaryRow = ({ nights }: HotelSummaryRowProps) => {
     }
   }, [hotels, nights, updateHotelTotalCost, selectedHotel])
 
-  const handleChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+  const handleChange = (e: React.ChangeEvent<{ value: string }>) => {
     setSelectedHotelName(e.target.value as string)
   }
 

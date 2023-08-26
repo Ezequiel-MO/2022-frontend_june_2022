@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   SET_BUDGET_SCHEDULE,
   SET_HOTELS,
+  SET_GIFTS,
+  UPDATE_CURRENT_GIFT,
   SET_SELECTED_HOTEL_NAME,
   SET_SELECTED_VENUE_NAME,
   selectBudget,
@@ -18,7 +20,7 @@ import {
   SET_CURRENT_EVENTS,
   IBudgetState
 } from '../redux/features/budgetSlice'
-import { IDay, IHotel, IHotelPrice, ITransfer } from '../interfaces'
+import { IDay, IGift, IHotel, IHotelPrice, ITransfer } from '../interfaces'
 
 export const useBudget = () => {
   const dispatch = useDispatch()
@@ -29,6 +31,7 @@ export const useBudget = () => {
     transfersIn,
     transfersOut,
     hotels,
+    gifts,
     hotelName,
     venueName,
     breakdownOpen,
@@ -40,6 +43,8 @@ export const useBudget = () => {
   const setBudgetSchedule = (schedule: IDay[]) =>
     dispatch(SET_BUDGET_SCHEDULE(schedule))
   const setHotels = (hotels: IHotel[]) => dispatch(SET_HOTELS(hotels))
+  const setGifts = (gifts: IGift[]) => dispatch(SET_GIFTS(gifts))
+  const updateCurrentGift = (gift: IGift) => dispatch(UPDATE_CURRENT_GIFT(gift))
   const setSelectedHotelName = (hotel_name: string) =>
     dispatch(SET_SELECTED_HOTEL_NAME(hotel_name))
   const setSelectedVenueName = (venue_name: string) =>
@@ -115,6 +120,7 @@ export const useBudget = () => {
     hotelName,
     venueName,
     hotels,
+    gifts,
     meetings,
     meals,
     events,
@@ -124,6 +130,8 @@ export const useBudget = () => {
     breakdownOpen,
     setBudgetSchedule,
     setHotels,
+    setGifts,
+    updateCurrentGift,
     updateHotelTotalCost,
     updateTransfers,
     updateTransfersIn,

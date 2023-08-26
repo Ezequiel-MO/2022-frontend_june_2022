@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
   IDay,
   IEvent,
+  IGift,
   IHotel,
   IHotelPrice,
   IRestaurant,
@@ -27,6 +28,8 @@ export interface IBudgetState {
   venueName: string
   breakdownOpen: IBreakdownOpen
   hotels: IHotel[]
+  gifts: IGift[]
+  currentGift: IGift
   schedule: IDay[]
   meetings: Record<string, MeetingType>
   meals: Record<string, { [key: string]: IRestaurant }>
@@ -64,7 +67,9 @@ const initialState: IBudgetState = {
     }
   },
   hotels: JSON.parse(localStorage.getItem('hotels') || '[]'),
+  gifts: JSON.parse(localStorage.getItem('gifts') || '[]'),
   schedule: JSON.parse(localStorage.getItem('schedule') || '[]'),
+  currentGift: {} as IGift,
   meetings: {},
   meals: {},
   events: {},
@@ -92,6 +97,9 @@ export const budgetSlice = createSlice({
     },
     SET_HOTELS: (state, action: PayloadAction<IHotel[]>) => {
       state.hotels = action.payload
+    },
+    SET_GIFTS: (state, action: PayloadAction<IGift[]>) => {
+      state.gifts = action.payload
     },
     SET_SELECTED_HOTEL_NAME: (state, action) => {
       state.hotelName = action.payload
@@ -291,7 +299,6 @@ export const budgetSlice = createSlice({
         schedule: updatedSchedule
       }
     },
-
     UPDATE_TRANSFERS: (
       state,
       action: PayloadAction<{ options: ITransfer[] }>
@@ -320,7 +327,9 @@ export const budgetSlice = createSlice({
         }
       }
     },
-
+    UPDATE_CURRENT_GIFT: (state, action: PayloadAction<IGift>) => {
+      state.currentGift = action.payload
+    },
     SET_CURRENT_MEALS: (
       state,
       action: PayloadAction<{
@@ -367,10 +376,12 @@ export const budgetSlice = createSlice({
 export const {
   SET_BUDGET_SCHEDULE,
   SET_HOTELS,
+  SET_GIFTS,
   SET_SELECTED_HOTEL_NAME,
   SET_SELECTED_VENUE_NAME,
   TOGGLE_BREAKDOWN,
   TOGGLE_VENUE_BREAKDOWN,
+  UPDATE_CURRENT_GIFT,
   UPDATE_HOTEL_TOTAL_COST,
   UPDATE_MEETING_TOTAL_COST,
   UPDATE_EVENT_TOTAL_COST,

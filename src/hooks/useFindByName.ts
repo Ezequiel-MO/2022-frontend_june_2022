@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import { IEvent, IHotel, IRestaurant } from '../interfaces'
+import { IEvent, IGift, IHotel, IRestaurant } from '../interfaces'
 import { ILocation } from '../interfaces/location'
 
-type IOption = IHotel | IEvent | IRestaurant | ILocation
+type IOption = IHotel | IEvent | IRestaurant | ILocation | IGift
 
 interface UseFindByNameReturn {
   selectedOption?: IOption
