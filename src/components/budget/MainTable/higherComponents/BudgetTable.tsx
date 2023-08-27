@@ -31,7 +31,7 @@ export const BudgetTable = ({
         {schedule?.map((day) => (
           <DayRows key={day._id} day={day} pax={nrPax} />
         ))}
-        <GiftsRow gifts={gifts} pax={nrPax} />
+        <GiftsRow gifts={gifts} />
         <TotalBudgetCost />
       </TableBody>
     </Table>
