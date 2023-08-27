@@ -34,7 +34,7 @@ export const GiftsRow = ({ gifts }: Props) => {
     <>
       <TableRow className='dark:bg-[#a9ba9d]'>
         <TableCell></TableCell>
-        <TableCell></TableCell>
+        <TableCell>Proposed Gifts</TableCell>
         <TableCell>
           <OptionSelect
             options={gifts}

@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import {
+  useBudget,
   useCurrentProject,
   useGetEventCosts,
   useGetMealsCost,
   useGetMeetingsCost,
   useGetTransferCosts
 } from '../../../hooks'
-import { IHotel } from '../../../interfaces'
+import { IGift, IHotel } from '../../../interfaces'
+import { TranslationKeys } from '../../../interfaces/translations'
 
 export interface ICostItem {
   icon: string
-  title: string
+  title: TranslationKeys
   cost?: number
 }
 
@@ -27,28 +29,39 @@ interface IData {
 
 interface PartialCostsDataReturn {
   currentHotel: IHotel
+  currentGift: IGift
   meetingTotalCost: number
   mealsTotalCost: number
   eventsTotalCost: number
   transfersTotalCost: number
+  giftTotalCost: number
   data: IData
-  costItems: any
+  costItems: any[]
   totalCostOfItems: number
 }
 
 export const usePartialCostsData = (): PartialCostsDataReturn => {
-  const {
-    currentHotel,
-    currentProject: { nrPax }
-  } = useCurrentProject()
+  const { currentHotel } = useCurrentProject()
+  const { currentGift } = useBudget() || ({} as { currentGift: IGift })
   const { meetingTotalCost = 0 } = useGetMeetingsCost()
   const { mealsTotalCost = 0 } = useGetMealsCost()
   const { eventsTotalCost = 0 } = useGetEventCosts()
   const { transfersTotalCost = 0 } = useGetTransferCosts()
   const [totalCostOfItems, setTotalCostOfItems] = useState<number>(0)
 
+  const giftTotalCost = useMemo(() => {
+    return currentGift?.qty * currentGift?.price || 0
+  }, [currentGift])
+
   const data: IData = {
-    labels: ['Accommodation', 'Meetings', 'Transfers', 'Meals', 'Activities'],
+    labels: [
+      'Accommodation',
+      'Meetings',
+      'Transfers',
+      'Meals',
+      'Activities',
+      'Gifts'
+    ],
     datasets: [
       {
         label: 'Budget Breakdown',
@@ -57,21 +70,24 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
           meetingTotalCost,
           transfersTotalCost,
           mealsTotalCost,
-          eventsTotalCost
+          eventsTotalCost,
+          giftTotalCost
         ],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
           'rgba(255, 206, 86, 0.2)',
           'rgba(75, 192, 192, 0.2)',
-          'rgba(89, 90, 200, 0.2)'
+          'rgba(89, 90, 200, 0.2)',
+          'rgba(153, 102, 255, 0.2)'
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
           'rgba(75, 192, 192, 1)',
-          'rgba(89, 90, 200, 1)'
+          'rgba(89, 90, 200, 1)',
+          'rgba(153, 102, 255, 1)'
         ],
         borderWidth: 1
       }
@@ -103,6 +119,11 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
       icon: 'akar-icons:people-multiple',
       title: 'ACTIVITIES',
       cost: eventsTotalCost
+    },
+    {
+      icon: 'mdi:gift-outline',
+      title: 'GIFTS',
+      cost: giftTotalCost
     }
   ]
 
@@ -114,15 +135,18 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     meetingTotalCost,
     mealsTotalCost,
     eventsTotalCost,
-    transfersTotalCost
+    transfersTotalCost,
+    giftTotalCost
   ])
 
   return {
     currentHotel,
+    currentGift,
     meetingTotalCost,
     mealsTotalCost,
     eventsTotalCost,
     transfersTotalCost,
+    giftTotalCost,
     data,
     costItems,
     totalCostOfItems

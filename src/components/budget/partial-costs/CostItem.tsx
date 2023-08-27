@@ -1,10 +1,11 @@
 import { Icon } from '@iconify/react'
 import accounting from 'accounting'
 import { useTranslation } from '../../../translations/translationContext'
+import { TranslationKeys } from '../../../interfaces/translations'
 
 interface CostItemProps {
   icon: string
-  title: string
+  title: TranslationKeys
   cost: number
   color: string
 }

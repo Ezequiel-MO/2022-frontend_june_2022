@@ -2,6 +2,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'react-chartjs-2'
 import { ICostItem, usePartialCostsData } from './usePartialCostsData'
 import { CostItem } from './CostItem'
+import { TranslationKeys } from '../../../interfaces/translations'
 
 interface PartialCostsProps {
   colorPalette?: string[]
@@ -21,7 +22,7 @@ export const PartialCosts = ({ colorPalette = [] }: PartialCostsProps) => {
           <CostItem
             key={item.title}
             icon={item.icon}
-            title={item.title}
+            title={item.title as TranslationKeys}
             cost={item.cost || 0}
             color={iconColor}
           />
