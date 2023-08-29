@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { useCurrentProject } from '../../hooks'
 import { SidebarRow } from '.'
 import { IProject } from '../../interfaces'
+import { checkDayIsEmpty } from '../../helpers/checkEmptyDay'
 
 const Sidebar: FC = () => {
   const { currentProject } = useCurrentProject() as { currentProject: IProject }
@@ -15,7 +16,9 @@ const Sidebar: FC = () => {
         )}
         {schedule?.map((day) => (
           <div key={day._id}>
-            <SidebarRow iconText='akar-icons:calendar' title={day.date} />
+            {checkDayIsEmpty(day) ? null : (
+              <SidebarRow iconText='bx:calendar' title={day.date} />
+            )}
           </div>
         ))}
         {budget === 'budget' ? (
