@@ -67,7 +67,7 @@ const initialState: IBudgetState = {
     }
   },
   hotels: JSON.parse(localStorage.getItem('hotels') || '[]'),
-  gifts: JSON.parse(localStorage.getItem('gifts') || '[]'),
+  gifts: [],
   schedule: JSON.parse(localStorage.getItem('schedule') || '[]'),
   currentGift: {} as IGift,
   meetings: {},

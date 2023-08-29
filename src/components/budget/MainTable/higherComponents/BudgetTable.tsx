@@ -7,17 +7,11 @@ import { GiftsRow } from '../rows'
 
 interface BudgetTableProps {
   hotels: IHotel[]
-  gifts: IGift[]
   schedule: IDay[]
   nrPax: number
 }
 
-export const BudgetTable = ({
-  hotels,
-  gifts,
-  schedule,
-  nrPax
-}: BudgetTableProps) => {
+export const BudgetTable = ({ hotels, schedule, nrPax }: BudgetTableProps) => {
   return (
     <Table
       id='budget-table'
@@ -31,7 +25,7 @@ export const BudgetTable = ({
         {schedule?.map((day) => (
           <DayRows key={day._id} day={day} pax={nrPax} />
         ))}
-        <GiftsRow gifts={gifts} />
+        <GiftsRow nrPax={nrPax} />
         <TotalBudgetCost />
       </TableBody>
     </Table>
