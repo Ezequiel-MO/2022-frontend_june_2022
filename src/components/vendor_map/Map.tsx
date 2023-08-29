@@ -2,19 +2,19 @@ import { useMemo, useState, useEffect, useCallback } from 'react'
 import { GoogleMap, MarkerF, InfoWindowF } from '@react-google-maps/api'
 import { filterUniqueCoordinates } from './filterUniqueCoordinates'
 import { VendorList } from './VendorList'
-import { VendorMapLogic } from './MapLogic'
+import { CoordItem, VendorMapLogic } from './MapLogic'
 import './map.css'
 
-export const VendorMap = () => {
+export const VendorMap: React.FC = () => {
   const { hotelCoords, centralCoords, scheduleCoords } = VendorMapLogic()
 
-  const [zoom, setZoom] = useState(14)
-  const [map, setMap] = useState(null)
-  const [location, setLocation] = useState(centralCoords)
-  const [showAllVendors, setShowAllVendors] = useState(true)
-  const [clickedVendor, setClickedVendor] = useState(null)
+  const [zoom, setZoom] = useState<number>(14)
+  const [map, setMap] = useState<google.maps.Map | null>(null)
+  const [location, setLocation] = useState<CoordItem>(centralCoords)
+  const [showAllVendors, setShowAllVendors] = useState<boolean>(true)
+  const [clickedVendor, setClickedVendor] = useState<CoordItem | null>(null)
 
-  const vendors = useMemo(() => {
+  const vendors: CoordItem[] = useMemo(() => {
     const allVendors =
       showAllVendors || clickedVendor?.distance !== null
         ? [centralCoords, hotelCoords, scheduleCoords].flat()
@@ -55,7 +55,10 @@ export const VendorMap = () => {
         })
       }
       map.fitBounds(newBounds)
-      setZoom(map.getZoom())
+      const newZoom = map.getZoom()
+      if (typeof newZoom !== 'undefined') {
+        setZoom(newZoom)
+      }
     }
   }, [location, vendors, map])
 
@@ -76,7 +79,7 @@ export const VendorMap = () => {
   )
 
   const onLoad = useCallback(
-    (map) => {
+    (map: google.maps.Map) => {
       map.fitBounds(bounds)
       setMap(map)
     },
@@ -85,13 +88,17 @@ export const VendorMap = () => {
 
   const onZoomChanged = useCallback(() => {
     if (map) {
-      setZoom(map.getZoom())
+      const newZoom = map.getZoom()
+      if (newZoom !== undefined) {
+        setZoom(newZoom)
+      }
     }
   }, [map])
 
-  const handleVendorClick = (vendor) => {
+  const handleVendorClick = (vendor: CoordItem) => {
     setClickedVendor(vendor)
     setLocation({
+      ...vendor,
       place: vendor.place,
       coords: vendor.coords
     })
@@ -146,6 +153,7 @@ export const VendorMap = () => {
                 }}
                 onClick={() => {
                   setLocation({
+                    ...vendor,
                     place: vendor.place,
                     coords: vendor.coords
                   })

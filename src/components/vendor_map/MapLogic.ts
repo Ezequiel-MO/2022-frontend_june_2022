@@ -10,11 +10,23 @@ import { locations } from '../../constants/cities'
 import { getDistanceFromCentralCoords } from '../../helpers'
 import { IProject } from '../../interfaces'
 
+export interface Coords {
+  lat: number
+  lng: number
+}
+
+export interface CoordItem {
+  coords: Coords
+  place: string
+  distance: number | null
+  icon?: any
+}
+
 export const VendorMapLogic = () => {
   const { currentProject } = useCurrentProject() as { currentProject: IProject }
   const { hotels, schedule, groupLocation } = currentProject
 
-  const centralCoords = useMemo(() => {
+  const centralCoords: CoordItem = useMemo(() => {
     const coords =
       groupLocation in locations
         ? locations[groupLocation]
@@ -26,11 +38,12 @@ export const VendorMapLogic = () => {
       coords: {
         lat: coords[0],
         lng: coords[1]
-      }
+      },
+      distance: 0
     }
   }, [groupLocation])
 
-  const hotelCoords = useMemo(() => {
+  const hotelCoords: CoordItem[] = useMemo(() => {
     return hotels?.map((hotel) => {
       const distance = getDistanceFromCentralCoords(
         hotel.location.coordinates[0],
@@ -50,7 +63,7 @@ export const VendorMapLogic = () => {
   }, [hotels, centralCoords])
 
   const scheduleCoords = useMemo(() => {
-    let coords: any = []
+    let coords: CoordItem[] = []
     schedule.forEach((day) => {
       day.morningEvents?.events.forEach((event) => {
         if (event.location && event.location.coordinates) {
