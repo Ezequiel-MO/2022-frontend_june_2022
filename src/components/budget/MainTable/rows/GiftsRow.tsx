@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const GiftsRow = ({ gifts }: Props) => {
-  const [giftName, setGiftName] = useState<string>(gifts[0].name)
+  const [giftName, setGiftName] = useState<string>(gifts[0]?.name || '')
   const { setGifts, updateCurrentGift } = useBudget()
 
   const { selectedOption: selectedGift } = useFindByName(gifts, giftName)
@@ -38,7 +38,7 @@ export const GiftsRow = ({ gifts }: Props) => {
         <TableCell>
           <OptionSelect
             options={gifts}
-            value={selectedGift?.name || gifts[0].name}
+            value={selectedGift?.name || gifts[0]?.name}
             handleChange={handleChange}
           />
         </TableCell>
