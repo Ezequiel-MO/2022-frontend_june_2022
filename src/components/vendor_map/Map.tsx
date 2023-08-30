@@ -13,6 +13,9 @@ export const VendorMap: React.FC = () => {
   const [location, setLocation] = useState<CoordItem>(centralCoords)
   const [showAllVendors, setShowAllVendors] = useState<boolean>(true)
   const [clickedVendor, setClickedVendor] = useState<CoordItem | null>(null)
+  const [activeInfoWindow, setActiveInfoWindow] = useState<CoordItem | null>(
+    null
+  )
 
   const vendors: CoordItem[] = useMemo(() => {
     const allVendors =
@@ -28,6 +31,14 @@ export const VendorMap: React.FC = () => {
     showAllVendors,
     clickedVendor
   ])
+
+  const handleMarkerClick = (vendor: CoordItem) => {
+    setActiveInfoWindow(vendor)
+  }
+
+  const closeInfoWindow = () => {
+    setActiveInfoWindow(null)
+  }
 
   useEffect(() => {
     if (map) {
@@ -113,12 +124,13 @@ export const VendorMap: React.FC = () => {
   )
 
   const handleVendorClick = (vendor: CoordItem) => {
-    setClickedVendor(vendor)
     setLocation({
       ...vendor,
       place: vendor.place,
       coords: vendor.coords
     })
+    setClickedVendor(vendor)
+    setActiveInfoWindow(vendor)
     setShowAllVendors(false)
   }
 
@@ -134,6 +146,7 @@ export const VendorMap: React.FC = () => {
         setLocation={setLocation}
         onVendorClick={handleVendorClick}
         onShowAllVendors={handleShowAllVendors}
+        activeInfoWindow={activeInfoWindow || undefined}
       />
       <div className='map'>
         <GoogleMap
@@ -149,9 +162,12 @@ export const VendorMap: React.FC = () => {
             <InfoWindowF
               position={location.coords}
               options={{ pixelOffset: new google.maps.Size(0, -40) }}
+              onCloseClick={closeInfoWindow}
             >
-              <div className='bg-white rounded-lg shadow-md p-4'>
-                <h3 className='text-lg font-bold mb-2'>{location.place}</h3>
+              <div className='bg-white-50 rounded-lg shadow-md p-4 dark:bg-gray-500'>
+                <h3 className='text-lg font-semibold mb-2 text-gray-100 dark:text-white'>
+                  {location.place}
+                </h3>
               </div>
             </InfoWindowF>
           }
@@ -172,6 +188,7 @@ export const VendorMap: React.FC = () => {
                   place: vendor.place,
                   coords: vendor.coords
                 })
+                handleMarkerClick(vendor)
               }}
             />
           ))}

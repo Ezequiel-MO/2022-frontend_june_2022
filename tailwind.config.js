@@ -41,6 +41,7 @@ module.exports = {
         black: {
           50: '#22281B'
         },
+
         gray: {
           50: '#7F847A'
         },
