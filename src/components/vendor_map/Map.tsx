@@ -1,12 +1,12 @@
-import { useMemo, useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { GoogleMap, MarkerF, InfoWindowF } from '@react-google-maps/api'
 import { VendorList } from './VendorList'
 import { CoordItem, VendorMapLogic } from './MapLogic'
 import './map.css'
-import { filterUniqueCoordinates } from '../../helpers'
+import { useMapOptions, useMapZoom, useVendorCoords } from './hooks'
 
 export const VendorMap: React.FC = () => {
-  const { hotelCoords, centralCoords, scheduleCoords } = VendorMapLogic()
+  const { centralCoords } = VendorMapLogic()
 
   const [zoom, setZoom] = useState<number>(14)
   const [map, setMap] = useState<google.maps.Map | null>(null)
@@ -17,20 +17,7 @@ export const VendorMap: React.FC = () => {
     null
   )
 
-  const vendors: CoordItem[] = useMemo(() => {
-    const allVendors =
-      showAllVendors || clickedVendor?.distance !== null
-        ? [centralCoords, hotelCoords, scheduleCoords].flat()
-        : [centralCoords, clickedVendor]
-
-    return filterUniqueCoordinates(allVendors)
-  }, [
-    centralCoords,
-    hotelCoords,
-    scheduleCoords,
-    showAllVendors,
-    clickedVendor
-  ])
+  const vendors: CoordItem[] = useVendorCoords(showAllVendors, clickedVendor)
 
   const handleMarkerClick = (vendor: CoordItem) => {
     setActiveInfoWindow(vendor)
@@ -40,69 +27,9 @@ export const VendorMap: React.FC = () => {
     setActiveInfoWindow(null)
   }
 
-  useEffect(() => {
-    if (map) {
-      let isInitialLoad = true
-      const newBounds = new google.maps.LatLngBounds()
+  useMapZoom(map, location, vendors)
 
-      if (location.distance === null) {
-        vendors.forEach((vendor) => {
-          newBounds.extend(vendor.coords)
-        })
-      } else {
-        newBounds.extend(location.coords)
-        vendors.forEach((vendor) => {
-          if (vendor.distance !== null) {
-            newBounds.extend(vendor.coords)
-          }
-        })
-      }
-
-      const fitAndAdjustZoom = () => {
-        setTimeout(() => {
-          map.fitBounds(newBounds)
-        }, 1000)
-
-        if (isInitialLoad) {
-          isInitialLoad = false
-          return
-        }
-
-        const currentZoom = map.getZoom()
-
-        if (typeof currentZoom === 'number') {
-          const zoomChangeListener = google.maps.event.addListener(
-            map,
-            'bounds_changed',
-            () => {
-              if (map.getZoom() !== currentZoom) {
-                google.maps.event.removeListener(zoomChangeListener)
-                map.setZoom(Math.min(currentZoom + 1, map.getZoom()!))
-              }
-            }
-          )
-        }
-      }
-
-      fitAndAdjustZoom()
-    }
-  }, [location, vendors, map])
-
-  const options = useMemo(
-    () => ({
-      mapId: '37537533e1cc90',
-      center: centralCoords.coords,
-      controlSize: 25,
-      disableDefaultUI: false,
-      clickableIcons: false,
-      zoomControl: true,
-      mapTypeControl: true,
-      scaleControl: true,
-      rotateControl: false,
-      fullscreenControl: true
-    }),
-    [centralCoords]
-  )
+  const options = useMapOptions(centralCoords)
 
   const onLoad = useCallback(
     (map: google.maps.Map) => {
