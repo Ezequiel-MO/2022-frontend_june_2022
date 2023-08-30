@@ -2,7 +2,7 @@ import { CoordItem, Coords } from './MapLogic'
 
 interface Props {
   vendors: CoordItem[]
-  setLocation: (location: { place: string; coords: Coords }) => void
+  setLocation: (location: CoordItem) => void
   onVendorClick?: (vendor: CoordItem) => void
   onShowAllVendors?: () => void
 }
@@ -15,6 +15,7 @@ export const VendorList = ({
 }: Props) => {
   const handleVendorClick = (vendor: CoordItem) => {
     setLocation({
+      ...vendor,
       place: vendor.place,
       coords: vendor.coords
     })
@@ -31,7 +32,7 @@ export const VendorList = ({
         return (
           <div
             key={index}
-            className='cursor-pointer px-4 py-2 my-2 bg-gray-100 rounded-lg shadow hover:bg-gray-200 transition duration-200 ease-in overflow-x-hidden'
+            className='cursor-pointer px-4 py-2 my-2 bg-gray-100 rounded-lg shadow hover:bg-gray-200 transition duration-200 ease-in overflow-x-'
             onClick={() => handleVendorClick(vendor)}
           >
             {vendor.place}

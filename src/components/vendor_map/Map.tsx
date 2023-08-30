@@ -29,19 +29,11 @@ export const VendorMap: React.FC = () => {
     clickedVendor
   ])
 
-  const bounds = useMemo(() => {
-    const bounds = new google.maps.LatLngBounds()
-    vendors
-      .filter((vendor) => vendor.distance !== null)
-      .forEach((vendor) => {
-        bounds.extend(vendor.coords)
-      })
-    return bounds
-  }, [vendors])
-
   useEffect(() => {
     if (map) {
+      let isInitialLoad = true
       const newBounds = new google.maps.LatLngBounds()
+
       if (location.distance === null) {
         vendors.forEach((vendor) => {
           newBounds.extend(vendor.coords)
@@ -54,11 +46,34 @@ export const VendorMap: React.FC = () => {
           }
         })
       }
-      map.fitBounds(newBounds)
-      const newZoom = map.getZoom()
-      if (typeof newZoom !== 'undefined') {
-        setZoom(newZoom)
+
+      const fitAndAdjustZoom = () => {
+        setTimeout(() => {
+          map.fitBounds(newBounds)
+        }, 1000)
+
+        if (isInitialLoad) {
+          isInitialLoad = false
+          return
+        }
+
+        const currentZoom = map.getZoom()
+
+        if (typeof currentZoom === 'number') {
+          const zoomChangeListener = google.maps.event.addListener(
+            map,
+            'bounds_changed',
+            () => {
+              if (map.getZoom() !== currentZoom) {
+                google.maps.event.removeListener(zoomChangeListener)
+                map.setZoom(Math.min(currentZoom + 1, map.getZoom()!))
+              }
+            }
+          )
+        }
       }
+
+      fitAndAdjustZoom()
     }
   }, [location, vendors, map])
 
@@ -80,20 +95,22 @@ export const VendorMap: React.FC = () => {
 
   const onLoad = useCallback(
     (map: google.maps.Map) => {
+      const bounds = new google.maps.LatLngBounds()
+      vendors.forEach((vendor) => {
+        bounds.extend(
+          new google.maps.LatLng(vendor.coords.lat, vendor.coords.lng)
+        )
+      })
       map.fitBounds(bounds)
       setMap(map)
-    },
-    [bounds]
-  )
 
-  const onZoomChanged = useCallback(() => {
-    if (map) {
       const newZoom = map.getZoom()
       if (newZoom !== undefined) {
         setZoom(newZoom)
       }
-    }
-  }, [map])
+    },
+    [vendors]
+  )
 
   const handleVendorClick = (vendor: CoordItem) => {
     setClickedVendor(vendor)
@@ -121,8 +138,7 @@ export const VendorMap: React.FC = () => {
       <div className='map'>
         <GoogleMap
           onLoad={onLoad}
-          zoom={zoom}
-          onZoomChanged={onZoomChanged}
+          zoom={zoom || 14}
           options={options}
           mapContainerStyle={{
             width: '100%',
@@ -139,28 +155,26 @@ export const VendorMap: React.FC = () => {
               </div>
             </InfoWindowF>
           }
-          {vendors.map((vendor, index) => {
-            return (
-              <MarkerF
-                key={index}
-                position={vendor.coords}
-                title={vendor.place}
-                onLoad={(marker) => {
-                  marker.setIcon({
-                    ...vendor.icon,
-                    anchor: new google.maps.Point(15, 30)
-                  })
-                }}
-                onClick={() => {
-                  setLocation({
-                    ...vendor,
-                    place: vendor.place,
-                    coords: vendor.coords
-                  })
-                }}
-              />
-            )
-          })}
+          {vendors.map((vendor, index) => (
+            <MarkerF
+              key={index}
+              position={vendor.coords}
+              title={vendor.place}
+              onLoad={(marker) => {
+                marker.setIcon({
+                  ...vendor.icon,
+                  anchor: new google.maps.Point(15, 30)
+                })
+              }}
+              onClick={() => {
+                setLocation({
+                  ...vendor,
+                  place: vendor.place,
+                  coords: vendor.coords
+                })
+              }}
+            />
+          ))}
         </GoogleMap>
       </div>
     </div>
