@@ -1,3 +1,5 @@
+import { CoordItem } from '../components/vendor_map/MapLogic'
+
 function toRadians(degrees: number): number {
   return degrees * (Math.PI / 180)
 }
@@ -22,4 +24,16 @@ export function getDistanceFromCentralCoords(
   const distance = R * c
 
   return distance > MAX_DISTANCE ? null : distance
+}
+
+export const filterUniqueCoordinates = (vendors: CoordItem[]) => {
+  const uniqueCoordinates = new Set()
+  return vendors.filter((vendor) => {
+    const key = `${vendor.coords.lat}-${vendor.coords.lng}`
+    if (uniqueCoordinates.has(key)) {
+      return false
+    }
+    uniqueCoordinates.add(key)
+    return true
+  })
 }

@@ -1,9 +1,9 @@
 import { useMemo, useState, useEffect, useCallback } from 'react'
 import { GoogleMap, MarkerF, InfoWindowF } from '@react-google-maps/api'
-import { filterUniqueCoordinates } from './filterUniqueCoordinates'
 import { VendorList } from './VendorList'
 import { CoordItem, VendorMapLogic } from './MapLogic'
 import './map.css'
+import { filterUniqueCoordinates } from '../../helpers'
 
 export const VendorMap: React.FC = () => {
   const { hotelCoords, centralCoords, scheduleCoords } = VendorMapLogic()

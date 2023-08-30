@@ -9,6 +9,7 @@ a {
 
 .controls {
   width: 20%;
+  max-width: fit-content;
   padding: 1rem;
   background: #14161a;
   color: #fff;
