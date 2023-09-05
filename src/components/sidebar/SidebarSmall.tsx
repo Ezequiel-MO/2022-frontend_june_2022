@@ -5,7 +5,7 @@ import ReactToPrint from 'react-to-print'
 import { Icon } from '@iconify/react'
 import { useCurrentProject } from '../../hooks'
 import { BackdropModal } from '../modal/BackdropModal'
-import { cities } from '../../constants/cities'
+import { CitiesType, cities } from '../../constants/cities'
 import { IProject } from '../../interfaces'
 
 interface SidebarSmallProps {
@@ -47,7 +47,7 @@ const SidebarSmall = ({
   return (
     <div className='inline sticky top-0'>
       <div className='flex items-center justify-center'>
-        {cities.includes(groupLocation) && (
+        {cities.includes(groupLocation as CitiesType) && (
           <ModalsRow
             iconText='bx:world'
             title='destination'

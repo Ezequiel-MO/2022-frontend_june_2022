@@ -1,4 +1,4 @@
-type CitiesType =
+export type CitiesType =
   | 'Barcelona'
   | 'Paris'
   | 'Bilbao'

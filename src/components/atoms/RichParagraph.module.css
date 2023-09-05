@@ -13,3 +13,8 @@
 .no-border .ql-editor {
   border: none;
 }
+
+.special-link-class {
+  color: #44a0b8;
+  text-decoration: underline;
+}
