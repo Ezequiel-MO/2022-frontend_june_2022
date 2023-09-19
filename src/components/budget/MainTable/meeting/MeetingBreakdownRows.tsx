@@ -1,17 +1,9 @@
-import {
-  Box,
-  Collapse,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow
-} from '@mui/material'
-import { MeetingBreakdownRow, mapTypeOfMeeting } from '.'
+import { MeetingBreakdownRow } from '.'
 import { useBudget, useFindMeetingByHotel } from '../../../../hooks'
 import { IMeeting } from '../../../../interfaces'
 import { useState } from 'react'
 import { Icon } from '@iconify/react'
+import { ArrowIcon } from '../../../atoms'
 
 interface Props {
   pax: number
@@ -49,11 +41,7 @@ export const MeetingBreakdownRows = ({
             onClick={handleToggleMeetingBreakdown}
           >
             {isOpen ? 'Hide Meeting Details' : 'Show Meeting Details'}
-            {isOpen ? (
-              <Icon icon='bxs:up-arrow' color='#ea5933' className='ml-2' />
-            ) : (
-              <Icon icon='bxs:down-arrow' color='#ea5933' className='ml-2' />
-            )}
+            <ArrowIcon open={isOpen} />
           </button>
         </td>
       </tr>

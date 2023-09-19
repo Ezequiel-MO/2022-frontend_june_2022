@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useBudget, useFindByName } from '../../../../hooks'
 import { HotelBreakdownRow } from '.'
 import { Icon } from '@iconify/react'
 import { IHotel } from '../../../../interfaces'
+import { ArrowIcon } from '../../../atoms'
 
 interface Props {
   hotels: IHotel[]
@@ -39,11 +40,7 @@ export const HotelBreakdownRows = ({ hotels, nights }: Props) => {
             className='m-1 py-2 px-4 flex items-center justify-between bg-orange-300 dark:bg-slate-700 dark:hover:bg-slate-500 dark:text-white-0 rounded-md transition duration-500 ease-in-out hover:bg-orange-500 focus:outline-none'
           >
             {isOpen ? 'Hide Hotel Details' : 'Show Hotel Details'}
-            {isOpen ? (
-              <Icon icon='bxs:up-arrow' color='#ea5933' className='ml-2' />
-            ) : (
-              <Icon icon='bxs:down-arrow' color='#ea5933' className='ml-2' />
-            )}
+            <ArrowIcon open={isOpen} />
           </button>
         </td>
       </tr>
