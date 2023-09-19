@@ -1,4 +1,4 @@
-import { ITransfer } from './transfer'
+import { ITransfer, IEntertainment } from './'
 
 interface IVenuePrice {
   rental: number
@@ -29,7 +29,8 @@ export interface IRestaurant {
   }
   introduction?: string[]
   isVenue?: boolean
-  venue_price: IVenuePrice[]
+  entertainment?: IEntertainment[]
+  venue_price: IVenuePrice
   transfer?: ITransfer[]
   totalCost?: number
 }

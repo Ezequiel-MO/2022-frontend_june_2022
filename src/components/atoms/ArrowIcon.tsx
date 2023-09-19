@@ -1,6 +1,14 @@
 import { Icon } from '@iconify/react'
 
-export const ArrowIcon = ({
+interface ArrowIconProps {
+  open: boolean
+  date: string
+  dateProp: string
+  typeOfMeeting: string
+  typeOfMeetingProp: string
+}
+
+export const ArrowIcon: React.FC<ArrowIconProps> = ({
   open,
   date,
   dateProp,
