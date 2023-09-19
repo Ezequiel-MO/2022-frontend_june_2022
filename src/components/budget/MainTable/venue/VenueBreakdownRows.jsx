@@ -32,7 +32,7 @@ export const VenueBreakdownRows = ({ venues, dateProp, typeOfMeetingProp }) => {
     cleaning,
     security,
     entertainment
-  } = selectedVenue?.venue_price[0]
+  } = selectedVenue?.venue_price || {}
 
   const BreakdownRowsArr = [
     { units: 1, title: 'Rental Fee', rate: rental },

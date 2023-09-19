@@ -4,21 +4,24 @@ import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
 import { VenueBreakdownRows, VenueSummaryRow } from '../venue'
 
 interface DinnerSectionProps {
-  dinner: IRestaurant[]
+  dinners: IRestaurant[]
   date: string
   pax: number
 }
 
-export const DinnerSection = ({ dinner, date, pax }: DinnerSectionProps) => (
+export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => (
   <>
-    {dinner.length > 0 && dinner[0].transfer && (
+    {dinners.length > 0 && dinners[0].transfer && (
       <>
-        <AssistanceEventTransferRow transfer={dinner[0].transfer} date={date} />
+        <AssistanceEventTransferRow
+          transfer={dinners[0].transfer}
+          date={date}
+        />
         <EventTransferRow
-          transfer={dinner[0].transfer}
+          transfer={dinners[0].transfer}
           date={date}
           description={
-            dinner[0].transfer[0]?.selectedService === 'dispo_'
+            dinners[0].transfer[0]?.selectedService === 'dispo_'
               ? 'Transfer 4h at disposal night hours'
               : 'Transfer'
           }
@@ -26,23 +29,23 @@ export const DinnerSection = ({ dinner, date, pax }: DinnerSectionProps) => (
         />
       </>
     )}
-    {dinner[0]?.isVenue ? (
+    {dinners[0]?.isVenue ? (
       <>
         <VenueSummaryRow
-          venues={dinner}
+          venues={dinners}
           pax={pax}
           dateProp={date}
           typeOfMeetingProp='Dinner Venue'
           id='dinner'
         />
         <VenueBreakdownRows
-          venues={dinner}
+          venues={dinners}
           dateProp={date}
           typeOfMeetingProp='Dinner Venue'
         />
       </>
     ) : (
-      <DinnerRow items={dinner} date={date} pax={pax} />
+      <DinnerRow items={dinners} date={date} pax={pax} />
     )}
   </>
 )

@@ -34,7 +34,7 @@ export const DayRows = ({ day, pax }: DayRowsProps) => {
         date={date}
         pax={pax}
       />
-      <DinnerSection dinner={day.dinner.restaurants} date={date} pax={pax} />
+      <DinnerSection dinners={day.dinner.restaurants} date={date} pax={pax} />
       <TransfersOutSection transfers={day.transfer_out} date={date} />
     </>
   )
