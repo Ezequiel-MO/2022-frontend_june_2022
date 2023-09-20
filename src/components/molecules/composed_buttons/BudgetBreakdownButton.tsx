@@ -2,7 +2,7 @@ import { ArrowIcon } from '../../atoms'
 
 interface Props {
   onClick: () => void
-  item: 'Meeting' | 'Hotel'
+  item: 'Meeting' | 'Hotel' | 'Venue'
   isOpen: boolean
 }
 
