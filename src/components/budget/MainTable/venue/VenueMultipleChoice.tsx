@@ -1,7 +1,12 @@
 import { useBudget } from '../../../../hooks'
 import { Icon } from '@iconify/react'
+import { IRestaurant } from '../../../../interfaces'
 
-export const VenueMultipleChoice = ({ options }) => {
+interface Props {
+  options: IRestaurant[]
+}
+
+export const VenueMultipleChoice = ({ options }: Props) => {
   const { venueName, setSelectedVenueName } = useBudget()
 
   return (

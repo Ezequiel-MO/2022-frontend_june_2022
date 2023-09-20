@@ -28,13 +28,13 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
   }, [dinners, date, meals])
 
   const renderDinnerRow = (dinners: IRestaurant[]) => {
-    if (dinners.length > 1) return <p>Multiple Options</p>
-    if (dinners.length === 1 && !dinners[0].isVenue)
+    if (dinners.every((dinner) => !dinner.isVenue))
       return <DinnerRow items={dinners} date={date} pax={pax} />
+
     return (
       <>
         <VenueSummaryRow
-          venue={venue}
+          venues={dinners}
           date={date}
           title='Dinner @ Venue'
           id='dinner'

@@ -6,13 +6,14 @@ import { useGetVenuesCost } from '../../../../hooks'
 
 interface Props {
   pax: number
-  venue: IRestaurant
+
+  venues: IRestaurant[]
   date: string
   title: 'Dinner @ Venue' | 'Lunch @ Venue'
   id: 'dinner' | 'lunch'
 }
 
-export const VenueSummaryRow = ({ pax, venue, date, title, id }: Props) => {
+export const VenueSummaryRow = ({ pax, venues, date, title, id }: Props) => {
   const { venuesTotalCost } = useGetVenuesCost()
   return (
     <>
@@ -22,7 +23,7 @@ export const VenueSummaryRow = ({ pax, venue, date, title, id }: Props) => {
         <TableCell>
           <VenueSingleChoiceCells
             pax={pax}
-            options={[venue]}
+            options={venues}
             date={date}
             id={id}
           />
