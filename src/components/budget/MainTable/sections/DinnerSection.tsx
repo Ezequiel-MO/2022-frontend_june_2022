@@ -34,9 +34,11 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
     return (
       <>
         <VenueSummaryRow
-          venue={dinners[0]}
+          venue={venue}
           date={date}
           title='Dinner @ Venue'
+          id='dinner'
+          pax={pax}
         />
         <VenueBreakdownRows date={date} id='dinner' venue={venue} />
       </>

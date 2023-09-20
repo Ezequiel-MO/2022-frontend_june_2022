@@ -34,7 +34,7 @@ export const VenueBreakdownRows = ({ date, id, venue }: Props) => {
               <tbody className='w-full bg-white-100 dark:bg-[#a9ba9d] relative'>
                 <tr>
                   <div className='absolute inset-0 flex items-center justify-center opacity-10 dark:opacity-20 z-0'>
-                    <Icon icon='fxemoji:europeancastle' width={250} />
+                    <Icon icon='ph:castle-turret-light' width={250} />
                   </div>
                   <table className='w-full'>
                     <thead className='text-white-100 bg-zinc-800'>
@@ -81,6 +81,11 @@ export const VenueBreakdownRows = ({ date, id, venue }: Props) => {
                         units={1}
                         title='Entertainment'
                         rate={venue.venue_price.entertainment || 0}
+                      />
+                      <MeetingBreakdownRow
+                        units={venue.venue_price.staff_units || 0}
+                        title='Staff Meals'
+                        rate={venue.venue_price.staff_menu_price || 0}
                       />
                     </tbody>
                   </table>

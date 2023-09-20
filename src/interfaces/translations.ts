@@ -10,6 +10,7 @@ export type TranslationKeys =
   | 'MEETINGS'
   | 'TRANSFERS'
   | 'MEAL FUNCTIONS'
+  | 'VENUES'
   | 'ACTIVITIES'
   | 'quotation'
   | 'Event Type'

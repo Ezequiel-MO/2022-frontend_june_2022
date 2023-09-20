@@ -5,7 +5,8 @@ import {
   useGetEventCosts,
   useGetMealsCost,
   useGetMeetingsCost,
-  useGetTransferCosts
+  useGetTransferCosts,
+  useGetVenuesCost
 } from '../../../hooks'
 import { IGift, IHotel } from '../../../interfaces'
 import { TranslationKeys } from '../../../interfaces/translations'
@@ -45,6 +46,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
   const { currentGift } = useBudget() || ({} as { currentGift: IGift })
   const { meetingTotalCost = 0 } = useGetMeetingsCost()
   const { mealsTotalCost = 0 } = useGetMealsCost()
+  const { venuesTotalCost = 0 } = useGetVenuesCost()
   const { eventsTotalCost = 0 } = useGetEventCosts()
   const { transfersTotalCost = 0 } = useGetTransferCosts()
   const [totalCostOfItems, setTotalCostOfItems] = useState<number>(0)
@@ -59,6 +61,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
       'Meetings',
       'Transfers',
       'Meals',
+      'Venue Costs',
       'Activities',
       'Gifts'
     ],
@@ -71,6 +74,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
           transfersTotalCost,
           mealsTotalCost,
           eventsTotalCost,
+          venuesTotalCost,
           giftTotalCost
         ],
         backgroundColor: [
@@ -78,6 +82,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
           'rgba(54, 162, 235, 0.2)',
           'rgba(255, 206, 86, 0.2)',
           'rgba(75, 192, 192, 0.2)',
+          'rgba(189, 40, 210, 0.2)',
           'rgba(89, 90, 200, 0.2)',
           'rgba(153, 102, 255, 0.2)'
         ],
@@ -86,6 +91,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
           'rgba(75, 192, 192, 1)',
+          'rgba(189, 40, 210, 1)',
           'rgba(89, 90, 200, 1)',
           'rgba(153, 102, 255, 1)'
         ],
@@ -114,6 +120,11 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
       icon: 'carbon:restaurant',
       title: 'MEAL FUNCTIONS',
       cost: mealsTotalCost
+    },
+    {
+      icon: 'ph:castle-turret-light',
+      title: 'VENUES',
+      cost: venuesTotalCost
     },
     {
       icon: 'akar-icons:people-multiple',

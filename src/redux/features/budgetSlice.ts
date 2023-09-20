@@ -33,6 +33,7 @@ export interface IBudgetState {
   schedule: IDay[]
   meetings: Record<string, MeetingType>
   meals: Record<string, { [key: string]: IRestaurant }>
+  venues: Record<string, { [key: string]: IRestaurant }>
   events: Record<string, { [key: string]: IEvent }>
   transfers: ITransfers
   transfersIn: {
@@ -72,6 +73,7 @@ const initialState: IBudgetState = {
   currentGift: {} as IGift,
   meetings: {},
   meals: {},
+  venues: {},
   events: {},
   transfers: {},
   transfersIn: {
@@ -230,7 +232,7 @@ export const budgetSlice = createSlice({
         eventId: string
       }>
     ) => {
-      const { date, id, nrPax, eventId } = action.payload
+      const { date, id, nrPax = 1, eventId } = action.payload
 
       const updatedSchedule = state.schedule.map((day) => {
         if (day.date !== date) {
@@ -247,46 +249,6 @@ export const budgetSlice = createSlice({
 
             const { price = 0, pricePerPerson = true } = event
             const eventTotal = pricePerPerson ? price * nrPax : price
-            return { ...event, totalCost: eventTotal }
-          })
-        }
-
-        if (id === 'lunch' || id === 'dinner') {
-          updatedEvents = day[id].restaurants.map((event) => {
-            if (event._id !== eventId) {
-              return event
-            }
-
-            if (event?.venue_price) {
-              const eventTotal = event.price * nrPax
-              return { ...event, totalCost: eventTotal }
-            }
-
-            const { venue_price } = event
-            const {
-              rental = 0,
-              cocktail_units = 0,
-              cocktail_price = 0,
-              catering_units = 0,
-              catering_price = 0,
-              staff_units = 0,
-              staff_menu_price = 0,
-              audiovisuals = 0,
-              cleaning = 0,
-              security = 0,
-              entertainment = 0
-            } = venue_price || {}
-
-            const eventTotal =
-              rental +
-              cocktail_units * cocktail_price +
-              catering_units * catering_price +
-              staff_units * staff_menu_price +
-              audiovisuals +
-              cleaning +
-              security +
-              entertainment
-
             return { ...event, totalCost: eventTotal }
           })
         }
@@ -351,6 +313,27 @@ export const budgetSlice = createSlice({
         state.meals[date] = currentMealsForDate
       }
     },
+    SET_CURRENT_VENUES: (
+      state,
+      action: PayloadAction<{
+        date: string
+        typeOfEvent: MealType
+        id: string
+      }>
+    ) => {
+      const { date, typeOfEvent, id } = action.payload
+      const day = state.schedule.find((item) => item.date === date)
+      const selectedVenue = day
+        ? day[typeOfEvent]?.restaurants?.find((item) => item._id === id)
+        : undefined
+
+      const currentVenuesForDate = state.venues[date] || {}
+
+      if (selectedVenue) {
+        currentVenuesForDate[typeOfEvent] = selectedVenue
+        state.venues[date] = currentVenuesForDate
+      }
+    },
     SET_CURRENT_EVENTS: (
       state,
       action: PayloadAction<{
@@ -389,6 +372,7 @@ export const {
   UPDATE_TRANSFERS_IN,
   UPDATE_TRANSFERS_OUT,
   SET_CURRENT_MEALS,
+  SET_CURRENT_VENUES,
   SET_CURRENT_EVENTS
 } = budgetSlice.actions
 

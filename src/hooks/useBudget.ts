@@ -17,6 +17,7 @@ import {
   UPDATE_TRANSFERS_IN,
   UPDATE_TRANSFERS_OUT,
   SET_CURRENT_MEALS,
+  SET_CURRENT_VENUES,
   SET_CURRENT_EVENTS,
   IBudgetState
 } from '../redux/features/budgetSlice'
@@ -38,6 +39,7 @@ export const useBudget = () => {
     breakdownOpen,
     meetings,
     meals,
+    venues,
     events
   } = budget
 
@@ -90,6 +92,13 @@ export const useBudget = () => {
     },
     [dispatch]
   )
+
+  const setCurrentVenues = useCallback(
+    (date: string, typeOfEvent: 'lunch' | 'dinner', id: string) => {
+      dispatch(SET_CURRENT_VENUES({ date, typeOfEvent, id }))
+    },
+    [dispatch]
+  )
   const setCurrentEvents = useCallback(
     (
       date: string,
@@ -125,6 +134,7 @@ export const useBudget = () => {
     currentGift,
     meetings,
     meals,
+    venues,
     events,
     transfers,
     transfersIn,
@@ -145,6 +155,7 @@ export const useBudget = () => {
     updateMeetingTotalCost,
     updateEventTotalCost,
     setCurrentMeals,
+    setCurrentVenues,
     setCurrentEvents
   }
 }
