@@ -4,6 +4,8 @@ import { HotelBreakdownRow } from '.'
 import { Icon } from '@iconify/react'
 import { IHotel } from '../../../../interfaces'
 import { ArrowIcon } from '../../../atoms'
+import { Budget } from '../higherComponents'
+import { BudgetBreakdownButton } from '../../../molecules'
 
 interface Props {
   hotels: IHotel[]
@@ -28,22 +30,17 @@ export const HotelBreakdownRows = ({ hotels, nights }: Props) => {
     breakfast = 0
   } = selectedHotel.price[0]
 
+  const handleToggle = () => {
+    setIsOpen(!isOpen)
+  }
+
   return (
     <>
-      <tr
-        className='w-full bg-white-100 dark:bg-[#a9ba9d]'
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <td colSpan={6} className='p-0 bg-transparent'>
-          <button
-            id='hotel-details'
-            className='m-1 py-2 px-4 flex items-center justify-between bg-orange-300 dark:bg-slate-700 dark:hover:bg-slate-500 dark:text-white-0 rounded-md transition duration-500 ease-in-out hover:bg-orange-500 focus:outline-none'
-          >
-            {isOpen ? 'Hide Hotel Details' : 'Show Hotel Details'}
-            <ArrowIcon open={isOpen} />
-          </button>
-        </td>
-      </tr>
+      <BudgetBreakdownButton
+        onClick={handleToggle}
+        item='Hotel'
+        isOpen={isOpen}
+      />
       <tr>
         <td colSpan={6} className='p-0 bg-transparent'>
           <div
