@@ -1,7 +1,13 @@
 import { TableCell } from '@mui/material'
 import accounting from 'accounting'
 
-export const VenueBreakdownRow = ({ units, title, rate }) => {
+interface Props {
+  units: number
+  title: string
+  rate: number
+}
+export const VenueBreakdownRow = ({ units, title, rate }: Props) => {
+  if (units === 0) return null
   return (
     <>
       <TableCell component='th' scope='row'>

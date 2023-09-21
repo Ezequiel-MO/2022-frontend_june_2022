@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
-import { useBudget } from '../../../../hooks'
+import { useState } from 'react'
+
 import { IRestaurant } from '../../../../interfaces'
 import { DinnerRow } from '../rows'
 import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
-import { VenueBreakdownRows, VenueSummaryRow } from '../venue'
+import { VenueSummaryRow } from '../venue'
 
 interface DinnerSectionProps {
   dinners: IRestaurant[]
@@ -14,34 +14,32 @@ interface DinnerSectionProps {
 export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
   const noDinner = dinners.length === 0
   if (noDinner) return null
-  const { meals } = useBudget()
-  const [venue, setVenue] = useState<IRestaurant>(dinners[0])
 
-  useEffect(() => {
-    if (
-      Object.keys(meals).length > 0 &&
-      Object.keys(meals).includes(date) &&
-      Object.keys(meals[date]).includes('dinner')
-    ) {
-      setVenue(meals[date]['dinner'])
-    }
-  }, [dinners, date, meals])
+  const [selectedRestaurant, setSelectedRestaurant] = useState<IRestaurant>(
+    dinners[0]
+  )
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    const selectedVenue = dinners.find(
+      (restaurant) => restaurant.name === e.target.value
+    ) as IRestaurant
+    setSelectedRestaurant(selectedVenue)
+  }
 
   const renderDinnerRow = (dinners: IRestaurant[]) => {
     if (dinners.every((dinner) => !dinner.isVenue))
       return <DinnerRow items={dinners} date={date} pax={pax} />
 
     return (
-      <>
-        <VenueSummaryRow
-          venues={dinners}
-          date={date}
-          title='Dinner @ Venue'
-          id='dinner'
-          pax={pax}
-        />
-        <VenueBreakdownRows date={date} id='dinner' venue={venue} />
-      </>
+      <VenueSummaryRow
+        venues={dinners}
+        venue={selectedRestaurant}
+        handleChange={handleChange}
+        date={date}
+        title='Dinner @ Venue'
+        id='dinner'
+        pax={pax}
+      />
     )
   }
 
@@ -66,24 +64,6 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
         </>
       )}
       {renderDinnerRow(dinners)}
-      {/* {dinners[0]?.isVenue ? (
-        <>
-          <VenueSummaryRow
-            venues={dinners}
-            pax={pax}
-            dateProp={date}
-            typeOfMeetingProp='Dinner Venue'
-            id='dinner'
-          />
-          <VenueBreakdownRows
-            venues={dinners}
-            dateProp={date}
-            typeOfMeetingProp='Dinner Venue'
-          />
-        </>
-      ) : (
-        <DinnerRow items={dinners} date={date} pax={pax} />
-      )} */}
     </>
   )
 }

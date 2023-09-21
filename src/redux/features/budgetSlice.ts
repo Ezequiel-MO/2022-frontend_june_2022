@@ -312,6 +312,10 @@ export const budgetSlice = createSlice({
         currentMealsForDate[typeOfEvent] = selectedMeal
         state.meals[date] = currentMealsForDate
       }
+
+      if (state.venues[date] && state.venues[date][typeOfEvent]) {
+        delete state.venues[date][typeOfEvent]
+      }
     },
     SET_CURRENT_VENUES: (
       state,
@@ -332,6 +336,10 @@ export const budgetSlice = createSlice({
       if (selectedVenue) {
         currentVenuesForDate[typeOfEvent] = selectedVenue
         state.venues[date] = currentVenuesForDate
+      }
+
+      if (state.meals[date] && state.meals[date][typeOfEvent]) {
+        delete state.meals[date][typeOfEvent]
       }
     },
     SET_CURRENT_EVENTS: (
