@@ -50,42 +50,42 @@ export const VenueBreakdownRows = ({ date, id, venue }: Props) => {
                       <MeetingBreakdownRow
                         units={1}
                         title='Full Day Rental Rate'
-                        rate={venue.venue_price.rental || 0}
+                        rate={venue.venue_price?.rental || 0}
                       />
                       <MeetingBreakdownRow
-                        units={venue.venue_price.cocktail_units || 0}
+                        units={venue.venue_price?.cocktail_units || 0}
                         title='Cocktail Reception'
-                        rate={venue.venue_price.cocktail_price || 0}
+                        rate={venue.venue_price?.cocktail_price || 0}
                       />
                       <MeetingBreakdownRow
-                        units={venue.venue_price.catering_units || 0}
+                        units={venue.venue_price?.catering_units || 0}
                         title='3 - Course Menu'
-                        rate={venue.venue_price.catering_price || 0}
+                        rate={venue.venue_price?.catering_price || 0}
                       />
                       <MeetingBreakdownRow
                         units={1}
                         title='Audiovisual Equipment'
-                        rate={venue.venue_price.audiovisuals || 0}
+                        rate={venue.venue_price?.audiovisuals || 0}
                       />
                       <MeetingBreakdownRow
                         units={1}
                         title='Cleaning'
-                        rate={venue.venue_price.cleaning || 0}
+                        rate={venue.venue_price?.cleaning || 0}
                       />
                       <MeetingBreakdownRow
                         units={1}
                         title='Security'
-                        rate={venue.venue_price.security || 0}
+                        rate={venue.venue_price?.security || 0}
                       />
                       <MeetingBreakdownRow
                         units={1}
                         title='Entertainment'
-                        rate={venue.venue_price.entertainment || 0}
+                        rate={venue.venue_price?.entertainment || 0}
                       />
                       <MeetingBreakdownRow
-                        units={venue.venue_price.staff_units || 0}
+                        units={venue.venue_price?.staff_units || 0}
                         title='Staff Meals'
-                        rate={venue.venue_price.staff_menu_price || 0}
+                        rate={venue.venue_price?.staff_menu_price || 0}
                       />
                     </tbody>
                   </table>
