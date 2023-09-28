@@ -28,7 +28,11 @@ export const VenueSummaryRow = ({
 }: Props) => {
   const { venuesTotalCost } = useGetVenuesCost()
   const multipleVenues = venues.length > 1
-  const isVenue = venue?.isVenue && Object.keys(venue.venue_price).length > 0
+  const isVenue =
+    venue?.isVenue &&
+    venue?.venue_price &&
+    Object.keys(venue.venue_price).length > 0
+
   const [nrPax, setNrPax] = useState(pax)
 
   return (
