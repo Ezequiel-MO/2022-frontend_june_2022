@@ -4,6 +4,7 @@ import { IRestaurant } from '../../../../interfaces'
 import { DinnerRow } from '../rows'
 import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
 import { VenueSummaryRow } from '../venue'
+import { EntertainmentSummaryRow } from '../rows/EntertainmentSummaryRow'
 
 interface DinnerSectionProps {
   dinners: IRestaurant[]
@@ -43,6 +44,20 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
     )
   }
 
+  const renderEntertainmentRow = (selectedRestaurant: IRestaurant) => {
+    if (
+      selectedRestaurant?.isVenue &&
+      selectedRestaurant?.entertainment?.length
+    ) {
+      return (
+        <EntertainmentSummaryRow
+          entertainment={selectedRestaurant.entertainment}
+        />
+      )
+    }
+    return null
+  }
+
   return (
     <>
       {dinners.length > 0 && dinners[0].transfer && (
@@ -64,6 +79,7 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
         </>
       )}
       {renderDinnerRow(dinners)}
+      {renderEntertainmentRow(selectedRestaurant)}
     </>
   )
 }
