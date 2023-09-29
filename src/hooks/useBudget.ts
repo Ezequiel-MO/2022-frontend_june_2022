@@ -17,6 +17,7 @@ import {
   UPDATE_TRANSFERS_IN,
   UPDATE_TRANSFERS_OUT,
   SET_CURRENT_MEALS,
+  SET_CURRENT_SHOWS,
   SET_CURRENT_VENUES,
   SET_CURRENT_EVENTS,
   IBudgetState
@@ -39,6 +40,7 @@ export const useBudget = () => {
     breakdownOpen,
     meetings,
     meals,
+    shows,
     venues,
     events
   } = budget
@@ -99,6 +101,17 @@ export const useBudget = () => {
     },
     [dispatch]
   )
+  const setCurrentShows = useCallback(
+    (
+      date: string,
+      typeOfEvent: 'lunch' | 'dinner',
+      venueId: string,
+      showId: string
+    ) => {
+      dispatch(SET_CURRENT_SHOWS({ date, typeOfEvent, venueId, showId }))
+    },
+    [dispatch]
+  )
   const setCurrentEvents = useCallback(
     (
       date: string,
@@ -135,6 +148,7 @@ export const useBudget = () => {
     meetings,
     meals,
     venues,
+    shows,
     events,
     transfers,
     transfersIn,
@@ -156,6 +170,7 @@ export const useBudget = () => {
     updateEventTotalCost,
     setCurrentMeals,
     setCurrentVenues,
+    setCurrentShows,
     setCurrentEvents
   }
 }

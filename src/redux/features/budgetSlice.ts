@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
   IDay,
+  IEntertainment,
   IEvent,
   IGift,
   IHotel,
@@ -33,6 +34,7 @@ export interface IBudgetState {
   schedule: IDay[]
   meetings: Record<string, MeetingType>
   meals: Record<string, { [key: string]: IRestaurant }>
+  shows: Record<string, { [key: string]: IEntertainment }>
   venues: Record<string, { [key: string]: IRestaurant }>
   events: Record<string, { [key: string]: IEvent }>
   transfers: ITransfers
@@ -73,6 +75,7 @@ const initialState: IBudgetState = {
   currentGift: {} as IGift,
   meetings: {},
   meals: {},
+  shows: {},
   venues: {},
   events: {},
   transfers: {},
@@ -360,7 +363,16 @@ export const budgetSlice = createSlice({
         currentEventsForDate[typeOfEvent] = selectedEvent
         state.events[date] = currentEventsForDate
       }
-    }
+    },
+    SET_CURRENT_SHOWS: (
+      state,
+      action: PayloadAction<{
+        date: string
+        typeOfEvent: MealType
+        venueId: string
+        showId: string
+      }>
+    ) => {}
   }
 })
 
@@ -381,7 +393,8 @@ export const {
   UPDATE_TRANSFERS_OUT,
   SET_CURRENT_MEALS,
   SET_CURRENT_VENUES,
-  SET_CURRENT_EVENTS
+  SET_CURRENT_EVENTS,
+  SET_CURRENT_SHOWS
 } = budgetSlice.actions
 
 export const selectBudget = (state: { budget: IBudgetState }) => state.budget

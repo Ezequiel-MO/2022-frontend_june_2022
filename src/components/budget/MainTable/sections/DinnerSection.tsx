@@ -4,7 +4,7 @@ import { IRestaurant } from '../../../../interfaces'
 import { DinnerRow } from '../rows'
 import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
 import { VenueSummaryRow } from '../venue'
-import { EntertainmentSummaryRow } from '../rows/EntertainmentSummaryRow'
+import { EntertainmentSummaryRow } from '../shows/EntertainmentSummaryRow'
 
 interface DinnerSectionProps {
   dinners: IRestaurant[]
@@ -20,7 +20,7 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
     dinners[0]
   )
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+  const handleVenueChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const selectedVenue = dinners.find(
       (restaurant) => restaurant.name === e.target.value
     ) as IRestaurant
@@ -35,7 +35,7 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
       <VenueSummaryRow
         venues={dinners}
         venue={selectedRestaurant}
-        handleChange={handleChange}
+        handleChange={handleVenueChange}
         date={date}
         title='Dinner @ Venue'
         id='dinner'
@@ -51,7 +51,11 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
     ) {
       return (
         <EntertainmentSummaryRow
+          date={date}
           entertainment={selectedRestaurant.entertainment}
+          selectedRestaurant={selectedRestaurant}
+          title='Entertainment @ Venue'
+          typeOfEvent='dinner'
         />
       )
     }
