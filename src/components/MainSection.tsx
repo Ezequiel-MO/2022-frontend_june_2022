@@ -54,7 +54,8 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
       setIconColor(iconColor)
     }, [iconColor])
 
-    const hasMeaningfulText = (str: string) => {
+    const hasMeaningfulText = (str?: string) => {
+      if (!str) return false
       const textContent = str.replace(/<[^>]*>/g, '').trim()
       return textContent.length > 0
     }
