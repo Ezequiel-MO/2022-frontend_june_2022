@@ -1,5 +1,4 @@
-import { forwardRef, useRef, useState } from 'react'
-import { useEffect } from 'react'
+import React, { forwardRef, useRef, useState, useEffect, Ref } from 'react'
 import { Icon } from '@iconify/react'
 import ReactToPrint from 'react-to-print'
 import Hotels from './hotels/Hotels'
@@ -13,7 +12,6 @@ import { Budget } from './budget/MainTable/higherComponents'
 import { PartialCosts } from './budget/partial-costs'
 import { exportTableToExcel } from './budget/MainTable/higherComponents/exportTableToExcel'
 import { Gifts } from './gifts/Gifts'
-import { IProject } from '../interfaces'
 
 interface MainSectionProps {
   setIconColor: React.Dispatch<React.SetStateAction<string>>
@@ -22,13 +20,11 @@ interface MainSectionProps {
 }
 
 const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
-  ({ setIconColor, onReady, parentWidth }, ref) => {
+  ({ setIconColor, onReady, parentWidth }, ref: Ref<HTMLDivElement>) => {
     const componentRef = useRef<HTMLDivElement>(null)
-    const [numPages, setNumPages] = useState<number>(0)
+    const [numPages, setNumPages] = useState<number | null>(null)
     const [pageNumber] = useState<number>(1)
-    const { currentProject } = useCurrentProject() as {
-      currentProject: IProject
-    }
+    const { currentProject } = useCurrentProject()
     const {
       groupName,
       projectIntro,
@@ -40,9 +36,7 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
     } = currentProject
     const { t } = useTranslation()
     const { fonts = [], colorPalette = [] } = clientCompany[0] || {}
-
     const iconColor = colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
-
     const fontFamilyStyle = useFontFamily(fonts[0])
     const pdfToPrintRef = useRef<HTMLDivElement | null>(null)
 
@@ -60,6 +54,11 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
       setIconColor(iconColor)
     }, [iconColor])
 
+    const hasMeaningfulText = (str: string) => {
+      const textContent = str.replace(/<[^>]*>/g, '').trim()
+      return textContent.length > 0
+    }
+
     return (
       <div
         ref={ref}
@@ -68,7 +67,9 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
         <h1 className='text-2xl md:text-2xl mb-4 font-extrabold'>
           {`${t('quotation')} Gr. ${groupName}`}
         </h1>
-        <RichParagraph text={projectIntro[0]} />
+        {hasMeaningfulText(projectIntro[0]) && (
+          <RichParagraph text={projectIntro[0]} />
+        )}
         <Hotels hotels={hotels} />
         <Schedule />
         <Gifts gifts={gifts} />
@@ -81,9 +82,7 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
                     <span>
                       <Icon
                         icon='ant-design:file-pdf-twotone'
-                        color={`${
-                          colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
-                        }`}
+                        color={iconColor}
                         width='40'
                       />
                     </span>
@@ -111,9 +110,7 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
                   <span>
                     <Icon
                       icon='ant-design:file-pdf-twotone'
-                      color={`${
-                        colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
-                      }`}
+                      color={iconColor}
                       width='40'
                     />
                   </span>
@@ -135,7 +132,6 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
             </div>
           </div>
         ) : null}
-
         <ScrollToTopButton iconColor={iconColor} />
       </div>
     )

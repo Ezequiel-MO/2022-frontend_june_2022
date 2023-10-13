@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useCurrentProject, useFontFamily } from '../../hooks'
 import './RichParagraph.module.css'
+import { Icon } from '@iconify/react'
 import { IClientCompany, IProject } from '../../interfaces'
 
 interface RichParagraphProps {
@@ -8,6 +9,12 @@ interface RichParagraphProps {
 }
 
 export const RichParagraph: React.FC<RichParagraphProps> = ({ text = '' }) => {
+  const [isCopied, setIsCopied] = useState(false)
+
+  if (!text) {
+    return null
+  }
+
   const { currentProject } = useCurrentProject() as { currentProject: IProject }
   const { clientCompany } = currentProject as {
     clientCompany: IClientCompany[]
@@ -50,11 +57,54 @@ export const RichParagraph: React.FC<RichParagraphProps> = ({ text = '' }) => {
     }
   }, [cleanedText])
 
+  const handleCopyClick = async () => {
+    if (ref.current) {
+      const range = document.createRange()
+      range.selectNode(ref.current)
+      window.getSelection()?.removeAllRanges()
+      window.getSelection()?.addRange(range)
+
+      try {
+        const textToCopy = window.getSelection()?.toString() || ''
+        await navigator.clipboard.writeText(textToCopy)
+        console.log('Text successfully copied to clipboard')
+        setIsCopied(true)
+        setTimeout(() => setIsCopied(false), 2000) // Reset after 2 seconds
+      } catch (err) {
+        console.error('Failed to copy text: ', err)
+      }
+
+      window.getSelection()?.removeAllRanges()
+    }
+  }
+
   return (
     <div
-      ref={ref}
-      className={`${fontFamilyStyle} custom-font text-base dark:text-white-0 border-0`}
-      dangerouslySetInnerHTML={{ __html: cleanedText }}
-    ></div>
+      className='relative hover:border hover:border-1 hover:border-dashed hover:cursor-pointer mt-5 rounded-lg py-5 px-2 md:py-7 md:px-4 lg:py-10 lg:px-6'
+      onClick={handleCopyClick} // Added this line
+    >
+      <div
+        ref={ref}
+        className={`${fontFamilyStyle} custom-font text-base dark:text-white-0 md:text-lg lg:text-xl`}
+        dangerouslySetInnerHTML={{ __html: cleanedText }}
+      ></div>
+
+      <button
+        onClick={(e) => {
+          e.stopPropagation() // Prevent the click event from bubbling up to the parent div
+          handleCopyClick()
+        }}
+        className='absolute -top-8 -right-2 p-2 bg-gray-800 rounded-lg hover:bg-gray-500 hover:text-black-50 w-24 md:w-28 lg:w-32 flex items-center justify-between'
+      >
+        <span className='ml-2 text-sm md:text-base lg:text-lg'>
+          {isCopied ? 'Copied' : 'Copy'}
+        </span>
+        <Icon
+          icon={isCopied ? 'mdi:check' : 'mdi:content-copy'}
+          width={25}
+          color={isCopied ? '#00ff00' : '#ffffff'}
+        />
+      </button>
+    </div>
   )
 }
