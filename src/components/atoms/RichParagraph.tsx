@@ -80,8 +80,9 @@ export const RichParagraph: React.FC<RichParagraphProps> = ({ text = '' }) => {
 
   return (
     <div
-      className='relative hover:border hover:border-1 hover:border-dashed hover:cursor-pointer mt-5 rounded-lg py-5 px-2 md:py-7 md:px-4 lg:py-10 lg:px-6'
-      onClick={handleCopyClick} // Added this line
+      className='relative hover:border hover:border-3 hover:border-dashed  hover:border-gray-950 hover:dark:border-white-0
+      hover:cursor-pointer mt-5 rounded-lg py-5 px-2 md:py-7 md:px-4 lg:py-10 lg:px-6'
+      onClick={handleCopyClick}
     >
       <div
         ref={ref}
@@ -91,10 +92,10 @@ export const RichParagraph: React.FC<RichParagraphProps> = ({ text = '' }) => {
 
       <button
         onClick={(e) => {
-          e.stopPropagation() // Prevent the click event from bubbling up to the parent div
+          e.stopPropagation()
           handleCopyClick()
         }}
-        className='absolute -top-8 -right-2 p-2 bg-gray-800 rounded-lg hover:bg-gray-500 hover:text-black-50 w-24 md:w-28 lg:w-32 flex items-center justify-between'
+        className='absolute -top-8 -right-2 p-2 bg-gray-800 text-white-0 rounded-lg hover:bg-gray-500 hover:text-black-50 w-24 md:w-28 lg:w-32 flex items-center justify-between'
       >
         <span className='ml-2 text-sm md:text-base lg:text-lg'>
           {isCopied ? 'Copied' : 'Copy'}
