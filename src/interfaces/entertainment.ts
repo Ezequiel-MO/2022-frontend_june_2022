@@ -26,9 +26,9 @@ export interface IEntertainment {
   category: EntertainmentCategory
   duration: string
   nrArtists?: string
-  textContent?: string
+  textContent: string
   price?: IEntertainmentPrice[]
-  imageContentUrl?: string[]
+  imageContentUrl: string[]
   updatedAt?: string
   [key: string]: any
 }

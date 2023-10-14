@@ -1,19 +1,23 @@
-import { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Rating } from '@mui/material'
 import RenderPhotos from '../organisms/RenderPhotos'
 import HotelIcons from './HotelIcons'
 import { RichParagraph } from '../atoms/RichParagraph'
+import { IHotel } from '../../interfaces'
 
-const HotelCards = ({ hotel }) => {
-  const [stars] = useState(hotel.numberStars)
-  const [leftIconsText, setLeftIconsText] = useState([])
-  const [rightIconsText, setRightIconsText] = useState([])
+interface Props {
+  hotel: IHotel
+}
+
+export const HotelCards: React.FC<Props> = ({ hotel }) => {
+  const [leftIconsText, setLeftIconsText] = useState<string[]>([])
+  const [rightIconsText, setRightIconsText] = useState<string[]>([])
 
   useEffect(() => {
     const leftIconsTextObj = {
       address: hotel.address,
       restaurants: hotel.restaurants,
-      numberRooms: hotel.numberRooms,
+      numberRooms: hotel.numberRooms.toString(),
       wifiSpeed: hotel.wifiSpeed
     }
 
@@ -24,9 +28,10 @@ const HotelCards = ({ hotel }) => {
       wheelChairAccessible: `${hotel.wheelChairAccessible ? 'Yes' : 'No'}`
     }
 
-    const leftIconsTextArr = Object.values(leftIconsTextObj)
+    const leftIconsTextArr: string[] = Object.values(leftIconsTextObj)
+    const rightIconsTextArr: string[] = Object.values(rightIconsTextObj)
+
     setLeftIconsText(leftIconsTextArr)
-    const rightIconsTextArr = Object.values(rightIconsTextObj)
     setRightIconsText(rightIconsTextArr)
   }, [hotel])
 
@@ -34,7 +39,7 @@ const HotelCards = ({ hotel }) => {
     <div className='flex flex-col'>
       <div className='flex items-center'>
         <h2 className='font-bold'>{hotel.name}</h2>
-        <Rating readOnly value={stars} />
+        <Rating readOnly value={hotel.numberStars} />
       </div>
       <RichParagraph text={hotel.textContent} />
       <RenderPhotos images={hotel.imageContentUrl} />
@@ -45,5 +50,3 @@ const HotelCards = ({ hotel }) => {
     </div>
   )
 }
-
-export default HotelCards

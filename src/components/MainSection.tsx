@@ -1,7 +1,7 @@
 import React, { forwardRef, useRef, useState, useEffect, Ref } from 'react'
 import { Icon } from '@iconify/react'
 import ReactToPrint from 'react-to-print'
-import Hotels from './hotels/Hotels'
+import { Hotels } from './hotels/Hotels'
 import { Schedule } from './schedule'
 import { useCurrentProject, useFontFamily } from '../hooks'
 import ScrollToTopButton from '../ui/ScrollToTopButton'

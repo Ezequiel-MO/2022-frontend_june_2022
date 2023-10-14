@@ -12,7 +12,10 @@ export const RestaurantCards = ({ restaurant }: Props) => {
     <div id={restaurant._id}>
       <RichParagraph text={restaurant.textContent || ''} />
       <RenderPhotos images={restaurant.imageContentUrl || []} />
-      <EntertainmentCards entertainments={restaurant.entertainment || []} />
+      <EntertainmentCards
+        entertainments={restaurant.entertainment || []}
+        restaurant={restaurant.name}
+      />
     </div>
   )
 }
