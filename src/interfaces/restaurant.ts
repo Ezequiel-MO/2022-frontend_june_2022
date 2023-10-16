@@ -32,5 +32,6 @@ export interface IRestaurant {
   entertainment?: IEntertainment[]
   venue_price: IVenuePrice
   transfer?: ITransfer[]
+  pdfMenus?: string[]
   totalCost?: number
 }
