@@ -1,19 +1,15 @@
-import { useState } from 'react'
 import { useBudget, useFindByName } from '../../../../hooks'
 import { HotelBreakdownRow } from '.'
 import { Icon } from '@iconify/react'
 import { IHotel } from '../../../../interfaces'
-import { ArrowIcon } from '../../../atoms'
-import { Budget } from '../higherComponents'
-import { BudgetBreakdownButton } from '../../../molecules'
 
 interface Props {
   hotels: IHotel[]
   nights: number
+  isOpen: boolean
 }
 
-export const HotelBreakdownRows = ({ hotels, nights }: Props) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true)
+export const HotelBreakdownRows = ({ hotels, nights, isOpen }: Props) => {
   const { hotelName } = useBudget()
   const { selectedOption: foundOption } = useFindByName(hotels, hotelName)
 
@@ -30,18 +26,16 @@ export const HotelBreakdownRows = ({ hotels, nights }: Props) => {
     breakfast = 0
   } = selectedHotel.price[0]
 
-  const handleToggle = () => {
-    setIsOpen(!isOpen)
-  }
-
   return (
     <>
-      <BudgetBreakdownButton
-        onClick={handleToggle}
-        item='Hotel'
-        isOpen={isOpen}
-      />
-      <tr>
+      <tr
+        style={{
+          transition: 'all 0.5s ease-in-out',
+          maxHeight: isOpen ? '800px' : '0',
+          overflow: 'hidden',
+          opacity: isOpen ? '1' : '0'
+        }}
+      >
         <td colSpan={6} className='p-0 bg-transparent'>
           <div
             className={`transition-all duration-500 ease-in-out overflow-hidden ${

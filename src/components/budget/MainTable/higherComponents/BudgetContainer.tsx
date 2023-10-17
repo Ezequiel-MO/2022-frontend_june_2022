@@ -7,7 +7,7 @@ interface BudgetContainerProps {
 export const BudgetContainer = forwardRef<HTMLDivElement, BudgetContainerProps>(
   ({ children }, ref) => (
     <div
-      className='overflow-x-auto relative dark:bg-white-50 mb-10 z-[200]'
+      className='overflow-x-auto relative mb-10 z-[200] text-black-50'
       id='budget_id'
       ref={ref}
     >

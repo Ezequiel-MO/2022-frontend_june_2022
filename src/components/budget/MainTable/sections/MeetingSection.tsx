@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { IMeeting } from '../../../../interfaces'
 import { MeetingSummaryRow, MeetingBreakdownRows } from '../meeting'
 
@@ -18,21 +19,28 @@ export const MeetingSection = ({
   pax,
   typeOfMeetingProp,
   id
-}: MeetingSectionProps) =>
-  meetings?.length > 0 && (
-    <>
-      <MeetingSummaryRow
-        pax={pax}
-        dateProp={date}
-        typeOfMeetingProp={typeOfMeetingProp}
-        meetings={meetings}
-        id={id}
-      />
-      <MeetingBreakdownRows
-        pax={pax}
-        dateProp={date}
-        typeOfMeetingProp={typeOfMeetingProp}
-        meetings={meetings}
-      />
-    </>
+}: MeetingSectionProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  return (
+    meetings?.length > 0 && (
+      <>
+        <MeetingSummaryRow
+          pax={pax}
+          dateProp={date}
+          typeOfMeetingProp={typeOfMeetingProp}
+          meetings={meetings}
+          id={id}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
+        <MeetingBreakdownRows
+          pax={pax}
+          dateProp={date}
+          typeOfMeetingProp={typeOfMeetingProp}
+          meetings={meetings}
+          isOpen={isOpen}
+        />
+      </>
+    )
   )
+}
