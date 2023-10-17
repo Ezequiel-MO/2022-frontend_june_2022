@@ -69,7 +69,7 @@ export const RichParagraph: React.FC<RichParagraphProps> = ({ text = '' }) => {
         await navigator.clipboard.writeText(textToCopy)
         console.log('Text successfully copied to clipboard')
         setIsCopied(true)
-        setTimeout(() => setIsCopied(false), 2000) // Reset after 2 seconds
+        setTimeout(() => setIsCopied(false), 2000)
       } catch (err) {
         console.error('Failed to copy text: ', err)
       }
@@ -80,8 +80,7 @@ export const RichParagraph: React.FC<RichParagraphProps> = ({ text = '' }) => {
 
   return (
     <div
-      className='relative hover:border hover:border-3 hover:border-dashed  hover:border-gray-950 hover:dark:border-white-0
-      hover:cursor-pointer mt-5 rounded-lg py-5 px-2 md:py-7 md:px-4 lg:py-10 lg:px-6'
+      className='group relative hover:border hover:border-3 hover:border-dashed hover:border-gray-950 hover:dark:border-white-0 hover:cursor-pointer mt-5 rounded-lg py-5 px-2 md:py-7 md:px-4 lg:py-10 lg:px-6'
       onClick={handleCopyClick}
     >
       <div
@@ -95,7 +94,7 @@ export const RichParagraph: React.FC<RichParagraphProps> = ({ text = '' }) => {
           e.stopPropagation()
           handleCopyClick()
         }}
-        className='absolute -top-8 -right-2 p-2 bg-gray-800 text-white-0 rounded-lg hover:bg-gray-500 hover:text-black-50 w-24 md:w-28 lg:w-32 flex items-center justify-between'
+        className='group-hover:visible invisible absolute -top-8 -right-2 p-2 bg-gray-800 text-white-0 rounded-lg hover:bg-gray-500 hover:text-black-50 w-24 md:w-28 lg:w-32 flex items-center justify-between'
       >
         <span className='ml-2 text-sm md:text-base lg:text-lg'>
           {isCopied ? 'Copied' : 'Copy'}
