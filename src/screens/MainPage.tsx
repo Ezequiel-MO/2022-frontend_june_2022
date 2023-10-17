@@ -29,11 +29,17 @@ export const MainPage: FC = () => {
           isReady={isMainSectionReady}
         />
 
-        <div className='grid grid-cols-12 m-8'>
-          {hasSideMenu ? <Sidebar /> : <div className='col-span-2' />}
+        <div className='grid grid-cols-12 my-8'>
+          {hasSideMenu ? (
+            <div className='col-span-2'>
+              <Sidebar />
+            </div>
+          ) : (
+            <div className='col-span-2' />
+          )}
           <div
             ref={mainSectionParentRef}
-            className='relative col-span-10 lg:col-span-8'
+            className='col-span-10 lg:col-span-8 transition-all duration-300'
           >
             <MainSection
               ref={mainSectionRef}

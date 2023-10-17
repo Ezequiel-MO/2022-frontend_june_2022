@@ -7,8 +7,10 @@ export const SidebarSubtitles = ({
   hotels,
   activeTab,
   handleChange,
-  schedule
+  schedule,
+  isSidebarVisible
 }) => {
+  if (!isSidebarVisible) return
   return (
     <>
       <HotelSubtitles

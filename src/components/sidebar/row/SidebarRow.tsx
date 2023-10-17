@@ -7,9 +7,10 @@ import { IProject } from '../../../interfaces'
 interface Props {
   iconText: string
   title: string
+  isSidebarVisible: boolean
 }
 
-export const SidebarRow = ({ iconText, title }: Props) => {
+export const SidebarRow = ({ iconText, title, isSidebarVisible }: Props) => {
   const [menuOpen, setMenuOpen] = useState(false)
   const { currentProject } = useCurrentProject() as { currentProject: IProject }
   const { hotels, schedule, clientCompany } = currentProject
@@ -23,6 +24,7 @@ export const SidebarRow = ({ iconText, title }: Props) => {
         title={title}
         colorPalette={colorPalette}
         setMenuOpen={setMenuOpen}
+        isSidebarVisible={isSidebarVisible}
       />
 
       <SidebarSubtitles
@@ -33,6 +35,7 @@ export const SidebarRow = ({ iconText, title }: Props) => {
         activeTab={activeTab}
         handleChange={handleChange}
         schedule={schedule}
+        isSidebarVisible={isSidebarVisible}
       />
     </>
   )

@@ -1,19 +1,22 @@
 import { Icon } from '@iconify/react'
 import { Link } from 'react-scroll'
 import { useTranslation } from '../../../translations/translationContext.jsx'
+import { TranslationKeys } from '../../../interfaces/translations.js'
 
 interface SidebarTitlesProps {
   iconText: string
   title: string
   colorPalette: string[]
   setMenuOpen: (isOpen: boolean) => void
+  isSidebarVisible: boolean
 }
 
 export const SidebarTitles = ({
   iconText,
   title,
   colorPalette,
-  setMenuOpen
+  setMenuOpen,
+  isSidebarVisible
 }: SidebarTitlesProps) => {
   const { t } = useTranslation()
 
@@ -40,9 +43,13 @@ export const SidebarTitles = ({
           width='40'
         />
       </div>
-      <p className='group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg font-body'>
-        {t(title)?.replace(/^\w/, (c: string) => c.toUpperCase())}
-      </p>
+      {isSidebarVisible && (
+        <p className='group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg font-body'>
+          {t(title as TranslationKeys)?.replace(/^\w/, (c: string) =>
+            c.toUpperCase()
+          )}
+        </p>
+      )}
     </Link>
   )
 }
