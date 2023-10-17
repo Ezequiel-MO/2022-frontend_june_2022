@@ -20,7 +20,7 @@ const Sidebar: FC = () => {
   }
 
   return (
-    <div className='flex flex-col space-y-4 p-4 fixed bg-white-0 dark:bg-black-50'>
+    <div className='flex flex-col fixed bg-white-0 dark:bg-black-50'>
       <div className='hidden lg:block'>
         <SidebarToggleButton
           toggleSidebar={toggleSidebar}
