@@ -46,14 +46,11 @@ export const MeetingSummaryRow = ({
 
   const { meeting } = useFindMeetingByHotel(meetings, hotelName)
 
-  if (!meeting) return null
   useEffect(() => {
     updateMeetingTotalCost(dateProp, id, pax, hotelName)
   }, [dateProp, typeOfMeetingProp, hotelName])
 
-  const toggleBreakdown = () => {
-    setIsOpen((prevState: boolean) => !prevState)
-  }
+  if (!meeting) return null
 
   const toggleBreakdown = () => {
     setIsOpen((prevState: boolean) => !prevState)
