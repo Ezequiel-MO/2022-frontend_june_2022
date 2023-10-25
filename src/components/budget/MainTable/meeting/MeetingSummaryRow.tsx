@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
-import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 import { useBudget, useFindMeetingByHotel } from '../../../../hooks'
 import { IMeeting } from '../../../../interfaces'
+import React from 'react'
+import { Icon } from '@iconify/react'
 
 interface MeetingSummaryRowProps {
   pax: number
@@ -13,6 +14,8 @@ interface MeetingSummaryRowProps {
     | 'Full Day Meeting'
   meetings: IMeeting[]
   id: 'morningMeetings' | 'afternoonMeetings' | 'fullDayMeetings'
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const mapTypeOfMeeting = (
@@ -35,7 +38,9 @@ export const MeetingSummaryRow = ({
   dateProp,
   typeOfMeetingProp,
   meetings,
-  id
+  id,
+  isOpen,
+  setIsOpen
 }: MeetingSummaryRowProps) => {
   const { hotelName, updateMeetingTotalCost } = useBudget()
 
@@ -47,16 +52,27 @@ export const MeetingSummaryRow = ({
 
   if (!meeting) return null
 
+  const toggleBreakdown = () => {
+    setIsOpen((prevState: boolean) => !prevState)
+  }
+
   return (
-    <TableRow className='dark:bg-[#a9ba9d]'>
-      <TableCell>{dateProp}</TableCell>
-      <TableCell></TableCell>
-      <TableCell>{`${typeOfMeetingProp} @ ${hotelName}`}</TableCell>
-      <TableCell></TableCell>
-      <TableCell></TableCell>
-      <TableCell>
-        {accounting.formatMoney(meeting?.totalCost || 0, '€')}
-      </TableCell>
-    </TableRow>
+    <tr className='dark:bg-[#a9ba9d] dark:text-black-50'>
+      <td
+        onClick={toggleBreakdown}
+        className='cursor-pointer flex justify-center py-4'
+      >
+        <Icon
+          icon={isOpen ? 'typcn:minus' : 'typcn:plus'}
+          width='30'
+          height='30'
+        />
+      </td>
+      <td></td>
+      <td>{`${typeOfMeetingProp} @ ${hotelName}`}</td>
+      <td></td>
+      <td></td>
+      <td>{accounting.formatMoney(meeting?.totalCost || 0, '€')}</td>
+    </tr>
   )
 }

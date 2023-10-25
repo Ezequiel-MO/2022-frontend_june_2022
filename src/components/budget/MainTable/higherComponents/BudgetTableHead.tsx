@@ -1,4 +1,3 @@
-import { TableHead, TableRow } from '@mui/material'
 import { useCurrentProject } from '../../../../hooks'
 import { useTranslation } from '../../../../translations/translationContext'
 import { HeaderCell } from '../../../atoms'
@@ -21,8 +20,8 @@ export const BudgetTableHead: React.FC = () => {
   const { t } = useTranslation()
 
   return (
-    <TableHead>
-      <TableRow>
+    <thead className='bg-gradient-to-r from-[#a59f8c] via-orange-50 to-[#a59f8c] text-black-50 font-bold uppercase'>
+      <tr>
         <HeaderCell width='10%' className={backgroundColorClass} />
         <HeaderCell
           width='20%'
@@ -54,7 +53,7 @@ export const BudgetTableHead: React.FC = () => {
         >
           {t('Total cost w/VAT')}
         </HeaderCell>
-      </TableRow>
-    </TableHead>
+      </tr>
+    </thead>
   )
 }

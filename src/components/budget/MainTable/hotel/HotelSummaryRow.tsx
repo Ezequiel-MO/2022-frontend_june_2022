@@ -1,15 +1,21 @@
 import { useEffect } from 'react'
-import { TableCell, TableRow } from '@mui/material'
 import { useBudget, useFindByName } from '../../../../hooks'
 import { HotelTotalCostContainer } from '.'
 import { OptionSelect } from '../multipleOrSingle'
 import { IHotelPrice } from '../../../../interfaces'
+import { Icon } from '@iconify/react'
 
 interface HotelSummaryRowProps {
   nights: number
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const HotelSummaryRow = ({ nights }: HotelSummaryRowProps) => {
+export const HotelSummaryRow = ({
+  nights,
+  isOpen,
+  setIsOpen
+}: HotelSummaryRowProps) => {
   const { hotels, hotelName, updateHotelTotalCost, setSelectedHotelName } =
     useBudget()
 
@@ -29,22 +35,33 @@ export const HotelSummaryRow = ({ nights }: HotelSummaryRowProps) => {
     setSelectedHotelName(e.target.value as string)
   }
 
+  const toggleBreakdown = () => {
+    setIsOpen((prevState: boolean) => !prevState)
+  }
+
   return (
-    <>
-      <TableRow className='dark:bg-[#a9ba9d]'>
-        <TableCell></TableCell>
-        <TableCell></TableCell>
-        <TableCell>
-          <OptionSelect
-            options={hotels}
-            value={hotelName || hotels[0].name}
-            handleChange={handleChange}
-          />
-        </TableCell>
-        <TableCell></TableCell>
-        <TableCell></TableCell>
-        <HotelTotalCostContainer />
-      </TableRow>
-    </>
+    <tr className='dark:bg-[#a9ba9d] dark:text-black-50'>
+      <td
+        onClick={toggleBreakdown}
+        className='cursor-pointer flex justify-center py-4'
+      >
+        <Icon
+          icon={isOpen ? 'typcn:minus' : 'typcn:plus'}
+          width='30'
+          height='30'
+        />
+      </td>
+      <td></td>
+      <td className='py-4'>
+        <OptionSelect
+          options={hotels}
+          value={hotelName || hotels[0].name}
+          handleChange={handleChange}
+        />
+      </td>
+      <td></td>
+      <td></td>
+      <HotelTotalCostContainer />
+    </tr>
   )
 }

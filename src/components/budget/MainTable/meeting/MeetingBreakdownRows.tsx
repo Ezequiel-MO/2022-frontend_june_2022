@@ -1,9 +1,7 @@
 import { MeetingBreakdownRow } from '.'
 import { useBudget, useFindMeetingByHotel } from '../../../../hooks'
 import { IMeeting } from '../../../../interfaces'
-import { useState } from 'react'
 import { Icon } from '@iconify/react'
-import { BudgetBreakdownButton } from '../../../molecules'
 
 interface Props {
   pax: number
@@ -13,32 +11,31 @@ interface Props {
     | 'Afternoon Meeting'
     | 'Full Day Meeting'
   meetings: IMeeting[]
+  isOpen: boolean
 }
 
 export const MeetingBreakdownRows = ({
   pax,
   typeOfMeetingProp,
-  meetings
+  meetings,
+  isOpen
 }: Props) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true)
   const { hotelName } = useBudget()
 
   const { meeting } = useFindMeetingByHotel(meetings, hotelName)
-
-  const handleToggleMeetingBreakdown = () => {
-    setIsOpen(!isOpen)
-  }
 
   if (!meeting) return null
 
   return (
     <>
-      <BudgetBreakdownButton
-        onClick={handleToggleMeetingBreakdown}
-        item='Meeting'
-        isOpen={isOpen}
-      />
-      <tr>
+      <tr
+        style={{
+          transition: 'all 0.5s ease-in-out',
+          maxHeight: isOpen ? '800px' : '0',
+          overflow: 'hidden',
+          opacity: isOpen ? '1' : '0'
+        }}
+      >
         <td colSpan={6} className='p-0 bg-transparent'>
           <div
             className={`transition-all duration-500 ease-in-out overflow-hidden ${
