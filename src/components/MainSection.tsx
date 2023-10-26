@@ -104,7 +104,7 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
             <PartialCosts colorPalette={colorPalette} />
           </div>
         ) : budget === 'budgetAsPdf' ? (
-          <div className='page-break-after'>
+          <div>
             <ReactToPrint
               trigger={() => (
                 <button className='flex flex-row items-center printable-icon'>
@@ -125,11 +125,19 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
                 file={imageContentUrl[0]}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
-                <Page pageNumber={pageNumber} width={parentWidth} />
+                {Array.from(new Array(numPages), (el, index) => (
+                  <Page
+                    key={`page_${index + 1}`}
+                    pageNumber={index + 1}
+                    width={parentWidth}
+                    canvasBackground='#A9ba9d'
+                    scale={1}
+                    renderTextLayer={false}
+                    renderAnnotationLayer={false}
+                    renderForms={false}
+                  />
+                ))}
               </Document>
-              <p className='page-number'>
-                Page {pageNumber} of {numPages}
-              </p>
             </div>
           </div>
         ) : null}
