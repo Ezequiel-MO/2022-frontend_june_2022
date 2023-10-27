@@ -1,9 +1,15 @@
 import { useState } from 'react'
 import baseAPI from '../../axios/axiosConfig'
+import { IProject } from '../../interfaces'
 
-export const useLogin = ({ onSuccess, onError }) => {
-  const [loading, setLoading] = useState(false)
-  const login = async (email, password) => {
+interface LoginOptions {
+  onSuccess: (data: IProject) => void
+  onError: (error: Error) => void
+}
+
+export const useLogin = ({ onSuccess, onError }: LoginOptions) => {
+  const [loading, setLoading] = useState<boolean>(false)
+  const login = async (email: string, password: string) => {
     try {
       setLoading(true)
       if ([email, password].includes('')) {
@@ -36,7 +42,7 @@ export const useLogin = ({ onSuccess, onError }) => {
       }
       localStorage.setItem('token', token)
       onSuccess && onSuccess(response.data.data.data[0])
-    } catch (error) {
+    } catch (error: any) {
       onError && onError(error)
     } finally {
       setLoading(false)

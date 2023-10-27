@@ -1,7 +1,25 @@
+import { ChangeEvent, FormEvent } from 'react'
 import { Icon } from '@iconify/react'
 import Alert from '../../ui/Alert'
 
-const LoginForm = ({
+interface AlertProps {
+  error: boolean
+  msg: string
+}
+
+interface LoginFormProps {
+  msg: string
+  alert: AlertProps
+  handleSubmit: (e: FormEvent) => void
+  email: string
+  setEmail: (email: string) => void
+  password: string
+  setPassword: (password: string) => void
+  togglePassword: () => void
+  visiblePassword: boolean
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({
   msg,
   alert,
   handleSubmit,
@@ -35,7 +53,9 @@ const LoginForm = ({
             type='text'
             placeholder='User Email'
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
           />
         </div>
         <div className='my-5 relative'>
@@ -51,7 +71,9 @@ const LoginForm = ({
             type={visiblePassword ? 'text' : 'password'}
             placeholder='Enter password'
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
           />
           <button
             type='button'

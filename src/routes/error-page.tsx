@@ -1,7 +1,13 @@
-import { useRouteError, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 
-export const ErrorPage = () => {
-  const error = useRouteError()
+interface Error {
+  statusText?: string
+  message?: string
+}
+
+export const ErrorPage: React.FC = () => {
+  const error: Error = useLocation().state as Error
   const navigate = useNavigate()
 
   return (

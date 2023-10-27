@@ -1,23 +1,35 @@
-import { useState } from 'react'
+import React, { useState, FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useBudget, useCurrentProject, useUserLog } from '../../hooks'
 import Spinner from '../../ui/spinner/Spinner'
 import { saveToLocalStorage } from './helperFunctions'
 import LoginForm from './LoginForm'
 import { useLogin } from './useLogin'
+import { IDay, IHotel, IProject } from '../../interfaces'
 
-const LoginPage = () => {
+interface Alert {
+  error: boolean
+  msg: string
+}
+
+interface Data extends IProject {
+  schedule: IDay[]
+  hotels: IHotel[]
+}
+
+const LoginPage: React.FC = () => {
   const navigate = useNavigate()
-  const [visiblePassword, setVisiblePassword] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [alert, setAlert] = useState({})
+  const [visiblePassword, setVisiblePassword] = useState<boolean>(false)
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [alert, setAlert] = useState<Alert>({ error: false, msg: '' })
+
   const { setCurrentProject } = useCurrentProject()
   const { setBudgetSchedule, setHotels } = useBudget()
   const { logUserIn } = useUserLog()
 
   const { login, loading } = useLogin({
-    onSuccess: (data) => {
+    onSuccess: (data: Data) => {
       saveToLocalStorage(data)
       setAlert({
         error: false,
@@ -29,15 +41,15 @@ const LoginPage = () => {
       setHotels(data.hotels)
       navigate('/app')
     },
-    onError: (error) => {
+    onError: (error: any) => {
       setAlert({
         error: true,
-        msg: error.response.data.msg
+        msg: error.response.data.msg ?? ''
       })
     }
   })
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     login(email, password)
   }
