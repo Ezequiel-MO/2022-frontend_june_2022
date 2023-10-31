@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useUserLog, useDarkMode, useCurrentProject } from '../../hooks'
 import HeaderDropdown from './HeaderDropdown'
 import { DarkModeToggle } from './DarkModeToggle'
@@ -8,11 +8,12 @@ import { HeaderDropdownWrapper } from './HeaderDropdownWrapper'
 import { Logo } from './Logo'
 import { SvgBackground } from './SvgBackground'
 import cutt_logo from '../../assets/CUTT_LOGO.png'
+import { IProject } from '../../interfaces'
 
-const Header = () => {
+const Header: React.FC = () => {
   const [isDarkMode, toggleDarkMode] = useDarkMode()
   const { logUserOut, userIsLoggedIn } = useUserLog()
-  const { currentProject } = useCurrentProject()
+  const { currentProject } = useCurrentProject() as { currentProject: IProject }
   const [dropdownActive, setDropdownActive] = useState(false)
   const { groupLocation, clientCompany, hasExternalCorporateImage } =
     currentProject

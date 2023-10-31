@@ -38,7 +38,7 @@ export const Meetings = ({ meetings = [], timing }: Props) => {
           </ul>
 
           <div className='relative flex flex-col min-w-0 break-words w-full mb-6 rounded'>
-            <div className='px-4 py-5 flex-auto'>
+            <div className='py-5 flex-auto'>
               <div className='tab-content tab-space'>
                 {meetings.map((meeting, index) => (
                   <div

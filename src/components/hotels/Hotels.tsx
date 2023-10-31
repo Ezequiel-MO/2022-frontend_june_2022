@@ -35,7 +35,7 @@ export const Hotels: React.FC<Props> = ({ hotels }) => {
         setActiveTab={setActiveTab}
       />
       <div className='relative flex flex-col min-w-0 break-words w-full mb-6 rounded'>
-        <div className='px-4 py-5 flex-auto'>
+        <div className='py-5 flex-auto'>
           <div className='tab-content tab-space'>
             {hotels.map((hotel, index) => (
               <TabContent key={hotel._id} activeTab={activeTab} index={index}>

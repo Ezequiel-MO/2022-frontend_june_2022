@@ -45,7 +45,7 @@ const SidebarSmall = ({
   }
 
   return (
-    <div className='inline sticky top-0'>
+    <div className='inline'>
       <div className='flex items-center justify-center'>
         {cities.includes(groupLocation as CitiesType) && (
           <ModalsRow

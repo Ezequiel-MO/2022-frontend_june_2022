@@ -32,7 +32,7 @@ export const Events = ({ events }: Props) => {
           />
 
           <div className='relative flex flex-col min-w-0 break-words w-full mb-6 rounded'>
-            <div className='px-4 py-5 flex-auto'>
+            <div className='py-5 flex-auto'>
               <div className='tab-content tab-space'>
                 {events.map((event, index) => (
                   <TabContent key={index} activeTab={openTab} index={index}>
