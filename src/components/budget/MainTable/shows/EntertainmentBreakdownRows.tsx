@@ -1,6 +1,5 @@
 import { IEntertainment } from '../../../../interfaces'
 import { useState } from 'react'
-import { BudgetBreakdownButton } from '../../../molecules'
 import { Icon } from '@iconify/react'
 
 interface Props {
@@ -17,12 +16,7 @@ export const EntertainmentBreakdownRows = ({
   }
   return (
     <>
-      <BudgetBreakdownButton
-        onClick={handleToggle}
-        item='Entertainment'
-        isOpen={isOpen}
-      />
-      <tr>
+      {/*  <tr>
         <td colSpan={6} className='p-0 bg-transparent'>
           <div
             className={`transition-all duration-500 ease-in-out overflow-hidden ${
@@ -52,7 +46,7 @@ export const EntertainmentBreakdownRows = ({
           </div>
         </td>
       </tr>
-      {selectedEntertainment?.name}
+      {selectedEntertainment?.name} */}
     </>
   )
 }

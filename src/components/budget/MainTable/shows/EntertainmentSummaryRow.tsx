@@ -1,9 +1,11 @@
-import { TableCell, TableRow } from '@mui/material'
 import { IEntertainment, IRestaurant } from '../../../../interfaces'
 import { EntertainmentMultipleChoice } from './EntertainmentMultipleChoice'
 import { EntertainmentSingleChoice } from './EntertainmentSingleChoice'
 import { useState } from 'react'
 import { EntertainmentBreakdownRows } from './EntertainmentBreakdownRows'
+import { Icon } from '@iconify/react'
+import accounting from 'accounting'
+import { useBudget } from '../../../../hooks'
 
 interface Props {
   date: string
@@ -11,6 +13,8 @@ interface Props {
   selectedRestaurant: IRestaurant
   title: string
   typeOfEvent: 'dinner' | 'lunch'
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const EntertainmentSummaryRow: React.FC<Props> = ({
@@ -18,9 +22,12 @@ export const EntertainmentSummaryRow: React.FC<Props> = ({
   entertainment,
   selectedRestaurant,
   title,
-  typeOfEvent
+  typeOfEvent,
+  isOpen,
+  setIsOpen
 }) => {
   if (!entertainment || entertainment.length === 0) return null
+  const { shows } = useBudget()
   const [selectedEntertainment, setSelectedEntertainment] =
     useState<IEntertainment>(entertainment[0])
 
@@ -35,12 +42,25 @@ export const EntertainmentSummaryRow: React.FC<Props> = ({
 
   const multipleShows = entertainment.length > 1
 
+  const toggleBreakdown = () => {
+    setIsOpen((prevState: boolean) => !prevState)
+  }
+
   return (
     <>
-      <TableRow className='dark:bg-[#a9ba9d]'>
-        <TableCell>{date}</TableCell>
-        <TableCell>{`${title}`}</TableCell>
-        <TableCell>
+      <tr className='dark:bg-[#a9ba9d] dark:text-black-50'>
+        <td
+          onClick={toggleBreakdown}
+          className='cursor-pointer flex justify-center py-4'
+        >
+          <Icon
+            icon={isOpen ? 'typcn:minus' : 'typcn:plus'}
+            width='30'
+            height='30'
+          />
+        </td>
+        <td>Entertainment</td>
+        <td>
           {multipleShows ? (
             <EntertainmentMultipleChoice
               date={date}
@@ -50,13 +70,24 @@ export const EntertainmentSummaryRow: React.FC<Props> = ({
               typeOfEvent={typeOfEvent}
             />
           ) : (
-            <EntertainmentSingleChoice />
+            <EntertainmentSingleChoice
+              options={entertainment}
+              selectedRestaurant={selectedRestaurant}
+              date={date}
+              id='dinner'
+            />
           )}
-        </TableCell>
-        <TableCell></TableCell>
-        <TableCell></TableCell>
-        <TableCell></TableCell>
-      </TableRow>
+        </td>
+
+        <td></td>
+        <td></td>
+        <td>
+          {accounting.formatMoney(
+            shows[date]?.[typeOfEvent]?.showCost || 0,
+            '€'
+          )}
+        </td>
+      </tr>
       {selectedEntertainment && (
         <EntertainmentBreakdownRows
           selectedEntertainment={selectedEntertainment}

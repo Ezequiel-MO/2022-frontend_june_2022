@@ -10,14 +10,14 @@ type EntertainmentCategory =
 interface IEntertainmentPrice {
   artistsFee: number
   aavv: number
-  lighting?: number
+  lighting: number
   travelAllowance: number
   mealAllowance: number
   other?: number
 }
 
 export interface IEntertainment {
-  _id?: string
+  _id: string
   vendor: string
   city: string
   name: string
@@ -27,7 +27,7 @@ export interface IEntertainment {
   duration: string
   nrArtists?: string
   textContent: string
-  price?: IEntertainmentPrice[]
+  price?: IEntertainmentPrice
   imageContentUrl: string[]
   updatedAt?: string
   [key: string]: any

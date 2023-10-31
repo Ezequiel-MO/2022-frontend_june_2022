@@ -19,6 +19,7 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
   const [selectedRestaurant, setSelectedRestaurant] = useState<IRestaurant>(
     dinners[0]
   )
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const handleVenueChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const selectedVenue = dinners.find(
@@ -56,6 +57,8 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
           selectedRestaurant={selectedRestaurant}
           title='Entertainment @ Venue'
           typeOfEvent='dinner'
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
         />
       )
     }

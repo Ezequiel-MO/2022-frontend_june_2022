@@ -24,3 +24,4 @@ export type TranslationKeys =
   | 'Afternoon Events'
   | 'Dinner'
   | 'GIFTS'
+  | 'ENTERTAINMENT'

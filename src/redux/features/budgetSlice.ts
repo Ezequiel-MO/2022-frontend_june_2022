@@ -24,6 +24,12 @@ interface ITransfers {
   [key: string]: number
 }
 
+interface IShowDetails {
+  selectedVenue: IRestaurant // Replace with the actual type for a venue
+  selectedShow: IEntertainment
+  showCost: number
+}
+
 export interface IBudgetState {
   hotelName: string
   venueName: string
@@ -34,7 +40,7 @@ export interface IBudgetState {
   schedule: IDay[]
   meetings: Record<string, MeetingType>
   meals: Record<string, { [key: string]: IRestaurant }>
-  shows: Record<string, { [key: string]: IEntertainment }>
+  shows: Record<string, Record<'lunch' | 'dinner', IShowDetails>>
   venues: Record<string, { [key: string]: IRestaurant }>
   events: Record<string, { [key: string]: IEvent }>
   transfers: ITransfers
@@ -372,7 +378,33 @@ export const budgetSlice = createSlice({
         venueId: string
         showId: string
       }>
-    ) => {}
+    ) => {
+      const { date, typeOfEvent, venueId, showId } = action.payload
+      const day = state.schedule.find((item) => item.date === date)
+      const selectedVenue = day
+        ? day[typeOfEvent]?.restaurants?.find((item) => item._id === venueId)
+        : undefined
+      const selectedShow = selectedVenue?.entertainment?.find(
+        (show) => show._id === showId
+      )
+      const showCost = selectedShow?.price
+        ? selectedShow.price.artistsFee +
+          selectedShow.price.aavv +
+          selectedShow.price.lighting +
+          selectedShow.price.travelAllowance +
+          selectedShow.price.mealAllowance
+        : 0
+
+      if (!state.shows[date]) {
+        state.shows[date] = {} as Record<'lunch' | 'dinner', IShowDetails>
+      }
+
+      state.shows[date][typeOfEvent] = {
+        selectedVenue: selectedVenue!,
+        selectedShow: selectedShow!,
+        showCost
+      }
+    }
   }
 })
 

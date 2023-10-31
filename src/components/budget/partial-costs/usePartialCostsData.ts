@@ -5,6 +5,7 @@ import {
   useGetEventCosts,
   useGetMealsCost,
   useGetMeetingsCost,
+  useGetShowCost,
   useGetTransferCosts,
   useGetVenuesCost
 } from '../../../hooks'
@@ -48,6 +49,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
   const { mealsTotalCost = 0 } = useGetMealsCost()
   const { venuesTotalCost = 0 } = useGetVenuesCost()
   const { eventsTotalCost = 0 } = useGetEventCosts()
+  const { showTotalCost = 0 } = useGetShowCost()
   const { transfersTotalCost = 0 } = useGetTransferCosts()
   const [totalCostOfItems, setTotalCostOfItems] = useState<number>(0)
 
@@ -63,7 +65,8 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
       'Meals',
       'Venue Costs',
       'Activities',
-      'Gifts'
+      'Gifts',
+      'Show Costs'
     ],
     datasets: [
       {
@@ -75,25 +78,28 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
           mealsTotalCost,
           eventsTotalCost,
           venuesTotalCost,
-          giftTotalCost
+          giftTotalCost,
+          showTotalCost
         ],
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(189, 40, 210, 0.2)',
-          'rgba(89, 90, 200, 0.2)',
-          'rgba(153, 102, 255, 0.2)'
+          'rgba(255, 87, 34, 0.2)',
+          'rgba(33, 150, 243, 0.2)',
+          'rgba(139, 195, 74, 0.2)',
+          'rgba(233, 30, 99, 0.2)',
+          'rgba(255, 193, 7, 0.2)',
+          'rgba(3, 169, 244, 0.2)',
+          'rgba(121, 85, 72, 0.2)',
+          'rgba(96, 125, 139, 0.2)'
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(189, 40, 210, 1)',
-          'rgba(89, 90, 200, 1)',
-          'rgba(153, 102, 255, 1)'
+          'rgba(255, 87, 34, 1)',
+          'rgba(33, 150, 243, 1)',
+          'rgba(139, 195, 74, 1)',
+          'rgba(233, 30, 99, 1)',
+          'rgba(255, 193, 7, 1)',
+          'rgba(3, 169, 244, 1)',
+          'rgba(121, 85, 72, 1)',
+          'rgba(96, 125, 139, 1)'
         ],
         borderWidth: 1
       }
@@ -135,6 +141,11 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
       icon: 'mdi:gift-outline',
       title: 'GIFTS',
       cost: giftTotalCost
+    },
+    {
+      icon: 'codicon:mic',
+      title: 'ENTERTAINMENT',
+      cost: showTotalCost
     }
   ]
 
@@ -147,7 +158,8 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     mealsTotalCost,
     eventsTotalCost,
     transfersTotalCost,
-    giftTotalCost
+    giftTotalCost,
+    showTotalCost
   ])
 
   return {
