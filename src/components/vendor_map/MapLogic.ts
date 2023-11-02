@@ -66,7 +66,12 @@ export const VendorMapLogic = () => {
     let coords: CoordItem[] = []
     schedule.forEach((day) => {
       day.morningEvents?.events.forEach((event) => {
-        if (event.location && event.location.coordinates) {
+        if (
+          event.location &&
+          event.location.coordinates &&
+          event.coordsActive
+        ) {
+          console.log('Morning Event:', event.name, 'Icon:', event_icon)
           const distance = getDistanceFromCentralCoords(
             event.location.coordinates[0],
             event.location.coordinates[1],
@@ -102,7 +107,12 @@ export const VendorMapLogic = () => {
         }
       })
       day.afternoonEvents?.events.forEach((event) => {
-        if (event.location && event.location.coordinates) {
+        if (
+          event.location &&
+          event.location.coordinates &&
+          event.coordsActive
+        ) {
+          console.log('Afternoon Event:', event.name, 'Icon:', event_icon)
           const distance = getDistanceFromCentralCoords(
             event.location.coordinates[0],
             event.location.coordinates[1],

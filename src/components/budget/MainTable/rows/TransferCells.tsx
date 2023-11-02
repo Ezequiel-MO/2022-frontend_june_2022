@@ -37,7 +37,6 @@ export const TransferCells = ({
   const { updateTransfers } = useBudget()
 
   useEffect(() => {
-    console.log(options)
     updateTransfers(options)
   }, [id])
 

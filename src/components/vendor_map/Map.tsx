@@ -100,7 +100,7 @@ export const VendorMap: React.FC = () => {
           }
           {vendors.map((vendor, index) => (
             <MarkerF
-              key={index}
+              key={`${vendor.place}-${index}`}
               position={vendor.coords}
               title={vendor.place}
               onLoad={(marker) => {
