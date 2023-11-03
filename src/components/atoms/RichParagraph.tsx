@@ -10,6 +10,7 @@ interface RichParagraphProps {
 
 export const RichParagraph: React.FC<RichParagraphProps> = ({ text = '' }) => {
   const [isCopied, setIsCopied] = useState(false)
+  const [showAnimation, setShowAnimation] = useState(false)
 
   if (!text) {
     return null
@@ -67,9 +68,12 @@ export const RichParagraph: React.FC<RichParagraphProps> = ({ text = '' }) => {
       try {
         const textToCopy = window.getSelection()?.toString() || ''
         await navigator.clipboard.writeText(textToCopy)
-        console.log('Text successfully copied to clipboard')
         setIsCopied(true)
-        setTimeout(() => setIsCopied(false), 2000)
+        setShowAnimation(true)
+        setTimeout(() => {
+          setIsCopied(false)
+          setShowAnimation(false)
+        }, 2000)
       } catch (err) {
         console.error('Failed to copy text: ', err)
       }
@@ -89,20 +93,24 @@ export const RichParagraph: React.FC<RichParagraphProps> = ({ text = '' }) => {
         dangerouslySetInnerHTML={{ __html: cleanedText }}
       ></div>
 
+      {showAnimation && (
+        <div className='absolute top-0 right-0 mt-2 mr-2 flex items-center justify-center w-12 h-12 bg-green-500 rounded-full animate-ping'>
+          <Icon icon='akar-icons:check' color='white' width='24' height='24' />
+        </div>
+      )}
+
       <button
         onClick={(e) => {
           e.stopPropagation()
           handleCopyClick()
         }}
-        className='group-hover:visible invisible absolute -top-8 -right-2 p-2 bg-gray-800 text-white-0 rounded-lg hover:bg-gray-500 hover:text-black-50 w-24 md:w-28 lg:w-32 flex items-center justify-between'
+        className='group-hover:visible invisible absolute top-0 right-0 mt-2 mr-2 p-2 bg-gray-800 text-white rounded-full hover:bg-gray-500'
       >
-        <span className='ml-2 text-sm md:text-base lg:text-lg'>
-          {isCopied ? 'Copied' : 'Copy'}
-        </span>
         <Icon
-          icon={isCopied ? 'mdi:check' : 'mdi:content-copy'}
-          width={25}
-          color={isCopied ? '#00ff00' : '#ffffff'}
+          icon={isCopied ? 'akar-icons:check' : 'mdi:content-copy'}
+          color={isCopied ? 'green' : 'white'}
+          width='24'
+          height='24'
         />
       </button>
     </div>

@@ -50,6 +50,15 @@ module.exports = {
           50: '#C7BAAE',
           100: '#F5F1E9'
         }
+      },
+      keyframes: {
+        fadeOutUp: {
+          '0%': { opacity: 1, transform: 'translateY(0px)' },
+          '100%': { opacity: 0, transform: 'translateY(-10px)' }
+        }
+      },
+      animation: {
+        'fade-out-up': 'fadeOutUp 0.5s ease-in-out forwards'
       }
     }
   },
