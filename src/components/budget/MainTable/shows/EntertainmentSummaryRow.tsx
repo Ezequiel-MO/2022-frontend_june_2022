@@ -2,7 +2,6 @@ import { IEntertainment, IRestaurant } from '../../../../interfaces'
 import { EntertainmentMultipleChoice } from './EntertainmentMultipleChoice'
 import { EntertainmentSingleChoice } from './EntertainmentSingleChoice'
 import { useState } from 'react'
-import { EntertainmentBreakdownRows } from './EntertainmentBreakdownRows'
 import { Icon } from '@iconify/react'
 import accounting from 'accounting'
 import { useBudget } from '../../../../hooks'
@@ -88,11 +87,6 @@ export const EntertainmentSummaryRow: React.FC<Props> = ({
           )}
         </td>
       </tr>
-      {selectedEntertainment && (
-        <EntertainmentBreakdownRows
-          selectedEntertainment={selectedEntertainment}
-        />
-      )}
     </>
   )
 }

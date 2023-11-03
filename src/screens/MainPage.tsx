@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState, FC } from 'react'
+import { useLayoutEffect, useRef, useState, FC, useEffect } from 'react'
 import { Footer, MainSection, Sidebar, SidebarSmall } from '../components'
 import { useCurrentProject } from '../hooks'
 import { TranslationProvider } from '../translations/translationContext'
@@ -31,7 +31,7 @@ export const MainPage: FC = () => {
 
         <div className='grid grid-cols-12 my-8'>
           {hasSideMenu ? (
-            <div className='col-span-2'>
+            <div className={`col-span-2`}>
               <Sidebar />
             </div>
           ) : (

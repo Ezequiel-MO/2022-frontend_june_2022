@@ -47,6 +47,7 @@ const Header: React.FC = () => {
             toggleDarkMode={toggleDarkMode}
           />
           <LogoutButton isDarkMode={isDarkMode} logUserOut={logUserOut} />
+
           <UserAvatar
             userIsLoggedIn={userIsLoggedIn}
             currentProject={currentProject}

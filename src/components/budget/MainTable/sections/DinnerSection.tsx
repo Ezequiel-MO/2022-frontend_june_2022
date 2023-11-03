@@ -1,10 +1,9 @@
 import { useState } from 'react'
-
 import { IRestaurant } from '../../../../interfaces'
 import { DinnerRow } from '../rows'
 import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
 import { VenueSummaryRow } from '../venue'
-import { EntertainmentSummaryRow } from '../shows/EntertainmentSummaryRow'
+import { ShowRows } from '../shows/ShowRows'
 
 interface DinnerSectionProps {
   dinners: IRestaurant[]
@@ -19,7 +18,6 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
   const [selectedRestaurant, setSelectedRestaurant] = useState<IRestaurant>(
     dinners[0]
   )
-  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const handleVenueChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
     const selectedVenue = dinners.find(
@@ -51,14 +49,12 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
       selectedRestaurant?.entertainment?.length
     ) {
       return (
-        <EntertainmentSummaryRow
+        <ShowRows
           date={date}
           entertainment={selectedRestaurant.entertainment}
           selectedRestaurant={selectedRestaurant}
           title='Entertainment @ Venue'
           typeOfEvent='dinner'
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
         />
       )
     }

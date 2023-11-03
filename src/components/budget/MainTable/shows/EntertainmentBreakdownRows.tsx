@@ -1,52 +1,64 @@
-import { IEntertainment } from '../../../../interfaces'
-import { useState } from 'react'
+import { IEntertainment, IEntertainmentPrice } from '../../../../interfaces'
 import { Icon } from '@iconify/react'
+import { EntertainmentBreakdownRow } from './EntertainmentBreakdownRow'
 
 interface Props {
-  selectedEntertainment: IEntertainment
+  entertainment: IEntertainment[]
+  isOpen: boolean
 }
 
 export const EntertainmentBreakdownRows = ({
-  selectedEntertainment
+  entertainment,
+  isOpen
 }: Props) => {
-  const [isOpen, setIsOpen] = useState<boolean>(true)
+  const { price } = entertainment[0]
+  const { artistsFee, aavv, lighting, travelAllowance, mealAllowance } =
+    price as IEntertainmentPrice
 
-  const handleToggle = () => {
-    setIsOpen(!isOpen)
-  }
   return (
-    <>
-      {/*  <tr>
-        <td colSpan={6} className='p-0 bg-transparent'>
-          <div
-            className={`transition-all duration-500 ease-in-out overflow-hidden ${
-              isOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
-            }`}
-          >
+    <tr
+      className={`transition-all duration-500 ease-in-out ${
+        isOpen ? 'max-h-[800px] opacity-100' : 'max-h-0 opacity-0'
+      }`}
+    >
+      <td colSpan={6} className='p-0 bg-transparent relative'>
+        {isOpen && (
+          <>
+            <Icon
+              icon='icon-park-outline:entertainment'
+              width={250}
+              className='absolute inset-0 mx-auto opacity-10 dark:opacity-20 z-0'
+            />
             <table className='w-full'>
-              <tbody className='w-full bg-white-100 dark:bg-[#a9ba9d] relative'>
+              <thead className='text-white-100 bg-zinc-800'>
                 <tr>
-                  <div className='absolute inset-0 flex items-center justify-center opacity-10 dark:opacity-20 z-0'>
-                    <Icon icon='ph:castle-turret-light' width={250} />
-                  </div>
-                  <table className='w-full'>
-                    <thead className='text-white-100 bg-zinc-800'>
-                      <tr>
-                        <td align='center'>Description</td>
-                        <td align='center'>Nr. Units </td>
-                        <td align='center'></td>
-                        <td align='center'>Unit Cost</td>
-                        <td align='center'>Total Cost</td>
-                      </tr>
-                    </thead>
-                  </table>
+                  <th align='center'>Description</th>
+                  <th align='center'></th>
+                  <th align='center'></th>
+                  <th align='center'></th>
+                  <th align='center'>Total Cost</th>
                 </tr>
+              </thead>
+              <tbody className='text-[#000] bg-white-100 dark:bg-[#a9ba9d]'>
+                <EntertainmentBreakdownRow
+                  title='Artist Fee'
+                  rate={artistsFee}
+                />
+                <EntertainmentBreakdownRow title='AudioVisuals' rate={aavv} />
+                <EntertainmentBreakdownRow title='Lighting' rate={lighting} />
+                <EntertainmentBreakdownRow
+                  title='Travel Allowance'
+                  rate={travelAllowance}
+                />
+                <EntertainmentBreakdownRow
+                  title='Meal Allowance'
+                  rate={mealAllowance}
+                />
               </tbody>
             </table>
-          </div>
-        </td>
-      </tr>
-      {selectedEntertainment?.name} */}
-    </>
+          </>
+        )}
+      </td>
+    </tr>
   )
 }

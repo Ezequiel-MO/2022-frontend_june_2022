@@ -107,6 +107,7 @@ export const VendorMap: React.FC = () => {
               onLoad={(marker) => {
                 const size = calculateMarkerSize(zoom)
                 marker.setIcon({
+                  ...marker,
                   path: vendor.icon.path,
                   fillColor: vendor.icon.fillColor,
                   fillOpacity: vendor.icon.fillOpacity,
