@@ -1,9 +1,10 @@
-import { useState, useEffect, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import { GoogleMap, MarkerF, InfoWindowF } from '@react-google-maps/api'
 import { VendorList } from './VendorList'
 import { CoordItem, VendorMapLogic } from './MapLogic'
 import './map.css'
 import { useMapOptions, useMapZoom, useVendorCoords } from './hooks'
+import { calculateMarkerSize, baseSize } from './map_utils/MarkerSize'
 
 export const VendorMap: React.FC = () => {
   const { centralCoords } = VendorMapLogic()
@@ -85,38 +86,36 @@ export const VendorMap: React.FC = () => {
             height: '97%'
           }}
         >
-          {
+          {activeInfoWindow && (
             <InfoWindowF
-              position={location.coords}
-              options={{ pixelOffset: new google.maps.Size(0, -40) }}
+              position={activeInfoWindow.coords}
+              options={{ pixelOffset: new google.maps.Size(0, -20) }}
               onCloseClick={closeInfoWindow}
             >
               <div className='bg-white-50 rounded-lg shadow-md p-4 dark:bg-gray-500'>
                 <h3 className='text-lg font-semibold mb-2 text-gray-100 dark:text-white'>
-                  {location.place}
+                  {activeInfoWindow.place}
                 </h3>
               </div>
             </InfoWindowF>
-          }
+          )}
           {vendors.map((vendor, index) => (
             <MarkerF
               key={`${vendor.place}-${index}`}
               position={vendor.coords}
               title={vendor.place}
               onLoad={(marker) => {
+                const size = calculateMarkerSize(zoom)
                 marker.setIcon({
-                  ...vendor.icon,
-                  anchor: new google.maps.Point(15, 30)
+                  path: vendor.icon.path,
+                  fillColor: vendor.icon.fillColor,
+                  fillOpacity: vendor.icon.fillOpacity,
+                  strokeWeight: vendor.icon.strokeWeight,
+                  rotation: vendor.icon.rotation,
+                  scale: size / baseSize
                 })
               }}
-              onClick={() => {
-                setLocation({
-                  ...vendor,
-                  place: vendor.place,
-                  coords: vendor.coords
-                })
-                handleMarkerClick(vendor)
-              }}
+              onClick={() => handleMarkerClick(vendor)}
             />
           ))}
         </GoogleMap>
