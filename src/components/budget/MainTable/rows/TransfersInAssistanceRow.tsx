@@ -21,20 +21,22 @@ export const TransfersInAssistanceRow = ({
 
   const { assistance = 0, assistanceCost = 0 } = firstItem
 
+  if (assistance === 0) {
+    return null
+  }
+
   useEffect(() => {
     updateTransfersIn('assistance', assistance, assistanceCost)
   }, [])
 
   return (
-    <TableRow>
-      <TableCell>{date}</TableCell>
-      <TableCell></TableCell>
-      <TableCell>On-board Assistance @ Buses</TableCell>
-      <TableCell>{assistance}</TableCell>
-      <TableCell>{accounting.formatMoney(assistanceCost, '€')}</TableCell>
-      <TableCell>
-        {accounting.formatMoney(assistance * assistanceCost, '€')}
-      </TableCell>
-    </TableRow>
+    <tr>
+      <td>{date}</td>
+      <td></td>
+      <td>On-board Assistance @ Buses</td>
+      <td>{assistance}</td>
+      <td>{accounting.formatMoney(assistanceCost, '€')}</td>
+      <td>{accounting.formatMoney(assistance * assistanceCost, '€')}</td>
+    </tr>
   )
 }

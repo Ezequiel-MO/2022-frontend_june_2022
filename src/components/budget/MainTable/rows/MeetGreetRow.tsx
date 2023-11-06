@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 import { useBudget } from '../../../../hooks'
 import { ITransfer } from '../../../../interfaces'
@@ -18,20 +17,22 @@ export const MeetGreetRow = ({ firstItem, date }: MeetGreetRowProps) => {
 
   const { meetGreet = 0, meetGreetCost = 0 } = firstItem
 
+  if (meetGreet === 0) {
+    return null
+  }
+
   useEffect(() => {
     updateTransfersIn('meetGreet', meetGreet, meetGreetCost)
   }, [])
 
   return (
-    <TableRow>
-      <TableCell>{date}</TableCell>
-      <TableCell></TableCell>
-      <TableCell>Meet & Greet @ Airport</TableCell>
-      <TableCell>{meetGreet}</TableCell>
-      <TableCell>{accounting.formatMoney(meetGreetCost, '€')}</TableCell>
-      <TableCell>
-        {accounting.formatMoney(meetGreet * meetGreetCost, '€')}
-      </TableCell>
-    </TableRow>
+    <tr>
+      <td>{date}</td>
+      <td></td>
+      <td>Meet & Greet @ Airport</td>
+      <td>{meetGreet}</td>
+      <td>{accounting.formatMoney(meetGreetCost, '€')}</td>
+      <td>{accounting.formatMoney(meetGreet * meetGreetCost, '€')}</td>
+    </tr>
   )
 }

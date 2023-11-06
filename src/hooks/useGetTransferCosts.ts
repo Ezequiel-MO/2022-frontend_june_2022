@@ -19,7 +19,7 @@ export const useGetTransferCosts = () => {
 
   useEffect(() => {
     const { transfers, transfersIn = {}, transfersOut = {} } = budget
-    const transfersArray: number[] = Object.values(transfers)
+
     const {
       assistance: assistanceIn = 0,
       assistanceCost: assistanceCostIn = 0,
@@ -34,13 +34,13 @@ export const useGetTransferCosts = () => {
       meetGreetCost: dispatchCost = 0
     }: ITransfersDetails = transfersOut
 
-    const transferInOutTotalCost = transfersArray.reduce((a, b) => a + b, 0)
+    const transferInCost = schedule[0].transfer_in[0]?.transfer_in
 
     const transferOutCost =
       schedule[schedule.length - 1].transfer_out[0]?.transfer_out
 
     const totalTransferCost =
-      transferInOutTotalCost +
+      transferInCost +
       transferOutCost +
       assistanceCostIn * assistanceIn +
       meetGreetCostIn * meetGreetIn +
