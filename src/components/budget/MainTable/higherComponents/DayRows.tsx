@@ -15,27 +15,29 @@ interface DayRowsProps {
 }
 
 export const DayRows = ({ day, pax }: DayRowsProps) => {
-  const { date } = day
-
   return (
     <>
-      <TransfersInSection transfers={day.transfer_in} date={date} />
+      <TransfersInSection transfers={day.transfer_in} date={day.date} />
       <MorningSection
         events={day.morningEvents.events}
         meetings={day.morningMeetings?.meetings || []}
-        date={date}
+        date={day.date}
         pax={pax}
       />
-      <LunchSection lunch={day.lunch.restaurants} date={date} pax={pax} />
+      <LunchSection lunch={day.lunch.restaurants} date={day.date} pax={pax} />
       <AfternoonSection
         events={day.afternoonEvents.events}
         meetings={day.afternoonMeetings?.meetings || []}
         fullDayMeetings={day.fullDayMeetings?.meetings || []}
-        date={date}
+        date={day.date}
         pax={pax}
       />
-      <DinnerSection dinners={day.dinner.restaurants} date={date} pax={pax} />
-      <TransfersOutSection transfers={day.transfer_out} date={date} />
+      <DinnerSection
+        dinners={day.dinner.restaurants}
+        date={day.date}
+        pax={pax}
+      />
+      <TransfersOutSection transfers={day.transfer_out} date={day.date} />
     </>
   )
 }

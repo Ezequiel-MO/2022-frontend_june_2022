@@ -3,7 +3,7 @@ import accounting from 'accounting'
 import { useBudget, useFindMeetingByHotel } from '../../../../hooks'
 import { IMeeting } from '../../../../interfaces'
 import React from 'react'
-import { Icon } from '@iconify/react'
+import { ToggleTableRowIcon } from '../../../atoms'
 
 interface MeetingSummaryRowProps {
   pax: number
@@ -57,17 +57,8 @@ export const MeetingSummaryRow = ({
   }
 
   return (
-    <tr className='dark:bg-[#a9ba9d] dark:text-black-50'>
-      <td
-        onClick={toggleBreakdown}
-        className='cursor-pointer flex justify-center py-4'
-      >
-        <Icon
-          icon={isOpen ? 'typcn:minus' : 'typcn:plus'}
-          width='30'
-          height='30'
-        />
-      </td>
+    <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
+      <ToggleTableRowIcon isOpen={isOpen} toggle={toggleBreakdown} />
       <td></td>
       <td
         className='whitespace-nowrap overflow-hidden text-ellipsis max-w-[70px]'

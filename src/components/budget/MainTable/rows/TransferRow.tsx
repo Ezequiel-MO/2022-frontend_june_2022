@@ -26,8 +26,8 @@ export const TransferRow = ({ pax, date, options, description, id }: Props) => {
   }
 
   return (
-    <TableRow>
-      <TableCell>{date}</TableCell>
+    <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
+      <td>{date}</td>
       <TransferCells
         pax={pax}
         description={description}
@@ -35,6 +35,6 @@ export const TransferRow = ({ pax, date, options, description, id }: Props) => {
         id={id}
         date={date}
       />
-    </TableRow>
+    </tr>
   )
 }

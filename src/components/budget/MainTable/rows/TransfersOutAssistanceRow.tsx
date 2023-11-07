@@ -25,7 +25,7 @@ export const TransfersOutAssistanceRow = ({
   }, [])
 
   return (
-    <tr>
+    <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
       <td
         className='whitespace-nowrap overflow-hidden text-ellipsis max-w-[70px]'
         title={date}

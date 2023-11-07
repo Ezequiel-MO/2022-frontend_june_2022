@@ -32,7 +32,7 @@ export const VenueMultipleChoice = ({
   }, [option, id, setCurrentVenues, setCurrentMeals])
 
   return (
-    <div className='min-w-[120px] relative'>
+    <div className='min-w-[120px] relative text-black-50'>
       <div className='mx-1 min-w-[15rem]'>
         <select
           value={venueName || options[0].name}

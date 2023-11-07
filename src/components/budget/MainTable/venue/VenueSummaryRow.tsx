@@ -37,7 +37,7 @@ export const VenueSummaryRow = ({
 
   return (
     <>
-      <tr className='dark:bg-[#a9ba9d]'>
+      <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
         <td>{date}</td>
         <td>{`${title}`}</td>
         <td>

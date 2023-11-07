@@ -6,12 +6,12 @@ import { TotalBudgetCost } from '../../totals'
 import { GiftsRow } from '../rows'
 import { useCurrentProject } from '../../../../hooks'
 import { IDay, IHotel } from '../../../../interfaces'
-import { useBudget } from '../../context/BudgetContext'
+import { useContextBudget } from '../../context/BudgetContext'
 import { SET_BUDGET } from '../../context/budgetReducer'
 
 export const BudgetTable = () => {
   const { currentProject } = useCurrentProject()
-  const { dispatch } = useBudget()
+  const { state, dispatch } = useContextBudget()
   const { hotels, schedule, nrPax } = currentProject as {
     hotels: IHotel[]
     schedule: IDay[]
@@ -38,11 +38,11 @@ export const BudgetTable = () => {
     >
       <BudgetTableHead />
       <tbody>
-        <HotelRows hotels={hotels} nights={schedule.length - 1} />
-        {schedule?.map((day) => (
+        <HotelRows hotels={state.hotels} />
+        {state.schedule?.map((day) => (
           <DayRows key={day._id} day={day} pax={nrPax} />
         ))}
-        <GiftsRow nrPax={nrPax} />
+        <GiftsRow nrPax={state.nrPax} />
         <TotalBudgetCost />
       </tbody>
     </Table>

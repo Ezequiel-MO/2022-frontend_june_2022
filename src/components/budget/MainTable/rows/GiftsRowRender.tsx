@@ -1,4 +1,3 @@
-import { TableRow, TableCell } from '@mui/material'
 import { OptionSelect } from '../multipleOrSingle'
 import accounting from 'accounting'
 import { IGift } from '../../../../interfaces'
@@ -18,25 +17,25 @@ export const GiftsRowRender = ({
 }: Props) => {
   return (
     <>
-      <TableRow className='dark:bg-[#a9ba9d]'>
-        <TableCell></TableCell>
-        <TableCell>Proposed Gifts</TableCell>
-        <TableCell>
+      <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
+        <td></td>
+        <td>Proposed Gifts</td>
+        <td>
           <OptionSelect
             options={gifts}
             value={selectedGift?.name || gifts[0]?.name}
             handleChange={handleChange}
           />
-        </TableCell>
-        <TableCell> {selectedGift.qty}</TableCell>
-        <TableCell>{accounting.formatMoney(selectedGift.price, '€')}</TableCell>
-        <TableCell>
+        </td>
+        <td> {selectedGift.qty}</td>
+        <td>{accounting.formatMoney(selectedGift.price, '€')}</td>
+        <td>
           {accounting.formatMoney(
             (selectedGift.qty ?? nrPax) * selectedGift.price,
             '€'
           )}
-        </TableCell>
-      </TableRow>
+        </td>
+      </tr>
     </>
   )
 }

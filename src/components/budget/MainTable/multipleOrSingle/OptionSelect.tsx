@@ -13,12 +13,12 @@ export const OptionSelect = ({
   handleChange
 }: OptionSelectProps) => {
   return (
-    <div className='min-w-[120px] relative'>
+    <div className='min-w-[120px] relative text-black-50'>
       <div className='mx-1 min-w-[15rem]'>
         <select
           value={value || ''}
           onChange={handleChange}
-          className='appearance-none bg-white-100 border border-gray-200 rounded-md shadow-sm py-2 pl-3 pr-10 w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300'
+          className='my-4 dark:text-black-50 appearance-none bg-white-100 border border-gray-200 rounded-md shadow-sm py-2 pl-3 pr-10 w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300'
         >
           {options.map((option) => (
             <option key={option._id} value={option.name}>

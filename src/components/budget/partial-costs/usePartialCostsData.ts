@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import {
   useBudget,
-  useCurrentProject,
   useGetEventCosts,
   useGetMealsCost,
   useGetMeetingsCost,
@@ -9,8 +8,9 @@ import {
   useGetTransferCosts,
   useGetVenuesCost
 } from '../../../hooks'
-import { IGift, IHotel } from '../../../interfaces'
+import { IGift } from '../../../interfaces'
 import { TranslationKeys } from '../../../interfaces/translations'
+import { useContextBudget } from '../context/BudgetContext'
 
 export interface ICostItem {
   icon: string
@@ -30,7 +30,6 @@ interface IData {
 }
 
 interface PartialCostsDataReturn {
-  currentHotel: IHotel
   currentGift: IGift
   meetingTotalCost: number
   mealsTotalCost: number
@@ -43,7 +42,7 @@ interface PartialCostsDataReturn {
 }
 
 export const usePartialCostsData = (): PartialCostsDataReturn => {
-  const { currentHotel } = useCurrentProject()
+  const { state } = useContextBudget()
   const { currentGift } = useBudget() || ({} as { currentGift: IGift })
   const { meetingTotalCost = 0 } = useGetMeetingsCost()
   const { mealsTotalCost = 0 } = useGetMealsCost()
@@ -72,7 +71,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
       {
         label: 'Budget Breakdown',
         data: [
-          currentHotel?.totalCost || 0,
+          state.selectedHotelCost,
           meetingTotalCost,
           transfersTotalCost,
           mealsTotalCost,
@@ -110,7 +109,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     {
       icon: 'bx:hotel',
       title: 'ACCOMMODATION',
-      cost: currentHotel?.totalCost
+      cost: state.selectedHotelCost
     },
     {
       icon: 'mdi:handshake-outline',
@@ -153,7 +152,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     const total = costItems.reduce((acc, item) => acc + (item.cost || 0), 0)
     setTotalCostOfItems(total)
   }, [
-    currentHotel,
+    state.selectedHotelCost,
     meetingTotalCost,
     mealsTotalCost,
     eventsTotalCost,
@@ -163,7 +162,6 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
   ])
 
   return {
-    currentHotel,
     currentGift,
     meetingTotalCost,
     mealsTotalCost,

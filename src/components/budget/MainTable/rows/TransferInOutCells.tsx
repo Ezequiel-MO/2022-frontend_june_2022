@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { TableCell } from '@mui/material'
 import accounting from 'accounting'
 import { useBudget } from '../../../../hooks'
 
@@ -30,11 +29,11 @@ export const TransferInOutCells = ({
 
   return (
     <>
-      <TableCell>{description}</TableCell>
-      <TableCell>{id === 'assistance' && 'On Board Assistance'}</TableCell>
-      <TableCell>{pax}</TableCell>
-      <TableCell>{accounting.formatMoney(options[0][id], '€')}</TableCell>
-      <TableCell>{accounting.formatMoney(options[0][id] * pax, '€')}</TableCell>
+      <td>{description}</td>
+      <td>{id === 'assistance' && 'On Board Assistance'}</td>
+      <td>{pax}</td>
+      <td>{accounting.formatMoney(options[0][id], '€')}</td>
+      <td>{accounting.formatMoney(options[0][id] * pax, '€')}</td>
     </>
   )
 }

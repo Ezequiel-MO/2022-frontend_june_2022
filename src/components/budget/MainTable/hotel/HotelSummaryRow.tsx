@@ -1,38 +1,53 @@
 import { useEffect } from 'react'
-import { useBudget, useFindByName } from '../../../../hooks'
-import { HotelTotalCostContainer } from '.'
+import { HotelTotalCost } from '.'
 import { OptionSelect } from '../multipleOrSingle'
-import { IHotelPrice } from '../../../../interfaces'
-import { Icon } from '@iconify/react'
+import { IHotel } from '../../../../interfaces'
+import { useContextBudget } from '../../context/BudgetContext'
+import {
+  SET_SELECTED_HOTEL,
+  SET_SELECTED_HOTEL_COST
+} from '../../context/budgetReducer'
+import { ToggleTableRowIcon } from '../../../atoms'
 
 interface HotelSummaryRowProps {
-  nights: number
+  hotels: IHotel[]
   isOpen: boolean
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const HotelSummaryRow = ({
-  nights,
+  hotels,
   isOpen,
   setIsOpen
 }: HotelSummaryRowProps) => {
-  const { hotels, hotelName, updateHotelTotalCost, setSelectedHotelName } =
-    useBudget()
-
-  const { selectedOption: selectedHotel } = useFindByName(hotels, hotelName)
+  const { state, dispatch } = useContextBudget()
+  const hotelName = state.selectedHotel?.name
 
   useEffect(() => {
-    if (hotels?.length > 0 && selectedHotel) {
-      const { price, _id } = selectedHotel as {
-        price: IHotelPrice[]
-        _id: string
-      }
-      updateHotelTotalCost(price, _id, nights)
+    if (state.selectedHotel) {
+      dispatch({
+        type: SET_SELECTED_HOTEL_COST,
+        payload: {
+          nights: state.schedule.length - 1,
+          selectedHotel: state.selectedHotel
+        }
+      })
     }
-  }, [hotels, nights, updateHotelTotalCost, selectedHotel])
+  }, [state.selectedHotel, dispatch])
 
-  const handleChange = (e: React.ChangeEvent<{ value: string }>) => {
-    setSelectedHotelName(e.target.value as string)
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedHotelName = e.target.value
+    const selectedHotel = hotels.find(
+      (hotel) => hotel.name === selectedHotelName
+    )
+    if (selectedHotel) {
+      dispatch({
+        type: SET_SELECTED_HOTEL,
+        payload: {
+          selectedHotel
+        }
+      })
+    }
   }
 
   const toggleBreakdown = () => {
@@ -40,19 +55,10 @@ export const HotelSummaryRow = ({
   }
 
   return (
-    <tr className='dark:bg-[#a9ba9d] dark:text-black-50'>
-      <td
-        onClick={toggleBreakdown}
-        className='cursor-pointer flex justify-center py-4'
-      >
-        <Icon
-          icon={isOpen ? 'typcn:minus' : 'typcn:plus'}
-          width='30'
-          height='30'
-        />
-      </td>
+    <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
+      <ToggleTableRowIcon isOpen={isOpen} toggle={toggleBreakdown} />
       <td></td>
-      <td className='py-4'>
+      <td>
         <OptionSelect
           options={hotels}
           value={hotelName || hotels[0].name}
@@ -61,7 +67,7 @@ export const HotelSummaryRow = ({
       </td>
       <td></td>
       <td></td>
-      <HotelTotalCostContainer />
+      <HotelTotalCost />
     </tr>
   )
 }

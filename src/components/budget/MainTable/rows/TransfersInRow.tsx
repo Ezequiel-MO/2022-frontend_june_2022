@@ -38,7 +38,10 @@ export const TransfersInRow = ({ items, date }: TransfersInRowProps) => {
   return (
     <>
       {Object.entries(groupedItems).map(([key, group]) => (
-        <tr key={key}>
+        <tr
+          key={key}
+          className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'
+        >
           <td>{date}</td>
           <td>Transfer from Airport</td>
           <td>

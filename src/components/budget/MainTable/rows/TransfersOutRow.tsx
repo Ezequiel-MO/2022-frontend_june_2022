@@ -25,7 +25,10 @@ export const TransfersOutRow = ({ items, date }: TransfersOutRowProps) => {
   return (
     <>
       {Object.entries(groupedItems).map(([key, group]) => (
-        <tr key={key}>
+        <tr
+          key={key}
+          className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'
+        >
           <td
             className='whitespace-nowrap overflow-hidden text-ellipsis max-w-[70px]'
             title={date}

@@ -30,7 +30,7 @@ export const TransfersInAssistanceRow = ({
   }, [])
 
   return (
-    <tr>
+    <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
       <td>{date}</td>
       <td></td>
       <td>On-board Assistance @ Buses</td>

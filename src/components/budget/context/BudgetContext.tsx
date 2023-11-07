@@ -4,6 +4,8 @@ import { budgetReducer } from './budgetReducer'
 
 const initialState: BudgetState = {
   hotels: [],
+  selectedHotel: null,
+  selectedHotelCost: 0,
   schedule: [],
   nrPax: 0
 }
@@ -16,7 +18,7 @@ export const BudgetContext = createContext<{
   dispatch: () => null
 })
 
-export const useBudget = () => {
+export const useContextBudget = () => {
   const context = useContext(BudgetContext)
   if (!context) {
     throw new Error('useBudget must be used within a BudgetProvider')

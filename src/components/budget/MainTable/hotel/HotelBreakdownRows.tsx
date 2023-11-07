@@ -1,21 +1,14 @@
-import { useBudget, useFindByName } from '../../../../hooks'
 import { HotelBreakdownRow } from '.'
 import { Icon } from '@iconify/react'
-import { IHotel } from '../../../../interfaces'
+import { useContextBudget } from '../../context/BudgetContext'
 
 interface Props {
-  hotels: IHotel[]
-  nights: number
   isOpen: boolean
 }
 
-export const HotelBreakdownRows = ({ hotels, nights, isOpen }: Props) => {
-  const { hotelName } = useBudget()
-  const { selectedOption: foundOption } = useFindByName(hotels, hotelName)
-
-  if (!foundOption || !('price' in foundOption)) return null
-
-  const selectedHotel = foundOption as IHotel
+export const HotelBreakdownRows = ({ isOpen }: Props) => {
+  const { state } = useContextBudget()
+  if (!state.selectedHotel) return null
 
   const {
     DUInr = 0,
@@ -24,7 +17,7 @@ export const HotelBreakdownRows = ({ hotels, nights, isOpen }: Props) => {
     DoubleRoomPrice = 0,
     DailyTax = 0,
     breakfast = 0
-  } = selectedHotel.price[0]
+  } = state.selectedHotel.price[0]
 
   return (
     <>
@@ -63,26 +56,26 @@ export const HotelBreakdownRows = ({ hotels, nights, isOpen }: Props) => {
                         <HotelBreakdownRow
                           units={DUInr}
                           rate={DUIprice}
-                          nights={nights}
+                          nights={state.schedule.length - 1}
                           title='Double Room Single Use'
                         />
                         <HotelBreakdownRow
                           units={DoubleRoomNr}
                           rate={DoubleRoomPrice}
-                          nights={nights}
+                          nights={state.schedule.length - 1}
                           title='Double Room //Twin Room'
                         />
                         <HotelBreakdownRow
                           units={DUInr + DoubleRoomNr * 2}
                           rate={DailyTax}
-                          nights={nights}
+                          nights={state.schedule.length - 1}
                           title='City Tax'
                         />
                         {breakfast ? (
                           <HotelBreakdownRow
                             units={DUInr + DoubleRoomNr * 2}
                             rate={breakfast}
-                            nights={nights}
+                            nights={state.schedule.length - 1}
                             title='Breakfast'
                           />
                         ) : null}

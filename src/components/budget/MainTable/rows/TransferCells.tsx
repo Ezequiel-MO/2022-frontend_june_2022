@@ -1,5 +1,4 @@
 import { Fragment, useEffect } from 'react'
-import { TableCell } from '@mui/material'
 import accounting from 'accounting'
 import { useBudget } from '../../../../hooks'
 import { ITransfer } from '../../../../interfaces'
@@ -77,25 +76,25 @@ export const TransferCells = ({
 
         return (
           <Fragment key={key}>
-            <TableCell>{date}</TableCell>
-            <TableCell>{`${vehicleCapacity} seater Bus`}</TableCell>
-            <TableCell>{pax}</TableCell>
-            <TableCell>
+            <td>{date}</td>
+            <td>{`${vehicleCapacity} seater Bus`}</td>
+            <td>{pax}</td>
+            <td>
               {accounting.formatMoney(
                 group[0][
                   serviceKeyMapping[group[0].selectedService] as keyof ITransfer
                 ],
                 '€'
               )}
-            </TableCell>
-            <TableCell>
+            </td>
+            <td>
               {accounting.formatMoney(
                 (group[0][
                   serviceKeyMapping[group[0].selectedService] as keyof ITransfer
                 ] as number) * count,
                 '€'
               )}
-            </TableCell>
+            </td>
           </Fragment>
         )
       })}

@@ -17,8 +17,8 @@ export const MeetGreetAssistanceRow = ({
   options,
   id
 }: Props) => (
-  <TableRow>
-    <TableCell>{date}</TableCell>
+  <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
+    <td>{date}</td>
     <TransferInOutCells
       date={date}
       description={description}
@@ -26,5 +26,5 @@ export const MeetGreetAssistanceRow = ({
       pax={pax}
       id={id}
     />
-  </TableRow>
+  </tr>
 )

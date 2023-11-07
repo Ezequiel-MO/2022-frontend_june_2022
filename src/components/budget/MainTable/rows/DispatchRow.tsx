@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 import { useBudget } from '../../../../hooks'
 import { ITransfer } from '../../../../interfaces'
@@ -23,15 +22,13 @@ export const DispatchRow = ({ firstItem, date }: DispatchRowProps) => {
   }, [])
 
   return (
-    <TableRow>
-      <TableCell>{date}</TableCell>
-      <TableCell></TableCell>
-      <TableCell>Bus Dispatcher</TableCell>
-      <TableCell>{meetGreet}</TableCell>
-      <TableCell>{accounting.formatMoney(meetGreetCost, '€')}</TableCell>
-      <TableCell>
-        {accounting.formatMoney(meetGreet * meetGreetCost, '€')}
-      </TableCell>
-    </TableRow>
+    <tr className='bg-gray-800 dark:border-gray-700 dark:text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
+      <td>{date}</td>
+      <td></td>
+      <td>Bus Dispatcher</td>
+      <td>{meetGreet}</td>
+      <td>{accounting.formatMoney(meetGreetCost, '€')}</td>
+      <td>{accounting.formatMoney(meetGreet * meetGreetCost, '€')}</td>
+    </tr>
   )
 }

@@ -1,11 +1,8 @@
 import accounting from 'accounting'
-import { TableCell } from '@mui/material'
-import { IHotel } from '../../../../interfaces'
+import { useContextBudget } from '../../context/BudgetContext'
 
-interface Props {
-  selectedHotel: IHotel
-}
+export const HotelTotalCost = () => {
+  const { state } = useContextBudget()
 
-export const HotelTotalCost = ({ selectedHotel }: Props) => {
-  return <td>{accounting.formatMoney(selectedHotel.totalCost || 0, '€')}</td>
+  return <td>{accounting.formatMoney(state.selectedHotelCost, '€')}</td>
 }

@@ -1,4 +1,3 @@
-import { TableCell, TableRow } from '@mui/material'
 import { RenderChoiceCells } from '../multipleOrSingle'
 import { IEvent } from '../../../../interfaces'
 
@@ -31,9 +30,9 @@ export const MorningEventsRow = ({
   }
 
   return (
-    <TableRow>
-      <TableCell>{date}</TableCell>
+    <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
+      <td>{date}</td>
       <RenderChoiceCells multipleChoice={multipleChoice} props={props} />
-    </TableRow>
+    </tr>
   )
 }
