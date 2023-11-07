@@ -1,17 +1,34 @@
+import { useEffect } from 'react'
 import { Table } from '@mui/material'
 import { BudgetTableHead, DayRows } from '.'
 import { HotelRows } from '../hotel'
 import { TotalBudgetCost } from '../../totals'
-import { IDay, IGift, IHotel } from '../../../../interfaces'
 import { GiftsRow } from '../rows'
+import { useCurrentProject } from '../../../../hooks'
+import { IDay, IHotel } from '../../../../interfaces'
+import { useBudget } from '../../context/BudgetContext'
+import { SET_BUDGET } from '../../context/budgetReducer'
 
-interface BudgetTableProps {
-  hotels: IHotel[]
-  schedule: IDay[]
-  nrPax: number
-}
+export const BudgetTable = () => {
+  const { currentProject } = useCurrentProject()
+  const { dispatch } = useBudget()
+  const { hotels, schedule, nrPax } = currentProject as {
+    hotels: IHotel[]
+    schedule: IDay[]
+    nrPax: number
+  }
 
-export const BudgetTable = ({ hotels, schedule, nrPax }: BudgetTableProps) => {
+  useEffect(() => {
+    dispatch({
+      type: SET_BUDGET,
+      payload: {
+        hotels,
+        schedule,
+        nrPax
+      }
+    })
+  }, [dispatch])
+
   return (
     <Table
       id='budget-table'
