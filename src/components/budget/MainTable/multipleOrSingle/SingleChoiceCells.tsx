@@ -1,4 +1,3 @@
-import { TableCell } from '@mui/material'
 import accounting from 'accounting'
 import { useSingleChoiceCells } from '.'
 import { IEvent, IRestaurant } from '../../../../interfaces'
@@ -24,15 +23,13 @@ export const SingleChoiceCells = ({
 
   return (
     <>
-      <TableCell>{description}</TableCell>
-      <TableCell>
+      <td>{description}</td>
+      <td>
         <span className='pl-2'>{`${options[0]?.name}`}</span>
-      </TableCell>
-      <TableCell>{paxOrOne}</TableCell>
-      <TableCell>{accounting.formatMoney(options[0]?.price, '€')}</TableCell>
-      <TableCell>
-        {accounting.formatMoney(paxOrOne * options[0]?.price || 0, '€')}
-      </TableCell>
+      </td>
+      <td>{paxOrOne}</td>
+      <td>{accounting.formatMoney(options[0]?.price, '€')}</td>
+      <td>{accounting.formatMoney(paxOrOne * options[0]?.price || 0, '€')}</td>
     </>
   )
 }

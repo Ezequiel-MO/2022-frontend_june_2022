@@ -8,14 +8,14 @@ export const TotalBudgetCost: React.FC = () => {
   const { t } = useTranslation()
 
   return (
-    <TableRow>
-      <TableCell colSpan={3} />
-      <TableCell colSpan={2}>
+    <tr>
+      <td colSpan={3} />
+      <td colSpan={2}>
         <strong>{t('TOTAL BUDGET')}</strong>
-      </TableCell>
-      <TableCell>
+      </td>
+      <td>
         <strong>{accounting.formatMoney(totalCostOfItems, '€')}</strong>
-      </TableCell>
-    </TableRow>
+      </td>
+    </tr>
   )
 }

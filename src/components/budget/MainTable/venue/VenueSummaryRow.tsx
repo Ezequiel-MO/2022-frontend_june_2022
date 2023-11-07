@@ -37,10 +37,10 @@ export const VenueSummaryRow = ({
 
   return (
     <>
-      <TableRow className='dark:bg-[#a9ba9d]'>
-        <TableCell>{date}</TableCell>
-        <TableCell>{`${title}`}</TableCell>
-        <TableCell>
+      <tr className='dark:bg-[#a9ba9d]'>
+        <td>{date}</td>
+        <td>{`${title}`}</td>
+        <td>
           {multipleVenues ? (
             <VenueMultipleChoice
               options={venues}
@@ -59,22 +59,22 @@ export const VenueSummaryRow = ({
               id={id}
             />
           )}
-        </TableCell>
-        <TableCell> {isVenue ? null : pax}</TableCell>
-        <TableCell>
+        </td>
+        <td> {isVenue ? null : pax}</td>
+        <td>
           {isVenue
             ? null
             : accounting.formatMoney(`${Number(venue?.price)}`, '€')}
-        </TableCell>
-        <TableCell>
+        </td>
+        <td>
           {accounting.formatMoney(
             `${
               isVenue ? venuesTotalCost : Number(nrPax * Number(venue?.price))
             }`,
             '€'
           )}
-        </TableCell>
-      </TableRow>
+        </td>
+      </tr>
       {isVenue && <VenueBreakdownRows date={date} id='dinner' venue={venue} />}
     </>
   )

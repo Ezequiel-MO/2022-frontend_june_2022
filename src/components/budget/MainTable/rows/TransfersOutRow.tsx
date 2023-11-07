@@ -1,7 +1,5 @@
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import accounting from 'accounting'
-import { TableCell, TableRow } from '@mui/material'
-import { useBudget } from '../../../../hooks'
 import { ITransfer } from '../../../../interfaces'
 
 interface TransfersOutRowProps {
@@ -27,20 +25,23 @@ export const TransfersOutRow = ({ items, date }: TransfersOutRowProps) => {
   return (
     <>
       {Object.entries(groupedItems).map(([key, group]) => (
-        <TableRow key={key}>
-          <TableCell>{date}</TableCell>
-          <TableCell>Transfer To Airport</TableCell>
-          <TableCell>
+        <tr key={key}>
+          <td
+            className='whitespace-nowrap overflow-hidden text-ellipsis max-w-[70px]'
+            title={date}
+          >
+            {date}
+          </td>
+          <td>Transfer To Airport</td>
+          <td>
             {`${group[0].vehicleCapacity} Seater ${group[0].vehicleType}`}
-          </TableCell>
-          <TableCell>{group.length}</TableCell>
-          <TableCell>
-            {accounting.formatMoney(group[0].transfer_out, '€')}
-          </TableCell>
-          <TableCell>
+          </td>
+          <td>{group.length}</td>
+          <td>{accounting.formatMoney(group[0].transfer_out, '€')}</td>
+          <td>
             {accounting.formatMoney(group[0].transfer_out * group.length, '€')}
-          </TableCell>
-        </TableRow>
+          </td>
+        </tr>
       ))}
     </>
   )

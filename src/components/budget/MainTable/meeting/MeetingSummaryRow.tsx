@@ -69,7 +69,10 @@ export const MeetingSummaryRow = ({
         />
       </td>
       <td></td>
-      <td>{`${typeOfMeetingProp} @ ${hotelName}`}</td>
+      <td
+        className='whitespace-nowrap overflow-hidden text-ellipsis max-w-[70px]'
+        title={`${typeOfMeetingProp} @ ${hotelName}`}
+      >{`${typeOfMeetingProp} @ ${hotelName}`}</td>
       <td></td>
       <td></td>
       <td>{accounting.formatMoney(meeting?.totalCost || 0, '€')}</td>

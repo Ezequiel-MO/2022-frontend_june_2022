@@ -7,9 +7,5 @@ interface Props {
 }
 
 export const HotelTotalCost = ({ selectedHotel }: Props) => {
-  return (
-    <TableCell>
-      {accounting.formatMoney(selectedHotel.totalCost || 0, '€')}
-    </TableCell>
-  )
+  return <td>{accounting.formatMoney(selectedHotel.totalCost || 0, '€')}</td>
 }

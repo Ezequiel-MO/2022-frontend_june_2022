@@ -17,7 +17,7 @@ export const BudgetTable = ({ hotels, schedule, nrPax }: BudgetTableProps) => {
       id='budget-table'
       stickyHeader
       size='small'
-      className='main-table text-left divide-y divide-gray-700 dark:divide-black-50 dark:bg-gray-50'
+      className='main-table text-left divide-y divide-gray-700 dark:divide-black-50 dark:bg-gray-50 text-sm'
     >
       <BudgetTableHead />
       <tbody>

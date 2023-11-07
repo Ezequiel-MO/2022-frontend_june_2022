@@ -1,4 +1,3 @@
-import { TableCell, TableRow } from '@mui/material'
 import { RenderChoiceCells } from '../multipleOrSingle'
 import { IRestaurant } from '../../../../interfaces'
 
@@ -21,9 +20,9 @@ export const LunchRow = ({ items, date, pax }: LunchRowProps) => {
   }
 
   return (
-    <TableRow>
-      <TableCell>{date}</TableCell>
+    <tr>
+      <td>{date}</td>
       <RenderChoiceCells multipleChoice={multipleChoice} props={props} />
-    </TableRow>
+    </tr>
   )
 }

@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 import { useBudget } from '../../../../hooks'
 import { ITransfer } from '../../../../interfaces'
@@ -26,15 +25,18 @@ export const TransfersOutAssistanceRow = ({
   }, [])
 
   return (
-    <TableRow>
-      <TableCell>{date}</TableCell>
-      <TableCell></TableCell>
-      <TableCell>On-board Assistance @ Buses</TableCell>
-      <TableCell>{assistance}</TableCell>
-      <TableCell>{accounting.formatMoney(assistanceCost, '€')}</TableCell>
-      <TableCell>
-        {accounting.formatMoney(assistance * assistanceCost, '€')}
-      </TableCell>
-    </TableRow>
+    <tr>
+      <td
+        className='whitespace-nowrap overflow-hidden text-ellipsis max-w-[70px]'
+        title={date}
+      >
+        {date}
+      </td>
+      <td></td>
+      <td>On-board Assistance @ Buses</td>
+      <td>{assistance}</td>
+      <td>{accounting.formatMoney(assistanceCost, '€')}</td>
+      <td>{accounting.formatMoney(assistance * assistanceCost, '€')}</td>
+    </tr>
   )
 }

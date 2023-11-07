@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react'
-import { TableCell } from '@mui/material'
 import { useBudget, useFindByName } from '../../../../hooks'
 import { OptionSelect } from '.'
 import { useUpdateEventTotalCost } from './useUpdateEventTotalCost'
@@ -58,21 +57,19 @@ export const MultipleChoiceCells: FC<MultipleChoiceCellsProps> = ({
 
   return (
     <>
-      <TableCell>{`${description} options`}</TableCell>
-      <TableCell>
+      <td>{`${description} options`}</td>
+      <td>
         <OptionSelect
           options={options}
           value={selectedValue}
           handleChange={handleSelectChange}
         />
-      </TableCell>
-      <TableCell>{nrPax}</TableCell>
-      <TableCell>
-        {accounting.formatMoney(Number(option?.price), '€')}
-      </TableCell>
-      <TableCell>
+      </td>
+      <td>{nrPax}</td>
+      <td>{accounting.formatMoney(Number(option?.price), '€')}</td>
+      <td>
         {accounting.formatMoney(Number(nrPax * Number(option?.price)), '€')}
-      </TableCell>
+      </td>
     </>
   )
 }
