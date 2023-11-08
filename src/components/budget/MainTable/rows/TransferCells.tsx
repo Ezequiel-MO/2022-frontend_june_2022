@@ -1,103 +1,33 @@
-import { Fragment, useEffect } from 'react'
 import accounting from 'accounting'
-import { useBudget } from '../../../../hooks'
 import { ITransfer } from '../../../../interfaces'
 
-const serviceKeyMapping: { [key: string]: string } = {
-  '4H at disposal': 'dispo_4h',
-  Overtime: 'hextra',
-  'Night Overtime': 'hextra_night',
-  '5 Hours at Disposal Out of Town': 'dispo_5h_out',
-  '4 Hours at Disposal Departing/Starting at Airport': 'dispo_4h_airport',
-  '4 Night Hours at Disposal Departing/Starting at Airport':
-    'dispo_4h_airport_night',
-  '6 Night Hours at Disposal': 'dispo_6h_night'
-}
-
 interface Props {
-  date: string
-  pax: number
   description: string
-  options: ITransfer[]
-  id:
-    | 'transfer_morningEvents'
-    | 'transfer_afternoonEvents'
-    | 'transfer_lunch'
-    | 'transfer_dinner'
+  option: ITransfer
+  count: number
 }
 
-export const TransferCells = ({
-  date,
-  pax,
-  description,
-  options,
-  id
-}: Props) => {
-  const { updateTransfers } = useBudget()
+const serviceDescriptions: { [key: string]: string } = {
+  dispo_4h: '4 Hours at Disposal',
+  dispo_4h_night: '4 Night Hours at Disposal',
+  dispo_5h_out: '5 Hours at Disposal Out of Town',
+  dispo_6h: '6 Hours at Disposal',
+  dispo_6h_night: '6 Night Hours at Disposal',
+  dispo_9h: '9 Hours at Disposal'
+}
 
-  useEffect(() => {
-    updateTransfers(options)
-  }, [id])
-
-  const groupByCompanyAndCapacity = (options: ITransfer[]) => {
-    return options.reduce((acc, option) => {
-      const key = `${option.company}_${option.vehicleCapacity}`
-      if (!acc[key]) {
-        acc[key] = []
-      }
-      acc[key].push(option)
-      return acc
-    }, {} as { [key: string]: ITransfer[] })
-  }
-
-  const groupedOptions = groupByCompanyAndCapacity(options)
-
-  const showDescription = () => {
-    const selectedServiceDescription = options[0]?.selectedService
-    if (selectedServiceDescription === 'dispo_4h') return '4 Hours at Disposal'
-    if (selectedServiceDescription === 'hextra') return 'Overtime'
-    if (selectedServiceDescription === 'hextra_night') return 'Night Overtime'
-    if (selectedServiceDescription === 'dispo_5h_out')
-      return '5 Hours at Disposal Out of Town'
-    if (selectedServiceDescription === 'dispo_4h_airport')
-      return '4 Hours at Disposal Departing/Starting at Airport'
-    if (selectedServiceDescription === 'dispo_4h_airport_night')
-      return '4 Night Hours at Disposal Departing/Starting at Airport'
-    if (selectedServiceDescription === 'dispo_6h_night')
-      return '6 Night Hours at Disposal'
-    return description
-  }
-
+export const TransferCells = ({ description, option, count }: Props) => {
+  const serviceKey = option.selectedService as keyof ITransfer
+  const serviceCost = Number(option[serviceKey])
+  const serviceDescription =
+    serviceDescriptions[option.selectedService] || option.selectedService
   return (
     <>
-      {Object.entries(groupedOptions).map(([key, group]) => {
-        const vehicleCapacity = group[0].vehicleCapacity
-        const count = group.length
-
-        return (
-          <Fragment key={key}>
-            <td>{date}</td>
-            <td>{`${vehicleCapacity} seater Bus`}</td>
-            <td>{pax}</td>
-            <td>
-              {accounting.formatMoney(
-                group[0][
-                  serviceKeyMapping[group[0].selectedService] as keyof ITransfer
-                ],
-                '€'
-              )}
-            </td>
-            <td>
-              {accounting.formatMoney(
-                (group[0][
-                  serviceKeyMapping[group[0].selectedService] as keyof ITransfer
-                ] as number) * count,
-                '€'
-              )}
-            </td>
-          </Fragment>
-        )
-      })}
+      <td>{description}</td>
+      <td>{`${option.vehicleCapacity} Seater Bus,  ${serviceDescription}`}</td>
+      <td>{count}</td>
+      <td>{accounting.formatMoney(serviceCost, '€')}</td>
+      <td>{accounting.formatMoney(count * serviceCost, '€')}</td>
     </>
   )
 }

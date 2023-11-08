@@ -47,8 +47,8 @@ export const TransportationServicesRow = ({
       <TransferRow
         pax={pax}
         date={date}
-        description={description}
         options={options}
+        description={description}
         id={id}
       />
     )

@@ -59,11 +59,15 @@ export const HotelSummaryRow = ({
       <ToggleTableRowIcon isOpen={isOpen} toggle={toggleBreakdown} />
       <td></td>
       <td>
-        <OptionSelect
-          options={hotels}
-          value={hotelName || hotels[0].name}
-          handleChange={handleChange}
-        />
+        {hotels.length === 1 ? (
+          `${hotelName}`
+        ) : (
+          <OptionSelect
+            options={hotels}
+            value={hotelName || hotels[0].name}
+            handleChange={handleChange}
+          />
+        )}
       </td>
       <td></td>
       <td></td>

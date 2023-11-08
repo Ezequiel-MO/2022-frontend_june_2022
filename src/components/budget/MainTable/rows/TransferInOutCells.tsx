@@ -1,8 +1,4 @@
-import { useEffect } from 'react'
 import accounting from 'accounting'
-import { useBudget } from '../../../../hooks'
-
-const transferIds = ['transfer_in', 'transfer_out', 'assistance', 'meetGreet']
 
 interface Props {
   date: string
@@ -19,21 +15,19 @@ export const TransferInOutCells = ({
   pax,
   id
 }: Props) => {
-  const { updateTransfers } = useBudget()
-
-  useEffect(() => {
-    if (transferIds.includes(id)) {
-      updateTransfers(date, id, pax, options[0][id])
-    }
-  }, [id])
+  const isAssistance = id === 'assistance'
+  const cost = isAssistance ? options[0].assistanceCost : options[0][id]
+  const total = isAssistance
+    ? options[0].assistance * options[0].assistanceCost
+    : cost * pax
 
   return (
     <>
       <td>{description}</td>
-      <td>{id === 'assistance' && 'On Board Assistance'}</td>
-      <td>{pax}</td>
-      <td>{accounting.formatMoney(options[0][id], '€')}</td>
-      <td>{accounting.formatMoney(options[0][id] * pax, '€')}</td>
+      <td>{isAssistance && 'On Board Assistance'}</td>
+      <td>{isAssistance ? options[0].assistance : pax}</td>
+      <td>{accounting.formatMoney(cost, '€')}</td>
+      <td>{accounting.formatMoney(total, '€')}</td>
     </>
   )
 }

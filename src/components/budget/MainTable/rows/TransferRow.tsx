@@ -1,11 +1,8 @@
 import React from 'react'
-import { TableCell, TableRow } from '@mui/material'
-import { TransferCells as RawTransferCells } from './TransferCells'
+import { TransferCells } from './TransferCells'
 import { ITransfer } from '../../../../interfaces/transfer'
 
-const TransferCells = React.memo(RawTransferCells)
-
-interface Props {
+interface TransferRowProps {
   pax: number
   date: string
   options: ITransfer[]
@@ -17,24 +14,44 @@ interface Props {
     | 'transfer_dinner'
 }
 
-export const TransferRow = ({ pax, date, options, description, id }: Props) => {
-  if (
-    options[0]?.selectedService === '' ||
-    options[0]?.selectedService === undefined
-  ) {
-    return null
-  }
+export const TransferRow: React.FC<TransferRowProps> = ({
+  date,
+  options,
+  description
+}) => {
+  const groupedOptions = options.reduce((acc, option) => {
+    const service = option.selectedService
+
+    if (service) {
+      if (acc[service]) {
+        acc[service].count += 1
+      } else {
+        acc[service] = {
+          ...option,
+          count: 1
+        }
+      }
+    }
+    return acc
+  }, {} as { [key: string]: ITransfer & { count: number } })
+
+  const groupedOptionsArray = Object.values(groupedOptions)
 
   return (
-    <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
-      <td>{date}</td>
-      <TransferCells
-        pax={pax}
-        description={description}
-        options={options}
-        id={id}
-        date={date}
-      />
-    </tr>
+    <>
+      {groupedOptionsArray.map((group) => (
+        <tr
+          key={group.selectedService}
+          className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'
+        >
+          <td>{date}</td>
+          <TransferCells
+            description={description}
+            option={group}
+            count={group.count}
+          />
+        </tr>
+      ))}
+    </>
   )
 }
