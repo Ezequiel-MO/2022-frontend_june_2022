@@ -5,7 +5,6 @@ import {
   useGetMealsCost,
   useGetMeetingsCost,
   useGetShowCost,
-  useGetTransferCosts,
   useGetVenuesCost
 } from '../../../hooks'
 import { IGift } from '../../../interfaces'
@@ -34,7 +33,6 @@ interface PartialCostsDataReturn {
   meetingTotalCost: number
   mealsTotalCost: number
   eventsTotalCost: number
-  transfersTotalCost: number
   giftTotalCost: number
   data: IData
   costItems: any[]
@@ -49,7 +47,6 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
   const { venuesTotalCost = 0 } = useGetVenuesCost()
   const { eventsTotalCost = 0 } = useGetEventCosts()
   const { showTotalCost = 0 } = useGetShowCost()
-  const { transfersTotalCost = 0 } = useGetTransferCosts()
   const [totalCostOfItems, setTotalCostOfItems] = useState<number>(0)
 
   const giftTotalCost = useMemo(() => {
@@ -73,7 +70,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
         data: [
           state.selectedHotelCost,
           meetingTotalCost,
-          transfersTotalCost,
+          state.transfersInCost + state.transfersOutCost,
           mealsTotalCost,
           eventsTotalCost,
           venuesTotalCost,
@@ -119,7 +116,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     {
       icon: 'bx:bus',
       title: 'TRANSFERS',
-      cost: transfersTotalCost
+      cost: state.transfersInCost + state.transfersOutCost
     },
     {
       icon: 'carbon:restaurant',
@@ -156,7 +153,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     meetingTotalCost,
     mealsTotalCost,
     eventsTotalCost,
-    transfersTotalCost,
+    state.transfersInCost,
     giftTotalCost,
     showTotalCost
   ])
@@ -166,7 +163,6 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     meetingTotalCost,
     mealsTotalCost,
     eventsTotalCost,
-    transfersTotalCost,
     giftTotalCost,
     data,
     costItems,

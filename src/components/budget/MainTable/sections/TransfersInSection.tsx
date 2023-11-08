@@ -9,10 +9,12 @@ interface TransfersInSectionProps {
 export const TransfersInSection = ({
   transfers,
   date
-}: TransfersInSectionProps) => (
-  <>
-    <MeetGreetRow firstItem={transfers[0]} date={date} />
-    <TransfersInAssistanceRow firstItem={transfers[0]} date={date} />
-    <TransfersInRow items={transfers} date={date} />
-  </>
-)
+}: TransfersInSectionProps) => {
+  return (
+    <>
+      <MeetGreetRow firstItem={transfers[0]} date={date} />
+      <TransfersInAssistanceRow firstItem={transfers[0]} date={date} />
+      <TransfersInRow items={transfers} date={date} />
+    </>
+  )
+}

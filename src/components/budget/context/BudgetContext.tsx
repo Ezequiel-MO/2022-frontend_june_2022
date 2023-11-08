@@ -7,6 +7,8 @@ const initialState: BudgetState = {
   selectedHotel: null,
   selectedHotelCost: 0,
   schedule: [],
+  transfersInCost: 0,
+  transfersOutCost: 0,
   nrPax: 0
 }
 

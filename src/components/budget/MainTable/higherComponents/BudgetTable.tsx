@@ -7,7 +7,11 @@ import { GiftsRow } from '../rows'
 import { useCurrentProject } from '../../../../hooks'
 import { IDay, IHotel } from '../../../../interfaces'
 import { useContextBudget } from '../../context/BudgetContext'
-import { SET_BUDGET } from '../../context/budgetReducer'
+import {
+  SET_BUDGET,
+  UPDATE_TRANSFERS_IN_COST,
+  UPDATE_TRANSFERS_OUT_COST
+} from '../../context/budgetReducer'
 
 export const BudgetTable = () => {
   const { currentProject } = useCurrentProject()
@@ -25,6 +29,18 @@ export const BudgetTable = () => {
         hotels,
         schedule,
         nrPax
+      }
+    })
+    dispatch({
+      type: UPDATE_TRANSFERS_IN_COST,
+      payload: {
+        transfer_in: schedule[0].transfer_in
+      }
+    })
+    dispatch({
+      type: UPDATE_TRANSFERS_OUT_COST,
+      payload: {
+        transfer_out: schedule[schedule.length - 1].transfer_out
       }
     })
   }, [dispatch])

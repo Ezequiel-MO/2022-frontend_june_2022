@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import accounting from 'accounting'
 import { ITransfer } from '../../../../interfaces'
 import { useBudget } from '../../../../hooks'
@@ -23,17 +23,6 @@ export const TransfersInRow = ({ items, date }: TransfersInRowProps) => {
     })
     return groups
   }, [items])
-
-  useEffect(() => {
-    Object.keys(groupedItems).forEach((key) => {
-      updateTransfers(
-        date,
-        key,
-        groupedItems[key].length,
-        groupedItems[key][0].transfer_in
-      )
-    })
-  }, [groupedItems])
 
   return (
     <>
