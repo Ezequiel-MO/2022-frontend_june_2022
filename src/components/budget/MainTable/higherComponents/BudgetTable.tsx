@@ -4,7 +4,6 @@ import { BudgetTableHead, DayRows } from '.'
 import { HotelRows } from '../hotel'
 import { TotalBudgetCost } from '../../totals'
 import { GiftsRow } from '../rows'
-import { useCurrentProject } from '../../../../hooks'
 import { IDay, IHotel } from '../../../../interfaces'
 import { useContextBudget } from '../../context/BudgetContext'
 import {
@@ -13,14 +12,14 @@ import {
   UPDATE_TRANSFERS_OUT_COST
 } from '../../context/budgetReducer'
 
-export const BudgetTable = () => {
-  const { currentProject } = useCurrentProject()
+interface Props {
+  hotels: IHotel[]
+  schedule: IDay[]
+  nrPax: number
+}
+
+export const BudgetTable = ({ hotels, schedule, nrPax }: Props) => {
   const { state, dispatch } = useContextBudget()
-  const { hotels, schedule, nrPax } = currentProject as {
-    hotels: IHotel[]
-    schedule: IDay[]
-    nrPax: number
-  }
 
   useEffect(() => {
     dispatch({
@@ -54,9 +53,15 @@ export const BudgetTable = () => {
     >
       <BudgetTableHead />
       <tbody>
-        <HotelRows hotels={state.hotels} />
-        {state.schedule?.map((day) => (
-          <DayRows key={day._id} day={day} pax={nrPax} />
+        <HotelRows hotels={hotels} />
+        {state.schedule?.map((day: IDay, index: number) => (
+          <DayRows
+            key={day._id}
+            day={day}
+            pax={nrPax}
+            isFirstDay={index === 0}
+            isLastDay={index === state.schedule.length - 1}
+          />
         ))}
         <GiftsRow nrPax={state.nrPax} />
         <TotalBudgetCost />

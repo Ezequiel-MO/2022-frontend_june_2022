@@ -14,8 +14,6 @@ import {
   UPDATE_MEETING_TOTAL_COST,
   UPDATE_EVENT_TOTAL_COST,
   UPDATE_TRANSFERS,
-  UPDATE_TRANSFERS_IN,
-  UPDATE_TRANSFERS_OUT,
   SET_CURRENT_MEALS,
   SET_CURRENT_SHOWS,
   SET_CURRENT_VENUES,
@@ -30,8 +28,6 @@ export const useBudget = () => {
   const {
     schedule,
     transfers,
-    transfersIn,
-    transfersOut,
     hotels,
     gifts,
     currentGift,
@@ -126,18 +122,6 @@ export const useBudget = () => {
   const updateTransfers = (options: ITransfer[]) =>
     dispatch(UPDATE_TRANSFERS({ options }))
 
-  const updateTransfersIn = (
-    type: 'meetGreet' | 'assistance',
-    item: number,
-    itemCost: number
-  ) => dispatch(UPDATE_TRANSFERS_IN({ type, item, itemCost }))
-
-  const updateTransfersOut = (
-    type: 'meetGreet' | 'assistance',
-    item: number,
-    itemCost: number
-  ) => dispatch(UPDATE_TRANSFERS_OUT({ type, item, itemCost }))
-
   return {
     schedule,
     hotelName,
@@ -151,8 +135,6 @@ export const useBudget = () => {
     shows,
     events,
     transfers,
-    transfersIn,
-    transfersOut,
     breakdownOpen,
     setBudgetSchedule,
     setHotels,
@@ -160,8 +142,6 @@ export const useBudget = () => {
     updateCurrentGift,
     updateHotelTotalCost,
     updateTransfers,
-    updateTransfersIn,
-    updateTransfersOut,
     setSelectedHotelName,
     setSelectedVenueName,
     toggleBreakdown,

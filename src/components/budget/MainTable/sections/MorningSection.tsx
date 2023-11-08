@@ -22,7 +22,7 @@ export const MorningSection = ({
       {transferIsNeeded && (
         <>
           <AssistanceEventTransferRow
-            transfer={events[0].transfer}
+            transfer={events[0]?.transfer}
             date={date}
           />
           <EventTransferRow

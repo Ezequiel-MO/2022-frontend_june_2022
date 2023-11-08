@@ -1,6 +1,4 @@
-import { useEffect } from 'react'
 import accounting from 'accounting'
-import { useBudget } from '../../../../hooks'
 import { ITransfer } from '../../../../interfaces'
 
 interface TransfersOutAssistanceRowProps {
@@ -12,17 +10,11 @@ export const TransfersOutAssistanceRow = ({
   firstItem,
   date
 }: TransfersOutAssistanceRowProps) => {
-  const { updateTransfersOut } = useBudget()
-
   if (!firstItem) {
     return null
   }
 
   const { assistance = 0, assistanceCost = 0 } = firstItem
-
-  useEffect(() => {
-    updateTransfersOut('assistance', assistance, assistanceCost)
-  }, [])
 
   return (
     <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>

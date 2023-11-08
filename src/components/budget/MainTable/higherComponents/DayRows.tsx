@@ -12,12 +12,16 @@ import {
 interface DayRowsProps {
   day: IDay
   pax: number
+  isFirstDay: boolean
+  isLastDay: boolean
 }
 
-export const DayRows = ({ day, pax }: DayRowsProps) => {
+export const DayRows = ({ day, pax, isFirstDay, isLastDay }: DayRowsProps) => {
   return (
     <>
-      <TransfersInSection transfers={day.transfer_in} date={day.date} />
+      {isFirstDay && (
+        <TransfersInSection transfers={day.transfer_in} date={day.date} />
+      )}
       <MorningSection
         events={day.morningEvents.events}
         meetings={day.morningMeetings?.meetings || []}
@@ -37,7 +41,9 @@ export const DayRows = ({ day, pax }: DayRowsProps) => {
         date={day.date}
         pax={pax}
       />
-      <TransfersOutSection transfers={day.transfer_out} date={day.date} />
+      {isLastDay && (
+        <TransfersOutSection transfers={day.transfer_out} date={day.date} />
+      )}
     </>
   )
 }

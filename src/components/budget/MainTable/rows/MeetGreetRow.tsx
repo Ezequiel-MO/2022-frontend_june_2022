@@ -1,6 +1,4 @@
-import { useEffect } from 'react'
 import accounting from 'accounting'
-import { useBudget } from '../../../../hooks'
 import { ITransfer } from '../../../../interfaces'
 
 interface MeetGreetRowProps {
@@ -9,8 +7,6 @@ interface MeetGreetRowProps {
 }
 
 export const MeetGreetRow = ({ firstItem, date }: MeetGreetRowProps) => {
-  const { updateTransfersIn } = useBudget()
-
   if (!firstItem) {
     return null
   }
@@ -20,10 +16,6 @@ export const MeetGreetRow = ({ firstItem, date }: MeetGreetRowProps) => {
   if (meetGreet === 0) {
     return null
   }
-
-  useEffect(() => {
-    updateTransfersIn('meetGreet', meetGreet, meetGreetCost)
-  }, [])
 
   return (
     <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>

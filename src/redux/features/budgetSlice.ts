@@ -276,28 +276,7 @@ export const budgetSlice = createSlice({
     ) => {
       const { options } = action.payload
     },
-    UPDATE_TRANSFERS_IN: (state, action) => {
-      const { type, item, itemCost } = action.payload
-      return {
-        ...state,
-        transfersIn: {
-          ...state.transfersIn,
-          [type]: item,
-          [`${type}Cost`]: itemCost
-        }
-      }
-    },
-    UPDATE_TRANSFERS_OUT: (state, action) => {
-      const { type, item, itemCost } = action.payload
-      return {
-        ...state,
-        transfersOut: {
-          ...state.transfersOut,
-          [type]: item,
-          [`${type}Cost`]: itemCost
-        }
-      }
-    },
+
     UPDATE_CURRENT_GIFT: (state, action: PayloadAction<IGift>) => {
       state.currentGift = action.payload
     },
@@ -421,8 +400,6 @@ export const {
   UPDATE_MEETING_TOTAL_COST,
   UPDATE_EVENT_TOTAL_COST,
   UPDATE_TRANSFERS,
-  UPDATE_TRANSFERS_IN,
-  UPDATE_TRANSFERS_OUT,
   SET_CURRENT_MEALS,
   SET_CURRENT_VENUES,
   SET_CURRENT_EVENTS,
