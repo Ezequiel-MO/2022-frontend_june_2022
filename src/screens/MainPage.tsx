@@ -6,6 +6,7 @@ import { IProject } from '../interfaces'
 
 export const MainPage: FC = () => {
   const [isMainSectionReady, setIsMainSectionReady] = useState(false)
+  const [isSticky, setIsSticky] = useState(false)
   const [iconColor, setIconColor] = useState('')
   const { currentProject } = useCurrentProject() as { currentProject: IProject }
   const { hasSideMenu, clientAccManager = [] } = currentProject
@@ -20,6 +21,25 @@ export const MainPage: FC = () => {
     }
   }, [mainSectionParentRef])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      // Logic to determine when SidebarSmall is out of view and set isSticky
+      // This will depend on your page layout, you might need to adjust the value
+      const sidebarSmallHeight = 100 // Assume the SidebarSmall has a height of 100px
+      if (window.scrollY > sidebarSmallHeight) {
+        setIsSticky(true)
+      } else {
+        setIsSticky(false)
+      }
+    }
+
+    // Add scroll event listener when the component is mounted
+    window.addEventListener('scroll', handleScroll)
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <TranslationProvider quoteLanguage={quoteLanguage}>
       <div className='flex flex-col'>
@@ -29,10 +49,10 @@ export const MainPage: FC = () => {
           isReady={isMainSectionReady}
         />
 
-        <div className='grid grid-cols-12 my-8'>
+        <div className='grid grid-cols-12'>
           {hasSideMenu ? (
             <div className={`col-span-2`}>
-              <Sidebar />
+              <Sidebar isSticky={isSticky} />
             </div>
           ) : (
             <div className='col-span-2' />

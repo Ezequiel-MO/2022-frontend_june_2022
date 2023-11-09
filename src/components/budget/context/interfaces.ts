@@ -12,6 +12,7 @@ export interface BudgetState {
   selectedHotel: IHotel | null
   selectedHotelCost: number
   schedule: IDay[]
+  updatedSchedule: {}
   transfersInCost: number
   transfersOutCost: number
   nrPax: number

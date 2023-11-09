@@ -36,6 +36,7 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
       imageContentUrl
     } = currentProject
     const { t } = useTranslation()
+
     const { fonts = [], colorPalette = [] } = clientCompany[0] || {}
     const iconColor = colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
     const fontFamilyStyle = useFontFamily(fonts[0])
@@ -123,22 +124,23 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
               )}
               content={() => pdfToPrintRef.current}
             />
-            <div ref={pdfToPrintRef}>
+            <div ref={pdfToPrintRef} id='budget_id'>
               <Document
                 file={imageContentUrl[0]}
                 onLoadSuccess={onDocumentLoadSuccess}
               >
                 {Array.from(new Array(numPages), (el, index) => (
-                  <Page
-                    key={`page_${index + 1}`}
-                    pageNumber={index + 1}
-                    width={parentWidth}
-                    canvasBackground='#A9ba9d'
-                    scale={1}
-                    renderTextLayer={false}
-                    renderAnnotationLayer={false}
-                    renderForms={false}
-                  />
+                  <div key={`page_${index + 1}`}>
+                    <Page
+                      pageNumber={index + 1}
+                      canvasBackground='#A9ba9d'
+                      width={parentWidth}
+                      scale={1}
+                      renderMode='canvas'
+                      renderTextLayer={false}
+                      renderAnnotationLayer={false}
+                    />
+                  </div>
                 ))}
               </Document>
             </div>

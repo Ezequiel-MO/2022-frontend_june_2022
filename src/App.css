@@ -13,3 +13,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* No page gap for visualizing PDF Budget */
+
+canvas.react-pdf__Page__canvas {
+  padding: 20px !important;
+  background-color: black !important;
+  width: min-content !important;
+}
+
+@media print {
+  canvas.react-pdf__Page__canvas {
+    padding: 20px !important;
+    background-color: white !important;
+  }
+}

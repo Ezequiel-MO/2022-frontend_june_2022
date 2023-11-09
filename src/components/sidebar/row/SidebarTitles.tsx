@@ -27,7 +27,7 @@ export const SidebarTitles = ({
       smooth={true}
       duration={500}
       offset={-100}
-      className='flex items-center space-x-2 px-4 py-3 rounded-lg cursor-pointer transition-all duration-200 group bg-white-0 dark:bg-black-50 hover:bg-gray-50 dark:hover:bg-gray-50'
+      className='flex items-center space-x-2 px-4 rounded-lg cursor-pointer transition-all duration-200 group bg-white-0 dark:bg-black-50 hover:bg-gray-50 dark:hover:bg-gray-50'
       onMouseEnter={() => setMenuOpen(true)}
       onMouseLeave={() => setMenuOpen(false)}
     >
@@ -39,12 +39,12 @@ export const SidebarTitles = ({
       >
         <Icon
           icon={iconText}
-          color={colorPalette.length > 0 ? colorPalette[2] : '#ea5933'}
-          width='40'
+          color={colorPalette.length > 0 ? colorPalette[2] : '#009E49'}
+          width='32'
         />
       </div>
       {isSidebarVisible && (
-        <p className='group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg font-body'>
+        <p className='group-hover:text-orange-50 hidden md:inline-flex text-sm lg:text-base font-body'>
           {t(title as TranslationKeys)?.replace(/^\w/, (c: string) =>
             c.toUpperCase()
           )}

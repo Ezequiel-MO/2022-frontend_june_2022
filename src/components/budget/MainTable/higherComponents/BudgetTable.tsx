@@ -4,42 +4,27 @@ import { BudgetTableHead, DayRows } from '.'
 import { HotelRows } from '../hotel'
 import { TotalBudgetCost } from '../../totals'
 import { GiftsRow } from '../rows'
-import { IDay, IHotel } from '../../../../interfaces'
+import { IDay } from '../../../../interfaces'
 import { useContextBudget } from '../../context/BudgetContext'
 import {
-  SET_BUDGET,
   UPDATE_TRANSFERS_IN_COST,
   UPDATE_TRANSFERS_OUT_COST
 } from '../../context/budgetReducer'
 
-interface Props {
-  hotels: IHotel[]
-  schedule: IDay[]
-  nrPax: number
-}
-
-export const BudgetTable = ({ hotels, schedule, nrPax }: Props) => {
+export const BudgetTable = () => {
   const { state, dispatch } = useContextBudget()
 
   useEffect(() => {
     dispatch({
-      type: SET_BUDGET,
-      payload: {
-        hotels,
-        schedule,
-        nrPax
-      }
-    })
-    dispatch({
       type: UPDATE_TRANSFERS_IN_COST,
       payload: {
-        transfer_in: schedule[0].transfer_in
+        transfer_in: state.schedule[0].transfer_in
       }
     })
     dispatch({
       type: UPDATE_TRANSFERS_OUT_COST,
       payload: {
-        transfer_out: schedule[schedule.length - 1].transfer_out
+        transfer_out: state.schedule[state.schedule.length - 1].transfer_out
       }
     })
   }, [dispatch])
@@ -53,12 +38,12 @@ export const BudgetTable = ({ hotels, schedule, nrPax }: Props) => {
     >
       <BudgetTableHead />
       <tbody>
-        <HotelRows hotels={hotels} />
+        <HotelRows hotels={state.hotels} />
         {state.schedule?.map((day: IDay, index: number) => (
           <DayRows
             key={day._id}
             day={day}
-            pax={nrPax}
+            pax={state.nrPax}
             isFirstDay={index === 0}
             isLastDay={index === state.schedule.length - 1}
           />

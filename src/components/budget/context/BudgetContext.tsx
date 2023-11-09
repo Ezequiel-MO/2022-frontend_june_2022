@@ -2,11 +2,18 @@ import { FC, createContext, useContext, useReducer, ReactNode } from 'react'
 import { BudgetState, BudgetActions } from './interfaces'
 import { budgetReducer } from './budgetReducer'
 
+const initialHotels =
+  JSON.parse(localStorage.getItem('currentProject') ?? '[]')?.hotels || []
+
+const initialSchedule =
+  JSON.parse(localStorage.getItem('currentProject') ?? '[]')?.schedule || []
+
 const initialState: BudgetState = {
-  hotels: [],
+  hotels: initialHotels,
   selectedHotel: null,
   selectedHotelCost: 0,
-  schedule: [],
+  schedule: initialSchedule,
+  updatedSchedule: {},
   transfersInCost: 0,
   transfersOutCost: 0,
   nrPax: 0

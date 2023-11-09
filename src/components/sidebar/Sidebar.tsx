@@ -6,7 +6,12 @@ import { checkDayIsEmpty } from '../../helpers/checkEmptyDay'
 
 import { SidebarToggleButton } from '../atoms/SidebarToggleButton'
 
-const Sidebar: FC = () => {
+interface SidebarProps {
+  isSticky?: boolean
+}
+
+const Sidebar: FC<SidebarProps> = ({ isSticky }) => {
+  const stickyClass = isSticky ? 'sticky top-10' : ''
   const { currentProject } = useCurrentProject() as { currentProject: IProject }
   const { schedule, budget, hotels } = currentProject
   const [isSidebarVisible, setIsSidebarVisible] = useState(() => {
@@ -20,14 +25,16 @@ const Sidebar: FC = () => {
   }
 
   return (
-    <div className='flex flex-col fixed bg-white-0 dark:bg-black-50'>
+    <div
+      className={`flex flex-col fixed bg-white-0 dark:bg-black-50 ${stickyClass}`}
+    >
       <div className='hidden lg:block'>
         <SidebarToggleButton
           toggleSidebar={toggleSidebar}
           isSidebarVisible={isSidebarVisible}
         />
       </div>
-      <div className='flex flex-col items-center px-4 md:items-start sticky top-20'>
+      <div className='flex flex-col items-center px-4 md:items-start'>
         {hotels && hotels.length > 0 && (
           <SidebarRow
             iconText='bx:hotel'
@@ -46,7 +53,7 @@ const Sidebar: FC = () => {
             )}
           </div>
         ))}
-        {budget === 'budget' ? (
+        {budget === 'budget' || budget === 'budgetAsPdf' ? (
           <SidebarRow
             iconText='ri:money-euro-circle-line'
             title='budget'
