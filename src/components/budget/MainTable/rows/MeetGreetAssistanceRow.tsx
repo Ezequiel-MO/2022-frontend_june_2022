@@ -1,4 +1,3 @@
-import { TableCell, TableRow } from '@mui/material'
 import { TransferInOutCells } from '.'
 import { ITransfer } from '../../../../interfaces'
 

@@ -42,7 +42,7 @@ export const TransportationServicesRow = ({
     )
   }
 
-  if (id.startsWith('transfer')) {
+  if (id && id.startsWith('transfer')) {
     return (
       <TransferRow
         pax={pax}

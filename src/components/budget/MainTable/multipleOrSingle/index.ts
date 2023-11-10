@@ -1,5 +1,4 @@
 export * from './MultipleChoiceCells'
 export * from './SingleChoiceCells'
 export * from './OptionSelect'
-export * from './RenderChoiceCells'
 export * from './useSingleChoiceCells'

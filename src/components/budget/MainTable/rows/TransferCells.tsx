@@ -1,10 +1,15 @@
+import { useEffect } from 'react'
 import accounting from 'accounting'
 import { ITransfer } from '../../../../interfaces'
+import { useContextBudget } from '../../context/BudgetContext'
+import { UPDATE_PROGRAM_TRANSFERS_COST } from '../../context/budgetReducer'
 
 interface Props {
   description: string
+  date: string
   option: ITransfer
   count: number
+  id: string
 }
 
 const serviceDescriptions: { [key: string]: string } = {
@@ -16,11 +21,33 @@ const serviceDescriptions: { [key: string]: string } = {
   dispo_9h: '9 Hours at Disposal'
 }
 
-export const TransferCells = ({ description, option, count }: Props) => {
+export const TransferCells = ({
+  description,
+  date,
+  option,
+  count,
+  id
+}: Props) => {
+  const { dispatch } = useContextBudget()
   const serviceKey = option.selectedService as keyof ITransfer
   const serviceCost = Number(option[serviceKey])
   const serviceDescription =
     serviceDescriptions[option.selectedService] || option.selectedService
+
+  useEffect(() => {
+    if (id === 'transfer_morningEvents') {
+      dispatch({
+        type: UPDATE_PROGRAM_TRANSFERS_COST,
+        payload: {
+          date,
+          transfer: option,
+          count,
+          type: id
+        }
+      })
+    }
+  }, [])
+
   return (
     <>
       <td>{description}</td>

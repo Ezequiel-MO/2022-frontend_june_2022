@@ -1,7 +1,8 @@
-import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
+import { useState } from 'react'
+import { EventTransferRow } from '../transfers'
 import { MeetingSection } from './MeetingSection'
 import { MorningEventsRow } from '../rows'
-import { IEvent, IMeeting } from '../../../../interfaces'
+import { IEvent, IMeeting, IRestaurant } from '../../../../interfaces'
 
 interface MorningSectionProps {
   events: IEvent[]
@@ -16,24 +17,27 @@ export const MorningSection = ({
   date,
   pax
 }: MorningSectionProps) => {
-  const transferIsNeeded = events.length > 0 && events[0]?.transfer.length > 0
+  const [selectedEvent, setSelectedEvent] = useState<IEvent>(events[0])
+
   return (
     <>
-      {transferIsNeeded && (
-        <>
-          <AssistanceEventTransferRow
-            transfer={events[0]?.transfer}
-            date={date}
-          />
-          <EventTransferRow
-            transfer={events[0]?.transfer}
-            date={date}
-            description='Transfer'
-            id='transfer_morningEvents'
-          />
-        </>
-      )}
-      <MorningEventsRow items={events} date={date} pax={pax} />
+      <EventTransferRow
+        transfer={selectedEvent?.transfer}
+        date={date}
+        id='transfer_morningEvents'
+        selectedEvent={selectedEvent}
+      />
+      <MorningEventsRow
+        items={events}
+        date={date}
+        pax={pax}
+        selectedEvent={selectedEvent}
+        setSelectedEvent={
+          setSelectedEvent as React.Dispatch<
+            React.SetStateAction<IEvent | IRestaurant>
+          >
+        }
+      />
       <MeetingSection
         meetings={meetings}
         date={date}

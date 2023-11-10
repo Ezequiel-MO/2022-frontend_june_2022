@@ -8,15 +8,19 @@ const initialHotels =
 const initialSchedule =
   JSON.parse(localStorage.getItem('currentProject') ?? '[]')?.schedule || []
 
+const initialNrPax =
+  JSON.parse(localStorage.getItem('currentProject') ?? '[]')?.nrPax || 0
+
 const initialState: BudgetState = {
   hotels: initialHotels,
   selectedHotel: null,
   selectedHotelCost: 0,
   schedule: initialSchedule,
-  updatedSchedule: {},
+  programTransfers: {},
+  programTransfersCost: 0,
   transfersInCost: 0,
   transfersOutCost: 0,
-  nrPax: 0
+  nrPax: initialNrPax
 }
 
 export const BudgetContext = createContext<{

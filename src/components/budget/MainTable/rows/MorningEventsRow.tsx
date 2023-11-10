@@ -1,16 +1,20 @@
-import { RenderChoiceCells } from '../multipleOrSingle'
-import { IEvent } from '../../../../interfaces'
+import { MultipleChoiceCells, SingleChoiceCells } from '../multipleOrSingle'
+import { IEvent, IRestaurant } from '../../../../interfaces'
 
 interface MorningEventsRowProps {
   items: IEvent[]
   date: string
   pax: number
+  selectedEvent: IEvent
+  setSelectedEvent: React.Dispatch<React.SetStateAction<IEvent | IRestaurant>>
 }
 
 export const MorningEventsRow = ({
   items,
   date,
-  pax
+  pax,
+  selectedEvent,
+  setSelectedEvent
 }: MorningEventsRowProps) => {
   const NoEvents = items.length === 0
   if (NoEvents) return null
@@ -32,7 +36,19 @@ export const MorningEventsRow = ({
   return (
     <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
       <td>{date}</td>
-      <RenderChoiceCells multipleChoice={multipleChoice} props={props} />
+      {multipleChoice ? (
+        <MultipleChoiceCells
+          {...props}
+          selectedEvent={selectedEvent}
+          setSelectedEvent={
+            setSelectedEvent as React.Dispatch<
+              React.SetStateAction<IEvent | IRestaurant>
+            >
+          }
+        />
+      ) : (
+        <SingleChoiceCells {...props} />
+      )}
     </tr>
   )
 }

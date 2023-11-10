@@ -1,6 +1,7 @@
-import { IRestaurant } from '../../../../interfaces'
+import { useState } from 'react'
+import { IEvent, IRestaurant } from '../../../../interfaces'
 import { LunchRow } from '../rows'
-import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
+import { EventTransferRow } from '../transfers'
 
 interface LunchSectionProps {
   lunch: IRestaurant[]
@@ -8,23 +9,27 @@ interface LunchSectionProps {
   pax: number
 }
 
-export const LunchSection = ({ lunch, date, pax }: LunchSectionProps) => (
-  <>
-    {lunch.length > 0 && lunch[0].transfer && (
-      <>
-        <AssistanceEventTransferRow transfer={lunch[0].transfer} date={date} />
-        <EventTransferRow
-          transfer={lunch[0].transfer}
-          date={date}
-          description={
-            lunch[0].transfer[0]?.selectedService === 'dispo_4h'
-              ? 'Transfer 4h at disposal'
-              : 'Transfer'
-          }
-          id='transfer_lunch'
-        />
-      </>
-    )}
-    <LunchRow items={lunch} pax={pax} date={date} />
-  </>
-)
+export const LunchSection = ({ lunch, date, pax }: LunchSectionProps) => {
+  const [selectedEvent, setSelectedEvent] = useState<IRestaurant>(lunch[0])
+  return (
+    <>
+      <EventTransferRow
+        transfer={selectedEvent?.transfer || []}
+        date={date}
+        id='transfer_lunch'
+        selectedEvent={selectedEvent}
+      />
+      <LunchRow
+        items={lunch}
+        date={date}
+        pax={pax}
+        selectedEvent={selectedEvent}
+        setSelectedEvent={
+          setSelectedEvent as React.Dispatch<
+            React.SetStateAction<IEvent | IRestaurant>
+          >
+        }
+      />
+    </>
+  )
+}

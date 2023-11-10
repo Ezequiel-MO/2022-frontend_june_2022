@@ -1,7 +1,8 @@
+import { useState } from 'react'
 import { AfternoonEventsRow } from '../rows'
-import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
+import { EventTransferRow } from '../transfers'
 import { MeetingSection } from '.'
-import { IEvent, IMeeting } from '../../../../interfaces'
+import { IEvent, IMeeting, IRestaurant } from '../../../../interfaces'
 
 interface AfternoonSectionProps {
   events: IEvent[]
@@ -17,33 +18,41 @@ export const AfternoonSection = ({
   fullDayMeetings,
   date,
   pax
-}: AfternoonSectionProps) => (
-  <>
-    {events.length > 0 && events[0]?.transfer.length > 0 && (
-      <>
-        <AssistanceEventTransferRow transfer={events[0].transfer} date={date} />
-        <EventTransferRow
-          transfer={events[0]?.transfer}
-          date={date}
-          description='Transfer'
-          id='transfer_afternoonEvents'
-        />
-      </>
-    )}
-    <AfternoonEventsRow items={events} date={date} pax={pax} />
-    <MeetingSection
-      meetings={meetings}
-      date={date}
-      pax={pax}
-      typeOfMeetingProp='Afternoon Meeting'
-      id='afternoonMeetings'
-    />
-    <MeetingSection
-      meetings={fullDayMeetings}
-      date={date}
-      pax={pax}
-      typeOfMeetingProp='Full Day Meeting'
-      id='fullDayMeetings'
-    />
-  </>
-)
+}: AfternoonSectionProps) => {
+  const [selectedEvent, setSelectedEvent] = useState<IEvent>(events[0])
+  return (
+    <>
+      <EventTransferRow
+        transfer={selectedEvent?.transfer}
+        date={date}
+        id='transfer_afternoonEvents'
+        selectedEvent={selectedEvent}
+      />
+      <AfternoonEventsRow
+        items={events}
+        date={date}
+        pax={pax}
+        selectedEvent={selectedEvent}
+        setSelectedEvent={
+          setSelectedEvent as React.Dispatch<
+            React.SetStateAction<IEvent | IRestaurant>
+          >
+        }
+      />
+      <MeetingSection
+        meetings={meetings}
+        date={date}
+        pax={pax}
+        typeOfMeetingProp='Afternoon Meeting'
+        id='afternoonMeetings'
+      />
+      <MeetingSection
+        meetings={fullDayMeetings}
+        date={date}
+        pax={pax}
+        typeOfMeetingProp='Full Day Meeting'
+        id='fullDayMeetings'
+      />
+    </>
+  )
+}

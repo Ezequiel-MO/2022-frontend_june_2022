@@ -5,19 +5,13 @@ export const SET_SELECTED_HOTEL = 'SET_SELECTED_HOTEL'
 export const SET_SELECTED_HOTEL_COST = 'SET_SELECTED_HOTEL_COST'
 export const UPDATE_TRANSFERS_IN_COST = 'UPDATE_TRANSFERS_IN_COST'
 export const UPDATE_TRANSFERS_OUT_COST = 'UPDATE_TRANSFERS_OUT_COST'
+export const UPDATE_PROGRAM_TRANSFERS_COST = 'UPDATE_PROGRAM_TRANSFERS_COST'
 
 export const budgetReducer = (
   state: BudgetState,
   action: BudgetActions
 ): BudgetState => {
   switch (action.type) {
-    case SET_BUDGET:
-      return {
-        ...state,
-        hotels: action.payload.hotels,
-        schedule: action.payload.schedule,
-        nrPax: action.payload.nrPax
-      }
     case SET_SELECTED_HOTEL: {
       return {
         ...state,
@@ -85,6 +79,46 @@ export const budgetReducer = (
         transfersOutCost: cost
       }
     }
+    case UPDATE_PROGRAM_TRANSFERS_COST: {
+      const { date, transfer, count, type } = action.payload
+      const serviceKey = transfer.selectedService as keyof typeof transfer
+      const serviceCost = transfer[serviceKey]
+
+      if (typeof serviceCost === 'number') {
+        const totalServiceCost = serviceCost * count
+
+        const updatedProgramTransfers = {
+          ...state.programTransfers,
+          [date]: {
+            ...state.programTransfers[date],
+            [type]: {
+              transferCost: totalServiceCost
+            }
+          }
+        }
+
+        // Compute the total cost
+        let newProgramTransfersCost = 0
+        Object.values(updatedProgramTransfers).forEach((dateTransfers) => {
+          Object.values(dateTransfers).forEach((transferType) => {
+            newProgramTransfersCost += transferType.transferCost || 0
+          })
+        })
+
+        // Return the updated state with the new programTransfers and total cost
+        return {
+          ...state,
+          programTransfers: updatedProgramTransfers,
+          programTransfersCost: newProgramTransfersCost
+        }
+      } else {
+        console.error(
+          `The service cost for the service '${serviceKey}' is not a number.`
+        )
+        return state
+      }
+    }
+
     default:
       return state
   }

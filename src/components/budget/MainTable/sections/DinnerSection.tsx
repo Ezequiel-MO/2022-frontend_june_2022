@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { IRestaurant } from '../../../../interfaces'
+import { IEvent, IRestaurant } from '../../../../interfaces'
 import { DinnerRow } from '../rows'
 import { AssistanceEventTransferRow, EventTransferRow } from '../transfers'
 import { VenueSummaryRow } from '../venue'
@@ -12,6 +12,7 @@ interface DinnerSectionProps {
 }
 
 export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
+  const [selectedEvent, setSelectedEvent] = useState<IRestaurant>(dinners[0])
   const noDinner = dinners.length === 0
   if (noDinner) return null
 
@@ -28,7 +29,19 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
 
   const renderDinnerRow = (dinners: IRestaurant[]) => {
     if (dinners.every((dinner) => !dinner.isVenue))
-      return <DinnerRow items={dinners} date={date} pax={pax} />
+      return (
+        <DinnerRow
+          items={dinners}
+          date={date}
+          pax={pax}
+          selectedEvent={selectedEvent}
+          setSelectedEvent={
+            setSelectedEvent as React.Dispatch<
+              React.SetStateAction<IEvent | IRestaurant>
+            >
+          }
+        />
+      )
 
     return (
       <VenueSummaryRow
@@ -63,24 +76,13 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
 
   return (
     <>
-      {dinners.length > 0 && dinners[0].transfer && (
-        <>
-          <AssistanceEventTransferRow
-            transfer={dinners[0].transfer}
-            date={date}
-          />
-          <EventTransferRow
-            transfer={dinners[0].transfer}
-            date={date}
-            description={
-              dinners[0].transfer[0]?.selectedService === 'dispo_'
-                ? 'Transfer 4h at disposal night hours'
-                : 'Transfer'
-            }
-            id='transfer_dinner'
-          />
-        </>
-      )}
+      <EventTransferRow
+        transfer={selectedEvent?.transfer || []}
+        date={date}
+        id='transfer_dinner'
+        selectedEvent={selectedEvent}
+      />
+
       {renderDinnerRow(dinners)}
       {renderEntertainmentRow(selectedRestaurant)}
     </>

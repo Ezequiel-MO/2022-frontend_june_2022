@@ -17,7 +17,8 @@ interface TransferRowProps {
 export const TransferRow: React.FC<TransferRowProps> = ({
   date,
   options,
-  description
+  description,
+  id
 }) => {
   const groupedOptions = options.reduce((acc, option) => {
     const service = option.selectedService
@@ -47,8 +48,10 @@ export const TransferRow: React.FC<TransferRowProps> = ({
           <td>{date}</td>
           <TransferCells
             description={description}
+            date={date}
             option={group}
             count={group.count}
+            id={id}
           />
         </tr>
       ))}

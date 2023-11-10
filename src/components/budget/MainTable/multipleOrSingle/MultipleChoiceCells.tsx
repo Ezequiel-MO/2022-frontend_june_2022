@@ -1,8 +1,5 @@
-import { FC, useEffect, useState } from 'react'
-import { useBudget, useFindByName } from '../../../../hooks'
+import React, { FC, useEffect, useState } from 'react'
 import { OptionSelect } from '.'
-import { useUpdateEventTotalCost } from './useUpdateEventTotalCost'
-import { useHandleEffectById } from './useHandleEffectById'
 import accounting from 'accounting'
 import { IEvent, IRestaurant } from '../../../../interfaces'
 
@@ -12,6 +9,8 @@ interface MultipleChoiceCellsProps {
   options: IEvent[] | IRestaurant[]
   id: 'morningEvents' | 'afternoonEvents' | 'lunch' | 'dinner'
   date: string
+  selectedEvent: IEvent | IRestaurant
+  setSelectedEvent: React.Dispatch<React.SetStateAction<IEvent | IRestaurant>>
 }
 
 export const MultipleChoiceCells: FC<MultipleChoiceCellsProps> = ({
@@ -19,40 +18,25 @@ export const MultipleChoiceCells: FC<MultipleChoiceCellsProps> = ({
   description,
   options,
   id,
-  date
+  date,
+  selectedEvent,
+  setSelectedEvent
 }) => {
   const [nrPax, setNrPax] = useState(pax)
-  const { updateEventTotalCost, setCurrentMeals, setCurrentEvents } =
-    useBudget()
-  const [selectedValue, setSelectedValue] = useState(options[0].name as string)
-
-  const { selectedOption: option } = useFindByName(options, selectedValue) as {
-    selectedOption: IEvent | IRestaurant
-  }
 
   useEffect(() => {
-    if (option && option._id) {
-      updateEventTotalCost(date, id, nrPax, option._id)
+    if (selectedEvent && 'pricePerPerson' in selectedEvent) {
+      setNrPax(selectedEvent.pricePerPerson ? pax : 1)
     }
-  }, [])
-
-  useEffect(() => {
-    if (
-      option &&
-      'pricePerPerson' in option &&
-      option.pricePerPerson === false
-    ) {
-      setNrPax(1)
-    } else {
-      setNrPax(pax)
-    }
-  }, [option])
-
-  useHandleEffectById(id, date, option, setCurrentMeals, setCurrentEvents)
-  useUpdateEventTotalCost(id, date, nrPax, option, updateEventTotalCost)
+  }, [selectedEvent, pax])
 
   const handleSelectChange = (e: React.ChangeEvent<{ value: unknown }>) => {
-    setSelectedValue(e.target.value as string)
+    const newValue = e.target.value as string
+    const newSelectedEvent =
+      options && options.find((option) => option.name === newValue)
+    if (newSelectedEvent) {
+      setSelectedEvent(newSelectedEvent)
+    }
   }
 
   return (
@@ -61,14 +45,17 @@ export const MultipleChoiceCells: FC<MultipleChoiceCellsProps> = ({
       <td>
         <OptionSelect
           options={options}
-          value={selectedValue}
+          value={selectedEvent?.name || ''}
           handleChange={handleSelectChange}
         />
       </td>
       <td>{nrPax}</td>
-      <td>{accounting.formatMoney(Number(option?.price), '€')}</td>
+      <td>{accounting.formatMoney(Number(selectedEvent?.price), '€')}</td>
       <td>
-        {accounting.formatMoney(Number(nrPax * Number(option?.price)), '€')}
+        {accounting.formatMoney(
+          Number(nrPax * Number(selectedEvent?.price)),
+          '€'
+        )}
       </td>
     </>
   )

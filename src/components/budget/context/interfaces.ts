@@ -1,6 +1,6 @@
 import { IDay, IHotel, ITransfer } from '../../../interfaces'
+import { UPDATE_PROGRAM_TRANSFERS_COST } from './budgetReducer'
 import {
-  SET_BUDGET,
   SET_SELECTED_HOTEL,
   SET_SELECTED_HOTEL_COST,
   UPDATE_TRANSFERS_IN_COST,
@@ -12,19 +12,17 @@ export interface BudgetState {
   selectedHotel: IHotel | null
   selectedHotelCost: number
   schedule: IDay[]
-  updatedSchedule: {}
+  programTransfers: {
+    [date: string]: {
+      [type: string]: {
+        transferCost: number
+      }
+    }
+  }
+  programTransfersCost: number
   transfersInCost: number
   transfersOutCost: number
   nrPax: number
-}
-
-export type SetBudgetAction = {
-  type: typeof SET_BUDGET
-  payload: {
-    hotels: IHotel[]
-    schedule: IDay[]
-    nrPax: number
-  }
 }
 
 export type SetSelectedHotelAction = {
@@ -56,9 +54,25 @@ export type UpdateTransfersOutCost = {
   }
 }
 
+export type UpdateProgramTransfersCost = {
+  type: typeof UPDATE_PROGRAM_TRANSFERS_COST
+  payload: {
+    date: string
+    transfer: ITransfer
+    count: number
+    type:
+      | 'transfer_morningEvents'
+      | 'transfer_afternoonEvents'
+      | 'transfer_lunch'
+      | 'transfer_dinner'
+      | 'meetGreet'
+      | 'assistance'
+  }
+}
+
 export type BudgetActions =
-  | SetBudgetAction
   | SetSelectedHotelAction
   | SetSelectedHotelCostAction
   | UpdateTransfersInCost
   | UpdateTransfersOutCost
+  | UpdateProgramTransfersCost
