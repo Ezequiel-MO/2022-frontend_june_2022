@@ -18,7 +18,7 @@ export const BudgetTable = () => {
     dispatch({
       type: UPDATE_TRANSFERS_IN_COST,
       payload: {
-        transfer_in: state.schedule[0].transfer_in
+        transfer_in: state.schedule[0]?.transfer_in
       }
     })
     dispatch({

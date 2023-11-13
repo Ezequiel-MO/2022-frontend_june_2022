@@ -81,41 +81,40 @@ export const budgetReducer = (
     }
     case UPDATE_PROGRAM_TRANSFERS_COST: {
       const { date, transfer, count, type } = action.payload
-      const serviceKey = transfer.selectedService as keyof typeof transfer
-      const serviceCost = transfer[serviceKey]
 
-      if (typeof serviceCost === 'number') {
-        const totalServiceCost = serviceCost * count
+      const updatedProgramTransfers = { ...state.programTransfers }
 
-        const updatedProgramTransfers = {
-          ...state.programTransfers,
-          [date]: {
-            ...state.programTransfers[date],
-            [type]: {
-              transferCost: totalServiceCost
-            }
+      if (transfer) {
+        const serviceKey = transfer.selectedService as keyof typeof transfer
+        const serviceCost = transfer[serviceKey]
+
+        if (typeof serviceCost === 'number') {
+          const totalServiceCost = serviceCost * count
+          updatedProgramTransfers[date] = {
+            ...updatedProgramTransfers[date],
+            [type]: { transferCost: totalServiceCost }
           }
         }
-
-        // Compute the total cost
-        let newProgramTransfersCost = 0
-        Object.values(updatedProgramTransfers).forEach((dateTransfers) => {
-          Object.values(dateTransfers).forEach((transferType) => {
-            newProgramTransfersCost += transferType.transferCost || 0
-          })
-        })
-
-        // Return the updated state with the new programTransfers and total cost
-        return {
-          ...state,
-          programTransfers: updatedProgramTransfers,
-          programTransfersCost: newProgramTransfersCost
-        }
       } else {
-        console.error(
-          `The service cost for the service '${serviceKey}' is not a number.`
-        )
-        return state
+        if (
+          updatedProgramTransfers[date] &&
+          updatedProgramTransfers[date][type]
+        ) {
+          delete updatedProgramTransfers[date][type]
+        }
+      }
+
+      let newProgramTransfersCost = 0
+      Object.values(updatedProgramTransfers).forEach((dateTransfers) => {
+        Object.values(dateTransfers).forEach((transferType) => {
+          newProgramTransfersCost += transferType.transferCost || 0
+        })
+      })
+
+      return {
+        ...state,
+        programTransfers: updatedProgramTransfers,
+        programTransfersCost: newProgramTransfersCost
       }
     }
 

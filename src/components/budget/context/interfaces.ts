@@ -58,7 +58,7 @@ export type UpdateProgramTransfersCost = {
   type: typeof UPDATE_PROGRAM_TRANSFERS_COST
   payload: {
     date: string
-    transfer: ITransfer
+    transfer: ITransfer | null
     count: number
     type:
       | 'transfer_morningEvents'

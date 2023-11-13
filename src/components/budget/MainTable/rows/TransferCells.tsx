@@ -9,7 +9,11 @@ interface Props {
   date: string
   option: ITransfer
   count: number
-  id: string
+  id:
+    | 'transfer_morningEvents'
+    | 'transfer_lunch'
+    | 'transfer_afternoonEvents'
+    | 'transfer_dinner'
 }
 
 const serviceDescriptions: { [key: string]: string } = {
@@ -35,17 +39,15 @@ export const TransferCells = ({
     serviceDescriptions[option.selectedService] || option.selectedService
 
   useEffect(() => {
-    if (id === 'transfer_morningEvents') {
-      dispatch({
-        type: UPDATE_PROGRAM_TRANSFERS_COST,
-        payload: {
-          date,
-          transfer: option,
-          count,
-          type: id
-        }
-      })
-    }
+    dispatch({
+      type: UPDATE_PROGRAM_TRANSFERS_COST,
+      payload: {
+        date,
+        transfer: option,
+        count,
+        type: id
+      }
+    })
   }, [])
 
   return (
