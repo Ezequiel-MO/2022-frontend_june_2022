@@ -7,6 +7,11 @@ export const UPDATE_TRANSFERS_IN_COST = 'UPDATE_TRANSFERS_IN_COST'
 export const UPDATE_TRANSFERS_OUT_COST = 'UPDATE_TRANSFERS_OUT_COST'
 export const UPDATE_PROGRAM_TRANSFERS_COST = 'UPDATE_PROGRAM_TRANSFERS_COST'
 
+interface TransferEntry {
+  transferCost: number
+  assistanceCost: number
+}
+
 export const budgetReducer = (
   state: BudgetState,
   action: BudgetActions
@@ -82,32 +87,47 @@ export const budgetReducer = (
     case UPDATE_PROGRAM_TRANSFERS_COST: {
       const { date, transfer, count, type } = action.payload
 
-      const updatedProgramTransfers = { ...state.programTransfers }
+      let totalServiceCost = 0
+      let totalAssistanceCost = 0
 
       if (transfer) {
         const serviceKey = transfer.selectedService as keyof typeof transfer
         const serviceCost = transfer[serviceKey]
 
         if (typeof serviceCost === 'number') {
-          const totalServiceCost = serviceCost * count
-          updatedProgramTransfers[date] = {
-            ...updatedProgramTransfers[date],
-            [type]: { transferCost: totalServiceCost }
-          }
+          totalServiceCost = serviceCost * count
+        } else {
+          console.error(
+            `The service cost for the service '${serviceKey}' is not a number.`
+          )
         }
-      } else {
-        if (
-          updatedProgramTransfers[date] &&
-          updatedProgramTransfers[date][type]
-        ) {
-          delete updatedProgramTransfers[date][type]
+
+        totalAssistanceCost =
+          (transfer.assistance || 0) * (transfer.assistanceCost || 0)
+      }
+
+      const updatedTypeTransfers: TransferEntry = {
+        transferCost: totalServiceCost,
+        assistanceCost: totalAssistanceCost
+      }
+
+      const updatedProgramTransfers = {
+        ...state.programTransfers,
+        [date]: {
+          ...state.programTransfers[date],
+          [type]: updatedTypeTransfers
         }
       }
 
       let newProgramTransfersCost = 0
       Object.values(updatedProgramTransfers).forEach((dateTransfers) => {
         Object.values(dateTransfers).forEach((transferType) => {
-          newProgramTransfersCost += transferType.transferCost || 0
+          if ('assistanceCost' in transferType) {
+            newProgramTransfersCost +=
+              transferType.transferCost + (transferType.assistanceCost || 0)
+          } else {
+            newProgramTransfersCost += transferType.transferCost
+          }
         })
       })
 

@@ -45,6 +45,7 @@ export const EventTransferRow = ({
   if (!transferIsNeeded) return null
 
   const assistanceIsNeeded = transfer[0].assistance !== 0
+
   return (
     <>
       {assistanceIsNeeded && (

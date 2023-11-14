@@ -70,7 +70,9 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
         data: [
           state.selectedHotelCost,
           meetingTotalCost,
-          state.transfersInCost + state.transfersOutCost,
+          state.transfersInCost +
+            state.transfersOutCost +
+            state.programTransfersCost,
           mealsTotalCost,
           eventsTotalCost,
           venuesTotalCost,
@@ -116,7 +118,10 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     {
       icon: 'bx:bus',
       title: 'TRANSFERS',
-      cost: state.transfersInCost + state.transfersOutCost
+      cost:
+        state.transfersInCost +
+        state.transfersOutCost +
+        state.programTransfersCost
     },
     {
       icon: 'carbon:restaurant',
@@ -154,6 +159,8 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     mealsTotalCost,
     eventsTotalCost,
     state.transfersInCost,
+    state.transfersOutCost,
+    state.programTransfersCost,
     giftTotalCost,
     showTotalCost
   ])
