@@ -1,5 +1,6 @@
 export type CitiesType =
   | 'Barcelona'
+  | 'Malaga'
   | 'Paris'
   | 'Bilbao'
   | 'Valencia'
@@ -9,6 +10,7 @@ export type CitiesType =
 
 export const cities: CitiesType[] = [
   'Barcelona',
+  'Malaga',
   'Paris',
   'Bilbao',
   'Valencia',
