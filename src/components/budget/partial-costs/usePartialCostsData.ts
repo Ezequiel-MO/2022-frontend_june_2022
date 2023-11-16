@@ -31,7 +31,6 @@ interface IData {
 interface PartialCostsDataReturn {
   currentGift: IGift
   meetingTotalCost: number
-  mealsTotalCost: number
   eventsTotalCost: number
   giftTotalCost: number
   data: IData
@@ -73,8 +72,8 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
           state.transfersInCost +
             state.transfersOutCost +
             state.programTransfersCost,
-          mealsTotalCost,
-          eventsTotalCost,
+          state.mealsCost,
+          state.activitiesCost,
           venuesTotalCost,
           giftTotalCost,
           showTotalCost
@@ -126,7 +125,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     {
       icon: 'carbon:restaurant',
       title: 'MEAL FUNCTIONS',
-      cost: mealsTotalCost
+      cost: state.mealsCost
     },
     {
       icon: 'ph:castle-turret-light',
@@ -136,7 +135,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     {
       icon: 'akar-icons:people-multiple',
       title: 'ACTIVITIES',
-      cost: eventsTotalCost
+      cost: state.activitiesCost
     },
     {
       icon: 'mdi:gift-outline',
@@ -168,7 +167,6 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
   return {
     currentGift,
     meetingTotalCost,
-    mealsTotalCost,
     eventsTotalCost,
     giftTotalCost,
     data,

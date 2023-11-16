@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import accounting from 'accounting'
 import { ITransfer } from '../../../../interfaces'
-import { useBudget } from '../../../../hooks'
 
 interface TransfersInRowProps {
   items: ITransfer[]
@@ -9,7 +8,6 @@ interface TransfersInRowProps {
 }
 
 export const TransfersInRow = ({ items, date }: TransfersInRowProps) => {
-  const { updateTransfers } = useBudget()
   const NoTransfersIn = items.length === 0
   if (NoTransfersIn) return null
 

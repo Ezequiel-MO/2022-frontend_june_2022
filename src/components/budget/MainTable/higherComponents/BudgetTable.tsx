@@ -24,7 +24,7 @@ export const BudgetTable = () => {
     dispatch({
       type: UPDATE_TRANSFERS_OUT_COST,
       payload: {
-        transfer_out: state.schedule[state.schedule.length - 1].transfer_out
+        transfer_out: state.schedule?.[state.schedule.length - 1]?.transfer_out
       }
     })
   }, [dispatch])

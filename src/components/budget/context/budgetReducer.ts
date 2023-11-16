@@ -6,6 +6,8 @@ export const SET_SELECTED_HOTEL_COST = 'SET_SELECTED_HOTEL_COST'
 export const UPDATE_TRANSFERS_IN_COST = 'UPDATE_TRANSFERS_IN_COST'
 export const UPDATE_TRANSFERS_OUT_COST = 'UPDATE_TRANSFERS_OUT_COST'
 export const UPDATE_PROGRAM_TRANSFERS_COST = 'UPDATE_PROGRAM_TRANSFERS_COST'
+export const UPDATE_PROGRAM_MEALS_COST = 'UPDATE_PROGRAM_MEALS_COST'
+export const UPDATE_PROGRAM_ACTIVITIES_COST = 'UPDATE_PROGRAM_ACTIVITIES_COST'
 
 interface TransferEntry {
   transferCost: number
@@ -135,6 +137,73 @@ export const budgetReducer = (
         ...state,
         programTransfers: updatedProgramTransfers,
         programTransfersCost: newProgramTransfersCost
+      }
+    }
+    case UPDATE_PROGRAM_MEALS_COST: {
+      const { date, restaurant, pax, type } = action.payload
+
+      if (restaurant && restaurant?.isVenue) {
+        return state
+      }
+      let totalMealsCost = 0
+
+      const updatedMeals = {
+        ...state.meals,
+        [date]: {
+          ...state.meals?.[date],
+          [type]: restaurant
+        }
+      }
+
+      totalMealsCost = Object.values(updatedMeals).reduce((acc, day) => {
+        let cost = 0
+        if (day.lunch && !day.lunch.isVenue) {
+          cost += day.lunch.price
+        }
+        if (day.dinner && !day.dinner.isVenue) {
+          cost += day.dinner.price
+        }
+        return acc + cost
+      }, 0)
+
+      return {
+        ...state,
+        meals: updatedMeals,
+        mealsCost: totalMealsCost * pax
+      }
+    }
+    case UPDATE_PROGRAM_ACTIVITIES_COST: {
+      const { date, activity, pax, type } = action.payload
+
+      const nrPax = activity?.pricePerPerson ? pax : 1
+      let totalActivitiesCost = 0
+
+      const updatedActivities = {
+        ...state.activities,
+        [date]: {
+          ...state.activities?.[date],
+          [type]: activity
+        }
+      }
+
+      totalActivitiesCost = Object.values(updatedActivities).reduce(
+        (acc, day) => {
+          let cost = 0
+          if (day.morning) {
+            cost += (day.morning.price || 0) * nrPax
+          }
+          if (day.afternoon) {
+            cost += (day.afternoon?.price ?? 0) * nrPax
+          }
+          return acc + cost
+        },
+        0
+      )
+
+      return {
+        ...state,
+        activities: updatedActivities,
+        activitiesCost: totalActivitiesCost
       }
     }
 

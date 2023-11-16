@@ -18,6 +18,10 @@ const initialState: BudgetState = {
   schedule: initialSchedule,
   programTransfers: {},
   programTransfersCost: 0,
+  meals: {},
+  mealsCost: 0,
+  activities: {},
+  activitiesCost: 0,
   transfersInCost: 0,
   transfersOutCost: 0,
   nrPax: initialNrPax

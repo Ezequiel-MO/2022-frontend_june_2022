@@ -1,5 +1,8 @@
+import { useEffect } from 'react'
 import { MultipleChoiceCells, SingleChoiceCells } from '../multipleOrSingle'
 import { IEvent, IRestaurant } from '../../../../interfaces'
+import { useContextBudget } from '../../context/BudgetContext'
+import { UPDATE_PROGRAM_ACTIVITIES_COST } from '../../context/budgetReducer'
 
 interface Props {
   items: IEvent[]
@@ -16,7 +19,20 @@ export const AfternoonEventsRow = ({
   selectedEvent,
   setSelectedEvent
 }: Props) => {
+  const { dispatch } = useContextBudget()
   const NoEvents = items.length === 0
+
+  useEffect(() => {
+    dispatch({
+      type: UPDATE_PROGRAM_ACTIVITIES_COST,
+      payload: {
+        date,
+        activity: selectedEvent ? selectedEvent : null,
+        pax,
+        type: 'afternoon'
+      }
+    })
+  }, [dispatch, date, selectedEvent])
   if (NoEvents) return null
   const multipleChoice = items.length > 1
   const props = {
