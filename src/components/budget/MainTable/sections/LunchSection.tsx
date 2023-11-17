@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { IEvent, IRestaurant } from '../../../../interfaces'
-import { LunchRow } from '../rows'
-import { EventTransferRow } from '../transfers'
+import { EventTransferRow, LunchRow } from '../rows/meals_activities'
 
 interface LunchSectionProps {
   lunch: IRestaurant[]

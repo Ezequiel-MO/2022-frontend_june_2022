@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { HotelBreakdownRow } from '../../../MainTable/hotel'
+import { HotelBreakdownRow } from '../../../MainTable/rows/hotel'
 import '@testing-library/jest-dom'
 
 it('renders correctly', () => {

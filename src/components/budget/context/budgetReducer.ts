@@ -54,7 +54,10 @@ export const budgetReducer = (
     case UPDATE_TRANSFERS_IN_COST: {
       let cost = 0
       const { transfer_in } = action.payload
-      cost = transfer_in.reduce((acc, item) => acc + (item.transfer_in || 0), 0)
+      cost = transfer_in?.reduce(
+        (acc, item) => acc + (item.transfer_in || 0),
+        0
+      )
       if (transfer_in.length > 0) {
         const firstItem = transfer_in[0]
         cost +=
