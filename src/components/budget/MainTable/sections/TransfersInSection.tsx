@@ -1,5 +1,9 @@
 import { ITransfer } from '../../../../interfaces'
-import { MeetGreetRow, TransfersInAssistanceRow, TransfersInRow } from '../rows'
+import {
+  MeetGreetRow,
+  TransfersInAssistanceRow,
+  TransfersInRow
+} from '../rows/transfers_in'
 
 interface TransfersInSectionProps {
   transfers: ITransfer[]

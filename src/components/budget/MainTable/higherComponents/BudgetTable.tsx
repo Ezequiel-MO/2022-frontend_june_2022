@@ -1,15 +1,15 @@
 import { useEffect } from 'react'
 import { Table } from '@mui/material'
 import { BudgetTableHead, DayRows } from '.'
-import { HotelRows } from '../hotel'
+import { HotelRows } from '../rows/hotel'
 import { TotalBudgetCost } from '../../totals'
-import { GiftsRow } from '../rows'
 import { IDay } from '../../../../interfaces'
 import { useContextBudget } from '../../context/BudgetContext'
 import {
   UPDATE_TRANSFERS_IN_COST,
   UPDATE_TRANSFERS_OUT_COST
 } from '../../context/budgetReducer'
+import { GiftsRow } from '../rows/gift/GiftsRow'
 
 export const BudgetTable = () => {
   const { state, dispatch } = useContextBudget()

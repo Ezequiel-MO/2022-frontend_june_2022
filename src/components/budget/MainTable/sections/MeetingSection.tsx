@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { IMeeting } from '../../../../interfaces'
-import { MeetingSummaryRow, MeetingBreakdownRows } from '../meeting'
+import { MeetingSummaryRow, MeetingBreakdownRows } from '../rows/meeting'
 
 interface MeetingSectionProps {
   meetings: IMeeting[]

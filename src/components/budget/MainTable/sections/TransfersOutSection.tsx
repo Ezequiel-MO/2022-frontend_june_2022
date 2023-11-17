@@ -3,7 +3,7 @@ import {
   DispatchRow,
   TransfersOutAssistanceRow,
   TransfersOutRow
-} from '../rows'
+} from '../rows/transfers_out'
 
 interface TransfersOutSectionProps {
   transfers: ITransfer[]
@@ -16,7 +16,7 @@ export const TransfersOutSection = ({
 }: TransfersOutSectionProps) => {
   return (
     <>
-      <DispatchRow firstItem={transfers[0]} date={date} />
+      <DispatchRow lastItem={transfers[transfers.length - 1]} date={date} />
       <TransfersOutAssistanceRow firstItem={transfers[0]} date={date} />
       <TransfersOutRow items={transfers} date={date} />
     </>
