@@ -17,7 +17,7 @@ export const MorningSection = ({
   pax
 }: MorningSectionProps) => {
   const [selectedEvent, setSelectedEvent] = useState<IEvent>(events[0])
-
+  console.log('meetings', meetings)
   return (
     <>
       <EventTransferRow
@@ -41,8 +41,7 @@ export const MorningSection = ({
         meetings={meetings}
         date={date}
         pax={pax}
-        typeOfMeetingProp='Morning Meeting'
-        id='morningMeetings'
+        type='morning'
       />
     </>
   )

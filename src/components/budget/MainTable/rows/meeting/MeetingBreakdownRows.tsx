@@ -5,26 +5,18 @@ import { Icon } from '@iconify/react'
 
 interface Props {
   pax: number
-  dateProp: string
-  typeOfMeetingProp:
-    | 'Morning Meeting'
-    | 'Afternoon Meeting'
-    | 'Full Day Meeting'
+  type: 'morning' | 'afternoon' | 'full_day'
   meetings: IMeeting[]
   isOpen: boolean
 }
 
 export const MeetingBreakdownRows = ({
   pax,
-  typeOfMeetingProp,
+  type,
   meetings,
   isOpen
 }: Props) => {
-  const { hotelName } = useBudget()
-  const { meeting } = useFindMeetingByHotel(meetings, hotelName)
-
-  if (!meeting) return null
-
+  const meeting = meetings[0]
   return (
     <tr
       className={`transition-all duration-500 ease-in-out ${
@@ -50,7 +42,7 @@ export const MeetingBreakdownRows = ({
                 </tr>
               </thead>
               <tbody className='text-[#000] bg-white-100 dark:bg-[#a9ba9d]'>
-                {typeOfMeetingProp === 'Full Day Meeting' ? (
+                {type === 'full_day' ? (
                   <>
                     <MeetingBreakdownRow
                       units={1}
