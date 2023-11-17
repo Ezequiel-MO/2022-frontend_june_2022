@@ -18,7 +18,7 @@ export const ErrorPage: React.FC = () => {
       >
         <p className='text-4xl font-bold'>404 |</p>
         <p className='text-4xl ml-10'>
-          <i>{error.statusText || error.message}</i>
+          <i>{error?.statusText || error?.message}</i>
         </p>
       </main>
       <button onClick={() => navigate(-1)}>Back to Previous Page</button>
