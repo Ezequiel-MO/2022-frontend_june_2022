@@ -44,7 +44,7 @@ const LoginPage: React.FC = () => {
     onError: (error: any) => {
       setAlert({
         error: true,
-        msg: error.response.data.msg ?? ''
+        msg: error?.response?.data?.msg ?? ''
       })
     }
   })
