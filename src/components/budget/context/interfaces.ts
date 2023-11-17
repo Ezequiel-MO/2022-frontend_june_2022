@@ -2,12 +2,14 @@ import {
   IDay,
   IEvent,
   IHotel,
+  IMeeting,
   IRestaurant,
   ITransfer
 } from '../../../interfaces'
 import {
   UPDATE_PROGRAM_ACTIVITIES_COST,
   UPDATE_PROGRAM_MEALS_COST,
+  UPDATE_PROGRAM_MEETINGS_COST,
   UPDATE_PROGRAM_TRANSFERS_COST
 } from './budgetReducer'
 import {
@@ -22,6 +24,28 @@ export interface BudgetState {
   selectedHotel: IHotel | null
   selectedHotelCost: number
   schedule: IDay[]
+  activities: {
+    [key: string]: {
+      morning?: IEvent
+      afternoon?: IEvent
+    }
+  }
+  activitiesCost: number
+  meals: {
+    [key: string]: {
+      lunch?: IRestaurant
+      dinner?: IRestaurant
+    }
+  }
+  mealsCost: number
+  meetings: {
+    [key: string]: {
+      morning?: IMeeting
+      afternoon?: IMeeting
+      fullDay?: IMeeting
+    }
+  }
+  meetingsCost: number
   programTransfers: {
     [date: string]: {
       [type: string]: {
@@ -29,22 +53,7 @@ export interface BudgetState {
       }
     }
   }
-
   programTransfersCost: number
-  meals: {
-    [key: string]: {
-      lunch?: IRestaurant
-      dinner?: IRestaurant
-    }
-  }
-  activities: {
-    [key: string]: {
-      morning?: IEvent
-      afternoon?: IEvent
-    }
-  }
-  mealsCost: number
-  activitiesCost: number
   transfersInCost: number
   transfersOutCost: number
   nrPax: number
@@ -115,6 +124,16 @@ export type UpdateActivitiesCost = {
   }
 }
 
+export type UpdateMeetingsCost = {
+  type: typeof UPDATE_PROGRAM_MEETINGS_COST
+  payload: {
+    date: string
+    meeting: IMeeting | null
+    type: 'morning' | 'afternoon' | 'full_day'
+    pax: number
+  }
+}
+
 export type BudgetActions =
   | SetSelectedHotelAction
   | SetSelectedHotelCostAction
@@ -123,3 +142,4 @@ export type BudgetActions =
   | UpdateProgramTransfersCost
   | UpdateProgramMealsCost
   | UpdateActivitiesCost
+  | UpdateMeetingsCost

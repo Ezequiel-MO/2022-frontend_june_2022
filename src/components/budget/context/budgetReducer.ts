@@ -8,6 +8,7 @@ export const UPDATE_TRANSFERS_OUT_COST = 'UPDATE_TRANSFERS_OUT_COST'
 export const UPDATE_PROGRAM_TRANSFERS_COST = 'UPDATE_PROGRAM_TRANSFERS_COST'
 export const UPDATE_PROGRAM_MEALS_COST = 'UPDATE_PROGRAM_MEALS_COST'
 export const UPDATE_PROGRAM_ACTIVITIES_COST = 'UPDATE_PROGRAM_ACTIVITIES_COST'
+export const UPDATE_PROGRAM_MEETINGS_COST = 'UPDATE_PROGRAM_MEETINGS_COST'
 
 interface TransferEntry {
   transferCost: number
@@ -207,6 +208,61 @@ export const budgetReducer = (
         ...state,
         activities: updatedActivities,
         activitiesCost: totalActivitiesCost
+      }
+    }
+
+    case UPDATE_PROGRAM_MEETINGS_COST: {
+      const { date, meeting, type, pax } = action.payload
+
+      if (!meeting) return state
+
+      const updatedMeetings = {
+        ...state.meetings,
+        [date]: {
+          ...state.meetings?.[date],
+          [type]: meeting
+        }
+      }
+
+      let totalMeetingsCost = 0
+
+      Object.values(updatedMeetings).forEach((day) => {
+        if (day) {
+          Object.entries(day).forEach(([meetingType, meetingDetails]) => {
+            if (meetingDetails) {
+              const {
+                FDRate = 0,
+                HDRate = 0,
+                HDDDR = 0,
+                FDDDR = 0,
+                coffeeBreakUnits = 0,
+                coffeeBreakPrice = 0,
+                workingLunchUnits = 0,
+                workingLunchPrice = 0,
+                hotelDinnerUnits = 0,
+                hotelDinnerPrice = 0,
+                aavvPackage = 0
+              } = meetingDetails
+
+              const dddrCost = meetingType === 'full_day' ? FDDDR : HDDDR
+              const meetingCost =
+                FDRate +
+                HDRate +
+                dddrCost * pax +
+                coffeeBreakUnits * coffeeBreakPrice +
+                workingLunchUnits * workingLunchPrice +
+                hotelDinnerUnits * hotelDinnerPrice +
+                aavvPackage
+              totalMeetingsCost += meetingCost
+            }
+          })
+        }
+      })
+
+      return {
+        ...state,
+        meetings: updatedMeetings,
+        meetingsCost: totalMeetingsCost
       }
     }
 

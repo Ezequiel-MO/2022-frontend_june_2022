@@ -1,12 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import {
-  useBudget,
-  useGetEventCosts,
-  useGetMealsCost,
-  useGetMeetingsCost,
-  useGetShowCost,
-  useGetVenuesCost
-} from '../../../hooks'
+import { useBudget, useGetShowCost, useGetVenuesCost } from '../../../hooks'
 import { IGift } from '../../../interfaces'
 import { TranslationKeys } from '../../../interfaces/translations'
 import { useContextBudget } from '../context/BudgetContext'
@@ -30,8 +23,6 @@ interface IData {
 
 interface PartialCostsDataReturn {
   currentGift: IGift
-  meetingTotalCost: number
-  eventsTotalCost: number
   giftTotalCost: number
   data: IData
   costItems: any[]
@@ -41,10 +32,7 @@ interface PartialCostsDataReturn {
 export const usePartialCostsData = (): PartialCostsDataReturn => {
   const { state } = useContextBudget()
   const { currentGift } = useBudget() || ({} as { currentGift: IGift })
-  const { meetingTotalCost = 0 } = useGetMeetingsCost()
-  const { mealsTotalCost = 0 } = useGetMealsCost()
   const { venuesTotalCost = 0 } = useGetVenuesCost()
-  const { eventsTotalCost = 0 } = useGetEventCosts()
   const { showTotalCost = 0 } = useGetShowCost()
   const [totalCostOfItems, setTotalCostOfItems] = useState<number>(0)
 
@@ -68,7 +56,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
         label: 'Budget Breakdown',
         data: [
           state.selectedHotelCost,
-          meetingTotalCost,
+          state.meetingsCost,
           state.transfersInCost +
             state.transfersOutCost +
             state.programTransfersCost,
@@ -112,7 +100,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     {
       icon: 'mdi:handshake-outline',
       title: 'MEETINGS',
-      cost: meetingTotalCost
+      cost: state.meetingsCost
     },
     {
       icon: 'bx:bus',
@@ -154,9 +142,9 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     setTotalCostOfItems(total)
   }, [
     state.selectedHotelCost,
-    meetingTotalCost,
-    mealsTotalCost,
-    eventsTotalCost,
+    state.meetingsCost,
+    state.mealsCost,
+    state.activitiesCost,
     state.transfersInCost,
     state.transfersOutCost,
     state.programTransfersCost,
@@ -166,8 +154,6 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
 
   return {
     currentGift,
-    meetingTotalCost,
-    eventsTotalCost,
     giftTotalCost,
     data,
     costItems,
