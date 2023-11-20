@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react'
 import { EntertainmentBreakdownRow } from './EntertainmentBreakdownRow'
 
 interface Props {
-  entertainment: IEntertainment[]
+  entertainment: IEntertainment
   isOpen: boolean
 }
 
@@ -11,9 +11,8 @@ export const EntertainmentBreakdownRows = ({
   entertainment,
   isOpen
 }: Props) => {
-  const { price } = entertainment[0]
   const { artistsFee, aavv, lighting, travelAllowance, mealAllowance } =
-    price as IEntertainmentPrice
+    entertainment?.price as IEntertainmentPrice
 
   return (
     <tr

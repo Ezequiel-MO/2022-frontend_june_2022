@@ -1,14 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import accounting from 'accounting'
 import { IEntertainment } from '../../../../../interfaces'
-import { EntertainmentMultipleChoice } from './EntertainmentMultipleChoice'
 import { ToggleTableRowIcon } from '../../../../atoms'
 import { useContextBudget } from '../../../context/BudgetContext'
 import { UPDATE_PROGRAM_SHOWS_COST } from '../../../context/budgetReducer'
+import { OptionSelect } from '../../multipleOrSingle'
 
 interface Props {
   date: string
   entertainment: IEntertainment[]
+  selectedEntertainment: IEntertainment
+  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
   typeOfEvent: 'dinner' | 'lunch'
   isOpen: boolean
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -17,24 +19,13 @@ interface Props {
 export const EntertainmentSummaryRow: React.FC<Props> = ({
   date,
   entertainment,
+  selectedEntertainment,
+  handleChange,
   typeOfEvent,
   isOpen,
   setIsOpen
 }) => {
   const { state, dispatch } = useContextBudget()
-
-  const [selectedEntertainment, setSelectedEntertainment] =
-    useState<IEntertainment>(entertainment[0])
-
-  const handleEntertainmentChange = (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ): void => {
-    const selectedEntertainment = entertainment.find(
-      (entertainment) => entertainment.name === e.target.value
-    ) as IEntertainment
-
-    setSelectedEntertainment(selectedEntertainment)
-  }
 
   useEffect(() => {
     dispatch({
@@ -47,7 +38,7 @@ export const EntertainmentSummaryRow: React.FC<Props> = ({
     })
   }, [selectedEntertainment, dispatch])
 
-  const multipleShows = entertainment.length > 1
+  const multipleShows = entertainment?.length > 1
 
   const toggleBreakdown = () => {
     setIsOpen((prevState: boolean) => !prevState)
@@ -60,12 +51,10 @@ export const EntertainmentSummaryRow: React.FC<Props> = ({
         <td>Entertainment</td>
         <td>
           {multipleShows ? (
-            <EntertainmentMultipleChoice
-              date={date}
+            <OptionSelect
               options={entertainment}
-              option={selectedEntertainment}
-              handleChange={handleEntertainmentChange}
-              typeOfEvent={typeOfEvent}
+              value={selectedEntertainment?.name || ''}
+              handleChange={handleChange}
             />
           ) : (
             <>{entertainment[0].name}</>
