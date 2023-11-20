@@ -9,6 +9,7 @@ export const UPDATE_PROGRAM_TRANSFERS_COST = 'UPDATE_PROGRAM_TRANSFERS_COST'
 export const UPDATE_PROGRAM_MEALS_COST = 'UPDATE_PROGRAM_MEALS_COST'
 export const UPDATE_PROGRAM_ACTIVITIES_COST = 'UPDATE_PROGRAM_ACTIVITIES_COST'
 export const UPDATE_PROGRAM_MEETINGS_COST = 'UPDATE_PROGRAM_MEETINGS_COST'
+export const UPDATE_PROGRAM_SHOWS_COST = 'UPDATE_PROGRAM_SHOWS_COST'
 
 interface TransferEntry {
   transferCost: number
@@ -59,7 +60,7 @@ export const budgetReducer = (
         (acc, item) => acc + (item.transfer_in || 0),
         0
       )
-      if (transfer_in.length > 0) {
+      if (transfer_in?.length > 0) {
         const firstItem = transfer_in[0]
         cost +=
           (firstItem.assistance || 0) * (firstItem.assistanceCost || 0) +
@@ -263,6 +264,44 @@ export const budgetReducer = (
         ...state,
         meetings: updatedMeetings,
         meetingsCost: totalMeetingsCost
+      }
+    }
+
+    case UPDATE_PROGRAM_SHOWS_COST: {
+      const { date, show, type } = action.payload
+
+      const updatedShows = {
+        ...state.shows,
+        [date]: {
+          ...state.shows[date],
+          [type]: show
+        }
+      }
+      let cost = 0
+
+      Object.values(updatedShows).forEach((day) => {
+        if (day) {
+          Object.values(day).forEach((show) => {
+            if (show && show?.price) {
+              const {
+                aavv = 0,
+                artistsFee = 0,
+                lighting = 0,
+                mealAllowance = 0,
+                travelAllowance = 0
+              } = show?.price
+              let showCost =
+                aavv + artistsFee + lighting + mealAllowance + travelAllowance
+              cost += showCost
+            }
+          })
+        }
+      })
+
+      return {
+        ...state,
+        shows: updatedShows,
+        showsCost: cost
       }
     }
 
