@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { useBudget, useGetShowCost, useGetVenuesCost } from '../../../hooks'
+import { useBudget, useGetVenuesCost } from '../../../hooks'
 import { IGift } from '../../../interfaces'
 import { TranslationKeys } from '../../../interfaces/translations'
 import { useContextBudget } from '../context/BudgetContext'
@@ -33,7 +33,6 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
   const { state } = useContextBudget()
   const { currentGift } = useBudget() || ({} as { currentGift: IGift })
   const { venuesTotalCost = 0 } = useGetVenuesCost()
-  const { showTotalCost = 0 } = useGetShowCost()
   const [totalCostOfItems, setTotalCostOfItems] = useState<number>(0)
 
   const giftTotalCost = useMemo(() => {
@@ -64,7 +63,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
           state.activitiesCost,
           venuesTotalCost,
           giftTotalCost,
-          showTotalCost
+          state.showsCost
         ],
         backgroundColor: [
           'rgba(255, 87, 34, 0.2)',
@@ -133,7 +132,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     {
       icon: 'codicon:mic',
       title: 'ENTERTAINMENT',
-      cost: showTotalCost
+      cost: state.showsCost
     }
   ]
 
@@ -149,7 +148,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     state.transfersOutCost,
     state.programTransfersCost,
     giftTotalCost,
-    showTotalCost
+    state.showsCost
   ])
 
   return {

@@ -1,16 +1,14 @@
-import { useState } from 'react'
-import { IEntertainment, IRestaurant } from '../../../../../interfaces'
-import { EntertainmentMultipleChoice } from './EntertainmentMultipleChoice'
-import { EntertainmentSingleChoice } from './EntertainmentSingleChoice'
+import { useState, useEffect } from 'react'
 import accounting from 'accounting'
-import { useBudget } from '../../../../../hooks'
+import { IEntertainment } from '../../../../../interfaces'
+import { EntertainmentMultipleChoice } from './EntertainmentMultipleChoice'
 import { ToggleTableRowIcon } from '../../../../atoms'
+import { useContextBudget } from '../../../context/BudgetContext'
+import { UPDATE_PROGRAM_SHOWS_COST } from '../../../context/budgetReducer'
 
 interface Props {
   date: string
   entertainment: IEntertainment[]
-  selectedRestaurant: IRestaurant
-  title: string
   typeOfEvent: 'dinner' | 'lunch'
   isOpen: boolean
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -19,14 +17,12 @@ interface Props {
 export const EntertainmentSummaryRow: React.FC<Props> = ({
   date,
   entertainment,
-  selectedRestaurant,
-  title,
   typeOfEvent,
   isOpen,
   setIsOpen
 }) => {
-  if (!entertainment || entertainment.length === 0) return null
-  const { shows } = useBudget()
+  const { state, dispatch } = useContextBudget()
+
   const [selectedEntertainment, setSelectedEntertainment] =
     useState<IEntertainment>(entertainment[0])
 
@@ -36,8 +32,20 @@ export const EntertainmentSummaryRow: React.FC<Props> = ({
     const selectedEntertainment = entertainment.find(
       (entertainment) => entertainment.name === e.target.value
     ) as IEntertainment
+
     setSelectedEntertainment(selectedEntertainment)
   }
+
+  useEffect(() => {
+    dispatch({
+      type: UPDATE_PROGRAM_SHOWS_COST,
+      payload: {
+        date,
+        show: selectedEntertainment,
+        type: typeOfEvent
+      }
+    })
+  }, [selectedEntertainment, dispatch])
 
   const multipleShows = entertainment.length > 1
 
@@ -60,23 +68,13 @@ export const EntertainmentSummaryRow: React.FC<Props> = ({
               typeOfEvent={typeOfEvent}
             />
           ) : (
-            <EntertainmentSingleChoice
-              options={entertainment}
-              selectedRestaurant={selectedRestaurant}
-              date={date}
-              id='dinner'
-            />
+            <>{entertainment[0].name}</>
           )}
         </td>
 
         <td></td>
         <td></td>
-        <td>
-          {accounting.formatMoney(
-            shows[date]?.[typeOfEvent]?.showCost || 0,
-            '€'
-          )}
-        </td>
+        <td>{accounting.formatMoney(state.showsCost || 0, '€')}</td>
       </tr>
     </>
   )

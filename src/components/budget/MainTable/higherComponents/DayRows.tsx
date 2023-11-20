@@ -28,16 +28,16 @@ export const DayRows = ({ day, pax, isFirstDay, isLastDay }: DayRowsProps) => {
         date={day.date}
         pax={pax}
       />
-      <LunchSection lunch={day.lunch.restaurants} date={day.date} pax={pax} />
+      <LunchSection lunch={day.lunch?.restaurants} date={day.date} pax={pax} />
       <AfternoonSection
-        events={day.afternoonEvents.events}
+        events={day.afternoonEvents?.events}
         meetings={day.afternoonMeetings?.meetings || []}
         fullDayMeetings={day.fullDayMeetings?.meetings || []}
         date={day.date}
         pax={pax}
       />
       <DinnerSection
-        dinners={day.dinner.restaurants}
+        dinners={day.dinner?.restaurants}
         date={day.date}
         pax={pax}
       />

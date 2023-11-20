@@ -17,7 +17,6 @@ export const MorningSection = ({
   pax
 }: MorningSectionProps) => {
   const [selectedEvent, setSelectedEvent] = useState<IEvent>(events[0])
-  console.log('meetings', meetings)
   return (
     <>
       <EventTransferRow

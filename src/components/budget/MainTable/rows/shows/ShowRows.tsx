@@ -1,23 +1,15 @@
 import { useState } from 'react'
 import { EntertainmentSummaryRow } from './EntertainmentSummaryRow'
-import { IEntertainment, IRestaurant } from '../../../../../interfaces'
+import { IEntertainment } from '../../../../../interfaces'
 import { EntertainmentBreakdownRows } from './EntertainmentBreakdownRows'
 
 interface Props {
   date: string
   entertainment: IEntertainment[]
-  selectedRestaurant: IRestaurant
-  title: string
   typeOfEvent: 'lunch' | 'dinner'
 }
 
-export const ShowRows = ({
-  date,
-  entertainment,
-  selectedRestaurant,
-  title,
-  typeOfEvent
-}: Props) => {
+export const ShowRows = ({ date, entertainment, typeOfEvent }: Props) => {
   if (!entertainment) return
   const [isOpen, setIsOpen] = useState<boolean>(false)
   return (
@@ -25,8 +17,6 @@ export const ShowRows = ({
       <EntertainmentSummaryRow
         date={date}
         entertainment={entertainment}
-        selectedRestaurant={selectedRestaurant}
-        title={title}
         typeOfEvent={typeOfEvent}
         isOpen={isOpen}
         setIsOpen={setIsOpen}

@@ -18,15 +18,17 @@ export const PartialCosts = ({ colorPalette = [] }: PartialCostsProps) => {
   return (
     <div className='flex flex-row items-center justify-center'>
       <div className='mt-10 w-2/3'>
-        {costItems.map((item: ICostItem) => (
-          <CostItem
-            key={item.title}
-            icon={item.icon}
-            title={item.title as TranslationKeys}
-            cost={item.cost || 0}
-            color={iconColor}
-          />
-        ))}
+        {costItems
+          ?.filter((item) => item?.cost !== 0)
+          .map((item: ICostItem) => (
+            <CostItem
+              key={item.title}
+              icon={item.icon}
+              title={item.title as TranslationKeys}
+              cost={item.cost || 0}
+              color={iconColor}
+            />
+          ))}
       </div>
       <div className='w-1/3 hidden md:flex md:justify-center md:items-center'>
         <Doughnut data={data} className='flex-shrink-0' />

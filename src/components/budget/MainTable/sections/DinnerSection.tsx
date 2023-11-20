@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { IEvent, IRestaurant } from '../../../../interfaces'
 import { VenueSummaryRow } from '../rows/venue'
 import { ShowRows } from '../rows/shows/ShowRows'
 import { DinnerRow, EventTransferRow } from '../rows/meals_activities'
+import { UPDATE_PROGRAM_SHOWS_COST } from '../../context/budgetReducer'
+import { useContextBudget } from '../../context/BudgetContext'
 
 interface DinnerSectionProps {
   dinners: IRestaurant[]
@@ -12,6 +14,7 @@ interface DinnerSectionProps {
 
 export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
   const [selectedEvent, setSelectedEvent] = useState<IRestaurant>(dinners[0])
+  const { dispatch } = useContextBudget()
   const noDinner = dinners.length === 0
   if (noDinner) return null
 
@@ -25,6 +28,21 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
     ) as IRestaurant
     setSelectedRestaurant(selectedVenue)
   }
+
+  const shouldRenderEntertainmentRow = selectedRestaurant?.entertainment?.length
+
+  useEffect(() => {
+    if (!shouldRenderEntertainmentRow) {
+      dispatch({
+        type: UPDATE_PROGRAM_SHOWS_COST,
+        payload: {
+          date,
+          show: null,
+          type: 'dinner'
+        }
+      })
+    }
+  }, [shouldRenderEntertainmentRow, dispatch, date])
 
   const renderDinnerRow = (dinners: IRestaurant[]) => {
     if (dinners.every((dinner) => !dinner.isVenue))
@@ -64,8 +82,6 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
         <ShowRows
           date={date}
           entertainment={selectedRestaurant.entertainment}
-          selectedRestaurant={selectedRestaurant}
-          title='Entertainment @ Venue'
           typeOfEvent='dinner'
         />
       )
