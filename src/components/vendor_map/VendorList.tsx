@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { CoordItem } from './MapLogic'
 
 interface Props {

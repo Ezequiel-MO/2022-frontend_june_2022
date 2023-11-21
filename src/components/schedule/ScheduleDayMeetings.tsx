@@ -1,5 +1,5 @@
 import { IMeeting } from '../../interfaces'
-import { Meetings } from './Meetings'
+import { MeetingCards } from './MeetingCards'
 
 interface Props {
   id: string
@@ -23,7 +23,9 @@ export const ScheduleDayMeetings = ({
   }
   return (
     <div id={id} className='page-break-after'>
-      <Meetings meetings={meetings} timing={timing} />
+      {meetings?.map((meeting) => (
+        <MeetingCards key={meeting._id} meeting={meeting} timing={timing} />
+      ))}
     </div>
   )
 }

@@ -5,6 +5,8 @@ import { HotelCards } from './HotelCards'
 import { TabContent } from '../atoms'
 import { TabList } from '../molecules'
 import { IHotel, IProject } from '../../interfaces'
+import { useContextBudget } from '../budget/context/BudgetContext'
+import { SET_SELECTED_HOTEL } from '../budget/context/budgetReducer'
 
 interface Props {
   hotels: IHotel[]
@@ -13,6 +15,7 @@ interface Props {
 export const Hotels: React.FC<Props> = ({ hotels }) => {
   const { activeTab, setActiveTab } = useActiveTab()
   const { currentProject } = useCurrentProject() as { currentProject: IProject }
+  const { dispatch } = useContextBudget()
   const { suplementaryText } = currentProject
 
   const hotelsTabItems = useMemo(
@@ -26,6 +29,18 @@ export const Hotels: React.FC<Props> = ({ hotels }) => {
       <h3 className='italic m-2'>No accommodation added to the budget</h3>
     )
 
+  const handleTabClick = (id: string) => {
+    const hotel = hotels?.find((hotel) => hotel._id === id)
+    if (hotel) {
+      dispatch({
+        type: SET_SELECTED_HOTEL,
+        payload: {
+          selectedHotel: hotel
+        }
+      })
+    }
+  }
+
   const renderHotels = () => (
     <div className='w-full'>
       <TabList
@@ -33,6 +48,7 @@ export const Hotels: React.FC<Props> = ({ hotels }) => {
         type='hotel'
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        onTabClick={handleTabClick}
       />
       <div className='relative flex flex-col min-w-0 break-words w-full mb-6 rounded'>
         <div className='py-5 flex-auto'>

@@ -1,4 +1,6 @@
 import { Link } from 'react-scroll'
+import { useContextBudget } from '../../budget/context/BudgetContext'
+import { SET_SELECTED_HOTEL } from '../../budget/context/budgetReducer'
 
 export const HotelSubtitles = ({
   title,
@@ -9,6 +11,17 @@ export const HotelSubtitles = ({
   handleChange
 }) => {
   if (!hotels?.length) return null
+  const { dispatch } = useContextBudget()
+
+  const handleSelectedHotel = (index, hotel) => {
+    dispatch({
+      type: SET_SELECTED_HOTEL,
+      payload: {
+        selectedHotel: hotel
+      }
+    })
+    handleChange(index + 1)
+  }
 
   return (
     <div
@@ -33,7 +46,7 @@ export const HotelSubtitles = ({
               offset={-100}
             >
               <p
-                onClick={() => handleChange(index + 1)}
+                onClick={() => handleSelectedHotel(index, hotel)}
                 className={`font-body ${
                   activeTab === index + 1
                     ? 'text-gray-700 dark:text-slate-50'

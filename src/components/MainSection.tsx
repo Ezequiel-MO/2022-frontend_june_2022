@@ -12,7 +12,6 @@ import { Budget } from './budget/MainTable/higherComponents'
 import { PartialCosts } from './budget/partial-costs'
 import { exportTableToExcel } from './budget/MainTable/higherComponents/exportTableToExcel'
 import { Gifts } from './gifts/Gifts'
-import { BudgetProvider } from './budget/context/BudgetContext'
 
 interface MainSectionProps {
   setIconColor: React.Dispatch<React.SetStateAction<string>>
@@ -102,10 +101,9 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
                 <span>Export to Excel</span>
               </button>
             </div>
-            <BudgetProvider>
-              <Budget ref={componentRef} />
-              <PartialCosts colorPalette={colorPalette} />
-            </BudgetProvider>
+
+            <Budget ref={componentRef} />
+            <PartialCosts colorPalette={colorPalette} />
           </div>
         ) : budget === 'budgetAsPdf' ? (
           <div>
