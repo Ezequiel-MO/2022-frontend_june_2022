@@ -75,7 +75,7 @@ export const budgetReducer = (
     case UPDATE_TRANSFERS_OUT_COST: {
       let cost = 0
       const { transfer_out } = action.payload
-      cost = transfer_out.reduce(
+      cost = transfer_out?.reduce(
         (acc, item) => acc + (item.transfer_out || 0),
         0
       )
