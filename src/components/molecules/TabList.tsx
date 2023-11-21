@@ -12,13 +12,15 @@ type TabListProps = {
   type: string
   activeTab: number
   setActiveTab: (index: number) => void
+  onTabClick: (id: string) => void
 }
 
 export const TabList = ({
   tabListItems,
   type,
   activeTab,
-  setActiveTab
+  setActiveTab,
+  onTabClick
 }: TabListProps) => {
   const ref = useRef<HTMLUListElement>(null)
 
@@ -46,14 +48,15 @@ export const TabList = ({
   return (
     <ul className='flex flex-wrap gap-1 md:gap-2 py-4 pl-4 tab-list' ref={ref}>
       {tabListItems.map((tabListItem, index) => (
-        <TabItem
-          key={tabListItem._id}
-          tabListItem={tabListItem}
-          type={type}
-          index={index}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-        />
+        <div key={tabListItem._id} onClick={() => onTabClick(tabListItem._id)}>
+          <TabItem
+            tabListItem={tabListItem}
+            type={type}
+            index={index}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
+        </div>
       ))}
       <span
         style={{

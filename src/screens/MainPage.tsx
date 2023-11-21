@@ -3,6 +3,7 @@ import { Footer, MainSection, Sidebar, SidebarSmall } from '../components'
 import { useCurrentProject } from '../hooks'
 import { TranslationProvider } from '../translations/translationContext'
 import { IProject } from '../interfaces'
+import { BudgetProvider } from '../components/budget/context/BudgetContext'
 
 export const MainPage: FC = () => {
   const [isMainSectionReady, setIsMainSectionReady] = useState(false)
@@ -41,36 +42,38 @@ export const MainPage: FC = () => {
   }, [])
 
   return (
-    <TranslationProvider quoteLanguage={quoteLanguage}>
-      <div className='flex flex-col'>
-        <SidebarSmall
-          mainSectionRef={mainSectionRef}
-          iconColor={iconColor}
-          isReady={isMainSectionReady}
-        />
+    <BudgetProvider>
+      <TranslationProvider quoteLanguage={quoteLanguage}>
+        <div className='flex flex-col'>
+          <SidebarSmall
+            mainSectionRef={mainSectionRef}
+            iconColor={iconColor}
+            isReady={isMainSectionReady}
+          />
 
-        <div className='grid grid-cols-12'>
-          {hasSideMenu ? (
-            <div className={`col-span-2`}>
-              <Sidebar isSticky={isSticky} />
+          <div className='grid grid-cols-12'>
+            {hasSideMenu ? (
+              <div className={`col-span-2`}>
+                <Sidebar isSticky={isSticky} />
+              </div>
+            ) : (
+              <div className='col-span-2' />
+            )}
+            <div
+              ref={mainSectionParentRef}
+              className='col-span-10 lg:col-span-8 transition-all duration-300'
+            >
+              <MainSection
+                ref={mainSectionRef}
+                setIconColor={setIconColor}
+                onReady={setIsMainSectionReady}
+                parentWidth={parentWidth}
+              />
             </div>
-          ) : (
-            <div className='col-span-2' />
-          )}
-          <div
-            ref={mainSectionParentRef}
-            className='col-span-10 lg:col-span-8 transition-all duration-300'
-          >
-            <MainSection
-              ref={mainSectionRef}
-              setIconColor={setIconColor}
-              onReady={setIsMainSectionReady}
-              parentWidth={parentWidth}
-            />
           </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    </TranslationProvider>
+      </TranslationProvider>
+    </BudgetProvider>
   )
 }
