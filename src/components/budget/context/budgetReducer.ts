@@ -79,7 +79,7 @@ export const budgetReducer = (
         (acc, item) => acc + (item.transfer_out || 0),
         0
       )
-      if (transfer_out.length > 0) {
+      if (transfer_out?.length > 0) {
         const firstItem = transfer_out[0]
         cost +=
           (firstItem.assistance || 0) * (firstItem.assistanceCost || 0) +
