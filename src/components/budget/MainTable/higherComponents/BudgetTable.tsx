@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Table } from '@mui/material'
 import { BudgetTableHead, DayRows } from '.'
 import { HotelRows } from '../rows/hotel'
@@ -10,9 +10,13 @@ import {
   UPDATE_TRANSFERS_OUT_COST
 } from '../../context/budgetReducer'
 import { GiftsRow } from '../rows/gift/GiftsRow'
+import { useCurrentProject } from '../../../../hooks'
+import { OvernightRows } from '../rows/hotel/OvernightRows'
 
 export const BudgetTable = () => {
   const { state, dispatch } = useContextBudget()
+  const { currentProject } = useCurrentProject()
+  const { multiDestination } = currentProject
 
   useEffect(() => {
     dispatch({
@@ -38,15 +42,20 @@ export const BudgetTable = () => {
     >
       <BudgetTableHead />
       <tbody>
-        <HotelRows hotels={state.hotels} />
+        {!multiDestination && <HotelRows hotels={state.hotels} />}
         {state.schedule?.map((day: IDay, index: number) => (
-          <DayRows
-            key={day._id}
-            day={day}
-            pax={state.nrPax}
-            isFirstDay={index === 0}
-            isLastDay={index === state.schedule.length - 1}
-          />
+          <React.Fragment key={day._id}>
+            <DayRows
+              day={day}
+              pax={state.nrPax}
+              isFirstDay={index === 0}
+              isLastDay={index === state.schedule.length - 1}
+              multiDestination={multiDestination}
+            />
+            {multiDestination && (
+              <OvernightRows date={day.date} hotels={day.overnight?.hotels} />
+            )}
+          </React.Fragment>
         ))}
         <GiftsRow nrPax={state.nrPax} />
         <TotalBudgetCost />

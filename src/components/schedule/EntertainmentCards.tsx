@@ -36,6 +36,9 @@ export const EntertainmentCards: React.FC<Props> = ({
         type='entertainment'
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        onTabClick={function (id: string): void {
+          console.log('function not implemented yet')
+        }}
       />
 
       <div className='entertainment-cards-content'>

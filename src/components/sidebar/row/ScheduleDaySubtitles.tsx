@@ -1,6 +1,13 @@
 import { Link } from 'react-scroll'
 import { useTranslation } from '../../../translations/translationContext'
-import { IDay, IEvent, IMeeting, IRestaurant } from '../../../interfaces'
+import {
+  IDay,
+  IEvent,
+  IHotel,
+  IMeeting,
+  IRestaurant
+} from '../../../interfaces'
+import { useCurrentProject } from '../../../hooks'
 
 interface Props {
   day: IDay
@@ -31,9 +38,12 @@ const SectionLink = ({
 
 export const ScheduleDaySubtitles = ({ day, menuOpen, setMenuOpen }: Props) => {
   const { t } = useTranslation()
+  const { currentProject } = useCurrentProject()
+  const { multiDestination } = currentProject
 
-  const hasEvents = (events: IEvent[] | IRestaurant[] | IMeeting[]): boolean =>
-    events && events.length > 0
+  const hasEvents = (
+    events: IEvent[] | IRestaurant[] | IMeeting[] | IHotel[]
+  ): boolean => events && events.length > 0
 
   if (
     !hasEvents(day.morningEvents.events) &&
@@ -42,7 +52,8 @@ export const ScheduleDaySubtitles = ({ day, menuOpen, setMenuOpen }: Props) => {
     !hasEvents(day.afternoonEvents.events) &&
     !hasEvents(day.afternoonMeetings.meetings) &&
     !hasEvents(day.dinner.restaurants) &&
-    !hasEvents(day.fullDayMeetings.meetings)
+    !hasEvents(day.fullDayMeetings.meetings) &&
+    !hasEvents(day.overnight.hotels)
   ) {
     return null
   }
@@ -89,6 +100,11 @@ export const ScheduleDaySubtitles = ({ day, menuOpen, setMenuOpen }: Props) => {
       {hasEvents(day.fullDayMeetings.meetings) && (
         <SectionLink date={day.date} section='fullday-meetings'>
           Full Day Meetings
+        </SectionLink>
+      )}
+      {multiDestination && hasEvents(day.overnight.hotels) && (
+        <SectionLink date={day.date} section='overnight'>
+          Overnight Accommodation
         </SectionLink>
       )}
     </div>

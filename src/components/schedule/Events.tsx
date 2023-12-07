@@ -29,6 +29,9 @@ export const Events = ({ events }: Props) => {
             type='event'
             activeTab={openTab}
             setActiveTab={setOpenTab}
+            onTabClick={function (id: string): void {
+              console.log('function not implemented')
+            }}
           />
 
           <div className='relative flex flex-col min-w-0 break-words w-full mb-6 rounded'>

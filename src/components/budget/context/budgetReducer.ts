@@ -1,3 +1,4 @@
+import { IHotel } from '../../../interfaces'
 import { BudgetActions, BudgetState } from './interfaces'
 
 export const SET_BUDGET = 'SET_BUDGET'
@@ -10,10 +11,26 @@ export const UPDATE_PROGRAM_MEALS_COST = 'UPDATE_PROGRAM_MEALS_COST'
 export const UPDATE_PROGRAM_ACTIVITIES_COST = 'UPDATE_PROGRAM_ACTIVITIES_COST'
 export const UPDATE_PROGRAM_MEETINGS_COST = 'UPDATE_PROGRAM_MEETINGS_COST'
 export const UPDATE_PROGRAM_SHOWS_COST = 'UPDATE_PROGRAM_SHOWS_COST'
+export const UPDATE_OVERNIGHT_COST = 'UPDATE_OVERNIGHT_COST'
 
 interface TransferEntry {
   transferCost: number
   assistanceCost: number
+}
+
+const calculateHotelCost = (hotel: IHotel, nights: number) => {
+  const firstPrice = hotel && hotel?.price[0]
+
+  const hotelCost =
+    nights *
+    ((firstPrice.DUInr ?? 0) * (firstPrice.DUIprice ?? 0) +
+      (firstPrice.DoubleRoomNr ?? 0) * (firstPrice.DoubleRoomPrice ?? 0) +
+      (firstPrice.breakfast ?? 0) * (firstPrice.DUInr ?? 0) +
+      (firstPrice.breakfast ?? 0) * (firstPrice.DoubleRoomNr ?? 0) * 2 +
+      (firstPrice.DailyTax ?? 0) * (firstPrice.DUInr ?? 0) +
+      (firstPrice.DailyTax ?? 0) * (firstPrice.DoubleRoomNr ?? 0) * 2)
+
+  return hotelCost
 }
 
 export const budgetReducer = (
@@ -37,16 +54,7 @@ export const budgetReducer = (
           selectedHotelCost: 0
         }
       }
-      const firstPrice = price[0]
-
-      cost =
-        nights *
-        ((firstPrice.DUInr ?? 0) * (firstPrice.DUIprice ?? 0) +
-          (firstPrice.DoubleRoomNr ?? 0) * (firstPrice.DoubleRoomPrice ?? 0) +
-          (firstPrice.breakfast ?? 0) * (firstPrice.DUInr ?? 0) +
-          (firstPrice.breakfast ?? 0) * (firstPrice.DoubleRoomNr ?? 0) * 2 +
-          (firstPrice.DailyTax ?? 0) * (firstPrice.DUInr ?? 0) +
-          (firstPrice.DailyTax ?? 0) * (firstPrice.DoubleRoomNr ?? 0) * 2)
+      cost = calculateHotelCost(selectedHotel, nights)
 
       return {
         ...state,
@@ -211,7 +219,6 @@ export const budgetReducer = (
         activitiesCost: totalActivitiesCost
       }
     }
-
     case UPDATE_PROGRAM_MEETINGS_COST: {
       const { date, meeting, type, pax } = action.payload
 
@@ -266,7 +273,6 @@ export const budgetReducer = (
         meetingsCost: totalMeetingsCost
       }
     }
-
     case UPDATE_PROGRAM_SHOWS_COST: {
       const { date, show, type } = action.payload
 
@@ -302,6 +308,30 @@ export const budgetReducer = (
         ...state,
         shows: updatedShows,
         showsCost: cost
+      }
+    }
+    case UPDATE_OVERNIGHT_COST: {
+      const { date, hotel } = action.payload
+      const hotelCost = hotel ? calculateHotelCost(hotel, 1) : 0
+
+      const updatedOvernight = {
+        ...state.overnight,
+        [date]: {
+          ...state.overnight[date],
+          hotel,
+          hotelCost
+        }
+      }
+
+      const totalCost = Object.values(updatedOvernight).reduce(
+        (acc, day) => acc + day.hotelCost,
+        0
+      )
+
+      return {
+        ...state,
+        overnight: updatedOvernight,
+        overnightCost: totalCost
       }
     }
 

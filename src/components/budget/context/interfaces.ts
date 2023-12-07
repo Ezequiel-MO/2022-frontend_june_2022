@@ -16,7 +16,8 @@ import {
   SET_SELECTED_HOTEL_COST,
   UPDATE_TRANSFERS_IN_COST,
   UPDATE_TRANSFERS_OUT_COST,
-  UPDATE_PROGRAM_SHOWS_COST
+  UPDATE_PROGRAM_SHOWS_COST,
+  UPDATE_OVERNIGHT_COST
 } from './budgetReducer'
 
 export interface BudgetState {
@@ -46,6 +47,13 @@ export interface BudgetState {
     }
   }
   meetingsCost: number
+  overnight: {
+    [key: string]: {
+      hotel: IHotel | null
+      hotelCost: number
+    }
+  }
+  overnightCost: number
   shows: {
     [key: string]: {
       lunch?: IEntertainment
@@ -150,6 +158,14 @@ export type UpdateShowsCost = {
   }
 }
 
+export type UpdateOvernightCost = {
+  type: typeof UPDATE_OVERNIGHT_COST
+  payload: {
+    date: string
+    hotel: IHotel | null
+  }
+}
+
 export type BudgetActions =
   | SetSelectedHotelAction
   | SetSelectedHotelCostAction
@@ -160,3 +176,4 @@ export type BudgetActions =
   | UpdateActivitiesCost
   | UpdateMeetingsCost
   | UpdateShowsCost
+  | UpdateOvernightCost

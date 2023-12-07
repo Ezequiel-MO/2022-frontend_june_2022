@@ -1,6 +1,18 @@
-import { HotelSubtitles, ScheduleSubtitles } from '../'
+import { HotelSubtitles, ScheduleSubtitles } from '..'
+import { IDay, IHotel } from '../../../interfaces'
 
-export const SidebarSubtitles = ({
+interface Props {
+  title: string
+  menuOpen: boolean
+  setMenuOpen: (open: boolean) => void
+  hotels: IHotel[]
+  activeTab: number
+  handleChange: (newTab: number) => void
+  schedule: IDay[]
+  isSidebarVisible: boolean
+}
+
+export const SidebarSubtitles: React.FC<Props> = ({
   title,
   menuOpen,
   setMenuOpen,
@@ -11,6 +23,7 @@ export const SidebarSubtitles = ({
   isSidebarVisible
 }) => {
   if (!isSidebarVisible) return
+
   return (
     <>
       <HotelSubtitles

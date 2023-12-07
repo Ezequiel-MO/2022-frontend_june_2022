@@ -8,6 +8,7 @@ interface MeetingSectionProps {
   date: string
   pax: number
   type: 'morning' | 'afternoon' | 'full_day'
+  id: 'morningMeetings' | 'afternoonMeetings' | 'fullDayMeetings'
 }
 
 export const MeetingSection = ({

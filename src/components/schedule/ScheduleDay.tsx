@@ -3,6 +3,7 @@ import { DateHeader } from './ScheduleDayDateHeader'
 import { ScheduleDayEvents } from './ScheduleDayEvents'
 import { ScheduleDayMeals } from './ScheduleDayMeals'
 import { ScheduleDayMeetings } from './ScheduleDayMeetings'
+import { ScheduleDayOvernight } from './ScheduleDayOvernight'
 
 interface Props {
   day: IDay
@@ -24,7 +25,8 @@ export const ScheduleDay = ({
     afternoonEvents,
     afternoonMeetings,
     dinner,
-    fullDayMeetings
+    fullDayMeetings,
+    overnight
   } = day
 
   return (
@@ -74,11 +76,16 @@ export const ScheduleDay = ({
           suplementaryText={suplementaryText}
         />
         <ScheduleDayMeetings
+          id={`${day.date}-fullday-meetings`}
           title='Full Day Meeting'
           meetings={fullDayMeetings.meetings}
           timing='Full Day'
           suplementaryText={suplementaryText}
-          id={`${day.date}-fullday-meetings`}
+        />
+        <ScheduleDayOvernight
+          id={`${day.date}-overnight`}
+          introduction={overnight.intro}
+          overnight={overnight.hotels}
         />
       </div>
 

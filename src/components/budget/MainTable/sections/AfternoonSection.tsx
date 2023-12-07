@@ -9,6 +9,7 @@ interface AfternoonSectionProps {
   fullDayMeetings: IMeeting[]
   date: string
   pax: number
+  multiDestination: boolean
 }
 
 export const AfternoonSection = ({
@@ -16,7 +17,8 @@ export const AfternoonSection = ({
   meetings,
   fullDayMeetings,
   date,
-  pax
+  pax,
+  multiDestination
 }: AfternoonSectionProps) => {
   const [selectedEvent, setSelectedEvent] = useState<IEvent>(events[0])
   return (
@@ -38,20 +40,24 @@ export const AfternoonSection = ({
           >
         }
       />
-      <MeetingSection
-        meetings={meetings}
-        date={date}
-        pax={pax}
-        typeOfMeetingProp='Afternoon Meeting'
-        id='afternoonMeetings'
-      />
-      <MeetingSection
-        meetings={fullDayMeetings}
-        date={date}
-        pax={pax}
-        typeOfMeetingProp='Full Day Meeting'
-        id='fullDayMeetings'
-      />
+      {!multiDestination && (
+        <>
+          <MeetingSection
+            meetings={meetings}
+            date={date}
+            pax={pax}
+            type='afternoon'
+            id='afternoonMeetings'
+          />
+          <MeetingSection
+            meetings={fullDayMeetings}
+            date={date}
+            pax={pax}
+            type='full_day'
+            id='fullDayMeetings'
+          />
+        </>
+      )}
     </>
   )
 }

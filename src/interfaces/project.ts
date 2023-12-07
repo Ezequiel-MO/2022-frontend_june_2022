@@ -10,6 +10,11 @@ import {
   IGift
 } from './'
 
+export interface IOvernight {
+  intro: string
+  hotels: IHotel[]
+}
+
 export interface IMeal {
   intro: string
   restaurants: IRestaurant[]
@@ -35,6 +40,7 @@ export interface IDay {
   afternoonEvents: IActivity
   lunch: IMeal
   dinner: IMeal
+  overnight: IOvernight
   transfer_in: ITransfer[]
   transfer_out: ITransfer[]
 }
@@ -49,6 +55,7 @@ export interface IProject {
   departureDay: string
   nrPax: number
   projectIntro: string[]
+  multiDestination: boolean
   suplementaryText: boolean
   hotels: IHotel[]
   status: 'Received' | 'Sent' | 'Confirmed' | 'Cancelled' | 'Invoiced'
