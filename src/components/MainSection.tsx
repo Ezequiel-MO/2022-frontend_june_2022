@@ -32,7 +32,8 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
       gifts,
       clientCompany,
       budget,
-      imageContentUrl
+      imageContentUrl,
+      multiDestination
     } = currentProject
     const { t } = useTranslation()
 
@@ -72,7 +73,8 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
         {hasMeaningfulText(projectIntro[0]) && (
           <RichParagraph text={projectIntro[0]} />
         )}
-        <Hotels hotels={hotels} />
+        {!multiDestination && <Hotels hotels={hotels} />}
+
         <Schedule />
         <Gifts gifts={gifts} />
         {budget === 'budget' ? (

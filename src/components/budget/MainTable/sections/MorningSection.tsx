@@ -8,13 +8,15 @@ interface MorningSectionProps {
   meetings: IMeeting[]
   date: string
   pax: number
+  multiDestination: boolean
 }
 
 export const MorningSection = ({
   events,
   meetings,
   date,
-  pax
+  pax,
+  multiDestination
 }: MorningSectionProps) => {
   const [selectedEvent, setSelectedEvent] = useState<IEvent>(events[0])
   return (
@@ -36,12 +38,14 @@ export const MorningSection = ({
           >
         }
       />
-      <MeetingSection
-        meetings={meetings}
-        date={date}
-        pax={pax}
-        type='morning'
-      />
+      {!multiDestination && (
+        <MeetingSection
+          meetings={meetings}
+          date={date}
+          pax={pax}
+          type='morning'
+        />
+      )}
     </>
   )
 }

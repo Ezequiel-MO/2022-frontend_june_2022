@@ -22,6 +22,8 @@ const initialState: BudgetState = {
   mealsCost: 0,
   meetings: {},
   meetingsCost: 0,
+  overnight: {},
+  overnightCost: 0,
   shows: {},
   showsCost: 0,
   programTransfers: {},

@@ -3,7 +3,6 @@ import { useCurrentProject } from '../../hooks'
 import { SidebarRow } from '.'
 import { IProject } from '../../interfaces'
 import { checkDayIsEmpty } from '../../helpers/checkEmptyDay'
-
 import { SidebarToggleButton } from '../atoms/SidebarToggleButton'
 
 interface SidebarProps {
@@ -13,7 +12,7 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ isSticky }) => {
   const stickyClass = isSticky ? 'sticky top-10' : ''
   const { currentProject } = useCurrentProject() as { currentProject: IProject }
-  const { schedule, budget, hotels } = currentProject
+  const { schedule, budget, hotels, multiDestination } = currentProject
   const [isSidebarVisible, setIsSidebarVisible] = useState(() => {
     const saved = localStorage.getItem('sidebarVisible')
     return saved ? JSON.parse(saved) : true
@@ -35,7 +34,7 @@ const Sidebar: FC<SidebarProps> = ({ isSticky }) => {
         />
       </div>
       <div className='flex flex-col items-center px-4 md:items-start'>
-        {hotels && hotels.length > 0 && (
+        {hotels && hotels.length > 0 && !multiDestination && (
           <SidebarRow
             iconText='bx:hotel'
             title='hotels'

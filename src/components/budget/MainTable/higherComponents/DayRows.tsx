@@ -1,4 +1,5 @@
 import { IDay } from '../../../../interfaces'
+import { HotelRows } from '../rows/hotel'
 
 import {
   AfternoonSection,
@@ -14,9 +15,16 @@ interface DayRowsProps {
   pax: number
   isFirstDay: boolean
   isLastDay: boolean
+  multiDestination: boolean
 }
 
-export const DayRows = ({ day, pax, isFirstDay, isLastDay }: DayRowsProps) => {
+export const DayRows = ({
+  day,
+  pax,
+  isFirstDay,
+  isLastDay,
+  multiDestination
+}: DayRowsProps) => {
   return (
     <>
       {isFirstDay && (
@@ -27,6 +35,7 @@ export const DayRows = ({ day, pax, isFirstDay, isLastDay }: DayRowsProps) => {
         meetings={day.morningMeetings?.meetings || []}
         date={day.date}
         pax={pax}
+        multiDestination={multiDestination}
       />
       <LunchSection lunch={day.lunch?.restaurants} date={day.date} pax={pax} />
       <AfternoonSection
@@ -35,6 +44,7 @@ export const DayRows = ({ day, pax, isFirstDay, isLastDay }: DayRowsProps) => {
         fullDayMeetings={day.fullDayMeetings?.meetings || []}
         date={day.date}
         pax={pax}
+        multiDestination={multiDestination}
       />
       <DinnerSection
         dinners={day.dinner?.restaurants}

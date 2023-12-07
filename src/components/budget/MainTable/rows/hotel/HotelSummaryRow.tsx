@@ -8,6 +8,7 @@ import {
   SET_SELECTED_HOTEL_COST
 } from '../../../context/budgetReducer'
 import { ToggleTableRowIcon } from '../../../../atoms'
+import { useCurrentProject } from '../../../../../hooks'
 
 interface HotelSummaryRowProps {
   hotels: IHotel[]
@@ -21,6 +22,8 @@ export const HotelSummaryRow = ({
   setIsOpen
 }: HotelSummaryRowProps) => {
   const { state, dispatch } = useContextBudget()
+  const { currentProject } = useCurrentProject()
+  const { multiDestination } = currentProject
   const hotelName = state.selectedHotel?.name
 
   useEffect(() => {
@@ -57,7 +60,7 @@ export const HotelSummaryRow = ({
   return (
     <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
       <ToggleTableRowIcon isOpen={isOpen} toggle={toggleBreakdown} />
-      <td></td>
+      <td>{multiDestination ? 'Overnight @' : null}</td>
       <td>
         {hotels.length === 1 ? (
           `${hotelName}`

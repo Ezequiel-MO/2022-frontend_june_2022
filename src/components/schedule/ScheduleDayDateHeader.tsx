@@ -1,5 +1,6 @@
 import { useCurrentProject } from '../../hooks'
 import { IProject } from '../../interfaces'
+import { TranslationKeys } from '../../interfaces/translations'
 import { useTranslation } from '../../translations/translationContext'
 import { convertDate } from './helpers'
 
@@ -19,7 +20,7 @@ export const DateHeader = ({ date, index, arrivalDay }: Props) => {
 
   return (
     <h2 className='text-lg md:text-xl my-4 font-extrabold' id={`day_${index}`}>
-      {t(date)} - {formattedDate}
+      {t(date as TranslationKeys)} - {formattedDate}
     </h2>
   )
 }
