@@ -9,6 +9,6 @@ export default defineConfig({
     environment: 'happy-dom'
   },
   build: {
-    chunkSizeWarningLimit: 1600
+    chunkSizeWarningLimit: 1800
   }
 })
