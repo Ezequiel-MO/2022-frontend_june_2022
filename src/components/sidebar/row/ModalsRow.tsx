@@ -1,6 +1,7 @@
 import { Icon } from '@iconify/react'
 import { useCurrentProject } from '../../../hooks'
 import { useTranslation } from '../../../translations/translationContext'
+import { TranslationKeys } from '../../../interfaces/translations'
 
 type ModalType = 'overview' | 'map' | 'destination'
 
@@ -16,7 +17,7 @@ export const ModalsRow = ({ iconText, title, handleOpen }: Props) => {
   const { colorPalette = [] } = clientCompany[0] || {}
   const { t } = useTranslation()
 
-  const translatedTitle = t(title)
+  const translatedTitle = t(title as TranslationKeys)
 
   return (
     <div
@@ -28,10 +29,14 @@ export const ModalsRow = ({ iconText, title, handleOpen }: Props) => {
     >
       <Icon
         icon={iconText}
-        color={`${colorPalette.length > 0 ? colorPalette[2] : '#ea5933'}`}
+        className={`${
+          colorPalette.length > 0
+            ? `text-[${colorPalette[2]}]`
+            : 'text-primary dark:text-tertiary'
+        }`}
         width='40'
       />
-      <p className='group-hover:text-orange-50 hidden md:inline-flex text-base lg:text-lg'>
+      <p className='group-hover:text-secondary hidden md:inline-flex text-base lg:text-lg'>
         {translatedTitle?.replace(/^\w/, (c: string) => c.toUpperCase())}
       </p>
     </div>

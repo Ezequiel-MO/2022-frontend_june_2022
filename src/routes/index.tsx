@@ -4,6 +4,7 @@ import { AuthLayout, ProtectedRoute } from '../layouts'
 import { Credentials, Destination, MainPage } from '../screens'
 import NotFound from '../ui/NotFound'
 import { ErrorPage } from './error-page'
+import { fetchSettings } from '../helpers/fetchSettings'
 
 export const router = createBrowserRouter([
   {
@@ -12,7 +13,8 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <LoginPage />
+        element: <LoginPage />,
+        loader: fetchSettings
       }
     ]
   },
@@ -23,7 +25,8 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MainPage />
+        element: <MainPage />,
+        loader: fetchSettings
       },
       {
         path: 'credentials',

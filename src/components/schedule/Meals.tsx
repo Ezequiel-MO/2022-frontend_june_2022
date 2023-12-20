@@ -29,6 +29,9 @@ export const Meals = ({ restaurants }: Props) => {
             type='restaurant'
             activeTab={openTab}
             setActiveTab={setOpenTab}
+            onTabClick={function (id: string): void {
+              console.log('tab list from meals')
+            }}
           />
 
           <div className='relative flex flex-col min-w-0 break-words w-full mb-6 rounded'>

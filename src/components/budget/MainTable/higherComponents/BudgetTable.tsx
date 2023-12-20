@@ -38,7 +38,7 @@ export const BudgetTable = () => {
       id='budget-table'
       stickyHeader
       size='small'
-      className='main-table text-left divide-y divide-gray-700 dark:divide-black-50 dark:bg-gray-50 text-sm'
+      className='main-table text-left divide-y divide-gray-300 dark:divide-black-50 dark:bg-gray-50 text-sm'
     >
       <BudgetTableHead />
       <tbody>

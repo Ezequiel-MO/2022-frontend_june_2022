@@ -7,7 +7,7 @@ module.exports = {
       xs: '.75rem',
       sm: '.875rem',
       tiny: '.875rem',
-      base: '1.05rem',
+      base: '1rem',
       lg: '1.125rem',
       xl: '1.25rem',
       '2xl': '1.5rem',
@@ -26,7 +26,7 @@ module.exports = {
       xl: '1280px'
     },
     fontFamily: {
-      body: ['Barlow Condensed', 'sans-serif'],
+      body: 'var(--font-family-body)',
       custom: ['inherit']
     },
     container: {
@@ -35,6 +35,9 @@ module.exports = {
     },
     extend: {
       colors: {
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
+        tertiary: 'var(--color-tertiary)',
         orange: {
           50: '#ea5933'
         },

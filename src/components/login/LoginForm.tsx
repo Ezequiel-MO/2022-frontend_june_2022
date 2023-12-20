@@ -33,7 +33,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
   return (
     <div className='w-[500px] mx-auto pt-5'>
       <h1 className='font-black text-4xl capitalize'>
-        Login <span className='text-orange-50'>to APP</span>
+        Login <span className='text-secondary'>to APP</span>
       </h1>
       {msg && <Alert alert={alert} />}
       <form
@@ -92,7 +92,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
         </div>
         <div className='flex items-center justify-between'>
           <button
-            className='my-5 text-white-100 bg-orange-50 w-full py-2 uppercase font-bold rounded hover:cursor-pointer hover:bg-white-100 hover:text-orange-50 transition-colors'
+            className='my-5 text-white-100 bg-primary w-full py-2 uppercase font-bold rounded hover:cursor-pointer hover:bg-white-100 hover:text-primary transition-colors'
             type='submit'
           >
             Sign In

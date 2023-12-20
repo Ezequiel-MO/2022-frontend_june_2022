@@ -20,7 +20,7 @@ export const BudgetTableHead: React.FC = () => {
   const { t } = useTranslation()
 
   return (
-    <thead className='bg-gradient-to-r from-[#a59f8c] via-orange-50 to-[#a59f8c] text-black-50 font-bold uppercase'>
+    <thead className='bg-primary text-black-50 font-bold uppercase'>
       <tr>
         <HeaderCell width='10%' className={backgroundColorClass} />
         <HeaderCell

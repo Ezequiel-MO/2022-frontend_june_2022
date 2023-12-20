@@ -44,7 +44,6 @@ const OTLogic = () => {
     }
   }
   const getDays = (date1: string, date2: string) => {
-    //get the day of the week for each date
     let day1 = new Date(date1).getUTCDay()
     let day2 = new Date(date2).getUTCDay()
 
@@ -70,7 +69,7 @@ const OTLogic = () => {
         })
       }
     })
-    return eventsArr
+    return eventsArr.filter((event) => event !== undefined)
   }
 
   const renderEvent = (arr: any[]) => {

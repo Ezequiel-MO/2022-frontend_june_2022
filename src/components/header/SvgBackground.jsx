@@ -9,7 +9,7 @@ export const SvgBackground = ({ hasExternalCorporateImage }) => {
           <svg
             fill='currentColor'
             viewBox='0 0 100 100'
-            className='absolute inset-y-0 z-20 h-full text-white-50'
+            className='absolute inset-y-0 z-20 h-full text-secondary'
           >
             <polygon id='diagonal' points='0,0 100,0 50,100 0,100'></polygon>
           </svg>

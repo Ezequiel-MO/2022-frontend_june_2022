@@ -31,6 +31,9 @@ export const Gifts = ({ gifts }: Props) => {
               type='gift'
               activeTab={activeTab}
               setActiveTab={setActiveTab}
+              onTabClick={function (id: string): void {
+                throw new Error('Function not implemented.')
+              }}
             />
             <div className='relative flex flex-col min-w-0 break-words w-full mb-6 rounded'>
               <div className='px-4 py-5 flex-auto'>

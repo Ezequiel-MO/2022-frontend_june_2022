@@ -11,14 +11,17 @@ import {
 } from '@mui/material'
 import { Link } from 'react-scroll'
 import OTLogic from './OTLogic'
-import { useCurrentProject } from '../../hooks'
+import { useCurrentProject, useLocalStorageItem } from '../../hooks'
+import { ISettings } from '../../interfaces/settings'
 
 const OverviewTable = () => {
   const { currentProject } = useCurrentProject()
   const { arrivalDay, departureDay, schedule, clientCompany } = currentProject
   const { fonts = [], colorPalette = [] } = clientCompany[0] || {}
+  const item = useLocalStorageItem('settings') as ISettings
+  const secondary = item?.colorPalette?.secundary
 
-  const iconColor = colorPalette.length > 0 ? colorPalette[2] : '#ea5933'
+  const iconColor = colorPalette.length > 0 ? colorPalette[2] : secondary
   const { transformDates, getDays, getEvents, renderEvent } = OTLogic()
   return (
     <TableContainer component={Paper}>
@@ -51,15 +54,18 @@ const OverviewTable = () => {
                 </span>
               </Typography>
             </TableCell>
-            {getEvents(schedule, 'morningEvents')?.map((event) => (
-              <TableCell key={event[0]?.id} className='cursor-pointer'>
+            {getEvents(schedule, 'morningEvents')?.map((event, index) => (
+              <TableCell
+                key={event ? event[0]?.id : index}
+                className='cursor-pointer'
+              >
                 <Link
-                  to={`${event[0]?.id}`}
+                  to={`${event && event[0]?.id}`}
                   spy={true}
                   smooth={true}
                   duration={500}
                 >
-                  {renderEvent(event)}
+                  {event && renderEvent(event)}
                 </Link>
               </TableCell>
             ))}
@@ -73,15 +79,18 @@ const OverviewTable = () => {
                 </span>
               </Typography>
             </TableCell>
-            {getEvents(schedule, 'lunch')?.map((event) => (
-              <TableCell key={event[0]?.id} className='cursor-pointer'>
+            {getEvents(schedule, 'lunch')?.map((event, index) => (
+              <TableCell
+                key={event ? event[0]?.id : index}
+                className='cursor-pointer'
+              >
                 <Link
-                  to={`${event[0]?.id}`}
+                  to={`${event && event[0]?.id}`}
                   spy={true}
                   smooth={true}
                   duration={500}
                 >
-                  {renderEvent(event)}
+                  {event && renderEvent(event)}
                 </Link>
               </TableCell>
             ))}
@@ -99,15 +108,18 @@ const OverviewTable = () => {
                 </span>
               </Typography>
             </TableCell>
-            {getEvents(schedule, 'afternoonEvents')?.map((event) => (
-              <TableCell key={event[0]?.id} className='cursor-pointer'>
+            {getEvents(schedule, 'afternoonEvents')?.map((event, index) => (
+              <TableCell
+                key={event ? event[0]?.id : index}
+                className='cursor-pointer'
+              >
                 <Link
-                  to={`${event[0]?.id}`}
+                  to={`${event && event[0]?.id}`}
                   spy={true}
                   smooth={true}
                   duration={500}
                 >
-                  {renderEvent(event)}
+                  {event && renderEvent(event)}
                 </Link>
               </TableCell>
             ))}
@@ -121,15 +133,18 @@ const OverviewTable = () => {
                 </span>
               </Typography>
             </TableCell>
-            {getEvents(schedule, 'dinner')?.map((event) => (
-              <TableCell key={event[0]?.id} className='cursor-pointer'>
+            {getEvents(schedule, 'dinner')?.map((event, index) => (
+              <TableCell
+                key={event ? event[0]?.id : index}
+                className='cursor-pointer'
+              >
                 <Link
-                  to={`${event[0]?.id}`}
+                  to={`${event && event[0]?.id}`}
                   spy={true}
                   smooth={true}
                   duration={500}
                 >
-                  {renderEvent(event)}
+                  {event && renderEvent(event)}
                 </Link>
               </TableCell>
             ))}

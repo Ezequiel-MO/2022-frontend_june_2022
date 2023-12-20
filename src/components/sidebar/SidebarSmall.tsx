@@ -3,10 +3,11 @@ import { ModalsRow } from '.'
 import CentralModal from '../modal/CentralModal'
 import ReactToPrint from 'react-to-print'
 import { Icon } from '@iconify/react'
-import { useCurrentProject } from '../../hooks'
+import { useCurrentProject, useLocalStorageItem } from '../../hooks'
 import { BackdropModal } from '../modal/BackdropModal'
 import { CitiesType, cities } from '../../constants/cities'
 import { IProject } from '../../interfaces'
+import { ISettings } from '../../interfaces/settings'
 
 interface SidebarSmallProps {
   mainSectionRef: RefObject<HTMLDivElement>
@@ -14,11 +15,7 @@ interface SidebarSmallProps {
   isReady: boolean
 }
 
-const SidebarSmall = ({
-  mainSectionRef,
-  iconColor,
-  isReady
-}: SidebarSmallProps) => {
+const SidebarSmall = ({ mainSectionRef, isReady }: SidebarSmallProps) => {
   const [modal, setModal] = useState<
     'closed' | 'overview' | 'map' | 'destination'
   >('closed')
@@ -32,17 +29,12 @@ const SidebarSmall = ({
   const { clientCompany, hasExternalCorporateImage, groupLocation } =
     currentProject
 
+  const item = useLocalStorageItem('settings', {}) as ISettings
+  const primary = item?.colorPalette?.primary
+
   const colorPalette = hasExternalCorporateImage
     ? clientCompany[0].colorPalette[0]
-    : '#EA5933'
-
-  const gradientStyle = {
-    background: `linear-gradient(90deg, #f0f9ff 0%, ${colorPalette} 50%, #e0fce9 100%)`,
-    height: '1rem',
-    marginTop: '0.5rem',
-    marginBottom: '0.5rem',
-    width: '100%'
-  }
+    : primary
 
   return (
     <div className='inline'>
@@ -72,8 +64,8 @@ const SidebarSmall = ({
               <button className='my-1 flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-green-50 hover:text-black-50 cursor-pointer transition-all duration-200'>
                 <Icon
                   icon='ant-design:printer-twotone'
-                  color={iconColor}
                   width='40'
+                  className='text-secondary'
                 />
                 Generate PDF
               </button>
@@ -82,7 +74,12 @@ const SidebarSmall = ({
           />
         )}
       </div>
-      <div style={gradientStyle}></div>
+      <div
+        style={{
+          background: `linear-gradient(90deg, #f0f9ff 0%, ${colorPalette} 50%, #e0fce9 100%)`
+        }}
+        className='h-4 mt-2 mb-2 w-full'
+      ></div>
       <CentralModal
         open={modal === 'overview'}
         handleClose={handleClose}
