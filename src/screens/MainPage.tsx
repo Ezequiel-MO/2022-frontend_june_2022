@@ -4,6 +4,7 @@ import { useCurrentProject } from '../hooks'
 import { TranslationProvider } from '../translations/translationContext'
 import { IProject } from '../interfaces'
 import { BudgetProvider } from '../components/budget/context/BudgetContext'
+import { current } from '@reduxjs/toolkit'
 
 export const MainPage: FC = () => {
   const [isMainSectionReady, setIsMainSectionReady] = useState(false)
@@ -40,6 +41,12 @@ export const MainPage: FC = () => {
     // Remove event listener on cleanup
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  useEffect(() => {
+    if (currentProject) {
+      localStorage.set('currentProject', currentProject)
+    }
+  }, [currentProject])
 
   return (
     <BudgetProvider>
