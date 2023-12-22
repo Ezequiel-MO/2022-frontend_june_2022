@@ -1,18 +1,9 @@
 import { Icon } from '@iconify/react'
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography
-} from '@mui/material'
-import { Link } from 'react-scroll'
 import OTLogic from './OTLogic'
 import { useCurrentProject, useLocalStorageItem } from '../../hooks'
 import { ISettings } from '../../interfaces/settings'
+
+type TimeOfDay = 'morningEvents' | 'afternoonEvents' | 'lunch' | 'dinner'
 
 const OverviewTable = () => {
   const { currentProject } = useCurrentProject()
@@ -23,136 +14,71 @@ const OverviewTable = () => {
 
   const iconColor = colorPalette.length > 0 ? colorPalette[2] : secondary
   const { transformDates, getDays, getEvents, renderEvent } = OTLogic()
+
   return (
-    <TableContainer component={Paper}>
-      <Table size='small'>
-        <TableHead>
-          <TableRow className='bg-brown-50'>
-            <TableCell>
-              <Typography variant='h6'>
-                {transformDates(arrivalDay, departureDay)}
-              </Typography>
-            </TableCell>
+    <div className='shadow-lg rounded-lg overflow-hidden bg-green-100 dark:bg-gray-800 text-black-50 dark:text-white-0'>
+      <table className='min-w-full leading-normal'>
+        <thead>
+          <tr className='bg-gray-100 dark:bg-gray-700 text-left'>
+            <th className='px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 text-sm'>
+              {transformDates(arrivalDay, departureDay)}
+            </th>
             {getDays(arrivalDay, departureDay).map((day) => (
-              <TableCell key={day}>
-                <Typography variant='h6'>{day}</Typography>
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell>
-              <Typography variant='body1' className='flex items-center'>
-                Morning
-                <span className='ml-2'>
-                  <Icon
-                    icon='mdi:weather-sunset-up'
-                    color={iconColor}
-                    width='40'
-                  />
-                </span>
-              </Typography>
-            </TableCell>
-            {getEvents(schedule, 'morningEvents')?.map((event, index) => (
-              <TableCell
-                key={event ? event[0]?.id : index}
-                className='cursor-pointer'
+              <th
+                key={day}
+                className='px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 text-sm'
               >
-                <Link
-                  to={`${event && event[0]?.id}`}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                >
-                  {event && renderEvent(event)}
-                </Link>
-              </TableCell>
+                {day}
+              </th>
             ))}
-          </TableRow>
-          <TableRow>
-            <TableCell>
-              <Typography variant='body1' className='flex items-center'>
-                Lunch
-                <span className='ml-2'>
-                  <Icon icon='bx:bx-restaurant' color={iconColor} width='35' />
-                </span>
-              </Typography>
-            </TableCell>
-            {getEvents(schedule, 'lunch')?.map((event, index) => (
-              <TableCell
-                key={event ? event[0]?.id : index}
-                className='cursor-pointer'
-              >
-                <Link
-                  to={`${event && event[0]?.id}`}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                >
-                  {event && renderEvent(event)}
-                </Link>
-              </TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell>
-              <Typography variant='body1' className='flex items-center'>
-                Afternoon
-                <span className='ml-2'>
-                  <Icon
-                    icon='mdi:weather-sunset-down'
-                    color={iconColor}
-                    width='40'
-                  />
-                </span>
-              </Typography>
-            </TableCell>
-            {getEvents(schedule, 'afternoonEvents')?.map((event, index) => (
-              <TableCell
-                key={event ? event[0]?.id : index}
-                className='cursor-pointer'
-              >
-                <Link
-                  to={`${event && event[0]?.id}`}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                >
-                  {event && renderEvent(event)}
-                </Link>
-              </TableCell>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableCell>
-              <Typography variant='body1' className='flex items-center'>
-                Dinner
-                <span className='ml-2'>
-                  <Icon icon='cil:dinner' color={iconColor} width='35' />
-                </span>
-              </Typography>
-            </TableCell>
-            {getEvents(schedule, 'dinner')?.map((event, index) => (
-              <TableCell
-                key={event ? event[0]?.id : index}
-                className='cursor-pointer'
-              >
-                <Link
-                  to={`${event && event[0]?.id}`}
-                  spy={true}
-                  smooth={true}
-                  duration={500}
-                >
-                  {event && renderEvent(event)}
-                </Link>
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </tr>
+        </thead>
+        <tbody>
+          {['morningEvents', 'lunch', 'afternoonEvents', 'dinner'].map(
+            (meal, mealIndex) => (
+              <tr key={`${mealIndex}_${meal}`}>
+                <td className='px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm'>
+                  <div className='flex items-center'>
+                    <span className='ml-2'>
+                      <Icon
+                        icon={mealIconMap[meal as TimeOfDay]}
+                        color={iconColor}
+                        width='35'
+                      />
+                    </span>
+                  </div>
+                </td>
+                {getEvents(schedule, meal as TimeOfDay)?.map(
+                  (event, eventIndex) => (
+                    <td
+                      key={`${meal}-${
+                        event ? event[0]?.id : `no-event-${eventIndex}`
+                      }`}
+                      className='px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm cursor-pointer'
+                    >
+                      <a
+                        href={`#${event && event[0]?.id}`}
+                        className='text-blue-500 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-500'
+                      >
+                        {event && renderEvent(event)}
+                      </a>
+                    </td>
+                  )
+                )}
+              </tr>
+            )
+          )}
+        </tbody>
+      </table>
+    </div>
   )
+}
+
+const mealIconMap = {
+  morningEvents: 'mdi:weather-sunset-up',
+  lunch: 'bx:bx-restaurant',
+  afternoonEvents: 'mdi:weather-sunset-down',
+  dinner: 'cil:dinner'
 }
 
 export default OverviewTable
