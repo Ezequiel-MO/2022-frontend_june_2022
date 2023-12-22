@@ -44,7 +44,7 @@ export const MainPage: FC = () => {
 
   useEffect(() => {
     if (currentProject) {
-      localStorage.set('currentProject', currentProject)
+      localStorage.setItem('currentProject', JSON.stringify(currentProject))
     }
   }, [currentProject])
 
