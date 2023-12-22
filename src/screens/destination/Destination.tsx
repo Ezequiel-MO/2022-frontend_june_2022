@@ -20,7 +20,7 @@ export const Destination = () => {
   }
 
   return (
-    <div className='container mx-auto px-4 text-white-0'>
+    <div className='container mx-auto px-4'>
       <DestinationHeader groupLocation={groupLocation} />
       <DestinationDescription locationObj={selectedOption as ILocation} />
       <DestinationFacts locationObj={selectedOption as ILocation} />

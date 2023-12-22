@@ -3,6 +3,10 @@ import { MultipleChoiceCells, SingleChoiceCells } from '../../multipleOrSingle'
 import { IEvent, IRestaurant } from '../../../../../interfaces'
 import { useContextBudget } from '../../../context/BudgetContext'
 import { UPDATE_PROGRAM_MEALS_COST } from '../../../context/budgetReducer'
+import {
+  tableCellClasses,
+  tableRowClasses
+} from '../../../../../constants/styles'
 
 interface DinnerRowProps {
   items: IRestaurant[]
@@ -45,8 +49,8 @@ export const DinnerRow = ({
   }
 
   return (
-    <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
-      <td>{date}</td>
+    <tr className={tableRowClasses}>
+      <td className={tableCellClasses}>{date}</td>
       {multipleChoice ? (
         <MultipleChoiceCells
           {...props}

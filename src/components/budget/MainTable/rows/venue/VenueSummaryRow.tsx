@@ -1,11 +1,14 @@
 import { useState } from 'react'
-import { TableCell, TableRow } from '@mui/material'
 import accounting from 'accounting'
 import { IRestaurant } from '../../../../../interfaces'
 import { VenueSingleChoiceCells } from './VenueSingleChoiceCells'
 import { useGetVenuesCost } from '../../../../../hooks'
 import { VenueMultipleChoice } from './VenueMultipleChoice'
 import { VenueBreakdownRows } from './VenueBreakdownRows'
+import {
+  tableCellClasses,
+  tableRowClasses
+} from '../../../../../constants/styles'
 
 interface Props {
   pax: number
@@ -37,8 +40,8 @@ export const VenueSummaryRow = ({
 
   return (
     <>
-      <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
-        <td>{date}</td>
+      <tr className={tableRowClasses}>
+        <td className={tableCellClasses}>{date}</td>
         <td>{`${title}`}</td>
         <td>
           {multipleVenues ? (

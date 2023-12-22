@@ -1,6 +1,10 @@
 import { useMemo } from 'react'
 import accounting from 'accounting'
 import { ITransfer } from '../../../../../interfaces'
+import {
+  tableCellClasses,
+  tableRowClasses
+} from '../../../../../constants/styles'
 
 interface TransfersInRowProps {
   items: ITransfer[]
@@ -25,11 +29,8 @@ export const TransfersInRow = ({ items, date }: TransfersInRowProps) => {
   return (
     <>
       {Object.entries(groupedItems).map(([key, group]) => (
-        <tr
-          key={key}
-          className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'
-        >
-          <td>{date}</td>
+        <tr key={key} className={tableRowClasses}>
+          <td className={tableCellClasses}>{date}</td>
           <td>Transfer from Airport</td>
           <td>
             {`${group[0].vehicleCapacity} Seater ${group[0].vehicleType}`}

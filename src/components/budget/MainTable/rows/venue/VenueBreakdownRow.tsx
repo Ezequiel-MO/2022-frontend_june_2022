@@ -1,4 +1,3 @@
-import { TableCell } from '@mui/material'
 import accounting from 'accounting'
 
 interface Props {
@@ -6,17 +5,21 @@ interface Props {
   title: string
   rate: number
 }
+
 export const VenueBreakdownRow = ({ units, title, rate }: Props) => {
   if (units === 0) return null
+
   return (
     <>
-      <TableCell component='th' scope='row'>
+      <th scope='row' className='text-left font-medium'>
         {title}
-      </TableCell>
-      <TableCell>{units}</TableCell>
-      <TableCell></TableCell>
-      <TableCell>{accounting.formatMoney(rate, '€')}</TableCell>
-      <TableCell>{accounting.formatMoney(rate * units, '€')}</TableCell>
+      </th>
+      <td className='text-center'>{units}</td>
+      <td></td>
+      <td className='text-right'>{accounting.formatMoney(rate, '€')}</td>
+      <td className='text-right'>
+        {accounting.formatMoney(rate * units, '€')}
+      </td>
     </>
   )
 }

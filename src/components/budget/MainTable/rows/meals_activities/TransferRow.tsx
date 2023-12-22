@@ -1,6 +1,10 @@
 import React from 'react'
 import { TransferCells } from './TransferCells'
 import { ITransfer } from '../../../../../interfaces/transfer'
+import {
+  tableCellClasses,
+  tableRowClasses
+} from '../../../../../constants/styles'
 
 interface TransferRowProps {
   pax: number
@@ -41,11 +45,8 @@ export const TransferRow: React.FC<TransferRowProps> = ({
   return (
     <>
       {groupedOptionsArray.map((group) => (
-        <tr
-          key={group.selectedService}
-          className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'
-        >
-          <td>{date}</td>
+        <tr key={group.selectedService} className={tableRowClasses}>
+          <td className={tableCellClasses}>{date}</td>
           <TransferCells
             description={description}
             date={date}

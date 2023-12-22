@@ -25,7 +25,7 @@ export const SingleChoiceCells = ({
     <>
       <td>{description}</td>
       <td>
-        <span className='pl-2'>{`${options[0]?.name}`}</span>
+        <span>{`${options[0]?.name}`}</span>
       </td>
       <td>{paxOrOne}</td>
       <td>{accounting.formatMoney(options[0]?.price, '€')}</td>

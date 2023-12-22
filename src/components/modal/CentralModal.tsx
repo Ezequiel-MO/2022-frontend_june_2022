@@ -1,26 +1,29 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import OverviewTable from '../overview/OverviewTable'
 import { MapWrapper } from '../vendor_map/Wrapper'
 
 interface CentralModalProps {
   open: boolean
   handleClose: () => void
-  typeOfModal: 'Map' | 'Overview' | 'Briefing' | string
+  typeOfModal: 'Map' | 'Overview' | 'Briefing' | 'PDFViewer' | string
+  children?: ReactNode
 }
 
 const CentralModal: React.FC<CentralModalProps> = ({
   open,
   handleClose,
-  typeOfModal
+  typeOfModal,
+  children
 }) => {
   if (!open) return null
 
   const handleModalClick = (e: React.MouseEvent) => {
-    e.stopPropagation() // Prevent click from bubbling up to the overlay
+    e.stopPropagation()
   }
 
-  const modalSizeClass =
-    typeOfModal === 'Map' ? 'w-[95%] h-[90%]' : 'max-w-lg w-full'
+  const modalSizeClass = ['Map', 'PDFViewer'].includes(typeOfModal)
+    ? 'w-[95%] h-[90%]'
+    : 'max-w-lg w-full'
 
   return (
     <div
@@ -36,11 +39,9 @@ const CentralModal: React.FC<CentralModalProps> = ({
         <h2 className='text-lg font-semibold text-gray-800 mb-2'>
           {typeOfModal}
         </h2>
-        {typeOfModal === 'Map' ? (
-          <MapWrapper />
-        ) : typeOfModal === 'Overview' ? (
-          <OverviewTable />
-        ) : null}
+        {typeOfModal === 'Map' && <MapWrapper />}
+        {typeOfModal === 'Overview' && <OverviewTable />}
+        {children}
       </div>
     </div>
   )

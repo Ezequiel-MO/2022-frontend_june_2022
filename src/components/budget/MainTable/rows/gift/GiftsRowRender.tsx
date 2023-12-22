@@ -1,6 +1,10 @@
 import { OptionSelect } from '../../multipleOrSingle'
 import accounting from 'accounting'
 import { IGift } from '../../../../../interfaces'
+import {
+  tableCellClasses,
+  tableRowClasses
+} from '../../../../../constants/styles'
 
 interface Props {
   gifts: IGift[]
@@ -17,8 +21,8 @@ export const GiftsRowRender = ({
 }: Props) => {
   return (
     <>
-      <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
-        <td></td>
+      <tr className={tableRowClasses}>
+        <td className={tableCellClasses}></td>
         <td>Proposed Gifts</td>
         <td>
           <OptionSelect

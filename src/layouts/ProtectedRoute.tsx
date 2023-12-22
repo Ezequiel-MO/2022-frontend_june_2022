@@ -9,9 +9,9 @@ export const ProtectedRoute: React.FC = () => {
   }
 
   return (
-    <>
+    <div>
       <Header />
       <Outlet />
-    </>
+    </div>
   )
 }

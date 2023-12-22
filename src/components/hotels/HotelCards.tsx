@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Rating } from '@mui/material'
 import RenderPhotos from '../organisms/RenderPhotos'
 import HotelIcons from './HotelIcons'
 import { RichParagraph } from '../atoms/RichParagraph'
@@ -35,11 +34,28 @@ export const HotelCards: React.FC<Props> = ({ hotel }) => {
     setRightIconsText(rightIconsTextArr)
   }, [hotel])
 
+  const renderStars = (numberStars: number) => {
+    return (
+      <div className='flex'>
+        {[...Array(5)].map((_, index) => (
+          <span
+            key={index}
+            className={`mr-1 ${
+              index < numberStars ? 'text-yellow-400' : 'text-gray-300'
+            }`}
+          >
+            ★
+          </span>
+        ))}
+      </div>
+    )
+  }
+
   return (
-    <div className='flex flex-col'>
-      <div className='flex items-center'>
-        <h2 className='font-bold'>{hotel.name}</h2>
-        <Rating readOnly value={hotel.numberStars} />
+    <div className='flex flex-col rounded-lg shadow-lg p-4 mb-4'>
+      <div className='flex items-center mb-4'>
+        <h2 className='font-bold text-lg mr-2'>{hotel.name}</h2>
+        {renderStars(hotel.numberStars)}
       </div>
       <RichParagraph text={hotel.textContent} />
       <RenderPhotos images={hotel.imageContentUrl} />

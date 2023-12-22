@@ -5,6 +5,10 @@ import { ToggleTableRowIcon } from '../../../../atoms'
 import { useContextBudget } from '../../../context/BudgetContext'
 import { UPDATE_PROGRAM_SHOWS_COST } from '../../../context/budgetReducer'
 import { OptionSelect } from '../../multipleOrSingle'
+import {
+  tableCellClasses,
+  tableRowClasses
+} from '../../../../../constants/styles'
 
 interface Props {
   date: string
@@ -46,9 +50,9 @@ export const EntertainmentSummaryRow: React.FC<Props> = ({
 
   return (
     <>
-      <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
+      <tr className={tableRowClasses}>
         <ToggleTableRowIcon isOpen={isOpen} toggle={toggleBreakdown} />
-        <td>Entertainment</td>
+        <td className={tableCellClasses}>Entertainment</td>
         <td>
           {multipleShows ? (
             <OptionSelect

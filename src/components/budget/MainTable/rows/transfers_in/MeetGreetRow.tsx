@@ -1,5 +1,9 @@
 import accounting from 'accounting'
 import { ITransfer } from '../../../../../interfaces'
+import {
+  tableCellClasses,
+  tableRowClasses
+} from '../../../../../constants/styles'
 
 interface MeetGreetRowProps {
   firstItem: ITransfer
@@ -18,8 +22,8 @@ export const MeetGreetRow = ({ firstItem, date }: MeetGreetRowProps) => {
   }
 
   return (
-    <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
-      <td>{date}</td>
+    <tr className={tableRowClasses}>
+      <td className={tableCellClasses}>{date}</td>
       <td></td>
       <td>Meet & Greet @ Airport</td>
       <td>{meetGreet}</td>

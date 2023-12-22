@@ -1,5 +1,9 @@
 import accounting from 'accounting'
 import { ITransfer } from '../../../../../interfaces'
+import {
+  tableCellClasses,
+  tableRowClasses
+} from '../../../../../constants/styles'
 
 interface TransfersOutAssistanceRowProps {
   firstItem: ITransfer
@@ -17,11 +21,8 @@ export const TransfersOutAssistanceRow = ({
   const { assistance = 0, assistanceCost = 0 } = firstItem
 
   return (
-    <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
-      <td
-        className='whitespace-nowrap overflow-hidden text-ellipsis max-w-[70px]'
-        title={date}
-      >
+    <tr className={tableRowClasses}>
+      <td className={tableCellClasses} title={date}>
         {date}
       </td>
       <td></td>

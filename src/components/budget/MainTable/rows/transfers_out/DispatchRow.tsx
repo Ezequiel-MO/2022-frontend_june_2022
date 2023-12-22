@@ -1,5 +1,9 @@
 import accounting from 'accounting'
 import { ITransfer } from '../../../../../interfaces'
+import {
+  tableCellClasses,
+  tableRowClasses
+} from '../../../../../constants/styles'
 
 interface DispatchRowProps {
   lastItem: ITransfer
@@ -14,8 +18,8 @@ export const DispatchRow = ({ lastItem, date }: DispatchRowProps) => {
   }
 
   return (
-    <tr className='bg-gray-800 dark:border-gray-700 dark:text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
-      <td>{date}</td>
+    <tr className={tableRowClasses}>
+      <td className={tableCellClasses}>{date}</td>
       <td></td>
       <td>Bus Dispatcher</td>
       <td>{meetGreet}</td>

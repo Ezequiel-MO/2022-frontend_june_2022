@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { Table } from '@mui/material'
 import { BudgetTableHead, DayRows } from '.'
 import { HotelRows } from '../rows/hotel'
 import { TotalBudgetCost } from '../../totals'
@@ -21,9 +20,7 @@ export const BudgetTable = () => {
   useEffect(() => {
     dispatch({
       type: UPDATE_TRANSFERS_IN_COST,
-      payload: {
-        transfer_in: state.schedule[0]?.transfer_in
-      }
+      payload: { transfer_in: state.schedule[0]?.transfer_in }
     })
     dispatch({
       type: UPDATE_TRANSFERS_OUT_COST,
@@ -31,17 +28,15 @@ export const BudgetTable = () => {
         transfer_out: state.schedule?.[state.schedule.length - 1]?.transfer_out
       }
     })
-  }, [dispatch])
+  }, [dispatch, state.schedule])
 
   return (
-    <Table
+    <table
       id='budget-table'
-      stickyHeader
-      size='small'
-      className='main-table text-left divide-y divide-gray-300 dark:divide-black-50 dark:bg-gray-50 text-sm'
+      className='min-w-full divide-y divide-gray-300 dark:divide-black-50 dark:bg-gray-50 text-sm'
     >
       <BudgetTableHead />
-      <tbody>
+      <tbody className='divide-y divide-gray-300'>
         {!multiDestination && <HotelRows hotels={state.hotels} />}
         {state.schedule?.map((day: IDay, index: number) => (
           <React.Fragment key={day._id}>
@@ -60,6 +55,6 @@ export const BudgetTable = () => {
         <GiftsRow nrPax={state.nrPax} />
         <TotalBudgetCost />
       </tbody>
-    </Table>
+    </table>
   )
 }

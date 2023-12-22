@@ -18,17 +18,15 @@ html {
   scroll-behavior: smooth;
 }
 
-/* No page gap for visualizing PDF Budget */
-
 canvas.react-pdf__Page__canvas {
-  padding: 20px !important;
-  background-color: black !important;
-  width: min-content !important;
+  padding: 20px;
+  background-color: white;
+  width: auto; /* Adjust as needed */
 }
 
 @media print {
   canvas.react-pdf__Page__canvas {
-    padding: 20px !important;
-    background-color: white !important;
+    padding: 20px;
+    background-color: white;
   }
 }

@@ -2,6 +2,10 @@ import React from 'react'
 import accounting from 'accounting'
 import { ToggleTableRowIcon } from '../../../../atoms'
 import { useContextBudget } from '../../../context/BudgetContext'
+import {
+  tableCellClasses,
+  tableRowClasses
+} from '../../../../../constants/styles'
 
 interface MeetingSummaryRowProps {
   type: 'morning' | 'afternoon' | 'full_day'
@@ -21,9 +25,9 @@ export const MeetingSummaryRow = ({
   }
 
   return (
-    <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
+    <tr className={tableRowClasses}>
       <ToggleTableRowIcon isOpen={isOpen} toggle={toggleBreakdown} />
-      <td></td>
+      <td className={tableCellClasses}></td>
       <td
         className='whitespace-nowrap overflow-hidden text-ellipsis max-w-[70px]'
         title={`Select another hotel above to get prices for other hotel`}

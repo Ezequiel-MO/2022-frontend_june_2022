@@ -6,6 +6,10 @@ import { IHotel } from '../../../../../interfaces'
 import { OptionSelect } from '../../multipleOrSingle'
 import accounting from 'accounting'
 import { OvernightBreakdownRows } from './OvernightBreakdownRows'
+import {
+  tableCellClasses,
+  tableRowClasses
+} from '../../../../../constants/styles'
 
 interface Props {
   date: string
@@ -43,9 +47,9 @@ export const OvernightRows = ({ date, hotels }: Props) => {
   }
   return (
     <>
-      <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
+      <tr className={tableRowClasses}>
         <ToggleTableRowIcon isOpen={isOpen} toggle={toggleBreakdown} />
-        <td>{'Overnight @'}</td>
+        <td className={tableCellClasses}>{'Overnight @'}</td>
         <td>
           {hotels.length === 1 ? (
             `${selectedHotel.name}`

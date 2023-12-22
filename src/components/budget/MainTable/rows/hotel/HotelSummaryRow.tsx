@@ -9,6 +9,10 @@ import {
 } from '../../../context/budgetReducer'
 import { ToggleTableRowIcon } from '../../../../atoms'
 import { useCurrentProject } from '../../../../../hooks'
+import {
+  tableCellClasses,
+  tableRowClasses
+} from '../../../../../constants/styles'
 
 interface HotelSummaryRowProps {
   hotels: IHotel[]
@@ -58,9 +62,11 @@ export const HotelSummaryRow = ({
   }
 
   return (
-    <tr className='bg-gray-800 dark:border-gray-700 text-gray-300 border-b border-gray-200 hover:bg-gray-700'>
+    <tr className={tableRowClasses}>
       <ToggleTableRowIcon isOpen={isOpen} toggle={toggleBreakdown} />
-      <td>{multiDestination ? 'Overnight @' : null}</td>
+      <td className={tableCellClasses}>
+        {multiDestination ? 'Overnight @' : null}
+      </td>
       <td>
         {hotels.length === 1 ? (
           `${hotelName}`

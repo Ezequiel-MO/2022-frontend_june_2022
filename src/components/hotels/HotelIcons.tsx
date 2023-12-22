@@ -1,6 +1,4 @@
-import React from 'react'
 import { Icon } from '@iconify/react'
-import { List, ListItem, ListItemText, ListItemIcon } from '@mui/material'
 import { useCurrentProject } from '../../hooks'
 
 interface Props {
@@ -41,19 +39,19 @@ const HotelIcons: React.FC<Props> = ({ leftIconsText, rightIconsText }) => {
   const mixedRight = createMixedArray(rightIcons, rightIconsText)
 
   const renderList = (items: { icon: JSX.Element; text: string }[]) => (
-    <List component='nav'>
+    <ul className='list-none'>
       {items.map((item, i) => (
-        <ListItem key={i}>
-          <ListItemIcon>{item.icon}</ListItemIcon>
-          <ListItemText primary={item.text} />
-        </ListItem>
+        <li key={i} className='flex items-center mb-2 last:mb-0'>
+          <div className='mr-2'>{item.icon}</div>
+          <span className='text-sm font-medium'>{item.text}</span>
+        </li>
       ))}
-    </List>
+    </ul>
   )
 
   return (
-    <div className='overflow-x-scroll no-scrollbar'>
-      <div className='flex justify-start'>
+    <div className='overflow-x-scroll no-scrollbar mt-4 sm:m-6'>
+      <div className='flex justify-around'>
         {renderList(mixedLeft)}
         {renderList(mixedRight)}
       </div>
