@@ -50,7 +50,7 @@ module.exports = {
         },
         white: {
           0: '#fff',
-          50: '#C7BAAE',
+          50: 'C2B280',
           100: '#F5F1E9'
         }
       },

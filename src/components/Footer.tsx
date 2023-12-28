@@ -31,8 +31,7 @@ const Footer = () => {
       </div>
       <div className='flex flex-col items-start ml-8'>
         <h6 className='text-sm uppercase tracking-widest mb-1'>
-          PROPSED BY:{' '}
-          <span className='font-bold'>LIBERTY IBERIAN LEISURE & EVENTS</span>
+          PROPOSED BY: <span className='font-bold'>CUTT/events</span>
         </h6>
         <h6 className='text-sm uppercase tracking-widest mb-1'>DESIGNED BY</h6>
         <p className='text-sm'>@ QUOTE/Buddy - 2023</p>
