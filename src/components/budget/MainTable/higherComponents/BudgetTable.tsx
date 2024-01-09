@@ -3,7 +3,6 @@ import { BudgetTableHead, DayRows } from '.'
 import { HotelRows } from '../rows/hotel'
 import { TotalBudgetCost } from '../../totals'
 import { IDay } from '../../../../interfaces'
-import { useContextBudget } from '../../context/BudgetContext'
 import {
   UPDATE_TRANSFERS_IN_COST,
   UPDATE_TRANSFERS_OUT_COST
@@ -11,24 +10,33 @@ import {
 import { GiftsRow } from '../rows/gift/GiftsRow'
 import { useCurrentProject } from '../../../../hooks'
 import { OvernightRows } from '../rows/hotel/OvernightRows'
+import { BudgetActions, BudgetState } from '../../context/interfaces'
 
-export const BudgetTable = () => {
-  const { state, dispatch } = useContextBudget()
+interface Props {
+  state: BudgetState
+  dispatch: React.Dispatch<BudgetActions>
+}
+
+export const BudgetTable = ({ state, dispatch }: Props) => {
   const { currentProject } = useCurrentProject()
   const { multiDestination } = currentProject
 
   useEffect(() => {
-    dispatch({
-      type: UPDATE_TRANSFERS_IN_COST,
-      payload: { transfer_in: state.schedule[0]?.transfer_in }
-    })
-    dispatch({
-      type: UPDATE_TRANSFERS_OUT_COST,
-      payload: {
-        transfer_out: state.schedule?.[state.schedule.length - 1]?.transfer_out
-      }
-    })
-  }, [dispatch, state.schedule])
+    if (currentProject.schedule && currentProject.schedule.length > 0) {
+      dispatch({
+        type: UPDATE_TRANSFERS_IN_COST,
+        payload: { transfer_in: currentProject.schedule[0]?.transfer_in }
+      })
+      dispatch({
+        type: UPDATE_TRANSFERS_OUT_COST,
+        payload: {
+          transfer_out:
+            currentProject.schedule[currentProject.schedule.length - 1]
+              ?.transfer_out
+        }
+      })
+    }
+  }, [dispatch, currentProject.schedule])
 
   return (
     <table

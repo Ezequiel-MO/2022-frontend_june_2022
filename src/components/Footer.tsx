@@ -30,7 +30,7 @@ const Footer = () => {
         </a>
       </div>
       <div className='flex flex-col items-start ml-8'>
-        <h6 className='text-sm uppercase tracking-widest mb-1'>
+        <h6 className='text-sm tracking-widest mb-1'>
           PROPOSED BY: <span className='font-bold'>CUTT/events</span>
         </h6>
         <h6 className='text-sm uppercase tracking-widest mb-1'>DESIGNED BY</h6>
