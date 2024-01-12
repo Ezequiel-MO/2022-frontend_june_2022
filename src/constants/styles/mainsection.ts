@@ -12,7 +12,7 @@ export const pageBottomBorder =
   'border-t-2 border-gray-200 dark:border-gray-700 my-6'
 
 export const pageDateHeader =
-  'text-lg md:text-xl lg:text-2xl font-semibold dark:text-white-0 mb-4 mt-2 md:mt-4 lg:mb-6 leading-tight'
+  'text-center text-lg md:text-xl lg:text-2xl font-semibold dark:text-white-0 mb-4 mt-2 md:mt-4 lg:mb-6 leading-tight'
 
 export const supplemmentaryText =
   'italic text-gray-700 dark:text-gray-300 text-lg md:text-xl my-4'
