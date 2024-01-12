@@ -1,9 +1,9 @@
 // EntertainmentCards.tsx
 import { useState, useMemo } from 'react'
-import { IEntertainment } from '../../interfaces'
-import { EntertainmentCard } from './EntertainmentCard'
-import { TabList } from '../molecules'
-import { TabContent } from '../atoms'
+import { IEntertainment } from '../../../interfaces'
+import { EntertainmentCard } from '../4-cards/EntertainmentCard'
+import { TabList } from '../../molecules'
+import { TabContent } from '../../atoms'
 
 interface Props {
   entertainments: IEntertainment[] | []

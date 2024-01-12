@@ -1,6 +1,6 @@
-import { IEntertainment } from '../../interfaces'
-import { RichParagraph } from '../atoms/RichParagraph'
-import RenderPhotos from '../organisms/RenderPhotos'
+import { IEntertainment } from '../../../interfaces'
+import { RichParagraph } from '../../atoms/RichParagraph'
+import RenderPhotos from '../../organisms/RenderPhotos'
 
 interface Props {
   entertainment: IEntertainment

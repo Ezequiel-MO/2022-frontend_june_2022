@@ -2,7 +2,6 @@ import React, { forwardRef, useRef, useState, useEffect, Ref } from 'react'
 import { Icon } from '@iconify/react'
 import ReactToPrint from 'react-to-print'
 import { Hotels } from './hotels/Hotels'
-import { Schedule } from './schedule'
 import { useCurrentProject, useFontFamily } from '../hooks'
 import ScrollToTopButton from '../ui/ScrollToTopButton'
 import { useTranslation } from '../translations/translationContext'
@@ -12,6 +11,8 @@ import { Budget } from './budget/MainTable/higherComponents'
 import { PartialCosts } from './budget/partial-costs'
 import { exportTableToExcel } from './budget/MainTable/higherComponents/exportTableToExcel'
 import { Gifts } from './gifts/Gifts'
+import { Schedule } from './schedule/1-higher-components/Schedule'
+import * as styles from '../constants/styles/mainsection'
 
 interface MainSectionProps {
   setIconColor: React.Dispatch<React.SetStateAction<string>>
@@ -65,9 +66,9 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
     return (
       <div
         ref={ref}
-        className={`${fontFamilyStyle} col-span-10 lg:col-span-8 z-50 bg-white-0 dark:bg-black-50`}
+        className={`${fontFamilyStyle} ${styles.mainSectionFrame}`}
       >
-        <h1 className='text-2xl md:text-2xl mb-4 font-extrabold'>
+        <h1 className={styles.quoteTitle}>
           {`${t('quotation')} Gr. ${groupName}`}
         </h1>
         {hasMeaningfulText(projectIntro[0]) && (

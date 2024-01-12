@@ -9,7 +9,7 @@ export const ProtectedRoute: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className='bg-slate-200 dark:bg-slate-800'>
       <Header />
       <Outlet />
     </div>

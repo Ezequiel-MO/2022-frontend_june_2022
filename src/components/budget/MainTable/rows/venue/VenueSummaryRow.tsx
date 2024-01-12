@@ -8,7 +8,7 @@ import { VenueBreakdownRows } from './VenueBreakdownRows'
 import {
   tableCellClasses,
   tableRowClasses
-} from '../../../../../constants/styles'
+} from '../../../../../constants/styles/table'
 
 interface Props {
   pax: number

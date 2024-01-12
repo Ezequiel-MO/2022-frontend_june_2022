@@ -1,2 +1,2 @@
 export * from './mapFunctions'
-export * from './applySettings'
+export * from './fetchSettings'

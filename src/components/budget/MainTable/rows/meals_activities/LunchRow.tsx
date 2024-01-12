@@ -6,7 +6,7 @@ import { useContextBudget } from '../../../context/BudgetContext'
 import {
   tableCellClasses,
   tableRowClasses
-} from '../../../../../constants/styles'
+} from '../../../../../constants/styles/table'
 
 interface LunchRowProps {
   items: IRestaurant[]

@@ -32,7 +32,7 @@ export const HotelSubtitles = ({
     >
       {title === 'hotels' && (
         <div
-          className='flex flex-col space-y-4 p-4 ml-4 bg-white-0 dark:bg-black-50 transition-all ease-in-out duration-300'
+          className='flex flex-col space-y-4 p-4 ml-4 transition-all ease-in-out duration-300'
           onMouseEnter={() => setMenuOpen(true)}
           onMouseLeave={() => setMenuOpen(false)}
         >

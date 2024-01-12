@@ -52,7 +52,7 @@ export const HotelCards: React.FC<Props> = ({ hotel }) => {
   }
 
   return (
-    <div className='flex flex-col rounded-lg shadow-lg p-4 mb-4'>
+    <div className='flex flex-col rounded-lg shadow-lg mb-4'>
       <div className='flex items-center mb-4'>
         <h2 className='font-bold text-lg mr-2'>{hotel.name}</h2>
         {renderStars(hotel.numberStars)}

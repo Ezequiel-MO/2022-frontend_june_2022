@@ -9,7 +9,7 @@ import { OvernightBreakdownRows } from './OvernightBreakdownRows'
 import {
   tableCellClasses,
   tableRowClasses
-} from '../../../../../constants/styles'
+} from '../../../../../constants/styles/table'
 
 interface Props {
   date: string

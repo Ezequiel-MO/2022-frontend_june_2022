@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react'
-import { RestaurantCards } from '.'
-import { TabList } from '../molecules'
-import { TabContent } from '../atoms'
-import { IRestaurant } from '../../interfaces'
+import { RestaurantCard } from '..'
+import { TabList } from '../../molecules'
+import { TabContent } from '../../atoms'
+import { IRestaurant } from '../../../interfaces'
 
 interface Props {
   restaurants: IRestaurant[]
@@ -39,7 +39,7 @@ export const Meals = ({ restaurants }: Props) => {
               <div className='tab-content tab-space'>
                 {restaurants.map((restaurant, index) => (
                   <TabContent key={index} activeTab={openTab} index={index}>
-                    <RestaurantCards restaurant={restaurant} />
+                    <RestaurantCard restaurant={restaurant} />
                   </TabContent>
                 ))}
               </div>

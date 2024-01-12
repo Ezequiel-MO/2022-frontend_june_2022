@@ -1,8 +1,9 @@
-import { useCurrentProject } from '../../hooks'
-import { IProject } from '../../interfaces'
-import { TranslationKeys } from '../../interfaces/translations'
-import { useTranslation } from '../../translations/translationContext'
-import { convertDate } from './helpers'
+import { convertDate } from '../../../helpers/dates/date-formatters-converters'
+import { useCurrentProject } from '../../../hooks'
+import { IProject } from '../../../interfaces'
+import { TranslationKeys } from '../../../interfaces/translations'
+import { useTranslation } from '../../../translations/translationContext'
+import * as styles from '../../../constants/styles/mainsection'
 
 interface Props {
   date: string
@@ -19,7 +20,7 @@ export const DateHeader = ({ date, index, arrivalDay }: Props) => {
   const formattedDate = convertDate(index, arrivalDay, quoteLanguage)
 
   return (
-    <h2 className='text-lg md:text-xl my-4 font-extrabold' id={`day_${index}`}>
+    <h2 className={styles.pageDateHeader} id={`day_${index}`}>
       {t(date as TranslationKeys)} - {formattedDate}
     </h2>
   )

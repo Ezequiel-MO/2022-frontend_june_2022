@@ -4,7 +4,7 @@ import { usePartialCostsData } from '../partial-costs/usePartialCostsData'
 import {
   totalTableRowClasses,
   totaltableCellClasses
-} from '../../../constants/styles'
+} from '../../../constants/styles/table'
 
 export const TotalBudgetCost: React.FC = () => {
   const { totalCostOfItems } = usePartialCostsData()

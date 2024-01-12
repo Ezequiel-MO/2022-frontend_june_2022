@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { OptionSelect } from '.'
 import accounting from 'accounting'
 import { IEvent, IRestaurant } from '../../../../interfaces'
-import { tableCellClasses } from '../../../../constants/styles'
+import { tableCellClasses } from '../../../../constants/styles/table'
 
 interface MultipleChoiceCellsProps {
   pax: number

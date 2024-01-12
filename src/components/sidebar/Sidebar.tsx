@@ -24,9 +24,7 @@ const Sidebar: FC<SidebarProps> = ({ isSticky }) => {
   }
 
   return (
-    <div
-      className={`flex flex-col fixed bg-white-0 dark:bg-black-50 ${stickyClass}`}
-    >
+    <div className={`flex flex-col fixed ${stickyClass}`}>
       <div className='hidden lg:block'>
         <SidebarToggleButton
           toggleSidebar={toggleSidebar}

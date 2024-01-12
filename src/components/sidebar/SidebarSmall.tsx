@@ -65,7 +65,7 @@ const SidebarSmall = ({ mainSectionRef, isReady }: SidebarSmallProps) => {
                 <Icon
                   icon='ant-design:printer-twotone'
                   width='40'
-                  className='text-secondary'
+                  className='text-black-50 dark:text-white-0'
                 />
                 Generate PDF
               </button>

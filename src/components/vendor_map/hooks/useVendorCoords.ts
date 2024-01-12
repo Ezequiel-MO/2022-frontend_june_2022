@@ -13,7 +13,11 @@ export const useVendorCoords = (
       showAllVendors || clickedVendor?.distance !== null
         ? [centralCoords, hotelCoords, scheduleCoords].flat()
         : [centralCoords, clickedVendor]
-    return filterUniqueCoordinates(allVendors)
+    const filteredVendors = allVendors.filter((vendor) => {
+      return vendor.coords.lat !== 0 || vendor.coords.lng !== 0
+    })
+
+    return filterUniqueCoordinates(filteredVendors)
   }, [
     centralCoords,
     hotelCoords,

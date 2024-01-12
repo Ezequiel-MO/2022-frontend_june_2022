@@ -1,4 +1,4 @@
-const getDayOfWeek = (date, quoteLanguage) => {
+const getDayOfWeek = (date: Date, quoteLanguage: string) => {
   const day = date.getDay()
   if (quoteLanguage === 'ES') {
     return [
@@ -22,7 +22,7 @@ const getDayOfWeek = (date, quoteLanguage) => {
   ][day]
 }
 
-const getMonthOfYear = (date, quoteLanguage) => {
+const getMonthOfYear = (date: Date, quoteLanguage: string) => {
   const month = date.getMonth()
   if (quoteLanguage === 'ES') {
     return [
@@ -57,13 +57,17 @@ const getMonthOfYear = (date, quoteLanguage) => {
   ][month]
 }
 
-const formatDate = (date, quoteLanguage) => {
+const formatDate = (date: Date, quoteLanguage: string) => {
   const dayOfWeek = getDayOfWeek(date, quoteLanguage)
   const monthOfYear = getMonthOfYear(date, quoteLanguage)
   return `${dayOfWeek}, ${monthOfYear} ${date.getDate()}`
 }
 
-export const convertDate = (index, arrivalDay, quoteLanguage = 'EN') => {
+export const convertDate = (
+  index: number,
+  arrivalDay: string,
+  quoteLanguage: string = 'EN'
+) => {
   const date = new Date(arrivalDay)
   if (index === 0) {
     return formatDate(date, quoteLanguage)

@@ -10,6 +10,16 @@ import {
   IGift
 } from './'
 
+export interface IItinerary {
+  intro: string
+  itinerary: ITransfer[]
+  activity: IActivity
+  lunch: IMeal
+  dinner: IMeal
+  starts: 'morning' | 'afternoon' | 'night' | ''
+  ends: 'morning' | 'afternoon' | 'night' | ''
+}
+
 export interface IOvernight {
   intro: string
   hotels: IHotel[]
@@ -38,6 +48,7 @@ export interface IDay {
   morningEvents: IActivity
   afternoonMeetings: IMeetingDetails
   afternoonEvents: IActivity
+  itinerary: IItinerary
   lunch: IMeal
   dinner: IMeal
   overnight: IOvernight

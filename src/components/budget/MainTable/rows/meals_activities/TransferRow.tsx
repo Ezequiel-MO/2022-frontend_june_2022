@@ -4,7 +4,7 @@ import { ITransfer } from '../../../../../interfaces/transfer'
 import {
   tableCellClasses,
   tableRowClasses
-} from '../../../../../constants/styles'
+} from '../../../../../constants/styles/table'
 
 interface TransferRowProps {
   pax: number

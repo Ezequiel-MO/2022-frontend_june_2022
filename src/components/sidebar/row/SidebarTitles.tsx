@@ -27,7 +27,7 @@ export const SidebarTitles = ({
       smooth={true}
       duration={500}
       offset={-100}
-      className='flex items-center space-x-2 px-4 rounded-lg cursor-pointer transition-all duration-200 group bg-white-0 dark:bg-black-50 hover:bg-gray-50 dark:hover:bg-gray-50'
+      className='flex items-center space-x-2 px-4 rounded-lg cursor-pointer transition-all duration-200 group hover:bg-gray-50 dark:hover:bg-gray-50'
       onMouseEnter={() => setMenuOpen(true)}
       onMouseLeave={() => setMenuOpen(false)}
     >

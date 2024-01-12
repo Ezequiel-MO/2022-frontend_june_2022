@@ -3,6 +3,12 @@ import { useCurrentProject, useFontFamily } from '../../hooks'
 import './RichParagraph.module.css'
 import { Icon } from '@iconify/react'
 import { IClientCompany, IProject } from '../../interfaces'
+import {
+  clipboardAnnimation,
+  clipboardAnnimationButton,
+  innerHTML,
+  paragraphWrapper
+} from '../../constants/styles/mainsection'
 
 interface RichParagraphProps {
   text: string
@@ -83,19 +89,16 @@ export const RichParagraph: React.FC<RichParagraphProps> = ({ text = '' }) => {
   }
 
   return (
-    <div
-      className='group relative hover:border hover:border-3 hover:border-dashed hover:border-gray-950 hover:dark:border-white-0 hover:cursor-pointer mt-5 rounded-lg py-5 px-2 md:py-7 md:px-4 lg:py-10 lg:px-6'
-      onClick={handleCopyClick}
-    >
+    <div className={paragraphWrapper} onClick={handleCopyClick}>
       <div
         ref={ref}
-        className={`${fontFamilyStyle} custom-font text-base dark:text-white-0 md:text-lg lg:text-xl`}
+        className={`${fontFamilyStyle} ${innerHTML}`}
         dangerouslySetInnerHTML={{ __html: cleanedText }}
       ></div>
 
       {showAnimation && (
-        <div className='absolute top-0 right-0 mt-2 mr-2 flex items-center justify-center w-12 h-12 bg-green-500 rounded-full animate-ping'>
-          <Icon icon='akar-icons:check' color='white' width='24' height='24' />
+        <div className={clipboardAnnimation}>
+          <Icon icon='akar-icons:check' color='white' width='20' height='20' />
         </div>
       )}
 
@@ -104,7 +107,7 @@ export const RichParagraph: React.FC<RichParagraphProps> = ({ text = '' }) => {
           e.stopPropagation()
           handleCopyClick()
         }}
-        className='group-hover:visible invisible absolute top-0 right-0 mt-2 mr-2 p-2 bg-gray-800 text-white rounded-full hover:bg-gray-500'
+        className={clipboardAnnimationButton}
       >
         <Icon
           icon={isCopied ? 'akar-icons:check' : 'mdi:content-copy'}

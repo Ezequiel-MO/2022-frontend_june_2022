@@ -5,7 +5,7 @@ import { useContextBudget } from '../../../context/BudgetContext'
 import {
   tableCellClasses,
   tableRowClasses
-} from '../../../../../constants/styles'
+} from '../../../../../constants/styles/table'
 
 interface MeetingSummaryRowProps {
   type: 'morning' | 'afternoon' | 'full_day'

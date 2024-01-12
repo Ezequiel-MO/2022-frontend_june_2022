@@ -4,7 +4,7 @@ import { ITransfer } from '../../../../../interfaces'
 import {
   tableCellClasses,
   tableRowClasses
-} from '../../../../../constants/styles'
+} from '../../../../../constants/styles/table'
 
 interface TransfersInRowProps {
   items: ITransfer[]

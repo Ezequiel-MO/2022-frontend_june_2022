@@ -14,7 +14,7 @@ export const TabContent: FC<TabContentProps> = ({
   const isActive = activeTab === index + 1
 
   return (
-    <div className={isActive ? 'block' : 'hidden'} id={`tab${index + 1}`}>
+    <div className={isActive ? 'block py-4' : 'hidden'} id={`tab${index + 1}`}>
       {children}
     </div>
   )

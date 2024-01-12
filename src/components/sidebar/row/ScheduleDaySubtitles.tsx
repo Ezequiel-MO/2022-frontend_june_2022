@@ -63,7 +63,7 @@ export const ScheduleDaySubtitles = ({ day, menuOpen, setMenuOpen }: Props) => {
       key={day._id}
       className={`${
         menuOpen ? 'flex flex-col' : 'hidden'
-      } bg-white-0 dark:bg-black-50 overflow-hidden transition-all ease-in-out duration-300 space-y-4 p-4 ml-4 `}
+      }  overflow-hidden transition-all ease-in-out duration-300 space-y-4 p-4 ml-4 `}
       onMouseEnter={() => setMenuOpen(true)}
       onMouseLeave={() => setMenuOpen(false)}
     >

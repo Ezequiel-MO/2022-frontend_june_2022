@@ -1,14 +1,14 @@
-import { IRestaurant } from '../../interfaces'
-import RenderPhotos from '../organisms/RenderPhotos'
-import { RichParagraph } from '../atoms/RichParagraph'
-import { EntertainmentCards } from './'
-import { PdfViewer } from '../organisms'
+import { IRestaurant } from '../../../interfaces'
+import RenderPhotos from '../../organisms/RenderPhotos'
+import { RichParagraph } from '../../atoms/RichParagraph'
+import { EntertainmentCards } from '..'
+import { PdfViewer } from '../../organisms'
 
 interface Props {
   restaurant: IRestaurant
 }
 
-export const RestaurantCards = ({ restaurant }: Props) => {
+export const RestaurantCard = ({ restaurant }: Props) => {
   return (
     <div id={restaurant._id}>
       <RichParagraph text={restaurant.textContent || ''} />

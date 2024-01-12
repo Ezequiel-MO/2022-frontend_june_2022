@@ -6,7 +6,7 @@ import { UPDATE_PROGRAM_MEALS_COST } from '../../../context/budgetReducer'
 import {
   tableCellClasses,
   tableRowClasses
-} from '../../../../../constants/styles'
+} from '../../../../../constants/styles/table'
 
 interface DinnerRowProps {
   items: IRestaurant[]

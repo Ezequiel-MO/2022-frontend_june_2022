@@ -46,7 +46,7 @@ export const TabList = ({
   }, [activeTab, ref])
 
   return (
-    <ul className='flex flex-wrap gap-1 md:gap-2 py-4 pl-4 tab-list' ref={ref}>
+    <ul className='flex flex-wrap gap-1 md:gap-2 py-4 tab-list' ref={ref}>
       {tabListItems.map((tabListItem, index) => (
         <div key={tabListItem._id} onClick={() => onTabClick(tabListItem._id)}>
           <TabItem

@@ -1,6 +1,6 @@
-import { checkDayIsEmpty } from '../../helpers/checkEmptyDay'
-import { useCurrentProject } from '../../hooks'
-import { IProject } from '../../interfaces'
+import { checkDayIsEmpty } from '../../../helpers/checkEmptyDay'
+import { useCurrentProject } from '../../../hooks'
+import { IProject } from '../../../interfaces'
 import { ScheduleDay } from './ScheduleDay'
 
 export const Schedule = () => {

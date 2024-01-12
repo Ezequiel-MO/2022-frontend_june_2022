@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react'
-import { EventCards } from '.'
-import { TabList } from '../molecules'
-import { TabContent } from '../atoms'
-import { IEvent } from '../../interfaces'
+import { EventCard } from '..'
+import { TabList } from '../../molecules'
+import { TabContent } from '../../atoms'
+import { IEvent } from '../../../interfaces'
 
 interface Props {
   events: IEvent[]
@@ -39,7 +39,7 @@ export const Events = ({ events }: Props) => {
               <div className='tab-content tab-space'>
                 {events.map((event, index) => (
                   <TabContent key={index} activeTab={openTab} index={index}>
-                    <EventCards event={event} />
+                    <EventCard event={event} />
                   </TabContent>
                 ))}
               </div>

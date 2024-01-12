@@ -2,7 +2,7 @@ import { useCurrentProject } from '../../../../hooks'
 import { useTranslation } from '../../../../translations/translationContext'
 import { HeaderCell } from '../../../atoms'
 import { IClientCompany, IProject } from '../../../../interfaces'
-import { tableCellClasses } from '../../../../constants/styles'
+import { tableCellClasses } from '../../../../constants/styles/table'
 
 export const BudgetTableHead: React.FC = () => {
   const { currentProject } = useCurrentProject() as { currentProject: IProject }

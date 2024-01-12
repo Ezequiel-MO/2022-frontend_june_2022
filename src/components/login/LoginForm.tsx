@@ -33,7 +33,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
   return (
     <div className='w-[500px] mx-auto pt-5'>
       <h1 className='font-black text-4xl capitalize'>
-        Login <span className='text-secondary'>to APP</span>
+        Login <span className='text-primary dark:text-secondary'>to APP</span>
       </h1>
       {msg && <Alert alert={alert} />}
       <form

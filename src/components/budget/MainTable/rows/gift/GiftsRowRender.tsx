@@ -4,7 +4,7 @@ import { IGift } from '../../../../../interfaces'
 import {
   tableCellClasses,
   tableRowClasses
-} from '../../../../../constants/styles'
+} from '../../../../../constants/styles/table'
 
 interface Props {
   gifts: IGift[]

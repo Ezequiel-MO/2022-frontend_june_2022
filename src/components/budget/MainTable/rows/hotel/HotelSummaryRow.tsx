@@ -12,7 +12,7 @@ import { useCurrentProject } from '../../../../../hooks'
 import {
   tableCellClasses,
   tableRowClasses
-} from '../../../../../constants/styles'
+} from '../../../../../constants/styles/table'
 
 interface HotelSummaryRowProps {
   hotels: IHotel[]
