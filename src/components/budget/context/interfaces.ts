@@ -71,6 +71,14 @@ export interface BudgetState {
   programTransfersCost: number
   transfersInCost: number
   transfersOutCost: number
+  itineraryTransfers: {
+    [date: string]: {
+      [type: string]: {
+        transferCost: number
+      }
+    }
+  }
+  itineraryTransfersCost: number
   nrPax: number
 }
 
@@ -116,6 +124,8 @@ export type UpdateProgramTransfersCost = {
       | 'transfer_dinner'
       | 'meetGreet'
       | 'assistance'
+      | 'transfer_morningItinerary'
+      | 'transfer_afternoonItinerary'
   }
 }
 

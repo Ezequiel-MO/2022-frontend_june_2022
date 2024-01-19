@@ -7,7 +7,7 @@ import {
 } from '../../../../../constants/styles/table'
 
 interface TransferRowProps {
-  pax: number
+  pax?: number
   date: string
   options: ITransfer[]
   description: string
@@ -16,6 +16,8 @@ interface TransferRowProps {
     | 'transfer_afternoonEvents'
     | 'transfer_lunch'
     | 'transfer_dinner'
+    | 'transfer_morningItinerary'
+    | 'transfer_afternoonItinerary'
 }
 
 export const TransferRow: React.FC<TransferRowProps> = ({

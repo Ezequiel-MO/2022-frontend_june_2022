@@ -1,21 +1,21 @@
 import { IItinerary } from '../../interfaces'
 
 export const getMorningMorningTitles = (
-  isItineraryWithActivities: boolean | undefined
+  isItineraryWithMorningActivities: boolean | undefined
 ) => {
   let titles = new Set<string>(['Morning Events', 'Morning Meeting'])
-  if (isItineraryWithActivities) {
+  if (isItineraryWithMorningActivities) {
     titles.delete('MorningEvents')
   }
   return titles
 }
 
 export const getMorningAfternoonTitles = (
-  isItineraryWithActivities: boolean | undefined,
+  isItineraryWithMorningActivities: boolean | undefined,
   isItineraryWithLunch: boolean | undefined
 ) => {
   let titles = new Set<string>(['Morning Events', 'Morning Meeting', 'Lunch'])
-  if (isItineraryWithActivities) {
+  if (isItineraryWithMorningActivities) {
     titles.delete('Morning Events')
   }
   if (isItineraryWithLunch) {
@@ -25,7 +25,8 @@ export const getMorningAfternoonTitles = (
 }
 
 export const getMorningNightTitles = (
-  isItineraryWithActivities: boolean | undefined,
+  isItineraryWithMorningActivities: boolean | undefined,
+  isItineraryWithAfternoonActivities: boolean | undefined,
   isItineraryWithLunch: boolean | undefined,
   isItineraryWithDinner: boolean | undefined
 ) => {
@@ -38,8 +39,13 @@ export const getMorningNightTitles = (
     'Dinner'
   ])
 
-  if (isItineraryWithActivities) {
+  if (isItineraryWithMorningActivities) {
     titles.delete('Morning Events')
+    titles.delete('Afternoon Events')
+  }
+
+  if (isItineraryWithAfternoonActivities) {
+    titles.delete('Afternoon Events')
     titles.delete('Afternoon Events')
   }
 
@@ -55,18 +61,19 @@ export const getMorningNightTitles = (
 }
 
 export const getAfternoonAfternoonTitles = (
-  isItineraryWithActivities: boolean | undefined
+  isItineraryWithAfternoonActivities: boolean | undefined
 ) => {
   let titles = new Set<string>(['Afternoon Events', 'Afternoon Meeting'])
 
-  if (isItineraryWithActivities) {
+  if (isItineraryWithAfternoonActivities) {
     titles.delete('Afternoon Events')
+    titles.delete('Afternoon Meeting')
   }
   return titles
 }
 
 export const getAfternoonNightTitles = (
-  isItineraryWithActivities: boolean | undefined,
+  isItineraryWithAfternoonActivities: boolean | undefined,
   isItineraryWithDinner: boolean | undefined
 ) => {
   let titles = new Set<string>([
@@ -75,8 +82,9 @@ export const getAfternoonNightTitles = (
     'Dinner'
   ])
 
-  if (isItineraryWithActivities) {
+  if (isItineraryWithAfternoonActivities) {
     titles.delete('Afternoon Events')
+    titles.delete('Afternoon Meeting')
   }
 
   if (isItineraryWithDinner) {
@@ -92,18 +100,45 @@ export const getNightNightTitles = () => {
 
 export function analyzeItinerary(itinerary: IItinerary) {
   const isItineraryActive = itinerary && itinerary.itinerary.length > 0
-  const hasActivities = itinerary?.activity?.events.length > 0
-  const hasLunch = itinerary?.lunch?.restaurants.length > 0
-  const hasDinner = itinerary?.dinner?.restaurants.length > 0
+  const isMorningItinerary = itinerary && itinerary.starts === 'morning'
+  const isAfternoonItinerary = itinerary && itinerary.starts === 'afternoon'
+  const isItineraryWithMorningActivities =
+    isItineraryActive && itinerary?.morningActivity?.events.length > 0
+  const isItineraryWithAfternoonActivities =
+    isItineraryActive && itinerary?.afternoonActivity?.events.length > 0
+  const isItineraryWithLunch =
+    isItineraryActive && itinerary?.lunch?.restaurants.length > 0
+  const isItineraryWithDinner =
+    isItineraryActive && itinerary?.dinner?.restaurants.length > 0
 
   return {
     isItineraryActive,
-    isItineraryWithActivities: isItineraryActive && hasActivities,
-    isItineraryWithMorningActivities:
-      hasActivities && itinerary.starts === 'morning',
-    isItineraryWithAfternoonActivities:
-      hasActivities && itinerary.starts === 'afternoon',
-    isItineraryWithLunch: isItineraryActive && hasLunch,
-    isItineraryWithDinner: isItineraryActive && hasDinner
+    isMorningItinerary,
+    isAfternoonItinerary,
+    isItineraryWithMorningActivities,
+    isItineraryWithAfternoonActivities,
+    isItineraryWithLunch,
+    isItineraryWithDinner
   }
+}
+
+export const getItemType = (itemId: string) => {
+  const patterns = {
+    MorningEvents: /morning-events$/,
+    MorningMeetings: /morning-meetings$/,
+    Lunch: /lunch$/,
+    AfternoonEvents: /afternoon-events$/,
+    AfternoonMeetings: /afternoon-meetings$/,
+    Dinner: /dinner$/,
+    FullDayMeetings: /fullday-meetings$/,
+    Overnight: /overnight$/,
+    Itinerary: /itinerary$/
+  }
+  for (const [type, pattern] of Object.entries(patterns)) {
+    if (pattern.test(itemId)) {
+      return type
+    }
+  }
+
+  return null
 }

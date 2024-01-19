@@ -8,8 +8,8 @@ import {
 interface Props {
   firstItem: ITransfer
   date: string
-  description: 'On Board Assistance'
-  id: string
+  description: 'On Board Assistance' | 'En Route Assistance'
+  id?: string
 }
 
 export const AssistanceRow = ({ firstItem, date, description }: Props) => {

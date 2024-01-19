@@ -14,6 +14,8 @@ interface Props {
     | 'transfer_lunch'
     | 'transfer_afternoonEvents'
     | 'transfer_dinner'
+    | 'transfer_morningItinerary'
+    | 'transfer_afternoonItinerary'
 }
 
 const serviceDescriptions: { [key: string]: string } = {

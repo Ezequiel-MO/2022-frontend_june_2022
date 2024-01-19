@@ -13,7 +13,9 @@ import {
 export interface IItinerary {
   intro: string
   itinerary: ITransfer[]
-  activity: IActivity
+  morningActivity: IActivity
+  afternoonActivity: IActivity
+  nightActivity: IActivity
   lunch: IMeal
   dinner: IMeal
   starts: 'morning' | 'afternoon' | 'night' | ''

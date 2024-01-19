@@ -8,8 +8,7 @@ export const quoteTitle =
 export const dayPage =
   'flex flex-col bg-white-0 dark:bg-gray-700 rounded-lg shadow-lg p-4'
 
-export const pageBottomBorder =
-  'border-t-2 border-gray-200 dark:border-gray-700 my-6'
+export const pageBottomBorder = 'border-t-2 border-gray-500 my-6'
 
 export const pageDateHeader =
   'text-center text-lg md:text-xl lg:text-2xl font-semibold dark:text-white-0 mb-4 mt-2 md:mt-4 lg:mb-6 leading-tight'

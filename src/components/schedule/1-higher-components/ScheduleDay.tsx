@@ -14,6 +14,7 @@ import { ScheduleDayOvernight } from '../2-sections/ScheduleDayOvernight'
 import * as styles from '../../../constants/styles/mainsection'
 import { useScheduleFilter } from '../useScheduleFilter'
 import { ScheduleDayItinerary } from '../2-sections/ScheduleDayItinerary'
+import { getItemType } from '../helpers'
 
 interface Props {
   day: IDay
@@ -36,9 +37,10 @@ export const ScheduleDay = ({
   arrivalDay
 }: Props) => {
   const renderItem = (item: RenderedItem) => {
-    switch (item.title) {
-      case 'Morning Events':
-      case 'Afternoon Events':
+    const itemType = getItemType(item.id)
+    switch (itemType) {
+      case 'MorningEvents':
+      case 'AfternoonEvents':
         return (
           <ScheduleDayEvents
             key={item.id}
@@ -49,9 +51,9 @@ export const ScheduleDay = ({
             suplementaryText={suplementaryText}
           />
         )
-      case 'Morning Meeting':
-      case 'Afternoon Meeting':
-      case 'Full Day Meeting':
+      case 'MorningMeetings':
+      case 'AfternoonMeetings':
+      case 'FullDayMeetings':
         return (
           <ScheduleDayMeetings
             key={item.id}

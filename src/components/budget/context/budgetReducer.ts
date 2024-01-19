@@ -6,6 +6,7 @@ export const SET_SELECTED_HOTEL = 'SET_SELECTED_HOTEL'
 export const SET_SELECTED_HOTEL_COST = 'SET_SELECTED_HOTEL_COST'
 export const UPDATE_TRANSFERS_IN_COST = 'UPDATE_TRANSFERS_IN_COST'
 export const UPDATE_TRANSFERS_OUT_COST = 'UPDATE_TRANSFERS_OUT_COST'
+export const UPDATE_ITINERARY_TRANSFERS_COST = 'UPDATE_ITINERARY_TRANSFERS_COST'
 export const UPDATE_PROGRAM_TRANSFERS_COST = 'UPDATE_PROGRAM_TRANSFERS_COST'
 export const UPDATE_PROGRAM_MEALS_COST = 'UPDATE_PROGRAM_MEALS_COST'
 export const UPDATE_PROGRAM_ACTIVITIES_COST = 'UPDATE_PROGRAM_ACTIVITIES_COST'
@@ -126,30 +127,56 @@ export const budgetReducer = (
         assistanceCost: totalAssistanceCost
       }
 
-      const updatedProgramTransfers = {
-        ...state.programTransfers,
-        [date]: {
-          ...state.programTransfers[date],
-          [type]: updatedTypeTransfers
-        }
-      }
-
-      let newProgramTransfersCost = 0
-      Object.values(updatedProgramTransfers).forEach((dateTransfers) => {
-        Object.values(dateTransfers).forEach((transferType) => {
-          if ('assistanceCost' in transferType) {
-            newProgramTransfersCost +=
-              transferType.transferCost + (transferType.assistanceCost || 0)
-          } else {
-            newProgramTransfersCost += transferType.transferCost
+      if (
+        type === 'transfer_morningItinerary' ||
+        type === 'transfer_afternoonItinerary'
+      ) {
+        const updatedItineraryTransfers = {
+          ...state.itineraryTransfers,
+          [date]: {
+            ...(state.itineraryTransfers[date] || {}),
+            [type]: updatedTypeTransfers
           }
-        })
-      })
+        }
+        let newItineraryTransfersCost = 0
 
-      return {
-        ...state,
-        programTransfers: updatedProgramTransfers,
-        programTransfersCost: newProgramTransfersCost
+        Object.values(updatedItineraryTransfers).forEach((dateTransfers) => {
+          Object.values(dateTransfers).forEach((transferType) => {
+            newItineraryTransfersCost +=
+              transferType.transferCost + totalAssistanceCost
+          })
+        })
+        return {
+          ...state,
+          itineraryTransfers: updatedItineraryTransfers,
+          itineraryTransfersCost: newItineraryTransfersCost
+        }
+      } else {
+        const updatedProgramTransfers = {
+          ...state.programTransfers,
+          [date]: {
+            ...state.programTransfers[date],
+            [type]: updatedTypeTransfers
+          }
+        }
+
+        let newProgramTransfersCost = 0
+        Object.values(updatedProgramTransfers).forEach((dateTransfers) => {
+          Object.values(dateTransfers).forEach((transferType) => {
+            if ('assistanceCost' in transferType) {
+              newProgramTransfersCost +=
+                transferType.transferCost + (transferType.assistanceCost || 0)
+            } else {
+              newProgramTransfersCost += transferType.transferCost
+            }
+          })
+        })
+
+        return {
+          ...state,
+          programTransfers: updatedProgramTransfers,
+          programTransfersCost: newProgramTransfersCost
+        }
       }
     }
     case UPDATE_PROGRAM_MEALS_COST: {

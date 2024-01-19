@@ -1,5 +1,5 @@
 import { IDay } from '../../../../interfaces'
-import { HotelRows } from '../rows/hotel'
+import { analyzeItinerary } from '../../../schedule/helpers'
 
 import {
   AfternoonSection,
@@ -9,6 +9,7 @@ import {
   TransfersInSection,
   TransfersOutSection
 } from '../sections'
+import { TransferItinerarySection } from '../sections/TransferItinerarySection'
 
 interface DayRowsProps {
   day: IDay
@@ -25,21 +26,60 @@ export const DayRows = ({
   isLastDay,
   multiDestination
 }: DayRowsProps) => {
+  const {
+    isMorningItinerary = false,
+    isAfternoonItinerary = false,
+    isItineraryWithMorningActivities = false,
+    isItineraryWithAfternoonActivities = false,
+    isItineraryWithLunch = false,
+    isItineraryWithDinner = false
+  } = analyzeItinerary(day.itinerary)
+
   return (
     <>
+      {isMorningItinerary && (
+        <TransferItinerarySection
+          date={day.date}
+          transfers={day.itinerary.itinerary}
+          type={day.itinerary.starts}
+        />
+      )}
       {isFirstDay && (
         <TransfersInSection transfers={day.transfer_in} date={day.date} />
       )}
       <MorningSection
-        events={day.morningEvents.events}
+        events={
+          isItineraryWithMorningActivities
+            ? day.itinerary.morningActivity.events
+            : day.morningEvents.events
+        }
         meetings={day.morningMeetings?.meetings || []}
         date={day.date}
         pax={pax}
         multiDestination={multiDestination}
       />
-      <LunchSection lunch={day.lunch?.restaurants} date={day.date} pax={pax} />
+      <LunchSection
+        lunch={
+          isItineraryWithLunch
+            ? day.itinerary.lunch.restaurants
+            : day.lunch?.restaurants
+        }
+        date={day.date}
+        pax={pax}
+      />
+      {isAfternoonItinerary && (
+        <TransferItinerarySection
+          date={day.date}
+          transfers={day.itinerary.itinerary}
+          type={day.itinerary.starts}
+        />
+      )}
       <AfternoonSection
-        events={day.afternoonEvents?.events}
+        events={
+          isItineraryWithAfternoonActivities
+            ? day.itinerary.afternoonActivity.events
+            : day.afternoonEvents?.events
+        }
         meetings={day.afternoonMeetings?.meetings || []}
         fullDayMeetings={day.fullDayMeetings?.meetings || []}
         date={day.date}
@@ -47,7 +87,11 @@ export const DayRows = ({
         multiDestination={multiDestination}
       />
       <DinnerSection
-        dinners={day.dinner?.restaurants}
+        dinners={
+          isItineraryWithDinner
+            ? day.itinerary.dinner.restaurants
+            : day.dinner?.restaurants
+        }
         date={day.date}
         pax={pax}
       />

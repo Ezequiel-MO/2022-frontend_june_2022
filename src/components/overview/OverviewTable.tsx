@@ -52,7 +52,9 @@ const OverviewTable = () => {
                   (event, eventIndex) => (
                     <td
                       key={`${meal}-${
-                        event ? event[0]?.id : `no-event-${eventIndex}`
+                        event && event[0]?.id
+                          ? event[0].id
+                          : `eventIndex-${eventIndex}`
                       }`}
                       className='px-5 py-5 border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-sm cursor-pointer'
                     >

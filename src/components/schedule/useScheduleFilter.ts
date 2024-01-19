@@ -22,7 +22,6 @@ export const useScheduleFilter = (day: interfaces.IDay): RenderedItem[] => {
 
   const {
     isItineraryActive,
-    isItineraryWithActivities,
     isItineraryWithMorningActivities,
     isItineraryWithAfternoonActivities,
     isItineraryWithLunch,
@@ -32,22 +31,23 @@ export const useScheduleFilter = (day: interfaces.IDay): RenderedItem[] => {
   const getTitleFilterMap = (): FilterMap => {
     return {
       'morning-morning': helpers.getMorningMorningTitles(
-        isItineraryWithActivities
+        isItineraryWithMorningActivities
       ),
       'morning-afternoon': helpers.getMorningAfternoonTitles(
-        isItineraryWithActivities,
+        isItineraryWithMorningActivities,
         isItineraryWithLunch
       ),
       'morning-night': helpers.getMorningNightTitles(
-        isItineraryWithActivities,
+        isItineraryWithMorningActivities,
+        isItineraryWithAfternoonActivities,
         isItineraryWithLunch,
         isItineraryWithDinner
       ),
       'afternoon-afternoon': helpers.getAfternoonAfternoonTitles(
-        isItineraryWithActivities
+        isItineraryWithAfternoonActivities
       ),
       'afternoon-night': helpers.getAfternoonNightTitles(
-        isItineraryWithActivities,
+        isItineraryWithAfternoonActivities,
         isItineraryWithDinner
       ),
       'night-night': helpers.getNightNightTitles()
@@ -72,9 +72,11 @@ export const useScheduleFilter = (day: interfaces.IDay): RenderedItem[] => {
   const initialRenderedItems: RenderedItem[] = [
     {
       id: `${date}-morning-events`,
-      title: 'Morning Events',
+      title: isItineraryWithMorningActivities
+        ? 'En route Activity'
+        : 'Morning Events',
       events: isItineraryWithMorningActivities
-        ? itinerary.activity
+        ? itinerary.morningActivity
         : morningEvents
     },
     {
@@ -85,14 +87,16 @@ export const useScheduleFilter = (day: interfaces.IDay): RenderedItem[] => {
     },
     {
       id: `${date}-lunch`,
-      title: 'Lunch',
+      title: isItineraryWithLunch ? 'En Route Lunch' : 'Lunch',
       events: isItineraryWithLunch ? itinerary.lunch : lunch
     },
     {
       id: `${date}-afternoon-events`,
-      title: 'Afternoon Events',
+      title: isItineraryWithAfternoonActivities
+        ? 'En Route Activity'
+        : 'Afternoon Events',
       events: isItineraryWithAfternoonActivities
-        ? itinerary.activity
+        ? itinerary.afternoonActivity
         : afternoonEvents
     },
     {
@@ -103,7 +107,7 @@ export const useScheduleFilter = (day: interfaces.IDay): RenderedItem[] => {
     },
     {
       id: `${date}-dinner`,
-      title: 'Dinner',
+      title: isItineraryWithDinner ? 'En Route Dinner' : 'Dinner',
       events: isItineraryWithDinner ? itinerary.dinner : dinner
     },
     {
