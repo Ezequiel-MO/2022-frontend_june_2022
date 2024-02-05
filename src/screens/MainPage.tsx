@@ -4,7 +4,7 @@ import { useCurrentProject } from '../hooks'
 import { TranslationProvider } from '../translations/translationContext'
 import { IProject } from '../interfaces'
 import { BudgetProvider } from '../components/budget/context/BudgetContext'
-import { current } from '@reduxjs/toolkit'
+import { ScrollHandler } from '../components/molecules/ScrollHandler'
 
 export const MainPage: FC = () => {
   const [isMainSectionReady, setIsMainSectionReady] = useState(false)
@@ -24,25 +24,6 @@ export const MainPage: FC = () => {
   }, [mainSectionParentRef])
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Logic to determine when SidebarSmall is out of view and set isSticky
-      // This will depend on your page layout, you might need to adjust the value
-      const sidebarSmallHeight = 100 // Assume the SidebarSmall has a height of 100px
-      if (window.scrollY > sidebarSmallHeight) {
-        setIsSticky(true)
-      } else {
-        setIsSticky(false)
-      }
-    }
-
-    // Add scroll event listener when the component is mounted
-    window.addEventListener('scroll', handleScroll)
-
-    // Remove event listener on cleanup
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  useEffect(() => {
     if (currentProject) {
       localStorage.setItem('currentProject', JSON.stringify(currentProject))
     }
@@ -51,6 +32,7 @@ export const MainPage: FC = () => {
   return (
     <BudgetProvider>
       <TranslationProvider quoteLanguage={quoteLanguage}>
+        <ScrollHandler setIsSticky={setIsSticky} />
         <div className='flex flex-col'>
           <SidebarSmall
             mainSectionRef={mainSectionRef}
