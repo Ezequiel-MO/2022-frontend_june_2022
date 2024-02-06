@@ -25,6 +25,17 @@ export const useLogin = ({ onSuccess, onError }: LoginOptions) => {
       if (!token) {
         throw new Error('Invalid Email or Password')
       }
+
+      await baseAPI.post(
+        '/admin/clearCache',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+
       const response = await baseAPI.get(`/projects?code=${password}`, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -41,6 +52,7 @@ export const useLogin = ({ onSuccess, onError }: LoginOptions) => {
         throw new Error('Invalid Email')
       }
       localStorage.setItem('token', token)
+
       onSuccess && onSuccess(response.data.data.data[0])
     } catch (error: any) {
       onError && onError(error)
