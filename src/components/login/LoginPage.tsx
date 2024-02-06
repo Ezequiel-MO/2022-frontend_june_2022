@@ -1,12 +1,11 @@
 import React, { useState, FormEvent } from 'react'
-import { useLoaderData, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useBudget, useCurrentProject, useUserLog } from '../../hooks'
 import Spinner from '../../ui/spinner/Spinner'
 import { saveToLocalStorage } from './helperFunctions'
 import LoginForm from './LoginForm'
 import { useLogin } from './useLogin'
 import { IDay, IHotel, IProject } from '../../interfaces'
-import { ISettings } from '../../interfaces/settings'
 
 interface Alert {
   error: boolean
