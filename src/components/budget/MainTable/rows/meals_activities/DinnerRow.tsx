@@ -1,12 +1,11 @@
-import { useEffect } from 'react'
 import { MultipleChoiceCells, SingleChoiceCells } from '../../multipleOrSingle'
 import { IEvent, IRestaurant } from '../../../../../interfaces'
-import { useContextBudget } from '../../../context/BudgetContext'
-import { UPDATE_PROGRAM_MEALS_COST } from '../../../context/budgetReducer'
+
 import {
   tableCellClasses,
   tableRowClasses
 } from '../../../../../constants/styles/table'
+import { VenueBreakdownRows } from '../venue'
 
 interface DinnerRowProps {
   items: IRestaurant[]
@@ -23,20 +22,14 @@ export const DinnerRow = ({
   selectedEvent,
   setSelectedEvent
 }: DinnerRowProps) => {
-  const { dispatch } = useContextBudget()
   const NoDinner = items.length === 0
 
-  useEffect(() => {
-    dispatch({
-      type: UPDATE_PROGRAM_MEALS_COST,
-      payload: {
-        date,
-        restaurant: selectedEvent ? selectedEvent : null,
-        pax,
-        type: 'dinner'
-      }
-    })
-  }, [dispatch, NoDinner, date, selectedEvent])
+  const handleVenueChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    const selectedVenue = items.find(
+      (restaurant) => restaurant.name === e.target.value
+    ) as IRestaurant
+    setSelectedEvent(selectedVenue)
+  }
 
   if (NoDinner) return null
   const multipleChoice = items.length > 1
@@ -49,21 +42,31 @@ export const DinnerRow = ({
   }
 
   return (
-    <tr className={tableRowClasses}>
-      <td className={tableCellClasses}>{date}</td>
-      {multipleChoice ? (
-        <MultipleChoiceCells
-          {...props}
-          selectedEvent={selectedEvent}
-          setSelectedEvent={
-            setSelectedEvent as React.Dispatch<
-              React.SetStateAction<IEvent | IRestaurant>
-            >
-          }
+    <>
+      <tr className={tableRowClasses}>
+        <td className={tableCellClasses}>{date}</td>
+        {multipleChoice ? (
+          <MultipleChoiceCells
+            {...props}
+            selectedEvent={selectedEvent}
+            setSelectedEvent={
+              setSelectedEvent as React.Dispatch<
+                React.SetStateAction<IEvent | IRestaurant>
+              >
+            }
+          />
+        ) : (
+          <SingleChoiceCells {...props} />
+        )}
+      </tr>
+      {selectedEvent.isVenue && (
+        <VenueBreakdownRows
+          date={date}
+          id='dinner'
+          venue={selectedEvent}
+          units={pax}
         />
-      ) : (
-        <SingleChoiceCells {...props} />
       )}
-    </tr>
+    </>
   )
 }

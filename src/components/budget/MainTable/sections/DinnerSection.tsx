@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { IEvent, IRestaurant } from '../../../../interfaces'
-import { VenueSummaryRow } from '../rows/venue'
 import { ShowRows } from '../rows/shows/ShowRows'
 import { DinnerRow, EventTransferRow } from '../rows/meals_activities'
-import { UPDATE_PROGRAM_SHOWS_COST } from '../../context/budgetReducer'
+import {
+  UPDATE_PROGRAM_MEALS_COST,
+  UPDATE_PROGRAM_SHOWS_COST
+} from '../../context/budgetReducer'
 import { useContextBudget } from '../../context/BudgetContext'
 
 interface DinnerSectionProps {
@@ -18,18 +20,19 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
   const noDinner = dinners.length === 0
   if (noDinner) return null
 
-  const [selectedRestaurant, setSelectedRestaurant] = useState<IRestaurant>(
-    dinners[0]
-  )
+  const shouldRenderEntertainmentRow = selectedEvent?.entertainment?.length
 
-  const handleVenueChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-    const selectedVenue = dinners.find(
-      (restaurant) => restaurant.name === e.target.value
-    ) as IRestaurant
-    setSelectedRestaurant(selectedVenue)
-  }
-
-  const shouldRenderEntertainmentRow = selectedRestaurant?.entertainment?.length
+  useEffect(() => {
+    dispatch({
+      type: UPDATE_PROGRAM_MEALS_COST,
+      payload: {
+        date,
+        restaurant: selectedEvent,
+        pax,
+        type: 'dinner'
+      }
+    })
+  }, [dispatch, date, selectedEvent])
 
   useEffect(() => {
     if (!shouldRenderEntertainmentRow) {
@@ -44,44 +47,12 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
     }
   }, [shouldRenderEntertainmentRow, dispatch, date])
 
-  const renderDinnerRow = (dinners: IRestaurant[]) => {
-    if (dinners.every((dinner) => !dinner.isVenue))
-      return (
-        <DinnerRow
-          items={dinners}
-          date={date}
-          pax={pax}
-          selectedEvent={selectedEvent}
-          setSelectedEvent={
-            setSelectedEvent as React.Dispatch<
-              React.SetStateAction<IEvent | IRestaurant>
-            >
-          }
-        />
-      )
-
-    return (
-      <VenueSummaryRow
-        venues={dinners}
-        venue={selectedRestaurant}
-        handleChange={handleVenueChange}
-        date={date}
-        title='Dinner @ Venue'
-        id='dinner'
-        pax={pax}
-      />
-    )
-  }
-
-  const renderEntertainmentRow = (selectedRestaurant: IRestaurant) => {
-    if (
-      selectedRestaurant?.isVenue &&
-      selectedRestaurant?.entertainment?.length
-    ) {
+  const renderEntertainmentRow = (selectedEvent: IRestaurant) => {
+    if (selectedEvent?.isVenue && selectedEvent?.entertainment?.length) {
       return (
         <ShowRows
           date={date}
-          entertainment={selectedRestaurant.entertainment}
+          entertainment={selectedEvent.entertainment}
           typeOfEvent='dinner'
         />
       )
@@ -98,8 +69,18 @@ export const DinnerSection = ({ dinners, date, pax }: DinnerSectionProps) => {
         selectedEvent={selectedEvent}
       />
 
-      {renderDinnerRow(dinners)}
-      {renderEntertainmentRow(selectedRestaurant)}
+      <DinnerRow
+        items={dinners}
+        date={date}
+        pax={pax}
+        selectedEvent={selectedEvent}
+        setSelectedEvent={
+          setSelectedEvent as React.Dispatch<
+            React.SetStateAction<IEvent | IRestaurant>
+          >
+        }
+      />
+      {renderEntertainmentRow(selectedEvent)}
     </>
   )
 }

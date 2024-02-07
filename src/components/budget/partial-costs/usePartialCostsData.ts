@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { useBudget, useGetVenuesCost } from '../../../hooks'
+import { useBudget } from '../../../hooks'
 import { IGift } from '../../../interfaces'
 import { TranslationKeys } from '../../../interfaces/translations'
 import { useContextBudget } from '../context/BudgetContext'
@@ -32,7 +32,6 @@ interface PartialCostsDataReturn {
 export const usePartialCostsData = (): PartialCostsDataReturn => {
   const { state } = useContextBudget()
   const { currentGift } = useBudget() || ({} as { currentGift: IGift })
-  const { venuesTotalCost = 0 } = useGetVenuesCost()
   const [totalCostOfItems, setTotalCostOfItems] = useState<number>(0)
 
   const giftTotalCost = useMemo(() => {
@@ -45,7 +44,6 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
       'Meetings',
       'Transfers',
       'Meals',
-      'Venue Costs',
       'Activities',
       'Gifts',
       'Show Costs'
@@ -61,7 +59,6 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
             state.programTransfersCost,
           state.mealsCost,
           state.activitiesCost,
-          venuesTotalCost,
           giftTotalCost,
           state.showsCost
         ],
@@ -81,7 +78,6 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
           'rgba(139, 195, 74, 1)',
           'rgba(233, 30, 99, 1)',
           'rgba(255, 193, 7, 1)',
-          'rgba(3, 169, 244, 1)',
           'rgba(121, 85, 72, 1)',
           'rgba(96, 125, 139, 1)'
         ],
@@ -113,11 +109,6 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
       icon: 'carbon:restaurant',
       title: 'MEAL FUNCTIONS',
       cost: state.mealsCost
-    },
-    {
-      icon: 'ph:castle-turret-light',
-      title: 'VENUES',
-      cost: venuesTotalCost
     },
     {
       icon: 'akar-icons:people-multiple',

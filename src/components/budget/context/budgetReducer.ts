@@ -155,10 +155,8 @@ export const budgetReducer = (
     case UPDATE_PROGRAM_MEALS_COST: {
       const { date, restaurant, pax, type } = action.payload
 
-      if (restaurant && restaurant?.isVenue) {
-        return state
-      }
       let totalMealsCost = 0
+      let totalVenuesCost = 0
 
       const updatedMeals = {
         ...state.meals,
@@ -168,23 +166,59 @@ export const budgetReducer = (
         }
       }
 
-      totalMealsCost = Object.values(updatedMeals).reduce((acc, day) => {
-        let cost = 0
-        if (day.lunch && !day.lunch.isVenue) {
-          cost += day.lunch.price
-        }
-        if (day.dinner && !day.dinner.isVenue) {
-          cost += day.dinner.price
-        }
-        return acc + cost
-      }, 0)
+      if (restaurant && restaurant?.isVenue) {
+        const {
+          rental = 0,
+          cocktail_units = 0,
+          cocktail_price = 0,
+          catering_units = 0,
+          catering_price = 0,
+          staff_units = 0,
+          staff_menu_price = 0,
+          audiovisuals = 0,
+          cleaning = 0,
+          security = 0,
+          entertainment = 0
+        } = restaurant?.venue_price || {}
+
+        totalVenuesCost = Number(
+          rental +
+            cocktail_units * cocktail_price +
+            catering_units * catering_price +
+            staff_units * staff_menu_price +
+            audiovisuals +
+            cleaning +
+            security +
+            entertainment
+        )
+        console.log('total venues cost', totalVenuesCost)
+      } else {
+        totalMealsCost =
+          Object.values(updatedMeals).reduce((acc, day) => {
+            let cost = 0
+            if (day.lunch && !day.lunch.isVenue) {
+              cost += day.lunch.price
+            }
+            if (day.dinner && !day.dinner.isVenue) {
+              cost += day.dinner.price
+            }
+            return acc + cost
+          }, 0) * pax
+      }
 
       return {
         ...state,
-        meals: updatedMeals,
-        mealsCost: totalMealsCost * pax
+        meals: {
+          ...state.meals,
+          [date]: {
+            ...state.meals?.[date],
+            [type]: restaurant
+          }
+        },
+        mealsCost: restaurant?.isVenue ? totalVenuesCost : totalMealsCost
       }
     }
+
     case UPDATE_PROGRAM_ACTIVITIES_COST: {
       const { date, activity, pax, type } = action.payload
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { BudgetBreakdownButton } from '../../../../molecules'
 import { Icon } from '@iconify/react'
 import { IRestaurant } from '../../../../../interfaces'
@@ -8,9 +8,10 @@ interface Props {
   date: string
   id: 'lunch ' | 'dinner'
   venue: IRestaurant
+  units: number
 }
 
-export const VenueBreakdownRows = ({ date, id, venue }: Props) => {
+export const VenueBreakdownRows = ({ date, id, venue, units }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(true)
 
   const handleToggle = () => {

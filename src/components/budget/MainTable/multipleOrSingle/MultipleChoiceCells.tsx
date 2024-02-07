@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { OptionSelect } from '.'
 import accounting from 'accounting'
 import { IEvent, IRestaurant } from '../../../../interfaces'
-import { tableCellClasses } from '../../../../constants/styles/table'
+import { getVenuesCost } from '../../../../helpers/GetVenuesCost'
 
 interface MultipleChoiceCellsProps {
   pax: number
@@ -18,11 +18,10 @@ export const MultipleChoiceCells: FC<MultipleChoiceCellsProps> = ({
   pax,
   description,
   options,
-  id,
-  date,
   selectedEvent,
   setSelectedEvent
 }) => {
+  const isVenue = 'isVenue' in selectedEvent && selectedEvent.isVenue === true
   const [nrPax, setNrPax] = useState(pax)
 
   useEffect(() => {
@@ -51,12 +50,18 @@ export const MultipleChoiceCells: FC<MultipleChoiceCellsProps> = ({
         />
       </td>
       <td>{nrPax}</td>
-      <td>{accounting.formatMoney(Number(selectedEvent?.price), '€')}</td>
       <td>
-        {accounting.formatMoney(
-          Number(nrPax * Number(selectedEvent?.price)),
-          '€'
-        )}
+        {!isVenue
+          ? accounting.formatMoney(Number(selectedEvent?.price), '€')
+          : null}
+      </td>
+      <td>
+        {!isVenue
+          ? accounting.formatMoney(
+              Number(nrPax * Number(selectedEvent?.price)),
+              '€'
+            )
+          : accounting.formatMoney(getVenuesCost(selectedEvent), '€')}
       </td>
     </>
   )
