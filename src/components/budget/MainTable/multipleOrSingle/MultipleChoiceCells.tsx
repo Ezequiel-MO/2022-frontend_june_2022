@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { OptionSelect } from '.'
 import accounting from 'accounting'
 import { IEvent, IRestaurant } from '../../../../interfaces'
-import { getVenuesCost } from '../../../../helpers/GetVenuesCost'
+import { getVenuesCost } from '../../../../helpers/getVenuesCost'
 
 interface MultipleChoiceCellsProps {
   pax: number
