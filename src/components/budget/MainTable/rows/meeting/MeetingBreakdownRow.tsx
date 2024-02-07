@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const MeetingBreakdownRow = ({ units, title, rate }: Props) => {
-  if (units === 0) return null
+  if (rate === 0) return null
   return (
     <tr className='border-b border-gray-200 hover:bg-gray-100 hover:text-[#000]'>
       <td className='py-3 px-6 text-left whitespace-nowrap flex items-center font-medium'>

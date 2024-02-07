@@ -34,7 +34,7 @@ const Footer = () => {
           PROPOSED BY: <span className='font-bold'>CUTT/events</span>
         </h6>
         <h6 className='text-sm uppercase tracking-widest mb-1'>DESIGNED BY</h6>
-        <p className='text-sm'>@ QUOTE/Buddy - 2023</p>
+        <p className='text-sm'>@ QUOTE/Buddy - 2024</p>
         <h6 className='text-sm uppercase tracking-widest mt-4 mb-1'>
           ABOUT THIS QUOTATION
         </h6>

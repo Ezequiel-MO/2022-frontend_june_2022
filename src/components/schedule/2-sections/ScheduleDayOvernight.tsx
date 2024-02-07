@@ -15,6 +15,7 @@ export const ScheduleDayOvernight = ({
   introduction,
   overnight
 }: Props) => {
+  if (overnight.length === 0) return null
   return (
     <div id={id} className='page-break-after'>
       <div className='flex items-center'>

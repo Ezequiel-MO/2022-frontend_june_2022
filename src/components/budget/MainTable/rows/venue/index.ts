@@ -1,5 +1,2 @@
 export * from './VenueBreakdownRow'
-export * from './VenueMultipleChoice'
-export * from './VenueSingleChoiceCells'
 export * from './VenueBreakdownRows'
-export * from './VenueSummaryRow'
