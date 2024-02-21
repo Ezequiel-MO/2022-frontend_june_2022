@@ -5,7 +5,7 @@ const Footer = () => {
     <div className='h-64 m-8 p-4 overflow-hidden text-white bg-black rounded-lg flex items-start'>
       <div className='flex flex-col basis-1/4 space-y-4'>
         <a
-          href='https://www.linkedin.com/company/liberty-international-tourism-group/'
+          href='https://www.linkedin.com/company/335093/admin/feed/posts/'
           target='_blank'
           rel='noopener noreferrer'
           className='hover:text-blue-600'
@@ -13,7 +13,7 @@ const Footer = () => {
           <Icon icon='akar-icons:linkedin-fill' width='30' color='#ccc' />
         </a>
         <a
-          href='https://www.instagram.com/liberty_itg/'
+          href='https://www.instagram.com/cutt.events/'
           target='_blank'
           rel='noopener noreferrer'
           className='hover:text-pink-500'
@@ -21,7 +21,7 @@ const Footer = () => {
           <Icon icon='akar-icons:instagram-fill' width='30' color='#ccc' />
         </a>
         <a
-          href='https://www.facebook.com/LibertyInternationalTourismGroup?ref_type=bookmark'
+          href='https://www.facebook.com/cutt.events/'
           target='_blank'
           rel='noopener noreferrer'
           className='hover:text-blue-800'
