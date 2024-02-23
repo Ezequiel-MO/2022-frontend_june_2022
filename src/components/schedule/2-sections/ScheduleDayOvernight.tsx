@@ -1,8 +1,6 @@
-import { Icon } from '@iconify/react'
 import { IHotel } from '../../../interfaces'
-import { RichParagraph } from '../../atoms/RichParagraph'
-import { Hotels } from '../../hotels/Hotels'
-import { h1Title } from '../../../constants/styles/mainsection'
+import { Hotels } from '../3-cardswrappers/Hotels'
+import { ScheduleItemLayout } from './ScheduleItemLayout'
 
 interface Props {
   id: string
@@ -17,16 +15,13 @@ export const ScheduleDayOvernight = ({
 }: Props) => {
   if (overnight.length === 0) return null
   return (
-    <div id={id} className='page-break-after'>
-      <div className='flex items-center'>
-        <Icon
-          icon='icon-park-outline:hotel-please-clean'
-          className='text-2xl mr-2'
-        />
-        <h1 className={h1Title}>Accommodation options</h1>
-      </div>
-      <RichParagraph text={introduction} />
+    <ScheduleItemLayout
+      id={id}
+      icon='icon-park-outline:hotel-please-cleans'
+      title={`Accommodation options`}
+      introduction={introduction}
+    >
       <Hotels hotels={overnight} />
-    </div>
+    </ScheduleItemLayout>
   )
 }

@@ -1,4 +1,3 @@
-// EntertainmentCards.tsx
 import { useState, useMemo } from 'react'
 import { IEntertainment } from '../../../interfaces'
 import { EntertainmentCard } from '../4-cards/EntertainmentCard'
@@ -14,7 +13,7 @@ export const EntertainmentCards: React.FC<Props> = ({
   entertainments,
   restaurant
 }) => {
-  const [activeTab, setActiveTab] = useState<number>(1)
+  const [openTab, setOpenTab] = useState(1)
 
   const entertainmentListItems = useMemo(
     () =>
@@ -34,8 +33,8 @@ export const EntertainmentCards: React.FC<Props> = ({
       <TabList
         tabListItems={entertainmentListItems}
         type='entertainment'
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        activeTab={openTab}
+        setActiveTab={setOpenTab}
         onTabClick={function (id: string): void {
           console.log('function not implemented yet')
         }}
@@ -43,11 +42,7 @@ export const EntertainmentCards: React.FC<Props> = ({
 
       <div className='entertainment-cards-content'>
         {entertainments.map((entertainment, index) => (
-          <TabContent
-            key={entertainment._id}
-            activeTab={activeTab}
-            index={index}
-          >
+          <TabContent key={entertainment._id} activeTab={openTab} index={index}>
             <EntertainmentCard entertainment={entertainment} />
           </TabContent>
         ))}

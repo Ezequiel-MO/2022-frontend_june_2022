@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react'
-import { useCurrentProject } from '../../hooks'
+import { useCurrentProject } from '../../../hooks'
 
 interface Props {
   leftIconsText: string[]

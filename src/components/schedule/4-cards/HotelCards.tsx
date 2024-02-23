@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import RenderPhotos from '../organisms/RenderPhotos'
+import RenderPhotos from '../../organisms/RenderPhotos'
 import HotelIcons from './HotelIcons'
-import { RichParagraph } from '../atoms/RichParagraph'
-import { IHotel } from '../../interfaces'
+import { RichParagraph } from '../../atoms/RichParagraph'
+import { IHotel } from '../../../interfaces'
 
 interface Props {
   hotel: IHotel

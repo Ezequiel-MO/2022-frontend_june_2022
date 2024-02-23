@@ -5,41 +5,27 @@ import {
   h1Title,
   supplemmentaryText as supplementaryTextStyle
 } from '../../../constants/styles/mainsection'
+import { ScheduleItemLayout } from './ScheduleItemLayout'
 
 interface Props {
   id: string
   title: string
   meetings: IMeeting[]
   timing: string
-  suplementaryText: boolean
+  suplementaryText?: boolean
 }
 
-export const ScheduleDayMeetings = ({
-  id,
-  title,
-  meetings,
-  timing,
-  suplementaryText
-}: Props) => {
-  if (meetings?.length === 0) {
-    return suplementaryText ? (
-      <h3
-        className={supplementaryTextStyle}
-      >{`No ${title.toLowerCase()} planned`}</h3>
-    ) : null
-  }
+export const ScheduleDayMeetings = ({ id, title, meetings, timing }: Props) => {
+  if (meetings?.length === 0) return null
   return (
-    <div id={id} className='page-break-after'>
-      <div className='flex items-center'>
-        <Icon
-          icon='healthicons:group-discussion-meetingx3-outline'
-          className='text-2xl mr-2'
-        />
-        <h1 className={h1Title}>{title}</h1>
-      </div>
+    <ScheduleItemLayout
+      id={id}
+      icon='healthicons:group-discussion-meetingx3-outline'
+      title={`${title} options`}
+    >
       {meetings?.map((meeting) => (
         <MeetingCard key={meeting._id} meeting={meeting} timing={timing} />
       ))}
-    </div>
+    </ScheduleItemLayout>
   )
 }
