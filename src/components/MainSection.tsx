@@ -10,7 +10,7 @@ import { Document, Page } from 'react-pdf'
 import { Budget } from './budget/MainTable/higherComponents'
 import { PartialCosts } from './budget/partial-costs'
 import { exportTableToExcel } from './budget/MainTable/higherComponents/exportTableToExcel'
-import { Gifts } from './gifts/Gifts'
+import { Gifts } from './schedule/3-cardswrappers/Gifts'
 import { Schedule } from './schedule/1-higher-components/Schedule'
 import * as styles from '../constants/styles/mainsection'
 

@@ -17,7 +17,7 @@ export const ScheduleDayOvernight = ({
   return (
     <ScheduleItemLayout
       id={id}
-      icon='icon-park-outline:hotel-please-cleans'
+      icon='tabler:hotel-service'
       title={`Accommodation options`}
       introduction={introduction}
     >

@@ -1,6 +1,6 @@
-import RenderPhotos from '../organisms/RenderPhotos'
-import { RichParagraph } from '../atoms/RichParagraph'
-import { IGift } from '../../interfaces'
+import RenderPhotos from '../../organisms/RenderPhotos'
+import { RichParagraph } from '../../atoms/RichParagraph'
+import { IGift } from '../../../interfaces'
 
 interface Props {
   gift: IGift

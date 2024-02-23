@@ -1,52 +1,19 @@
-import { useState, useMemo } from 'react'
 import { EventCard } from '..'
-import { TabList } from '../../molecules'
-import { TabContent } from '../../atoms'
 import { IEvent } from '../../../interfaces'
+import TabbedContent from '../../molecules/tabs/TabbedContent'
 
 interface Props {
-  events: IEvent[]
+  events: IEvent[] | []
 }
 
 export const Events = ({ events }: Props) => {
-  const [openTab, setOpenTab] = useState(1)
-
-  const eventListItems = useMemo(
-    () =>
-      events.map((event) => ({
-        _id: event._id,
-        name: event.name
-      })),
-    [events]
-  )
-
   return (
-    <>
-      <div className='flex flex-wrap'>
-        <div className='w-full'>
-          <TabList
-            tabListItems={eventListItems}
-            type='event'
-            activeTab={openTab}
-            setActiveTab={setOpenTab}
-            onTabClick={function (id: string): void {
-              console.log('function not implemented')
-            }}
-          />
-
-          <div className='relative flex flex-col min-w-0 break-words w-full mb-6 rounded'>
-            <div className='py-5 flex-auto'>
-              <div className='tab-content tab-space'>
-                {events.map((event, index) => (
-                  <TabContent key={index} activeTab={openTab} index={index}>
-                    <EventCard event={event} />
-                  </TabContent>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+    <div className='flex flex-wrap'>
+      <TabbedContent
+        items={events}
+        renderItem={(event) => <EventCard event={event} />}
+        type='event'
+      />
+    </div>
   )
 }
