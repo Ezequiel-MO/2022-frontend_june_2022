@@ -2,6 +2,7 @@ import {
   IDay,
   IEntertainment,
   IEvent,
+  IGift,
   IHotel,
   IMeeting,
   IRestaurant,
@@ -17,7 +18,8 @@ import {
   UPDATE_TRANSFERS_IN_COST,
   UPDATE_TRANSFERS_OUT_COST,
   UPDATE_PROGRAM_SHOWS_COST,
-  UPDATE_OVERNIGHT_COST
+  UPDATE_OVERNIGHT_COST,
+  UPDATE_GIFTS_COST
 } from './budgetReducer'
 
 export interface BudgetState {
@@ -79,6 +81,7 @@ export interface BudgetState {
     }
   }
   itineraryTransfersCost: number
+  giftsCost: number
   nrPax: number
 }
 
@@ -176,6 +179,13 @@ export type UpdateOvernightCost = {
   }
 }
 
+export type UpdateGiftsCost = {
+  type: typeof UPDATE_GIFTS_COST
+  payload: {
+    gift: IGift | null
+  }
+}
+
 export type BudgetActions =
   | SetSelectedHotelAction
   | SetSelectedHotelCostAction
@@ -187,3 +197,4 @@ export type BudgetActions =
   | UpdateMeetingsCost
   | UpdateShowsCost
   | UpdateOvernightCost
+  | UpdateGiftsCost

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { useBudget, useCurrentProject, useLocalStorageItem } from '../../hooks'
+import React from 'react'
+import { useCurrentProject, useLocalStorageItem } from '../../hooks'
 import { ISettings } from '../../interfaces/settings'
 
 type TabListItem = {
@@ -9,7 +9,7 @@ type TabListItem = {
 
 type TabItemProps = {
   tabListItem: TabListItem
-  type: string
+  type?: string
   index: number
   activeTab: number
   setActiveTab: (index: number) => void
@@ -25,15 +25,9 @@ export const TabItem: React.FC<TabItemProps> = ({
   const isActive = activeTab === index + 1
   const { currentProject } = useCurrentProject()
   const { clientCompany, hasExternalCorporateImage } = currentProject
-  const { setSelectedHotelName } = useBudget()
+
   const item = useLocalStorageItem('settings', {}) as ISettings
   const primary = item?.colorPalette?.primary || '#ea5933'
-
-  useEffect(() => {
-    if (type === 'hotel' && isActive) {
-      setSelectedHotelName(tabListItem.name)
-    }
-  }, [tabListItem, type, isActive])
 
   const colorPalette = hasExternalCorporateImage
     ? clientCompany[0].colorPalette[0]

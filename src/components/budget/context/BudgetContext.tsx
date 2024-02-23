@@ -32,6 +32,7 @@ const initialState: BudgetState = {
   transfersOutCost: 0,
   itineraryTransfers: {},
   itineraryTransfersCost: 0,
+  giftsCost: 0,
   nrPax: initialNrPax
 }
 

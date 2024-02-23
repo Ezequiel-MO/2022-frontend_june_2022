@@ -1,5 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
-import { useBudget } from '../../../hooks'
+import { useState, useEffect } from 'react'
 import { IGift } from '../../../interfaces'
 import { TranslationKeys } from '../../../interfaces/translations'
 import { useContextBudget } from '../context/BudgetContext'
@@ -22,8 +21,6 @@ interface IData {
 }
 
 interface PartialCostsDataReturn {
-  currentGift: IGift
-  giftTotalCost: number
   data: IData
   costItems: any[]
   totalCostOfItems: number
@@ -31,12 +28,8 @@ interface PartialCostsDataReturn {
 
 export const usePartialCostsData = (): PartialCostsDataReturn => {
   const { state } = useContextBudget()
-  const { currentGift } = useBudget() || ({} as { currentGift: IGift })
-  const [totalCostOfItems, setTotalCostOfItems] = useState<number>(0)
 
-  const giftTotalCost = useMemo(() => {
-    return currentGift?.qty * currentGift?.price || 0
-  }, [currentGift])
+  const [totalCostOfItems, setTotalCostOfItems] = useState<number>(0)
 
   const data: IData = {
     labels: [
@@ -60,7 +53,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
             state.itineraryTransfersCost,
           state.mealsCost,
           state.activitiesCost,
-          giftTotalCost,
+          state.giftsCost,
           state.showsCost
         ],
         backgroundColor: [
@@ -120,7 +113,7 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     {
       icon: 'mdi:gift-outline',
       title: 'GIFTS',
-      cost: giftTotalCost
+      cost: state.giftsCost
     },
     {
       icon: 'codicon:mic',
@@ -142,13 +135,11 @@ export const usePartialCostsData = (): PartialCostsDataReturn => {
     state.transfersOutCost,
     state.itineraryTransfersCost,
     state.programTransfersCost,
-    giftTotalCost,
+    state.giftsCost,
     state.showsCost
   ])
 
   return {
-    currentGift,
-    giftTotalCost,
     data,
     costItems,
     totalCostOfItems

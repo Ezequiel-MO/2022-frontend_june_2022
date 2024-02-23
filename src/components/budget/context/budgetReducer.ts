@@ -13,6 +13,7 @@ export const UPDATE_PROGRAM_ACTIVITIES_COST = 'UPDATE_PROGRAM_ACTIVITIES_COST'
 export const UPDATE_PROGRAM_MEETINGS_COST = 'UPDATE_PROGRAM_MEETINGS_COST'
 export const UPDATE_PROGRAM_SHOWS_COST = 'UPDATE_PROGRAM_SHOWS_COST'
 export const UPDATE_OVERNIGHT_COST = 'UPDATE_OVERNIGHT_COST'
+export const UPDATE_GIFTS_COST = 'UPDATE_GIFTS_COST'
 
 interface TransferEntry {
   transferCost: number
@@ -393,6 +394,15 @@ export const budgetReducer = (
         ...state,
         overnight: updatedOvernight,
         overnightCost: totalCost
+      }
+    }
+    case UPDATE_GIFTS_COST: {
+      const { gift } = action.payload
+      const cost = (gift && gift?.qty * gift?.price) || 0
+      if (!cost) return state
+      return {
+        ...state,
+        giftsCost: cost
       }
     }
 

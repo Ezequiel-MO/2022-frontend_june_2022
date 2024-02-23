@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { OptionSelect } from '../../multipleOrSingle'
 import accounting from 'accounting'
 import { IGift } from '../../../../../interfaces'
@@ -5,6 +6,8 @@ import {
   tableCellClasses,
   tableRowClasses
 } from '../../../../../constants/styles/table'
+import { useContextBudget } from '../../../context/BudgetContext'
+import { UPDATE_GIFTS_COST } from '../../../context/budgetReducer'
 
 interface Props {
   gifts: IGift[]
@@ -19,6 +22,18 @@ export const GiftsRowRender = ({
   handleChange,
   selectedGift
 }: Props) => {
+  const { dispatch } = useContextBudget()
+  useEffect(() => {
+    if (selectedGift) {
+      dispatch({
+        type: UPDATE_GIFTS_COST,
+        payload: {
+          gift: selectedGift
+        }
+      })
+    }
+  }, [selectedGift])
+
   return (
     <>
       <tr className={tableRowClasses}>
