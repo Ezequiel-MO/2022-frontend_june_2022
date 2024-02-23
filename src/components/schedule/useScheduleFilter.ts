@@ -1,6 +1,6 @@
 import * as interfaces from '../../interfaces'
+import { RenderedItem } from './1-higher-components/DayContentRenderer'
 import * as helpers from './helpers'
-import { RenderedItem } from '.'
 
 interface FilterMap {
   [key: string]: Set<string>

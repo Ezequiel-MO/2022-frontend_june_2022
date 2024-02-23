@@ -12,7 +12,7 @@ interface Props {
   introduction: string
 }
 
-export const ScheduleDayEvents = ({
+export const ScheduleDayActivities = ({
   id,
   title,
   events,
