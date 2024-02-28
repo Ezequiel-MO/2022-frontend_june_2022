@@ -69,6 +69,7 @@ export interface IProject {
   nrPax: number
   projectIntro: string[]
   multiDestination: boolean
+  hideDates: boolean
   suplementaryText: boolean
   hotels: IHotel[]
   status: 'Received' | 'Sent' | 'Confirmed' | 'Cancelled' | 'Invoiced'

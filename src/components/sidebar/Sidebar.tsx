@@ -12,7 +12,8 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ isSticky }) => {
   const stickyClass = isSticky ? 'sticky top-10' : ''
   const { currentProject } = useCurrentProject() as { currentProject: IProject }
-  const { schedule, budget, hotels, multiDestination } = currentProject
+  const { schedule, budget, hotels, multiDestination, hideDates } =
+    currentProject
   const [isSidebarVisible, setIsSidebarVisible] = useState(() => {
     const saved = localStorage.getItem('sidebarVisible')
     return saved ? JSON.parse(saved) : true
@@ -39,17 +40,25 @@ const Sidebar: FC<SidebarProps> = ({ isSticky }) => {
             isSidebarVisible={isSidebarVisible}
           />
         )}
-        {schedule?.map((day) => (
-          <div key={day._id}>
-            {checkDayIsEmpty(day) ? null : (
-              <SidebarRow
-                iconText='bx:calendar'
-                title={day.date}
-                isSidebarVisible={isSidebarVisible}
-              />
-            )}
-          </div>
-        ))}
+        {!hideDates ? (
+          schedule?.map((day) => (
+            <div key={day._id}>
+              {checkDayIsEmpty(day) ? null : (
+                <SidebarRow
+                  iconText='bx:calendar'
+                  title={day.date}
+                  isSidebarVisible={isSidebarVisible}
+                />
+              )}
+            </div>
+          ))
+        ) : (
+          <SidebarRow
+            iconText='bx:calendar'
+            title='Offer'
+            isSidebarVisible={isSidebarVisible}
+          />
+        )}
         {budget === 'budget' || budget === 'budgetAsPdf' ? (
           <SidebarRow
             iconText='ri:money-euro-circle-line'

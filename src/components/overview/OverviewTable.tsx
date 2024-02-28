@@ -7,7 +7,8 @@ type TimeOfDay = 'morningEvents' | 'afternoonEvents' | 'lunch' | 'dinner'
 
 const OverviewTable = () => {
   const { currentProject } = useCurrentProject()
-  const { arrivalDay, departureDay, schedule, clientCompany } = currentProject
+  const { arrivalDay, departureDay, schedule, clientCompany, hideDates } =
+    currentProject
   const { fonts = [], colorPalette = [] } = clientCompany[0] || {}
   const item = useLocalStorageItem('settings') as ISettings
   const secondary = item?.colorPalette?.secundary
@@ -23,14 +24,20 @@ const OverviewTable = () => {
             <th className='px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 text-sm'>
               {transformDates(arrivalDay, departureDay)}
             </th>
-            {getDays(arrivalDay, departureDay).map((day) => (
-              <th
-                key={day}
-                className='px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 text-sm'
-              >
-                {day}
+            {!hideDates ? (
+              getDays(arrivalDay, departureDay).map((day) => (
+                <th
+                  key={day}
+                  className='px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 text-sm'
+                >
+                  {day}
+                </th>
+              ))
+            ) : (
+              <th className='px-5 py-3 border-b-2 border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-200 text-sm'>
+                Options
               </th>
-            ))}
+            )}
           </tr>
         </thead>
         <tbody>

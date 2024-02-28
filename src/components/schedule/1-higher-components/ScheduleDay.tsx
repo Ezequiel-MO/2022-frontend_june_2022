@@ -3,6 +3,7 @@ import { DateHeader } from './ScheduleDayDateHeader'
 import * as styles from '../../../constants/styles/mainsection'
 import { useScheduleFilter } from '../useScheduleFilter'
 import DayContentRenderer from './DayContentRenderer'
+import { useCurrentProject } from '../../../hooks'
 
 interface Props {
   day: IDay
@@ -18,11 +19,17 @@ export const ScheduleDay = ({
   arrivalDay
 }: Props) => {
   const itemsToRender = useScheduleFilter(day)
+  const { currentProject } = useCurrentProject()
+  const { hideDates = false } = currentProject
+
+  const id = hideDates ? 'Offer_id' : `${day.date}_id`
 
   return (
     <div className='mb-8 last:mb-0'>
-      <div className={styles.dayPage} id={`${day.date}_id`}>
-        <DateHeader date={day.date} index={index} arrivalDay={arrivalDay} />
+      <div className={styles.dayPage} id={id}>
+        {!hideDates && (
+          <DateHeader date={day.date} index={index} arrivalDay={arrivalDay} />
+        )}
         <DayContentRenderer
           items={itemsToRender}
           day={day}

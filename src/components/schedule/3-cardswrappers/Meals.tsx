@@ -8,16 +8,12 @@ interface Props {
 
 export const Meals = ({ restaurants }: Props) => {
   return (
-    <>
-      <div className='flex flex-wrap'>
-        <TabbedContent
-          items={restaurants}
-          renderItem={(restaurant) => (
-            <RestaurantCard restaurant={restaurant} />
-          )}
-          type='restaurant'
-        />
-      </div>
-    </>
+    <div className='flex flex-wrap'>
+      <TabbedContent
+        items={restaurants}
+        renderItem={(restaurant) => <RestaurantCard restaurant={restaurant} />}
+        type='restaurant'
+      />
+    </div>
   )
 }
