@@ -6,9 +6,9 @@ const HeaderDropdown = ({ groupLocation }) => {
   const { currentProject } = useCurrentProject()
   const { accountManager = [] } = currentProject
   const { firstName, familyName } = accountManager[0] || {}
-  const handleRoute = (route) => {
+  /*   const handleRoute = (route) => {
     navigate(route)
-  }
+  } */
   return (
     <div>
       <div className='font-bold text-black-50 border-3 border-b border-gray-500 p-3 mr-10 flex flex-col'>

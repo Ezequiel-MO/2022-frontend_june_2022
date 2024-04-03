@@ -24,7 +24,6 @@ const MainSection = forwardRef<HTMLDivElement, MainSectionProps>(
   ({ setIconColor, onReady, parentWidth }, ref: Ref<HTMLDivElement>) => {
     const componentRef = useRef<HTMLDivElement>(null)
     const [numPages, setNumPages] = useState<number | null>(null)
-    const [pageNumber] = useState<number>(1)
     const { currentProject } = useCurrentProject()
     const {
       groupName,

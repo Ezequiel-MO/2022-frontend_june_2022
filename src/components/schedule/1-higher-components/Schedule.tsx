@@ -5,12 +5,14 @@ import { ScheduleDay } from './ScheduleDay'
 
 export const Schedule = () => {
   const { currentProject } = useCurrentProject() as { currentProject: IProject }
-  const { schedule, suplementaryText, arrivalDay } = currentProject
+  const { schedule, suplementaryText, arrivalDay, multiDestination } =
+    currentProject
 
   return (
     <div>
       {schedule?.map((day, index) => {
-        if (!checkDayIsEmpty(day)) {
+        const isDayEmpty = checkDayIsEmpty(day)
+        if (!isDayEmpty || (isDayEmpty && multiDestination)) {
           return (
             <ScheduleDay
               key={day._id}
@@ -21,6 +23,7 @@ export const Schedule = () => {
             />
           )
         }
+        return null
       })}
     </div>
   )
