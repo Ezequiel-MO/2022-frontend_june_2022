@@ -5,6 +5,7 @@ import { Credentials, Destination, MainPage } from '../screens'
 import NotFound from '../ui/NotFound'
 import { ErrorPage } from './error-page'
 import { fetchSettings } from '../helpers'
+import PDFPresentation from '../screens/pdf/PDFPresentation'
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: 'credentials',
         element: <Credentials />
+      },
+      {
+        path: 'pdf',
+        element: <PDFPresentation />
       },
       {
         path: 'destination_info',

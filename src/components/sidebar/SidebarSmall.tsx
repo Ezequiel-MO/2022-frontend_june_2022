@@ -1,21 +1,19 @@
-import { RefObject, useState } from 'react'
+import { useState } from 'react'
 import { ModalsRow } from '.'
 import CentralModal from '../modal/CentralModal'
-import ReactToPrint from 'react-to-print'
 import { Icon } from '@iconify/react'
 import { useCurrentProject, useLocalStorageItem } from '../../hooks'
 import { BackdropModal } from '../modal/BackdropModal'
 import { CitiesType, cities } from '../../constants/cities'
 import { IProject } from '../../interfaces'
 import { ISettings } from '../../interfaces/settings'
+import { useNavigate } from 'react-router-dom'
+import baseAPI from '../../axios/axiosConfig'
+import Spinner from '../../ui/spinner/Spinner'
 
-interface SidebarSmallProps {
-  mainSectionRef: RefObject<HTMLDivElement>
-  iconColor: string
-  isReady: boolean
-}
-
-const SidebarSmall = ({ mainSectionRef, isReady }: SidebarSmallProps) => {
+const SidebarSmall = () => {
+  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false)
   const [modal, setModal] = useState<
     'closed' | 'overview' | 'map' | 'destination'
   >('closed')
@@ -35,6 +33,23 @@ const SidebarSmall = ({ mainSectionRef, isReady }: SidebarSmallProps) => {
   const colorPalette = hasExternalCorporateImage
     ? clientCompany[0].colorPalette[0]
     : primary
+
+  const handleGeneratePDF = async () => {
+    setIsLoading(true)
+    try {
+      const response = await baseAPI.post('generate-pdf', currentProject, {
+        responseType: 'blob'
+      })
+      const pdfBlob = new Blob([response.data], { type: 'application/pdf' })
+      const pdfUrl = URL.createObjectURL(pdfBlob)
+
+      navigate('/app/pdf', { state: { pdfUrl } })
+    } catch (error) {
+      console.error('Error generating PDF:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className='inline'>
@@ -58,20 +73,27 @@ const SidebarSmall = ({ mainSectionRef, isReady }: SidebarSmallProps) => {
           title='overview'
           handleOpen={handleOpen}
         />
-        {isReady && (
-          <ReactToPrint
-            trigger={() => (
-              <button className='my-1 flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-green-50 hover:text-black-50 cursor-pointer transition-all duration-200'>
-                <Icon
-                  icon='ant-design:printer-twotone'
-                  width='40'
-                  className='text-black-50 dark:text-white-0'
-                />
-                Generate PDF
-              </button>
-            )}
-            content={() => mainSectionRef.current}
-          />
+        {isLoading ? (
+          <div className='text-center'>
+            <Spinner />
+            <p>Bear with me, your PDF is being generated ...</p>
+          </div>
+        ) : (
+          <div
+            onClick={handleGeneratePDF}
+            className='my-1 flex items-center space-x-2 px-4 py-3 rounded-lg hover:bg-green-50 hover:text-black-50 cursor-pointer transition-all duration-200'
+          >
+            <Icon
+              icon='ant-design:printer-twotone'
+              width='40'
+              className={`${
+                colorPalette && colorPalette.length > 0
+                  ? `text-[${colorPalette[2]}]`
+                  : 'text-primary dark:text-tertiary'
+              }`}
+            />
+            <span>PDF</span>
+          </div>
         )}
       </div>
       <div

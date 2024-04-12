@@ -9,7 +9,7 @@ import { ScrollHandler } from '../components/molecules/ScrollHandler'
 export const MainPage: FC = () => {
   const [isMainSectionReady, setIsMainSectionReady] = useState(false)
   const [isSticky, setIsSticky] = useState(false)
-  const [iconColor, setIconColor] = useState('')
+  const [, setIconColor] = useState('')
   const { currentProject } = useCurrentProject() as { currentProject: IProject }
   const { hasSideMenu, clientAccManager = [] } = currentProject
   const { quoteLanguage = 'EN' } = clientAccManager[0] || {}
@@ -34,11 +34,7 @@ export const MainPage: FC = () => {
       <TranslationProvider quoteLanguage={quoteLanguage}>
         <ScrollHandler setIsSticky={setIsSticky} />
         <div className='flex flex-col'>
-          <SidebarSmall
-            mainSectionRef={mainSectionRef}
-            iconColor={iconColor}
-            isReady={isMainSectionReady}
-          />
+          <SidebarSmall />
 
           <div className='grid grid-cols-12'>
             {hasSideMenu ? (
